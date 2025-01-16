@@ -3,7 +3,15 @@
 	(generator "eeschema")
 	(generator_version "8.0")
 	(uuid "a78b0ee5-55f0-435a-98f3-87f9845c2be8")
-	(paper "A4")
+	(paper "USLetter")
+	(title_block
+		(title "Simple Repeater Controller")
+		(date "2025-01-16")
+		(rev "1")
+		(company "KC1FSZ")
+		(comment 1 "Copyright (C) 2025")
+		(comment 2 "For Non-Commercial Use Only")
+	)
 	(lib_symbols
 		(symbol "Amplifier_Operational:LM4562"
 			(pin_names
