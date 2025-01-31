@@ -2648,7 +2648,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "C_Small"
+		(property "Value" "0.001uF"
 			(at 241.3 149.8662 0)
 			(effects
 				(font
@@ -3168,7 +3168,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "3ccdda0d-b867-4c59-9ad0-c06ed3c8954f")
 		(property "Reference" "#FLG07"
 			(at 152.4 36.195 0)
@@ -3180,7 +3179,7 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 152.4 33.02 0)
+			(at 159.766 32.004 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3731,7 +3730,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "5679f374-c8d7-4149-82b4-72ac60976754")
 		(property "Reference" "#FLG08"
 			(at 152.4 104.775 0)
@@ -3743,7 +3741,7 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 152.4 101.6 0)
+			(at 156.972 101.854 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5935,7 +5933,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "C_Small"
+		(property "Value" "0.001uF"
 			(at 241.3 81.2862 0)
 			(effects
 				(font
