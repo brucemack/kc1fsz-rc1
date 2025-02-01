@@ -15,5 +15,5 @@ target_compile_definitions(main PRIVATE PICO_BUILD=1)
 pico_enable_stdio_usb(main 1)
 pico_enable_stdio_uart(main 1)
 target_include_directories(main PRIVATE kc1fsz-tools-cpp/include)
-target_link_libraries(main pico_stdlib hardware_i2c hardware_clocks)
+target_link_libraries(main pico_stdlib hardware_i2c hardware_clocks hardware_pwm)
 

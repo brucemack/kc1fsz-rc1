@@ -27,11 +27,15 @@ Command used to load code onto the board:
 
 #include <stdio.h>
 #include <cstring>
+#include <cmath>
 
 #include "pico/stdlib.h"
 #include "pico/time.h"
 #include "hardware/clocks.h"
 #include "hardware/i2c.h"
+#include "hardware/pwm.h"
+#include "hardware/timer.h"
+#include "hardware/irq.h"
 
 #include "kc1fsz-tools/rp2040/PicoPollTimer.h"
 #include "kc1fsz-tools/rp2040/PicoPerfTimer.h"
@@ -45,6 +49,7 @@ using namespace kc1fsz;
 #define RADIO1_AUDIO_SEL_GPIO (7)
 #define RADIO1_PTT_GPIO (8)
 #define RADIO1_COS_GPIO (9)
+#define TONE_GPIO (10)
 
 enum MasterState {
     RESET,
@@ -57,24 +62,30 @@ enum MasterState {
     RADIO1_RX_END,
 } state = MasterState::RESET;
 
+// Tone synthesis stuff
+static volatile bool synth_enabled = false;
+static volatile uint32_t synth_ptr = 0;
+static const uint32_t synth_size = 256;
+static uint8_t synth_table[synth_size];
+static struct repeating_timer synth_timer;
+
+// An 8kHz timer is setup to feed new levels into the PWM generator.
+// Each time the timer fires we advance forward to the next entry
+// in the synth_table.
+static bool synth_timer_isr(struct repeating_timer*) {
+    uint pwm_slice = pwm_gpio_to_slice_num(TONE_GPIO);
+    if (synth_enabled) {
+        uint8_t v = synth_table[synth_ptr++];
+        if (synth_ptr == synth_size)
+            synth_ptr = 0;
+        pwm_set_chan_level(pwm_slice, PWM_CHAN_A, v);
+    } else {
+        pwm_set_chan_level(pwm_slice, PWM_CHAN_A, 0);
+    }
+    return true;
+}
+
 int main(int argc, const char** argv) {
-
-    unsigned long fs = 48000;
-    unsigned long sck_mult = 384;
-    unsigned long sck_freq = sck_mult * fs;
-    // Pin to be allocated to I2S SCK (output to CODEC)
-    // GP10 is physical pin 14
-    uint sck_pin = 10;
-    // Pin to be allocated to ~RST
-    uint rst_pin = 5;
-    // Pin to be allocated to I2S DIN (input from)
-    uint din_pin = 6;
-    unsigned long system_clock_khz = 129600;
-    PicoPerfTimer timer_0;
-
-    // Adjust system clock to more evenly divide the 
-    // audio sampling frequency.
-    set_sys_clock_khz(system_clock_khz, true);
 
     stdio_init_all();
 
@@ -97,7 +108,9 @@ int main(int argc, const char** argv) {
 
     // Startup ID
     sleep_ms(500);
+    gpio_put(LED_PIN, 1);
     sleep_ms(500);
+    gpio_put(LED_PIN, 0);
 
     printf("Simple Repeater Controller\nCopyright (C) 2025 Bruce MacKinnon KC1FSZ\n");
 
@@ -106,6 +119,30 @@ int main(int argc, const char** argv) {
     // Display/diagnostic should happen once per second
     PicoPollTimer flashTimer;
     flashTimer.setIntervalUs(1000 * 1000);
+
+    // Setup PWM test
+    gpio_set_function(TONE_GPIO, GPIO_FUNC_PWM);
+    uint pwm_slice = pwm_gpio_to_slice_num(TONE_GPIO);
+    // Control the size of the loop (inclusive)
+    pwm_set_wrap(pwm_slice, 255);
+    // Running with no clock divisor, so the pulse frequency is 125,000,000 / 256 
+    // or acound 488 kHz.
+    // Initiial 50% duty
+    pwm_set_chan_level(pwm_slice, PWM_CHAN_A, 128);
+    // Run the PWM 
+    pwm_set_enabled(pwm_slice, true);
+
+    // Setup timer to drive audio
+    add_repeating_timer_us(-125, synth_timer_isr, 0, &synth_timer);
+
+    // Fill the synth table with a 1 kHz tone
+    unsigned int fs = 8000;
+    unsigned int tone_freq = 1000;
+    for (unsigned int i = 0; i < synth_size; i++) {
+        float r = 2.0 * 3.1415926 * (float)tone_freq * (float)i / (float)fs;
+        float a = ((std::cos(r) + 1.0) / 2.0) * 255.0;
+        synth_table[i] = (unsigned char)a;
+    }
 
     // ===== Main Event Loop =================================================
 
@@ -125,6 +162,10 @@ int main(int argc, const char** argv) {
         // Do periodic display/diagnostic stuff
         if (flashTimer.poll()) {
             ++strobe;
+            if (strobe % 2 == 0)
+                synth_enabled = true;
+            else
+                synth_enabled = false;
         }
 
         if (state == MasterState::RESET) {

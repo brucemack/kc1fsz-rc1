@@ -32,10 +32,10 @@ GP3  - I2C1 SCL
 GP4  - Audio Select Radio 0 
 GP5  - PTT Radio 0
 GP6  - COS Radio 0
-GP7  - Audio Select Radio 1
+GP7   - Audio Select Radio 1
 GP8  - PTT Radio 1
 GP9  - COS Radio 1
-GP10 - 
+GP10 - Tone output (PWM)
 GP11
 GP12
 GP13
@@ -43,3 +43,8 @@ GP14
 GP15
 GP16 - 
 GP17 - 
+
+Tone Notes
+==========
+
+The tone output must be low-pass filtered.  See the [RP2040 hardware design guide](https://datasheets.raspberrypi.com/rp2040/hardware-design-with-rp2040.pdf) on page 24 for an example circuit.
