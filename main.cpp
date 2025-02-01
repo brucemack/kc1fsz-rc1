@@ -49,8 +49,12 @@ using namespace kc1fsz;
 enum MasterState {
     RESET,
     IDLE,
+    RADIO0_RX_START,
+    RADIO1_RX_START,
     RADIO0_RX,
-    RADIO1_RX
+    RADIO1_RX,
+    RADIO0_RX_END,
+    RADIO1_RX_END,
 } state = MasterState::RESET;
 
 int main(int argc, const char** argv) {
@@ -108,14 +112,81 @@ int main(int argc, const char** argv) {
     while (true) { 
         
         int c = getchar_timeout_us(0);
+        if (c == 's') {
+            printf("Status:\n");
+            printf("State %d\n", (int)state);
+            printf("Radio0 COS %d\n", gpio_get(RADIO0_COS_GPIO));
+            printf("Radio1 COS %d\n", gpio_get(RADIO1_COS_GPIO));
+        }
+        else if (c == 'r') {
+            state = MasterState::RESET;
+        }
 
         // Do periodic display/diagnostic stuff
         if (flashTimer.poll()) {
             ++strobe;
-            if (strobe & 1 == 1) {
+        }
+
+        if (state == MasterState::RESET) {
+            printf("Resetting ...\n");
+            gpio_put(RADIO0_AUDIO_SEL_GPIO, 0);
+            gpio_put(RADIO0_PTT_GPIO, 0);
+            gpio_put(RADIO1_AUDIO_SEL_GPIO, 1);
+            gpio_put(RADIO1_PTT_GPIO, 0);
+            state = MasterState::IDLE;
+        } 
+        else if (state == MasterState::IDLE) {
+            // Look for RADIO0 activity
+            if (gpio_get(RADIO0_COS_GPIO) == 0) {
+                // Both radios transmitting radio 0 input
+                gpio_put(RADIO0_AUDIO_SEL_GPIO, 0);
+                gpio_put(RADIO1_AUDIO_SEL_GPIO, 0);
+                // Key radios
+                gpio_put(RADIO0_PTT_GPIO, 1);
+                gpio_put(RADIO1_PTT_GPIO, 1);
+                // Indicator
                 gpio_put(LED_PIN, 1);
-            } else {
+                printf("Radio0 receiving\n");
+                state = MasterState::RADIO0_RX;
+            }
+            // Look for RADIO1 activity
+            else if (gpio_get(RADIO1_COS_GPIO) == 0) {
+                // Both radios transmitting radio 1 input
+                gpio_put(RADIO0_AUDIO_SEL_GPIO, 1);
+                gpio_put(RADIO1_AUDIO_SEL_GPIO, 1);
+                // Key radios
+                gpio_put(RADIO0_PTT_GPIO, 1);
+                gpio_put(RADIO1_PTT_GPIO, 1);
+                // Indication
+                gpio_put(LED_PIN, 1);
+                printf("Radio1 receiving\n");
+                state = MasterState::RADIO1_RX;
+            }
+        }
+        else if (state == MasterState::RADIO0_RX) {
+            // TODO: LOOK FOR TIMEOUT
+            // Look for RADIO0 drop 
+            if (gpio_get(RADIO0_COS_GPIO) == 1) {            
+                // Unkey radios
+                gpio_put(RADIO0_PTT_GPIO, 0);
+                gpio_put(RADIO1_PTT_GPIO, 0);
+                // Indication
                 gpio_put(LED_PIN, 0);
+                printf("Radio0 stopped receiving\n");
+                state = MasterState::IDLE;
+            }
+        }
+        else if (state == MasterState::RADIO1_RX) {
+            // TODO: LOOK FOR TIMEOUT
+            // Look for RADIO1 drop 
+            if (gpio_get(RADIO1_COS_GPIO) == 1) {            
+                // Unkey radios
+                gpio_put(RADIO0_PTT_GPIO, 0);
+                gpio_put(RADIO1_PTT_GPIO, 0);
+                // Indication
+                gpio_put(LED_PIN, 0);
+                printf("Radio1 stopped receiving\n");
+                state = MasterState::IDLE;
             }
         }
     }
