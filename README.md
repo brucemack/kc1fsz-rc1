@@ -13,6 +13,10 @@ Build:
         cd build
         make
 
+Pulling latest submodules:
+
+        git submodule update --recursive --remote
+
 Flash code to board:        
 
         ~/git/openocd/src/openocd -s ~/git/openocd/tcl -f interface/cmsis-dap.cfg -f target/rp2040.cfg -c "adapter speed 5000" -c "program main.elf verify reset exit"
