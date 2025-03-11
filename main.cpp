@@ -188,7 +188,7 @@ int main(int argc, const char** argv) {
             state = MasterState::IDLE;
         } 
         else if (state == MasterState::IDLE) {
-            // Look for RADIO0 activity
+            // Look for RADIO0 RX activity
             if (gpio_get(RADIO0_COS_GPIO) == 0) {
                 // Both radios transmitting radio 0 input
                 gpio_put(RADIO0_AUDIO_SEL_GPIO, 0);
@@ -202,7 +202,7 @@ int main(int argc, const char** argv) {
                 cosDebounceTimer.reset();
                 state = MasterState::RADIO0_RX;
             }
-            // Look for RADIO1 activity
+            // Look for RADIO1 RX activity
             else if (gpio_get(RADIO1_COS_GPIO) == 0) {
                 // Both radios transmitting radio 1 input
                 gpio_put(RADIO0_AUDIO_SEL_GPIO, 1);

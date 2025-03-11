@@ -3,7 +3,14 @@
 	(generator "eeschema")
 	(generator_version "8.0")
 	(uuid "0dcb24cd-6171-4e55-90d3-258b3f8ec55c")
-	(paper "A4")
+	(paper "USLetter")
+	(title_block
+		(title "KC1FSZ Repeater Controller 1 - Radio Control Module")
+		(date "2025-01-31")
+		(rev "1")
+		(company "Bruce MacKinnon KC1FSZ")
+		(comment 1 "Copyright (C) 2025 - Not for Commercial Use")
+	)
 	(lib_symbols
 		(symbol "Device:R_US"
 			(pin_numbers hide)
