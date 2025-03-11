@@ -128,6 +128,9 @@ int main(int argc, const char** argv) {
     PicoPollTimer flashTimer;
     flashTimer.setIntervalUs(1000 * 1000);
 
+    PicoPollTimer cosDebounceTimer;
+    cosDebounceTimer.setIntervalUs(25 * 1000);
+
     // Setup PWM test
     gpio_set_function(TONE_GPIO, GPIO_FUNC_PWM);
     uint pwm_slice = pwm_gpio_to_slice_num(TONE_GPIO);
@@ -196,6 +199,7 @@ int main(int argc, const char** argv) {
                 // Indicator
                 gpio_put(LED_PIN, 1);
                 printf("Radio0 receiving\n");
+                cosDebounceTimer.reset();
                 state = MasterState::RADIO0_RX;
             }
             // Look for RADIO1 activity
@@ -209,33 +213,44 @@ int main(int argc, const char** argv) {
                 // Indication
                 gpio_put(LED_PIN, 1);
                 printf("Radio1 receiving\n");
+                cosDebounceTimer.reset();
                 state = MasterState::RADIO1_RX;
             }
         }
         else if (state == MasterState::RADIO0_RX) {
             // TODO: LOOK FOR TIMEOUT
-            // Look for RADIO0 drop 
+            // Look for RADIO0 COS drop 
             if (gpio_get(RADIO0_COS_GPIO) == 1) {            
-                // Unkey radios
-                gpio_put(RADIO0_PTT_GPIO, 0);
-                gpio_put(RADIO1_PTT_GPIO, 0);
-                // Indication
-                gpio_put(LED_PIN, 0);
-                printf("Radio0 stopped receiving\n");
-                state = MasterState::IDLE;
+                if (cosDebounceTimer.poll()) {
+                    // Unkey radios
+                    gpio_put(RADIO0_PTT_GPIO, 0);
+                    gpio_put(RADIO1_PTT_GPIO, 0);
+                    // Indication
+                    gpio_put(LED_PIN, 0);
+                    printf("Radio0 stopped receiving\n");
+                    state = MasterState::IDLE;
+                }
+                else {
+                    printf("COS0 debounce\n");
+                }
             }
         }
         else if (state == MasterState::RADIO1_RX) {
             // TODO: LOOK FOR TIMEOUT
             // Look for RADIO1 drop 
             if (gpio_get(RADIO1_COS_GPIO) == 1) {            
-                // Unkey radios
-                gpio_put(RADIO0_PTT_GPIO, 0);
-                gpio_put(RADIO1_PTT_GPIO, 0);
-                // Indication
-                gpio_put(LED_PIN, 0);
-                printf("Radio1 stopped receiving\n");
-                state = MasterState::IDLE;
+                if (cosDebounceTimer.poll()) {
+                    // Unkey radios
+                    gpio_put(RADIO0_PTT_GPIO, 0);
+                    gpio_put(RADIO1_PTT_GPIO, 0);
+                    // Indication
+                    gpio_put(LED_PIN, 0);
+                    printf("Radio1 stopped receiving\n");
+                    state = MasterState::IDLE;
+                }
+                else {
+                    printf("COS1 debounce\n");
+                }
             }
         }
     }
