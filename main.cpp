@@ -94,15 +94,23 @@ int main(int argc, const char** argv) {
 
     gpio_init(RADIO0_AUDIO_SEL_GPIO);
     gpio_set_dir(RADIO0_AUDIO_SEL_GPIO, GPIO_OUT);
+    gpio_put(RADIO0_AUDIO_SEL_GPIO, 0);
+
     gpio_init(RADIO0_PTT_GPIO);
     gpio_set_dir(RADIO0_PTT_GPIO, GPIO_OUT);
+    gpio_put(RADIO0_PTT_GPIO, 0);
+
     gpio_init(RADIO0_COS_GPIO);
     gpio_set_dir(RADIO0_COS_GPIO, GPIO_IN);
 
     gpio_init(RADIO1_AUDIO_SEL_GPIO);
     gpio_set_dir(RADIO1_AUDIO_SEL_GPIO, GPIO_OUT);
+    gpio_put(RADIO1_AUDIO_SEL_GPIO, 0);
+
     gpio_init(RADIO1_PTT_GPIO);
     gpio_set_dir(RADIO1_PTT_GPIO, GPIO_OUT);
+    gpio_put(RADIO1_PTT_GPIO, 0);
+
     gpio_init(RADIO1_COS_GPIO);
     gpio_set_dir(RADIO1_COS_GPIO, GPIO_IN);
 

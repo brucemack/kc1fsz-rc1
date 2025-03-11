@@ -31,6 +31,7 @@ Pico Pinout Notes
 
 GP0  - (Reserved for UART0 TX)
 GP1  - (Reserved for UART0 RX)
+
 GP2  - I2C1 SDA 
 GP3  - I2C1 SCL 
 GP4  - Audio Select Radio 0 
@@ -47,6 +48,27 @@ GP14
 GP15
 GP16 - 
 GP17 - 
+
+Wiring Notes
+============
+
+Control Module 
+* J2:1 - +3.3V
+* J2:2 - Pico GP6 (COS Radio 0)
+* J2:3 - Pico GP9 (COS Radio 1)
+* J2:4 - Pico GP5 (PTT Radio 0)
+* J2:5 - Pico GP8 (PTT Radio 1)
+* J2:6 - GND
+* J1:1 - COS Radio 0 - (Optocoupler cathode)
+* J1:2 - COS Radio 0 + (Through 220R and optocoupler anode)
+* J1:5 - PTT Radio 0 + (Optocoupler collector)
+* J1:6 - PTT Radio 0 - (Optocoupler emitter)
+
+Audio Module
+* J4:1 - Pico GP4 (Audio Select Radio 0)
+* J4:2 - Pico GP7 (Audio Select Radio 1)
+* J1:1 - +5V
+* J1:2 - GND
 
 Tone Notes
 ==========

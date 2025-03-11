@@ -55,9 +55,9 @@ int main(int,const char**) {
         detector.play(silence, 160);
         detector.play(silence, 160);
 
-        assert(detector.resultAvailable() == 1);
-        assert(detector.getResult() == '4');
-        assert(detector.resultAvailable() == 0);
+        assert(detector.isAvailable() == 1);
+        assert(detector.pullResult() == '4');
+        assert(detector.isAvailable() == 0);
 
         // 40ms bad tone w/ 40ms silence (not valid DSC)
         detector.play(testBad, 160);
@@ -65,14 +65,14 @@ int main(int,const char**) {
         detector.play(silence, 160);
         detector.play(silence, 160);
 
-        assert(detector.resultAvailable() == 0);
+        assert(detector.isAvailable() == 0);
 
         // 20ms tone w/ 40ms silence (not valid DSC)
         detector.play(test1, 160);
         detector.play(silence, 160);
         detector.play(silence, 160);
 
-        assert(detector.resultAvailable() == 0);
+        assert(detector.isAvailable() == 0);
 
         // 60ms tone w/ 40ms silence (valid DSC)
         detector.play(test1, 160);
@@ -81,9 +81,9 @@ int main(int,const char**) {
         detector.play(silence, 160);
         detector.play(silence, 160);
 
-        assert(detector.resultAvailable() == 1);
-        assert(detector.getResult() == '4');
-        assert(detector.resultAvailable() == 0);
+        assert(detector.isAvailable() == 1);
+        assert(detector.pullResult() == '4');
+        assert(detector.isAvailable() == 0);
 
         // 80ms tone w/ 20ms drop then 40ms silence (valid DSC)
         detector.play(test1, 160);
@@ -93,9 +93,9 @@ int main(int,const char**) {
         detector.play(silence, 160);
         detector.play(silence, 160);
 
-        assert(detector.resultAvailable() == 1);
-        assert(detector.getResult() == '4');
-        assert(detector.resultAvailable() == 0);
+        assert(detector.isAvailable() == 1);
+        assert(detector.pullResult() == '4');
+        assert(detector.isAvailable() == 0);
 
         // 80ms tone w/ 20ms garbage then 40ms silence (valid DSC)
         detector.play(test1, 160);
@@ -105,9 +105,9 @@ int main(int,const char**) {
         detector.play(silence, 160);
         detector.play(silence, 160);
 
-        assert(detector.resultAvailable() == 1);
-        assert(detector.getResult() == '4');
-        assert(detector.resultAvailable() == 0);
+        assert(detector.isAvailable() == 1);
+        assert(detector.pullResult() == '4');
+        assert(detector.isAvailable() == 0);
 
     }
 
