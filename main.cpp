@@ -129,8 +129,9 @@ int main(int argc, const char** argv) {
     PicoPollTimer flashTimer;
     flashTimer.setIntervalUs(1000 * 1000);
 
+    // A second of no COS before we decide the RX is gone
     PicoPollTimer cosDebounceTimer;
-    cosDebounceTimer.setIntervalUs(25 * 1000);
+    cosDebounceTimer.setIntervalUs(1000 * 1000);
 
     PicoPollTimer maxTxTimer;
     maxTxTimer.setIntervalUs(60 * 1000 * 1000);
@@ -163,6 +164,11 @@ int main(int argc, const char** argv) {
     }
 
     // ===== Main Event Loop =================================================
+
+    // #### TEMP
+    // Both radios transmitting radio 1 RX audio (Silence)
+    gpio_put(RADIO0_AUDIO_SEL_GPIO, 0);
+    gpio_put(RADIO1_AUDIO_SEL_GPIO, 0);
 
     while (true) { 
         
@@ -198,8 +204,8 @@ int main(int argc, const char** argv) {
             // Look for RADIO0 RX activity
             if (gpio_get(COS0_GPIO) == 0) {
                 // Both radios transmitting radio 0 RX audio
-                gpio_put(RADIO0_AUDIO_SEL_GPIO, 0);
-                gpio_put(RADIO1_AUDIO_SEL_GPIO, 0);
+                gpio_put(RADIO0_AUDIO_SEL_GPIO, 1);
+                gpio_put(RADIO1_AUDIO_SEL_GPIO, 1);
                 // Key radios
                 gpio_put(PTT0_GPIO, 1);
                 gpio_put(PTT1_GPIO, 1);
@@ -212,8 +218,8 @@ int main(int argc, const char** argv) {
             // Look for RADIO1 RX activity
             else if (gpio_get(COS1_GPIO) == 0) {
                 // Both radios transmitting radio 1 RX audio
-                gpio_put(RADIO0_AUDIO_SEL_GPIO, 1);
-                gpio_put(RADIO1_AUDIO_SEL_GPIO, 1);
+                gpio_put(RADIO0_AUDIO_SEL_GPIO, 0);
+                gpio_put(RADIO1_AUDIO_SEL_GPIO, 0);
                 // Key radios
                 gpio_put(PTT0_GPIO, 1);
                 gpio_put(PTT1_GPIO, 1);
@@ -235,6 +241,10 @@ int main(int argc, const char** argv) {
                 printf("Timeout 0\n");
                 timeoutTimer.reset();
                 state = MasterState::TIMEOUT;
+                // #### TEMP
+                // Both radios transmitting radio 1 RX audio (Silence)
+                gpio_put(RADIO0_AUDIO_SEL_GPIO, 0);
+                gpio_put(RADIO1_AUDIO_SEL_GPIO, 0);
             }
             // Look for RADIO0 COS drop 
             else if (gpio_get(COS0_GPIO) == 1) {            
@@ -246,9 +256,13 @@ int main(int argc, const char** argv) {
                     gpio_put(LED_PIN, 0);
                     printf("Radio0 stopped receiving\n");
                     state = MasterState::IDLE;
+                    // #### TEMP
+                    // Both radios transmitting radio 1 RX audio (Silence)
+                    gpio_put(RADIO0_AUDIO_SEL_GPIO, 0);
+                    gpio_put(RADIO1_AUDIO_SEL_GPIO, 0);
                 }
                 else {
-                    printf("COS0 debounce\n");
+                    //printf("COS0 debounce\n");
                 }
             }
         }
@@ -263,6 +277,10 @@ int main(int argc, const char** argv) {
                 printf("Timeout 1\n");
                 timeoutTimer.reset();
                 state = MasterState::TIMEOUT;
+                // #### TEMP
+                // Both radios transmitting radio 1 RX audio (Silence)
+                gpio_put(RADIO0_AUDIO_SEL_GPIO, 0);
+                gpio_put(RADIO1_AUDIO_SEL_GPIO, 0);
             }
             // Look for RADIO1 drop 
             else if (gpio_get(COS1_GPIO) == 1) {            
@@ -274,9 +292,13 @@ int main(int argc, const char** argv) {
                     gpio_put(LED_PIN, 0);
                     printf("Radio1 stopped receiving\n");
                     state = MasterState::IDLE;
+                    // #### TEMP
+                    // Both radios transmitting radio 1 RX audio (Silence)
+                    gpio_put(RADIO0_AUDIO_SEL_GPIO, 0);
+                    gpio_put(RADIO1_AUDIO_SEL_GPIO, 0);
                 }
                 else {
-                    printf("COS1 debounce\n");
+                    //printf("COS1 debounce\n");
                 }
             }
         }
