@@ -60,6 +60,7 @@ enum MasterState {
     RADIO1_RX,
     RADIO0_RX_END,
     RADIO1_RX_END,
+    TIMEOUT,
 } state = MasterState::RESET;
 
 // Tone synthesis stuff
@@ -130,6 +131,12 @@ int main(int argc, const char** argv) {
 
     PicoPollTimer cosDebounceTimer;
     cosDebounceTimer.setIntervalUs(25 * 1000);
+
+    PicoPollTimer maxTxTimer;
+    maxTxTimer.setIntervalUs(60 * 1000 * 1000);
+
+    PicoPollTimer timeoutTimer;
+    timeoutTimer.setIntervalUs(30 * 1000 * 1000);
 
     // Setup PWM test
     gpio_set_function(TONE_GPIO, GPIO_FUNC_PWM);
@@ -218,9 +225,19 @@ int main(int argc, const char** argv) {
             }
         }
         else if (state == MasterState::RADIO0_RX) {
-            // TODO: LOOK FOR TIMEOUT
+            // Look for timeout
+            if (maxTxTimer.poll()) {
+                // Unkey radios
+                gpio_put(PTT0_GPIO, 0);
+                gpio_put(PTT1_GPIO, 0);
+                // Indication
+                gpio_put(LED_PIN, 0);
+                printf("Timeout 0\n");
+                timeoutTimer.reset();
+                state = MasterState::TIMEOUT;
+            }
             // Look for RADIO0 COS drop 
-            if (gpio_get(COS0_GPIO) == 1) {            
+            else if (gpio_get(COS0_GPIO) == 1) {            
                 if (cosDebounceTimer.poll()) {
                     // Unkey radios
                     gpio_put(PTT0_GPIO, 0);
@@ -236,9 +253,19 @@ int main(int argc, const char** argv) {
             }
         }
         else if (state == MasterState::RADIO1_RX) {
-            // TODO: LOOK FOR TIMEOUT
+            // Look for timeout
+            if (maxTxTimer.poll()) {
+                // Unkey radios
+                gpio_put(PTT0_GPIO, 0);
+                gpio_put(PTT1_GPIO, 0);
+                // Indication
+                gpio_put(LED_PIN, 0);
+                printf("Timeout 1\n");
+                timeoutTimer.reset();
+                state = MasterState::TIMEOUT;
+            }
             // Look for RADIO1 drop 
-            if (gpio_get(COS1_GPIO) == 1) {            
+            else if (gpio_get(COS1_GPIO) == 1) {            
                 if (cosDebounceTimer.poll()) {
                     // Unkey radios
                     gpio_put(PTT0_GPIO, 0);
@@ -251,6 +278,12 @@ int main(int argc, const char** argv) {
                 else {
                     printf("COS1 debounce\n");
                 }
+            }
+        }
+        else if (state == MasterState::TIMEOUT) {
+            if (timeoutTimer.poll()) {
+                printf("Timeout interval ended\n");
+                state = MasterState::IDLE;
             }
         }
     }
