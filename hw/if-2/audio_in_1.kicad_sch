@@ -1,0 +1,26 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "c87031c6-6f9e-48eb-b712-8e0a05c75b0d")
+	(paper "USLetter")
+	(title_block
+		(title "Audio Input Processing (Radio 1)")
+		(date "2025-03-16")
+		(rev "2")
+		(company "Bruce MacKinnon KC1FSZ")
+		(comment 1 "Copyright (C) Bruce MacKinnon, 2025")
+		(comment 2 "NOT FOR COMMERCIAL USE")
+	)
+	(lib_symbols)
+	(text "(Will Be Copy of R0 Audio Input)"
+		(exclude_from_sim no)
+		(at 149.86 92.964 0)
+		(effects
+			(font
+				(size 5 5)
+			)
+		)
+		(uuid "bb849db6-1472-4198-8ccb-dc4ae31a5cae")
+	)
+)

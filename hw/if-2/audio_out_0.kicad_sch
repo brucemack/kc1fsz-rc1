@@ -1,0 +1,16 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "6c5e94b2-d31a-4d08-b922-c199d91bb877")
+	(paper "USLetter")
+	(title_block
+		(title "Digital Repeater Controller ")
+		(date "2025-03-16")
+		(rev "2")
+		(company "Bruce MacKinnon KC1FSZ")
+		(comment 1 "Copyright (C) Bruce MacKinnon, 2025")
+		(comment 2 "NOT FOR COMMERCIAL USE")
+	)
+	(lib_symbols)
+)
