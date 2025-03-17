@@ -5,7 +5,7 @@
 	(uuid "21e04c3e-e9ae-49cf-8934-ffe804c734e6")
 	(paper "USLetter")
 	(title_block
-		(title "Digital Repeater Controller ")
+		(title "Analog To Digital Converter")
 		(date "2025-03-16")
 		(rev "2")
 		(company "Bruce MacKinnon KC1FSZ")
@@ -1898,7 +1898,7 @@
 		(uuid "ba009c2d-3824-4276-b91b-7521e40fd605")
 	)
 	(junction
-		(at 171.45 93.98)
+		(at 167.64 93.98)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "d17eb41a-d317-45b1-a636-b8ef6737744d")
@@ -1916,7 +1916,7 @@
 		(uuid "f6e91573-3318-49d3-962e-eb6b604dc080")
 	)
 	(junction
-		(at 115.57 111.76)
+		(at 121.92 111.76)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "f7408842-1ac5-42f2-b5e2-e21b3bad67f4")
@@ -1947,7 +1947,7 @@
 	)
 	(wire
 		(pts
-			(xy 124.46 83.82) (xy 115.57 83.82)
+			(xy 124.46 83.82) (xy 121.92 83.82)
 		)
 		(stroke
 			(width 0)
@@ -1977,7 +1977,7 @@
 	)
 	(wire
 		(pts
-			(xy 162.56 91.44) (xy 172.72 91.44)
+			(xy 162.56 91.44) (xy 170.18 91.44)
 		)
 		(stroke
 			(width 0)
@@ -2117,7 +2117,7 @@
 	)
 	(wire
 		(pts
-			(xy 162.56 83.82) (xy 171.45 83.82)
+			(xy 162.56 83.82) (xy 167.64 83.82)
 		)
 		(stroke
 			(width 0)
@@ -2137,7 +2137,7 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 111.76) (xy 115.57 121.92)
+			(xy 121.92 111.76) (xy 121.92 121.92)
 		)
 		(stroke
 			(width 0)
@@ -2177,7 +2177,7 @@
 	)
 	(wire
 		(pts
-			(xy 171.45 93.98) (xy 171.45 118.11)
+			(xy 167.64 93.98) (xy 167.64 120.65)
 		)
 		(stroke
 			(width 0)
@@ -2227,7 +2227,7 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 83.82) (xy 115.57 111.76)
+			(xy 121.92 83.82) (xy 121.92 111.76)
 		)
 		(stroke
 			(width 0)
@@ -2237,7 +2237,7 @@
 	)
 	(wire
 		(pts
-			(xy 171.45 83.82) (xy 171.45 93.98)
+			(xy 167.64 83.82) (xy 167.64 93.98)
 		)
 		(stroke
 			(width 0)
@@ -2277,7 +2277,7 @@
 	)
 	(wire
 		(pts
-			(xy 162.56 93.98) (xy 171.45 93.98)
+			(xy 162.56 93.98) (xy 167.64 93.98)
 		)
 		(stroke
 			(width 0)
@@ -2317,7 +2317,7 @@
 	)
 	(wire
 		(pts
-			(xy 162.56 88.9) (xy 185.42 88.9)
+			(xy 162.56 88.9) (xy 182.88 88.9)
 		)
 		(stroke
 			(width 0)
@@ -2327,7 +2327,7 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 111.76) (xy 124.46 111.76)
+			(xy 121.92 111.76) (xy 124.46 111.76)
 		)
 		(stroke
 			(width 0)
@@ -2473,7 +2473,7 @@
 	)
 	(global_label "R1_VIN-"
 		(shape input)
-		(at 172.72 91.44 0)
+		(at 170.18 91.44 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2483,7 +2483,7 @@
 		)
 		(uuid "177f4451-1f45-43ea-a072-17a9219a7790")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 183.7486 91.44 0)
+			(at 181.2086 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2627,7 +2627,7 @@
 	)
 	(global_label "R1_VIN+"
 		(shape input)
-		(at 185.42 88.9 0)
+		(at 182.88 88.9 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2637,7 +2637,7 @@
 		)
 		(uuid "49c7fc06-369e-4314-a0b8-9e223290bbe8")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 196.4486 88.9 0)
+			(at 193.9086 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3022,7 +3022,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 115.57 121.92 0)
+		(at 121.92 121.92 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3031,7 +3031,7 @@
 		(fields_autoplaced yes)
 		(uuid "07417604-7f5e-4afa-ab7a-4f7ed9cda3e9")
 		(property "Reference" "#PWR031"
-			(at 115.57 128.27 0)
+			(at 121.92 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3040,7 +3040,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 115.57 127 0)
+			(at 121.92 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3048,7 +3048,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 115.57 121.92 0)
+			(at 121.92 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3057,7 +3057,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 115.57 121.92 0)
+			(at 121.92 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3066,7 +3066,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 115.57 121.92 0)
+			(at 121.92 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3088,7 +3088,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 171.45 118.11 0)
+		(at 167.64 120.65 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3097,7 +3097,7 @@
 		(fields_autoplaced yes)
 		(uuid "0a3bcc03-1f60-423a-aca5-ae0dbf48c145")
 		(property "Reference" "#PWR032"
-			(at 171.45 124.46 0)
+			(at 167.64 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3106,7 +3106,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 171.45 123.19 0)
+			(at 167.64 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3114,7 +3114,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 171.45 118.11 0)
+			(at 167.64 120.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3123,7 +3123,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 171.45 118.11 0)
+			(at 167.64 120.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3132,7 +3132,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 171.45 118.11 0)
+			(at 167.64 120.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
