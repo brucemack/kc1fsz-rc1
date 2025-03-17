@@ -425,12 +425,24 @@
       "ADC"
     ],
     [
+      "d8f56474-e9c0-4b9a-887f-34149e177022",
+      "DAC"
+    ],
+    [
       "44344ba6-1370-4a77-ab96-dbf60268a0b4",
       "Audio Out 0"
     ],
     [
+      "34b2b7e3-3a7b-4c6a-8d8d-e895b4fba2b7",
+      "Audio Out 1"
+    ],
+    [
       "dfb1fd4a-a237-487e-a7e8-10401a602072",
       "Controls"
+    ],
+    [
+      "d1654b22-6004-4416-89b1-96259d57a19f",
+      "Power"
     ]
   ],
   "text_variables": {}

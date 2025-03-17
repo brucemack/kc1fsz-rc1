@@ -1,0 +1,26 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "72c53b20-707d-4775-aab9-7010b3199571")
+	(paper "USLetter")
+	(title_block
+		(title "Audio Output Processing (Radio 0)")
+		(date "2025-03-16")
+		(rev "2")
+		(company "Bruce MacKinnon KC1FSZ")
+		(comment 1 "Copyright (C) Bruce MacKinnon, 2025")
+		(comment 2 "NOT FOR COMMERCIAL USE")
+	)
+	(lib_symbols)
+	(text "(Will Be Copy of R1 Audio Output)"
+		(exclude_from_sim no)
+		(at 141.732 90.932 0)
+		(effects
+			(font
+				(size 5 5)
+			)
+		)
+		(uuid "de2c20d6-faf8-4a85-a0cf-b6347672bb8a")
+	)
+)

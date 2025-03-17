@@ -267,6 +267,113 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Connector:TestPoint"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.762)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "TP"
+				(at 0 6.858 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "TestPoint"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "test point"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "test point tp"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Pin* Test*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "TestPoint_0_1"
+				(circle
+					(center 0 3.302)
+					(radius 0.762)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "TestPoint_1_1"
+				(pin passive line
+					(at 0 0 90)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Device:C_Small"
 			(pin_numbers
 				(hide yes)
@@ -1408,7 +1515,28 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "Audio input level trim. Adjust\nfor ADC full-scale."
+	(text "Approximately 2.5V \ncenter voltage from ADC."
+		(exclude_from_sim no)
+		(at 138.684 114.808 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "1b555f6a-6419-4a44-bfad-806cd8f7a9ac")
+	)
+	(text "We will use large solder pads and a \nthru-hole part for this resistor to \nmake it easy to change in the field\nif the gain is way off."
+		(exclude_from_sim no)
+		(at 188.468 28.702 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 255 9 7 1)
+			)
+		)
+		(uuid "3fcaf3d4-558c-413b-92c4-188228b4b6d8")
+	)
+	(text "Audio input level trim. Adjust\nattenuation for ADC full-scale."
 		(exclude_from_sim no)
 		(at 120.65 58.42 0)
 		(effects
@@ -1439,9 +1567,20 @@
 		)
 		(uuid "a0b43c5d-8135-4b95-bcca-81eaa1a5a564")
 	)
+	(text "This is not a pre/de-emphasis filter.\nThat is handled in the DSP."
+		(exclude_from_sim no)
+		(at 197.612 93.98 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 255 4 2 1)
+			)
+		)
+		(uuid "c61357c4-648f-4312-8c59-661dfa66cd40")
+	)
 	(text "Audio Input Buffer\n(See page 4 of SCOM7K schematic)\nGain=5x"
 		(exclude_from_sim no)
-		(at 153.67 60.452 0)
+		(at 157.988 65.024 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1449,11 +1588,27 @@
 		)
 		(uuid "ca92a9a8-d21d-432d-9a19-db9953ccfa57")
 	)
+	(text "Approximately 2.5V\n"
+		(exclude_from_sim no)
+		(at 149.098 51.562 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "f647dfe2-4bf5-4a6f-858b-f4d502562957")
+	)
 	(junction
 		(at 165.1 151.13)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "0b7d4084-ef89-4a62-b873-a8be148fdbde")
+	)
+	(junction
+		(at 120.65 36.83)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "1de91955-a34a-443b-af00-58d8683bb4c8")
 	)
 	(junction
 		(at 176.53 106.68)
@@ -1534,6 +1689,18 @@
 		(uuid "953fa921-fe70-4b48-9bef-5b4b43475ad4")
 	)
 	(junction
+		(at 187.96 151.13)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ab2ec2f8-5595-433f-85ee-10c3e3159420")
+	)
+	(junction
+		(at 187.96 106.68)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b128633b-1a71-4c80-aa37-14aa3bf31509")
+	)
+	(junction
 		(at 146.05 96.52)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1565,6 +1732,16 @@
 	)
 	(wire
 		(pts
+			(xy 120.65 26.67) (xy 120.65 36.83)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "035d9523-50da-4371-ae11-122bb0962949")
+	)
+	(wire
+		(pts
 			(xy 120.65 36.83) (xy 120.65 39.37)
 		)
 		(stroke
@@ -1582,6 +1759,16 @@
 			(type default)
 		)
 		(uuid "09cdfe70-a234-457b-80d4-a95c97b9cfc8")
+	)
+	(wire
+		(pts
+			(xy 187.96 106.68) (xy 191.77 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "15753290-1353-460e-affe-51b3cfd2d4ac")
 	)
 	(wire
 		(pts
@@ -1755,7 +1942,7 @@
 	)
 	(wire
 		(pts
-			(xy 180.34 151.13) (xy 184.15 151.13)
+			(xy 180.34 151.13) (xy 187.96 151.13)
 		)
 		(stroke
 			(width 0)
@@ -1792,6 +1979,16 @@
 			(type default)
 		)
 		(uuid "600adebe-c37d-4029-9f41-8be9b1696d3f")
+	)
+	(wire
+		(pts
+			(xy 118.11 26.67) (xy 120.65 26.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6074c89c-5a3d-455c-9d97-3026ea07a141")
 	)
 	(wire
 		(pts
@@ -1842,6 +2039,16 @@
 			(type default)
 		)
 		(uuid "75fdf8af-d9e8-4964-ab26-7ce798b0d808")
+	)
+	(wire
+		(pts
+			(xy 187.96 144.78) (xy 187.96 151.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "77ca734b-b2e6-405c-ad61-58d5bd96f828")
 	)
 	(wire
 		(pts
@@ -2105,7 +2312,7 @@
 	)
 	(wire
 		(pts
-			(xy 180.34 106.68) (xy 184.15 106.68)
+			(xy 180.34 106.68) (xy 187.96 106.68)
 		)
 		(stroke
 			(width 0)
@@ -2135,16 +2342,6 @@
 	)
 	(wire
 		(pts
-			(xy 86.36 36.83) (xy 99.06 36.83)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c5096236-6a10-4f0e-ba60-5163c6853942")
-	)
-	(wire
-		(pts
 			(xy 104.14 36.83) (xy 120.65 36.83)
 		)
 		(stroke
@@ -2165,6 +2362,16 @@
 	)
 	(wire
 		(pts
+			(xy 187.96 102.87) (xy 187.96 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d2ea263e-5956-4078-83b6-45f0b9c1aa51")
+	)
+	(wire
+		(pts
 			(xy 146.05 140.97) (xy 152.4 140.97)
 		)
 		(stroke
@@ -2182,6 +2389,16 @@
 			(type default)
 		)
 		(uuid "daea0960-3e1c-4f4a-b580-dbf68a81d357")
+	)
+	(wire
+		(pts
+			(xy 187.96 151.13) (xy 191.77 151.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e1283077-069f-4f1c-8959-41cc780dfb53")
 	)
 	(wire
 		(pts
@@ -2255,7 +2472,7 @@
 			)
 		)
 	)
-	(global_label "R0_VBIAS"
+	(global_label "VBIAS"
 		(shape input)
 		(at 102.87 106.68 180)
 		(fields_autoplaced yes)
@@ -2267,7 +2484,7 @@
 		)
 		(uuid "23dc03bc-00d0-43d2-b4c0-c8eb08051f66")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 91.1762 106.68 0)
+			(at 94.6233 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2323,7 +2540,7 @@
 	)
 	(global_label "R0_AUDIO_IN"
 		(shape input)
-		(at 86.36 36.83 180)
+		(at 118.11 26.67 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2333,7 +2550,7 @@
 		)
 		(uuid "7ef61ee7-cbe4-4a85-8ffa-1719e0b505f4")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 71.4004 36.83 0)
+			(at 103.1504 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2343,7 +2560,7 @@
 			)
 		)
 	)
-	(global_label "R0_VBIAS"
+	(global_label "VBIAS"
 		(shape input)
 		(at 160.02 48.26 180)
 		(fields_autoplaced yes)
@@ -2355,7 +2572,7 @@
 		)
 		(uuid "d8e544aa-ffc9-4f6f-a7de-c513bdfc9ccb")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 148.3262 48.26 0)
+			(at 151.7733 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2389,7 +2606,7 @@
 	)
 	(global_label "R0_VIN+"
 		(shape input)
-		(at 184.15 151.13 0)
+		(at 191.77 151.13 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2399,7 +2616,7 @@
 		)
 		(uuid "e898d1a6-94c9-41b0-b9e4-7c2ff6daf5df")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 195.1786 151.13 0)
+			(at 202.7986 151.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2411,7 +2628,7 @@
 	)
 	(global_label "R0_VIN-"
 		(shape input)
-		(at 184.15 106.68 0)
+		(at 191.77 106.68 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2421,7 +2638,7 @@
 		)
 		(uuid "fc0de28a-fa86-4421-a743-b81eace778fa")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 195.1786 106.68 0)
+			(at 202.7986 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3586,7 +3803,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1uF"
+		(property "Value" "10u"
 			(at 257.81 157.4862 0)
 			(effects
 				(font
@@ -3794,7 +4011,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1uF"
+		(property "Value" "10u"
 			(at 257.81 48.2662 0)
 			(effects
 				(font
@@ -4398,6 +4615,73 @@
 			(project "if-2"
 				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/a2980c2e-73f3-4531-bb7f-6a925a36f430"
 					(reference "U1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 187.96 102.87 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b616f0e7-7c8e-4ca7-be31-b5720d2dea34")
+		(property "Reference" "TP2"
+			(at 190.5 98.2979 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 190.5 100.8379 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 193.04 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 193.04 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 187.96 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8a6d70a3-c126-41dc-a08b-516ed403b795")
+		)
+		(instances
+			(project ""
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/a2980c2e-73f3-4531-bb7f-6a925a36f430"
+					(reference "TP2")
 					(unit 1)
 				)
 			)
@@ -5028,6 +5312,73 @@
 			(project "if-2"
 				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/a2980c2e-73f3-4531-bb7f-6a925a36f430"
 					(reference "#FLG05")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 187.96 144.78 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f056e55b-8ae0-4b6d-afd0-411de781a4ca")
+		(property "Reference" "TP3"
+			(at 190.5 140.2079 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 190.5 142.7479 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 193.04 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 193.04 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 187.96 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a54ed578-95b6-406d-a89a-c4a5ad86434a")
+		)
+		(instances
+			(project "if-2"
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/a2980c2e-73f3-4531-bb7f-6a925a36f430"
+					(reference "TP3")
 					(unit 1)
 				)
 			)
