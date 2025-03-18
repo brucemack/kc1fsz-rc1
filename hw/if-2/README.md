@@ -11,6 +11,10 @@ Simulated audio output filter (stage 2):
 
 ![System Picture](docs/sch-out2.jpg)
 
-Frequency response of audio output filter (stage 2):
+Frequency response:
 
 ![System Picture](docs/ac-out2.jpg)
+
+Frequency response focusing on the range from 40 Hz to 4 kHz:
+
+![System Picture](docs/ac-out2-b.jpg)

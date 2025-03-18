@@ -2879,7 +2879,7 @@
 				)
 			)
 		)
-		(property "Value" "0.47u"
+		(property "Value" "1u"
 			(at 132.0863 80.01 90)
 			(effects
 				(font
