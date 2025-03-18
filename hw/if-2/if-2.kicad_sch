@@ -6,7 +6,7 @@
 	(paper "USLetter")
 	(title_block
 		(title "Digital Repeater Controller ")
-		(date "2025-03-16")
+		(date "2025-03-18")
 		(rev "2")
 		(company "Bruce MacKinnon KC1FSZ")
 		(comment 1 "Copyright (C) Bruce MacKinnon, 2025")
