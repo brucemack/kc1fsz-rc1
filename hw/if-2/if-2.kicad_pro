@@ -396,7 +396,7 @@
     },
     "net_format_name": "",
     "page_layout_descr_file": "",
-    "plot_directory": "",
+    "plot_directory": "plots",
     "space_save_all_events": true,
     "spice_current_sheet_as_root": false,
     "spice_external_command": "spice \"%I\"",
@@ -443,6 +443,10 @@
     [
       "d1654b22-6004-4416-89b1-96259d57a19f",
       "Power"
+    ],
+    [
+      "d264813b-cbb1-4d95-8ad4-d43dc0883cab",
+      "Connectors"
     ]
   ],
   "text_variables": {}

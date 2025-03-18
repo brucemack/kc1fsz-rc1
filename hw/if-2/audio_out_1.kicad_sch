@@ -15,7 +15,7 @@
 	(lib_symbols)
 	(text "(Will Be Copy of R1 Audio Output)"
 		(exclude_from_sim no)
-		(at 141.732 90.932 0)
+		(at 146.812 103.124 0)
 		(effects
 			(font
 				(size 5 5)

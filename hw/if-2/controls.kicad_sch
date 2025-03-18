@@ -5,7 +5,7 @@
 	(uuid "5bbe5aac-0dde-414b-a873-b3e528d8d6cf")
 	(paper "USLetter")
 	(title_block
-		(title "COS/PTT Controls")
+		(title "COS/CTCSS/PTT Controls")
 		(date "2025-03-16")
 		(rev "2")
 		(company "Bruce MacKinnon KC1FSZ")
