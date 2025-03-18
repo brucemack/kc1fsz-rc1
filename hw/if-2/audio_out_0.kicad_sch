@@ -1260,7 +1260,7 @@
 	)
 	(wire
 		(pts
-			(xy 196.85 86.36) (xy 207.01 86.36)
+			(xy 196.85 86.36) (xy 212.09 86.36)
 		)
 		(stroke
 			(width 0)
@@ -1540,6 +1540,16 @@
 	)
 	(wire
 		(pts
+			(xy 217.17 86.36) (xy 223.52 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ed190bb9-8030-486d-9f6a-9222999982e6")
+	)
+	(wire
+		(pts
 			(xy 191.77 86.36) (xy 196.85 86.36)
 		)
 		(stroke
@@ -1560,7 +1570,7 @@
 	)
 	(global_label "R0_AUDIO_OUT"
 		(shape input)
-		(at 207.01 86.36 0)
+		(at 223.52 86.36 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1570,7 +1580,7 @@
 		)
 		(uuid "8823652d-d9f5-47c6-91f5-73c5d7a430a9")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 223.6629 86.36 0)
+			(at 240.1729 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2404,28 +2414,28 @@
 			)
 		)
 		(pin "7"
-			(uuid "157b9baa-0d19-403c-9684-d7269a12458d")
+			(uuid "157b9baa-0d19-403c-9684-d7269a12458e")
 		)
 		(pin "2"
-			(uuid "4035b395-3dfd-46ff-99ce-30f6a2c57cfc")
+			(uuid "4035b395-3dfd-46ff-99ce-30f6a2c57cfd")
 		)
 		(pin "5"
-			(uuid "a2cd2c51-2d3a-4cc4-a5f6-196be247a6c4")
+			(uuid "a2cd2c51-2d3a-4cc4-a5f6-196be247a6c5")
 		)
 		(pin "1"
-			(uuid "4c9e0afd-5146-421b-b217-27dc704f4ac9")
+			(uuid "4c9e0afd-5146-421b-b217-27dc704f4aca")
 		)
 		(pin "6"
-			(uuid "bdeea303-6680-4899-8493-36e353891e1b")
+			(uuid "bdeea303-6680-4899-8493-36e353891e1c")
 		)
 		(pin "3"
-			(uuid "cd4ef731-6b02-4b07-bcbb-2e8123b685d3")
+			(uuid "cd4ef731-6b02-4b07-bcbb-2e8123b685d4")
 		)
 		(pin "4"
-			(uuid "3e3a753f-36c0-4c85-b9fc-e95a8ad247ca")
+			(uuid "3e3a753f-36c0-4c85-b9fc-e95a8ad247cb")
 		)
 		(pin "8"
-			(uuid "148171b9-080a-49c5-88b7-9088d2996fd3")
+			(uuid "148171b9-080a-49c5-88b7-9088d2996fd4")
 		)
 		(instances
 			(project ""
@@ -2774,6 +2784,74 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:C_Small")
+		(at 214.63 86.36 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a13413a1-6439-410c-8a74-4aeecbc0211f")
+		(property "Reference" "C46"
+			(at 214.6363 80.01 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10uF"
+			(at 214.6363 82.55 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+			(at 214.63 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 214.63 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 214.63 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "edb170cc-983e-4d40-aa12-ae2052b4614d")
+		)
+		(pin "2"
+			(uuid "7ad52df4-8a6d-4c8d-b448-109ee5ed40b9")
+		)
+		(instances
+			(project "if-2"
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/44344ba6-1370-4a77-ab96-dbf60268a0b4"
+					(reference "C46")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Amplifier_Operational:TL072")
 		(at 97.79 76.2 0)
 		(mirror x)
@@ -2828,28 +2906,28 @@
 			)
 		)
 		(pin "7"
-			(uuid "157b9baa-0d19-403c-9684-d7269a12458d")
+			(uuid "157b9baa-0d19-403c-9684-d7269a12458f")
 		)
 		(pin "2"
-			(uuid "4035b395-3dfd-46ff-99ce-30f6a2c57cfc")
+			(uuid "4035b395-3dfd-46ff-99ce-30f6a2c57cfe")
 		)
 		(pin "5"
-			(uuid "a2cd2c51-2d3a-4cc4-a5f6-196be247a6c4")
+			(uuid "a2cd2c51-2d3a-4cc4-a5f6-196be247a6c6")
 		)
 		(pin "1"
-			(uuid "4c9e0afd-5146-421b-b217-27dc704f4ac9")
+			(uuid "4c9e0afd-5146-421b-b217-27dc704f4acb")
 		)
 		(pin "6"
-			(uuid "bdeea303-6680-4899-8493-36e353891e1b")
+			(uuid "bdeea303-6680-4899-8493-36e353891e1d")
 		)
 		(pin "3"
-			(uuid "cd4ef731-6b02-4b07-bcbb-2e8123b685d3")
+			(uuid "cd4ef731-6b02-4b07-bcbb-2e8123b685d5")
 		)
 		(pin "4"
-			(uuid "3e3a753f-36c0-4c85-b9fc-e95a8ad247ca")
+			(uuid "3e3a753f-36c0-4c85-b9fc-e95a8ad247cc")
 		)
 		(pin "8"
-			(uuid "148171b9-080a-49c5-88b7-9088d2996fd3")
+			(uuid "148171b9-080a-49c5-88b7-9088d2996fd5")
 		)
 		(instances
 			(project ""
