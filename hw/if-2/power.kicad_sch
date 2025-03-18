@@ -1947,6 +1947,16 @@
 		)
 		(uuid "4ec99c76-ba6c-495a-82fb-661dd73c5073")
 	)
+	(text "500mA Fuse"
+		(exclude_from_sim no)
+		(at 112.522 104.14 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "6d2e64b0-c909-44ea-8e4c-098eb165c868")
+	)
 	(text "+5V Source"
 		(exclude_from_sim no)
 		(at 64.008 61.722 0)

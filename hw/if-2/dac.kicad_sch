@@ -1445,7 +1445,7 @@
 		)
 		(uuid "d47803a3-bb50-4c15-8cab-f9a55c460401")
 	)
-	(text "The TI PCM5100 is a 24-bit stereo digital to analog converter designed for audio applications. It contains\nan integrated low-pass reconstruction filter on the back-end with a cut-off around 20 kHz.  Sample rate (f_{s})\nwill be 48,000 samples/second. Narrower filtering will be achieved in DSP."
+	(text "The TI PCM5100 is a 24-bit stereo digital to analog converter designed for audio applications. It contains\nan integrated low-pass interpolation filter on the back-end with a cut-off around 20 kHz.  Sample rate (f_{s})\nwill be 48,000 samples/second. Narrower filtering will be achieved in DSP."
 		(exclude_from_sim no)
 		(at 146.558 28.448 0)
 		(effects

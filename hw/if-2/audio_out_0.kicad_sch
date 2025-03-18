@@ -1117,7 +1117,7 @@
 		)
 		(uuid "5cfda937-c696-46f3-a224-7f5947ec2c19")
 	)
-	(text "(See page 30 of TI PCM1804 datasheet)\n\nhttps://www.ti.com/lit/ds/symlink/pcm1804.pdf\n"
+	(text "(See page 4 of SCOM7K schematic)"
 		(exclude_from_sim no)
 		(at 127 46.482 0)
 		(effects
