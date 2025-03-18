@@ -13,7 +13,7 @@
 		(comment 2 "NOT FOR COMMERCIAL USE")
 	)
 	(lib_symbols)
-	(text "(Will Be Copy of R1 Audio Output)"
+	(text "(Will Be Copy of R0 Audio Output)"
 		(exclude_from_sim no)
 		(at 146.812 103.124 0)
 		(effects
