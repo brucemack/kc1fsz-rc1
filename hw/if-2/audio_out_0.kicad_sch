@@ -13,7 +13,7 @@
 		(comment 2 "NOT FOR COMMERCIAL USE")
 	)
 	(lib_symbols
-		(symbol "Amplifier_Operational:LM4562"
+		(symbol "Amplifier_Operational:TL072"
 			(pin_names
 				(offset 0.127)
 			)
@@ -29,7 +29,7 @@
 					(justify left)
 				)
 			)
-			(property "Value" "LM4562"
+			(property "Value" "TL072"
 				(at 0 -5.08 0)
 				(effects
 					(font
@@ -47,7 +47,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "http://www.ti.com/lit/ds/symlink/lm4562.pdf"
+			(property "Datasheet" "http://www.ti.com/lit/ds/symlink/tl071.pdf"
 				(at 0 0 0)
 				(effects
 					(font
@@ -56,7 +56,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "Dual High-Performance, High-Fidelity Audio Operational Amplifier, DIP-8/SOIC-8/TO-99-8"
+			(property "Description" "Dual Low-Noise JFET-Input Operational Amplifiers, DIP-8/SOIC-8"
 				(at 0 0 0)
 				(effects
 					(font
@@ -91,7 +91,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "LM4562_1_1"
+			(symbol "TL072_1_1"
 				(polyline
 					(pts
 						(xy -5.08 5.08) (xy 5.08 0) (xy -5.08 -5.08) (xy -5.08 5.08)
@@ -159,7 +159,7 @@
 					)
 				)
 			)
-			(symbol "LM4562_2_1"
+			(symbol "TL072_2_1"
 				(polyline
 					(pts
 						(xy -5.08 5.08) (xy 5.08 0) (xy -5.08 -5.08) (xy -5.08 5.08)
@@ -227,7 +227,7 @@
 					)
 				)
 			)
-			(symbol "LM4562_3_1"
+			(symbol "TL072_3_1"
 				(pin power_in line
 					(at -2.54 7.62 270)
 					(length 3.81)
@@ -1730,7 +1730,7 @@
 				)
 			)
 		)
-		(property "Value" "1uF"
+		(property "Value" "4.7u"
 			(at 71.1263 69.85 90)
 			(effects
 				(font
@@ -1842,6 +1842,94 @@
 				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/44344ba6-1370-4a77-ab96-dbf60268a0b4"
 					(reference "#PWR066")
 					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Amplifier_Operational:TL072")
+		(at 242.57 44.45 0)
+		(unit 3)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "39ad60c1-8865-4d06-b001-c170c036a01a")
+		(property "Reference" "U4"
+			(at 241.3 43.1799 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TL072"
+			(at 241.3 45.7199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 242.57 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/tl071.pdf"
+			(at 242.57 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Dual Low-Noise JFET-Input Operational Amplifiers, DIP-8/SOIC-8"
+			(at 242.57 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "7"
+			(uuid "157b9baa-0d19-403c-9684-d7269a12458d")
+		)
+		(pin "2"
+			(uuid "4035b395-3dfd-46ff-99ce-30f6a2c57cfc")
+		)
+		(pin "5"
+			(uuid "a2cd2c51-2d3a-4cc4-a5f6-196be247a6c4")
+		)
+		(pin "1"
+			(uuid "4c9e0afd-5146-421b-b217-27dc704f4ac9")
+		)
+		(pin "6"
+			(uuid "bdeea303-6680-4899-8493-36e353891e1b")
+		)
+		(pin "3"
+			(uuid "cd4ef731-6b02-4b07-bcbb-2e8123b685d3")
+		)
+		(pin "4"
+			(uuid "3e3a753f-36c0-4c85-b9fc-e95a8ad247ca")
+		)
+		(pin "8"
+			(uuid "148171b9-080a-49c5-88b7-9088d2996fd3")
+		)
+		(instances
+			(project ""
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/44344ba6-1370-4a77-ab96-dbf60268a0b4"
+					(reference "U4")
+					(unit 3)
 				)
 			)
 		)
@@ -2124,93 +2212,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Amplifier_Operational:LM4562")
-		(at 156.21 86.36 0)
-		(mirror x)
-		(unit 2)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "63039120-d1ca-49fb-a90e-1db0d93f0096")
-		(property "Reference" "U4"
-			(at 156.21 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "LM4562"
-			(at 156.21 78.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
-			(at 156.21 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/lm4562.pdf"
-			(at 156.21 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Dual High-Performance, High-Fidelity Audio Operational Amplifier, DIP-8/SOIC-8/TO-99-8"
-			(at 156.21 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "b4902ff5-4e92-439f-8139-e722b4a89261")
-		)
-		(pin "3"
-			(uuid "7899c5de-23c5-4571-9295-dd6803d2537a")
-		)
-		(pin "5"
-			(uuid "24ad5948-5a1f-4487-9e93-e3588b36cc87")
-		)
-		(pin "6"
-			(uuid "3250c9f1-3eae-429b-9970-3a0aac7f2bb6")
-		)
-		(pin "2"
-			(uuid "d6a73d4c-590b-4fa4-a9c4-70f5c7c94f8e")
-		)
-		(pin "4"
-			(uuid "9c325ed6-80d8-42d8-8198-1fa6de87f752")
-		)
-		(pin "8"
-			(uuid "3b095c11-fa4a-4ff3-8da4-20789fbfbab2")
-		)
-		(pin "7"
-			(uuid "ab28c5ef-9bae-42bc-ae5a-270476697fd8")
-		)
-		(instances
-			(project "if-2"
-				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/44344ba6-1370-4a77-ab96-dbf60268a0b4"
-					(reference "U4")
-					(unit 2)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R_Small_US")
 		(at 81.28 73.66 90)
 		(unit 1)
@@ -2349,6 +2350,93 @@
 		)
 	)
 	(symbol
+		(lib_id "Amplifier_Operational:TL072")
+		(at 156.21 86.36 0)
+		(mirror x)
+		(unit 2)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "6d0fc264-d7da-4e01-be51-90024f816332")
+		(property "Reference" "U4"
+			(at 156.21 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TL072"
+			(at 156.21 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 156.21 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/tl071.pdf"
+			(at 156.21 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Dual Low-Noise JFET-Input Operational Amplifiers, DIP-8/SOIC-8"
+			(at 156.21 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "7"
+			(uuid "157b9baa-0d19-403c-9684-d7269a12458d")
+		)
+		(pin "2"
+			(uuid "4035b395-3dfd-46ff-99ce-30f6a2c57cfc")
+		)
+		(pin "5"
+			(uuid "a2cd2c51-2d3a-4cc4-a5f6-196be247a6c4")
+		)
+		(pin "1"
+			(uuid "4c9e0afd-5146-421b-b217-27dc704f4ac9")
+		)
+		(pin "6"
+			(uuid "bdeea303-6680-4899-8493-36e353891e1b")
+		)
+		(pin "3"
+			(uuid "cd4ef731-6b02-4b07-bcbb-2e8123b685d3")
+		)
+		(pin "4"
+			(uuid "3e3a753f-36c0-4c85-b9fc-e95a8ad247ca")
+		)
+		(pin "8"
+			(uuid "148171b9-080a-49c5-88b7-9088d2996fd3")
+		)
+		(instances
+			(project ""
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/44344ba6-1370-4a77-ab96-dbf60268a0b4"
+					(reference "U4")
+					(unit 2)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R_Small_US")
 		(at 189.23 86.36 90)
 		(unit 1)
@@ -2412,95 +2500,6 @@
 				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/44344ba6-1370-4a77-ab96-dbf60268a0b4"
 					(reference "R21")
 					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Amplifier_Operational:LM4562")
-		(at 237.49 44.45 0)
-		(mirror y)
-		(unit 3)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "735a9e5d-413b-4866-8dd6-f18807ff7ba6")
-		(property "Reference" "U4"
-			(at 241.3 43.1799 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "LM4562"
-			(at 241.3 45.7199 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
-			(at 237.49 44.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/lm4562.pdf"
-			(at 237.49 44.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Dual High-Performance, High-Fidelity Audio Operational Amplifier, DIP-8/SOIC-8/TO-99-8"
-			(at 237.49 44.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "b4902ff5-4e92-439f-8139-e722b4a89265")
-		)
-		(pin "3"
-			(uuid "7899c5de-23c5-4571-9295-dd6803d2537e")
-		)
-		(pin "5"
-			(uuid "8736f4c8-c0d9-40e7-9de1-cfff6a361c13")
-		)
-		(pin "6"
-			(uuid "6b263d56-cf09-424e-a441-97b9df332da4")
-		)
-		(pin "2"
-			(uuid "d6a73d4c-590b-4fa4-a9c4-70f5c7c94f92")
-		)
-		(pin "4"
-			(uuid "629ecc23-0c5f-4502-8c4c-bfec8508673a")
-		)
-		(pin "8"
-			(uuid "1eaa319f-6351-432b-80cd-ec3ae389d5e8")
-		)
-		(pin "7"
-			(uuid "717df2f2-1c68-47bb-ad5a-c55bcbbb80b0")
-		)
-		(instances
-			(project "if-2"
-				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/44344ba6-1370-4a77-ab96-dbf60268a0b4"
-					(reference "U4")
-					(unit 3)
 				)
 			)
 		)
@@ -2775,7 +2774,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Amplifier_Operational:LM4562")
+		(lib_id "Amplifier_Operational:TL072")
 		(at 97.79 76.2 0)
 		(mirror x)
 		(unit 1)
@@ -2784,7 +2783,7 @@
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "9d686fba-92a6-4df5-9dcd-b72677285256")
+		(uuid "a4cc9cbc-6002-4c4f-b235-31991ff78d87")
 		(property "Reference" "U4"
 			(at 97.79 66.04 0)
 			(effects
@@ -2793,7 +2792,7 @@
 				)
 			)
 		)
-		(property "Value" "LM4562"
+		(property "Value" "TL072"
 			(at 97.79 68.58 0)
 			(effects
 				(font
@@ -2801,7 +2800,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
+		(property "Footprint" ""
 			(at 97.79 76.2 0)
 			(effects
 				(font
@@ -2810,7 +2809,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/lm4562.pdf"
+		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/tl071.pdf"
 			(at 97.79 76.2 0)
 			(effects
 				(font
@@ -2819,7 +2818,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Dual High-Performance, High-Fidelity Audio Operational Amplifier, DIP-8/SOIC-8/TO-99-8"
+		(property "Description" "Dual Low-Noise JFET-Input Operational Amplifiers, DIP-8/SOIC-8"
 			(at 97.79 76.2 0)
 			(effects
 				(font
@@ -2827,33 +2826,33 @@
 				)
 				(hide yes)
 			)
-		)
-		(pin "1"
-			(uuid "a2cd8344-a80f-46f1-ae30-acce207bdb9f")
-		)
-		(pin "3"
-			(uuid "bc2d6281-62e9-427a-8cb6-1f4a93a43191")
-		)
-		(pin "5"
-			(uuid "8736f4c8-c0d9-40e7-9de1-cfff6a361c11")
-		)
-		(pin "6"
-			(uuid "6b263d56-cf09-424e-a441-97b9df332da2")
-		)
-		(pin "2"
-			(uuid "87b437f0-a1ea-4a60-bc1e-e340fb599d48")
-		)
-		(pin "4"
-			(uuid "9c325ed6-80d8-42d8-8198-1fa6de87f753")
-		)
-		(pin "8"
-			(uuid "3b095c11-fa4a-4ff3-8da4-20789fbfbab3")
 		)
 		(pin "7"
-			(uuid "717df2f2-1c68-47bb-ad5a-c55bcbbb80ae")
+			(uuid "157b9baa-0d19-403c-9684-d7269a12458d")
+		)
+		(pin "2"
+			(uuid "4035b395-3dfd-46ff-99ce-30f6a2c57cfc")
+		)
+		(pin "5"
+			(uuid "a2cd2c51-2d3a-4cc4-a5f6-196be247a6c4")
+		)
+		(pin "1"
+			(uuid "4c9e0afd-5146-421b-b217-27dc704f4ac9")
+		)
+		(pin "6"
+			(uuid "bdeea303-6680-4899-8493-36e353891e1b")
+		)
+		(pin "3"
+			(uuid "cd4ef731-6b02-4b07-bcbb-2e8123b685d3")
+		)
+		(pin "4"
+			(uuid "3e3a753f-36c0-4c85-b9fc-e95a8ad247ca")
+		)
+		(pin "8"
+			(uuid "148171b9-080a-49c5-88b7-9088d2996fd3")
 		)
 		(instances
-			(project "if-2"
+			(project ""
 				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/44344ba6-1370-4a77-ab96-dbf60268a0b4"
 					(reference "U4")
 					(unit 1)

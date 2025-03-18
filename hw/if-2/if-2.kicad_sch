@@ -557,6 +557,48 @@
 		)
 	)
 	(sheet
+		(at 213.36 109.22)
+		(size 24.13 22.86)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "aaca03b7-1394-4a9e-b9db-1ef93c5c7c02")
+		(property "Sheetname" "Controls 1"
+			(at 213.36 108.5084 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "controls_1.kicad_sch"
+			(at 213.36 132.6646 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "if-2"
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480"
+					(page "10")
+				)
+			)
+		)
+	)
+	(sheet
 		(at 46.355 109.22)
 		(size 24.765 22.86)
 		(exclude_from_sim no)
@@ -599,7 +641,7 @@
 		)
 	)
 	(sheet
-		(at 217.17 109.22)
+		(at 62.865 142.24)
 		(size 22.86 22.86)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -615,7 +657,7 @@
 		)
 		(uuid "d1654b22-6004-4416-89b1-96259d57a19f")
 		(property "Sheetname" "Power"
-			(at 217.17 108.5084 0)
+			(at 62.865 141.5284 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -624,7 +666,7 @@
 			)
 		)
 		(property "Sheetfile" "power.kicad_sch"
-			(at 217.17 132.6646 0)
+			(at 62.865 165.6846 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -635,7 +677,7 @@
 		(instances
 			(project "if-2"
 				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480"
-					(page "10")
+					(page "11")
 				)
 			)
 		)
@@ -741,7 +783,7 @@
 			(color 0 0 0 0.0000)
 		)
 		(uuid "dfb1fd4a-a237-487e-a7e8-10401a602072")
-		(property "Sheetname" "Controls"
+		(property "Sheetname" "Controls 0"
 			(at 186.69 108.5084 0)
 			(effects
 				(font
@@ -750,7 +792,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Sheetfile" "controls.kicad_sch"
+		(property "Sheetfile" "controls_0.kicad_sch"
 			(at 186.69 132.6646 0)
 			(effects
 				(font
