@@ -1598,6 +1598,16 @@
 		)
 		(uuid "ca92a9a8-d21d-432d-9a19-db9953ccfa57")
 	)
+	(text "Audio input from radio"
+		(exclude_from_sim no)
+		(at 73.66 39.624 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "e5db6bf0-c4bb-4483-9091-e8a742eaddf5")
+	)
 	(text "Approximately 2.5V\n"
 		(exclude_from_sim no)
 		(at 149.098 54.102 0)

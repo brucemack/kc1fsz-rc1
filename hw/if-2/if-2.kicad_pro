@@ -413,6 +413,10 @@
       "Root"
     ],
     [
+      "d264813b-cbb1-4d95-8ad4-d43dc0883cab",
+      "Connectors"
+    ],
+    [
       "a2980c2e-73f3-4531-bb7f-6a925a36f430",
       "Audio In 0"
     ],
@@ -443,10 +447,6 @@
     [
       "d1654b22-6004-4416-89b1-96259d57a19f",
       "Power"
-    ],
-    [
-      "d264813b-cbb1-4d95-8ad4-d43dc0883cab",
-      "Connectors"
     ]
   ],
   "text_variables": {}
