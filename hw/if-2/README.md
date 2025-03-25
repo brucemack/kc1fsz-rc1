@@ -1,7 +1,4 @@
-Simulation Notes
-================
-
-## Audio Input Network
+## Audio Input Network Simulation
 
 Simulated audio input network. The trim pot is set to half range.
 
@@ -17,7 +14,7 @@ tone (66 Hz) is only attenuated by about 0.3 dB vs the audible range starting at
 
 ![System Picture](docs/ac-in1-b.jpg)
 
-## Audio Output Network
+## Audio Output Network Simulation
 
 This is the final filter in the audio output chain. The trim pot is set to half range. A low-pass network is used to suppress noise. This is not used for pre-/de-emphasis.
 
@@ -37,12 +34,10 @@ Frequency response focusing on the range from 60 Hz to 2 kHz. The lowest tone is
 
 ![System Picture](docs/ac-out2-b.jpg)
 
-ADC Testing at Low Audio Frequency
-==================================
+## ADC Testing at Low Audio Frequency
 
 (To Follow)
 
-DAC Testing at Low Audio Frequency
-==================================
+## DAC Testing at Low Audio Frequency
 
 (To Follow)
