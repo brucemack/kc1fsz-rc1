@@ -109,9 +109,9 @@
 		)
 		(uuid "2b23b60d-a834-496a-b999-59decd1a0f3c")
 	)
-	(text "Digital Repeater Controller V2"
+	(text "Digital Repeater Controller V2 - Radio Interface Board"
 		(exclude_from_sim no)
-		(at 47.244 21.844 0)
+		(at 71.374 21.082 0)
 		(effects
 			(font
 				(size 2.54 2.54)
@@ -121,7 +121,7 @@
 		)
 		(uuid "9bf73f05-6a22-4c1e-a381-ef7da0213a95")
 	)
-	(text "NOTES:\n* This is an analog board that interfaces with two radios. A separate digital board based on the RP2040 is also required. A ribbon cable\n  connects the two boards.\n* The goal of this design is to do as little as possible in hardware.\n* Many things that usually happen in hardware (or FPGA) will happen in software:\n  - Audio routing between the two radios will happen in software.\n  - Audio pre-emphasis/de-emphasis (if needed) will happen using DSP using digital filters.\n  - CTCSS decoding (if needed) will happen in DSP.\n  - CTCSS encoding (if needed) will happen in DSP.\n  - DTMF decoding will happen in DSP.\n  - CWID and other tone prompts will happen in DSP/software.\n  - Voice IDs will happen in DSP/software.\n\n"
+	(text "NOTES:\n* This is an analog board that interfaces with two radios. A separate digital board based on the RP2040 is also required. A ribbon cable\n  connects the two boards.\n* The goal of this design is to do as little as possible in hardware.\n* Many things that usually happen in hardware (or FPGA) will happen in software:\n  - Audio routing between the two radios will happen in software.\n  - Audio pre-emphasis/de-emphasis (if needed) will happen using DSP using digital filters.\n  - CTCSS decoding (if needed) will happen in DSP.\n  - CTCSS encoding (if needed) will happen in DSP.\n  - DTMF decoding will happen in DSP.\n  - CWID and other tone prompts will happen in DSP/software.\n  - Voice IDs will happen in DSP/software.\n  - Other digital audio interfaces like EchoLink (or DMR/D-Star in the future) will be directly integrated.\n\n"
 		(exclude_from_sim no)
 		(at 18.034 49.276 0)
 		(effects

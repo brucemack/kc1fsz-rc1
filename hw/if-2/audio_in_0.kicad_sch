@@ -3765,7 +3765,7 @@
 				)
 			)
 		)
-		(property "Value" "47k"
+		(property "Value" "100k"
 			(at 166.37 33.02 90)
 			(effects
 				(font
@@ -4334,7 +4334,7 @@
 				)
 			)
 		)
-		(property "Value" "10u"
+		(property "Value" "4.7u"
 			(at 130.8163 144.78 90)
 			(effects
 				(font
@@ -4979,7 +4979,7 @@
 				)
 			)
 		)
-		(property "Value" "10u"
+		(property "Value" "4.7u"
 			(at 130.8163 100.33 90)
 			(effects
 				(font

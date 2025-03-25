@@ -11,11 +11,12 @@ Frequency response. We are using an ADC with a differential input so a different
 
 ![System Picture](docs/ac-in1.jpg)
 
-Frequency response focusing on the range from 40 Hz to 4 kHz:
+Frequency response focusing on the range from 60 Hz to 2 kHz. This range is important since we will
+be decoding sub-audible CTCSS tones and we want to make sure they are passed into the ADC.
 
 ![System Picture](docs/ac-in1-b.jpg)
 
-## Audio Output Stage 2
+## Audio Output Network
 
 This is the final filter in the audio output chain. A low-pass network is used to suppress noise. This is not used for pre-/de-emphasis.
 
@@ -31,6 +32,6 @@ Frequency response:
 
 ![System Picture](docs/ac-out2.jpg)
 
-Frequency response focusing on the range from 40 Hz to 4 kHz:
+Frequency response focusing on the range from 60 Hz to 2 kHz:
 
 ![System Picture](docs/ac-out2-b.jpg)
