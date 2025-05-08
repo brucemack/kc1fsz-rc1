@@ -1107,36 +1107,15 @@
 		)
 		(uuid "57913c06-5720-4ff6-aa45-924def4a795a")
 	)
-	(text "Audio output level trim.\n"
+	(text "Audio output level trim.\nAdjust to allow DAC full-scale.\n"
 		(exclude_from_sim no)
-		(at 122.174 96.52 0)
+		(at 120.904 97.282 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 		)
 		(uuid "5cfda937-c696-46f3-a224-7f5947ec2c19")
-	)
-	(text "(See page 4 of SCOM7K schematic)"
-		(exclude_from_sim no)
-		(at 127 46.482 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "acac191f-9a50-445b-a239-9b18df0ff21b")
-	)
-	(text "This is not a pre/de-emphasis filter.\nThat is handled in the DSP."
-		(exclude_from_sim no)
-		(at 179.832 54.61 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(color 255 4 2 1)
-			)
-		)
-		(uuid "fd79efd7-a507-4254-a7ec-7b2e1fb8fb73")
 	)
 	(junction
 		(at 167.64 86.36)
@@ -1149,12 +1128,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "660a5302-cdd4-4257-ae92-d767754937c4")
-	)
-	(junction
-		(at 167.64 68.58)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "6ea9b6bd-8053-4b09-ab03-41e386e4d74e")
 	)
 	(junction
 		(at 106.68 76.2)
@@ -1185,12 +1158,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "c84bb26a-f551-4819-b2d7-bbe4a9113133")
-	)
-	(junction
-		(at 146.05 68.58)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "dfa7757d-90ef-473e-afa2-ed0e874b1301")
 	)
 	(junction
 		(at 238.76 35.56)
@@ -1350,16 +1317,6 @@
 	)
 	(wire
 		(pts
-			(xy 167.64 58.42) (xy 167.64 68.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "60e4bbd4-aed2-410a-aa69-cdba3fd59e86")
-	)
-	(wire
-		(pts
 			(xy 87.63 73.66) (xy 90.17 73.66)
 		)
 		(stroke
@@ -1450,16 +1407,6 @@
 	)
 	(wire
 		(pts
-			(xy 158.75 58.42) (xy 167.64 58.42)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b03f9383-7c5c-41aa-a675-52f13edf8de0")
-	)
-	(wire
-		(pts
 			(xy 228.6 35.56) (xy 228.6 36.83)
 		)
 		(stroke
@@ -1487,16 +1434,6 @@
 			(type default)
 		)
 		(uuid "c3099c92-0de3-4e35-a0d7-3bfa5f231c32")
-	)
-	(wire
-		(pts
-			(xy 146.05 58.42) (xy 146.05 68.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cb6f18c7-e369-4d4f-80c6-99441435162f")
 	)
 	(wire
 		(pts
@@ -1537,16 +1474,6 @@
 			(type default)
 		)
 		(uuid "e6265283-6ec1-4b7a-8a9f-17f899ed8731")
-	)
-	(wire
-		(pts
-			(xy 153.67 58.42) (xy 146.05 58.42)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e84a2356-622f-4f1c-8ce5-32042fe926d8")
 	)
 	(wire
 		(pts
@@ -2735,74 +2662,6 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 156.21 58.42 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "8ed68710-388d-45fb-817f-2d5c1eb8d605")
-		(property "Reference" "C9"
-			(at 156.2163 52.07 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "470p"
-			(at 156.2163 54.61 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 156.21 58.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 156.21 58.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 156.21 58.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "7d04cc1c-7233-4fa6-b628-2267a41d0678")
-		)
-		(pin "2"
-			(uuid "19c28f54-31f9-48cb-8636-194cd98b7a40")
-		)
-		(instances
-			(project ""
-				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/44344ba6-1370-4a77-ab96-dbf60268a0b4"
-					(reference "C9")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C_Small")
 		(at 172.72 86.36 90)
 		(unit 1)
 		(exclude_from_sim no)
@@ -3315,7 +3174,7 @@
 				)
 			)
 		)
-		(property "Value" "68k"
+		(property "Value" "100k"
 			(at 156.21 66.04 90)
 			(effects
 				(font
