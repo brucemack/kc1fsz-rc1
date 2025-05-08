@@ -5,7 +5,7 @@
 	(uuid "21e04c3e-e9ae-49cf-8934-ffe804c734e6")
 	(paper "USLetter")
 	(title_block
-		(title "Analog To Digital Converter")
+		(title "COS/CTCSS/PTT Controls (Radio 1)")
 		(date "2025-03-18")
 		(rev "2")
 		(company "Bruce MacKinnon KC1FSZ")
@@ -138,170 +138,6 @@
 					(at -5.08 -2.54 0)
 					(length 3.81)
 					(name "Pin_2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "Device:C_Polarized_Small_US"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0.254)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "C"
-				(at 0.254 1.778 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "C_Polarized_Small_US"
-				(at 0.254 -2.032 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Polarized capacitor, small US symbol"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "cap capacitor"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "CP_*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "C_Polarized_Small_US_0_1"
-				(polyline
-					(pts
-						(xy -1.524 0.508) (xy 1.524 0.508)
-					)
-					(stroke
-						(width 0.3048)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.27 1.524) (xy -0.762 1.524)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.016 1.27) (xy -1.016 1.778)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start -1.524 -0.762)
-					(mid 0 -0.3734)
-					(end 1.524 -0.762)
-					(stroke
-						(width 0.3048)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "C_Polarized_Small_US_1_1"
-				(pin passive line
-					(at 0 2.54 270)
-					(length 2.032)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -2.54 90)
-					(length 2.032)
-					(name "~"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4035,6 +3871,76 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:C_Small")
+		(at 52.07 45.72 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "05771f9a-7e78-4fee-a376-877ef9aaab40")
+		(property "Reference" "C10"
+			(at 54.61 44.4562 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1u"
+			(at 54.61 46.9962 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+			(at 52.07 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 52.07 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 52.07 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "48554e08-f087-4e3d-b6f9-326201f5c3cf")
+		)
+		(pin "2"
+			(uuid "53efc7ce-945d-4740-9cfe-9bf9566ebd2d")
+		)
+		(instances
+			(project ""
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/6707bd5d-ee63-41cb-9104-9e17f512539f"
+					(reference "C10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:PWR_FLAG")
 		(at 80.01 46.99 0)
 		(unit 1)
@@ -4160,6 +4066,76 @@
 			(project "if-2"
 				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/6707bd5d-ee63-41cb-9104-9e17f512539f"
 					(reference "#PWR031")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C_Small")
+		(at 219.71 45.72 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "090b1b3b-e7fa-4a2d-a0a6-3fc9a38e3b80")
+		(property "Reference" "C16"
+			(at 222.25 44.4562 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1u"
+			(at 222.25 46.9962 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+			(at 219.71 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 219.71 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 219.71 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ba50d698-2bf7-44c1-8e93-323631ce868b")
+		)
+		(pin "2"
+			(uuid "faa162ee-b3bf-4b14-81e1-0dd70a364329")
+		)
+		(instances
+			(project ""
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/6707bd5d-ee63-41cb-9104-9e17f512539f"
+					(reference "C16")
 					(unit 1)
 				)
 			)
@@ -4764,6 +4740,76 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:C_Small")
+		(at 233.68 60.96 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3cfbd89e-6ea0-4427-883a-797545697c0b")
+		(property "Reference" "C18"
+			(at 236.22 59.6962 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10u"
+			(at 236.22 62.2362 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+			(at 233.68 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 233.68 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 233.68 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8b961a5a-7e46-4da0-8dc6-e9f5a4137082")
+		)
+		(pin "2"
+			(uuid "409475db-3a8e-4bf5-b15a-f58db9801b94")
+		)
+		(instances
+			(project ""
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/6707bd5d-ee63-41cb-9104-9e17f512539f"
+					(reference "C18")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:PWR_FLAG")
 		(at 227.33 41.91 0)
 		(unit 1)
@@ -4963,76 +5009,6 @@
 			(project "if-2"
 				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/6707bd5d-ee63-41cb-9104-9e17f512539f"
 					(reference "#PWR044")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C_Polarized_Small_US")
-		(at 233.68 60.96 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "4d896c1c-dac3-4d4b-9ef6-e7efdc844c3d")
-		(property "Reference" "C18"
-			(at 236.22 59.2581 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "10u"
-			(at 236.22 61.7981 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D4.0mm_P2.00mm"
-			(at 233.68 60.96 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 233.68 60.96 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Polarized capacitor, small US symbol"
-			(at 233.68 60.96 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "07d0ed1c-11c5-4d41-9c45-8048836f4a6f")
-		)
-		(pin "1"
-			(uuid "e356f138-cdf9-4cac-bd6c-cce777f1ddb7")
-		)
-		(instances
-			(project "if-2"
-				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/6707bd5d-ee63-41cb-9104-9e17f512539f"
-					(reference "C18")
 					(unit 1)
 				)
 			)
@@ -5656,6 +5632,76 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:C_Small")
+		(at 95.25 78.74 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "885aade8-aa6b-42a4-8100-d065162ee6be")
+		(property "Reference" "C13"
+			(at 97.79 77.4762 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10u"
+			(at 97.79 80.0162 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+			(at 95.25 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 95.25 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 95.25 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "71301649-9ab9-4012-b30f-2ea8e0fa69a4")
+		)
+		(pin "1"
+			(uuid "de3cd4ca-4de2-46da-a4fc-78fb11bbf1ce")
+		)
+		(instances
+			(project ""
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/6707bd5d-ee63-41cb-9104-9e17f512539f"
+					(reference "C13")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+3.3V")
 		(at 115.57 172.72 0)
 		(unit 1)
@@ -5813,7 +5859,7 @@
 				)
 			)
 		)
-		(property "Footprint" "DB28"
+		(property "Footprint" "Package_SO:SSOP-28_5.3x10.2mm_P0.65mm"
 			(at 124.46 41.91 0)
 			(effects
 				(font
@@ -5930,76 +5976,6 @@
 			(project ""
 				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/6707bd5d-ee63-41cb-9104-9e17f512539f"
 					(reference "U3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C_Polarized_Small_US")
-		(at 80.01 49.53 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "9cd7ee57-b6c9-4edd-a06b-22b34677df16")
-		(property "Reference" "C12"
-			(at 82.55 47.8281 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "1u"
-			(at 82.55 50.3681 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
-			(at 80.01 49.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 80.01 49.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Polarized capacitor, small US symbol"
-			(at 80.01 49.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "1f965177-3ac9-4a44-8189-fe3d5f922252")
-		)
-		(pin "1"
-			(uuid "f20dd88e-8505-4a5c-96fc-d1cd5a1b5f34")
-		)
-		(instances
-			(project "if-2"
-				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/6707bd5d-ee63-41cb-9104-9e17f512539f"
-					(reference "C12")
 					(unit 1)
 				)
 			)
@@ -6165,7 +6141,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
 			(at 49.276 98.044 90)
 			(effects
 				(font
@@ -6815,76 +6791,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Polarized_Small_US")
-		(at 198.12 49.53 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "d10298d4-92c7-499e-849c-602df6143f2f")
-		(property "Reference" "C15"
-			(at 200.66 47.8281 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "1u"
-			(at 200.66 50.3681 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
-			(at 198.12 49.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 198.12 49.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Polarized capacitor, small US symbol"
-			(at 198.12 49.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "8e278251-b640-4613-9871-19a9c6192774")
-		)
-		(pin "1"
-			(uuid "f2ff7fcc-2893-49a2-ae39-f3ac23a3f881")
-		)
-		(instances
-			(project "if-2"
-				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/6707bd5d-ee63-41cb-9104-9e17f512539f"
-					(reference "C15")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 59.69 48.26 0)
 		(unit 1)
@@ -7015,6 +6921,76 @@
 			(project "if-2"
 				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/6707bd5d-ee63-41cb-9104-9e17f512539f"
 					(reference "C17")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C_Small")
+		(at 80.01 49.53 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d3764282-f94e-4e06-a284-0731492b5cac")
+		(property "Reference" "C12"
+			(at 82.55 48.2662 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1u"
+			(at 82.55 50.8062 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+			(at 80.01 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 80.01 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 80.01 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "f01ebb34-6437-4bf7-803d-88373ca1b7a1")
+		)
+		(pin "1"
+			(uuid "a5f03426-851e-481e-8248-38761010dd49")
+		)
+		(instances
+			(project ""
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/6707bd5d-ee63-41cb-9104-9e17f512539f"
+					(reference "C12")
 					(unit 1)
 				)
 			)
@@ -7157,6 +7133,76 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:C_Small")
+		(at 198.12 49.53 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d7618012-0002-45df-9d5c-07e76454426f")
+		(property "Reference" "C15"
+			(at 200.66 48.2662 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1u"
+			(at 200.66 50.8062 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+			(at 198.12 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 198.12 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 198.12 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "6c61e455-fe60-496b-b3a7-7f85bd19c7eb")
+		)
+		(pin "1"
+			(uuid "ba235b9f-3e35-4c23-b43a-979fdd7e4a72")
+		)
+		(instances
+			(project ""
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/6707bd5d-ee63-41cb-9104-9e17f512539f"
+					(reference "C15")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:PWR_FLAG")
 		(at 233.68 57.15 0)
 		(unit 1)
@@ -7288,76 +7334,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Polarized_Small_US")
-		(at 219.71 45.72 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "e3f71061-632e-492f-81ca-391f8fd330e1")
-		(property "Reference" "C16"
-			(at 222.25 44.0181 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "10u"
-			(at 222.25 46.5581 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D4.0mm_P2.00mm"
-			(at 219.71 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 219.71 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Polarized capacitor, small US symbol"
-			(at 219.71 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "6124a948-c46c-46bd-b7cb-a36a9f32361f")
-		)
-		(pin "1"
-			(uuid "893b35bc-0700-4627-92e8-3e8082ebd625")
-		)
-		(instances
-			(project "if-2"
-				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/6707bd5d-ee63-41cb-9104-9e17f512539f"
-					(reference "C16")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Connector_Generic:Conn_01x02")
 		(at 57.15 104.14 0)
 		(unit 1)
@@ -7385,7 +7361,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 			(at 57.15 104.14 0)
 			(effects
 				(font
@@ -7496,146 +7472,6 @@
 			(project "if-2"
 				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/6707bd5d-ee63-41cb-9104-9e17f512539f"
 					(reference "JP8")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C_Polarized_Small_US")
-		(at 52.07 45.72 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "f08d8003-a340-47e8-a22e-e5ea0327d078")
-		(property "Reference" "C10"
-			(at 54.61 44.0181 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "10u"
-			(at 54.61 46.5581 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D4.0mm_P2.00mm"
-			(at 52.07 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 52.07 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Polarized capacitor, small US symbol"
-			(at 52.07 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "a1800b7e-2a3c-4b98-9cc7-c5b3adc5453b")
-		)
-		(pin "1"
-			(uuid "165376ec-8c9d-463c-9e47-65578946259d")
-		)
-		(instances
-			(project "if-2"
-				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/6707bd5d-ee63-41cb-9104-9e17f512539f"
-					(reference "C10")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C_Polarized_Small_US")
-		(at 95.25 78.74 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "fab85d03-d62c-4e9d-858e-f7c745f06337")
-		(property "Reference" "C13"
-			(at 97.79 77.0381 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "10u"
-			(at 97.79 79.5781 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D4.0mm_P2.00mm"
-			(at 95.25 78.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 95.25 78.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Polarized capacitor, small US symbol"
-			(at 95.25 78.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "c3c5deda-98f9-4b1d-8efb-aa133367c35e")
-		)
-		(pin "1"
-			(uuid "cc831322-8ad5-42f1-8360-06b5803b0c28")
-		)
-		(instances
-			(project "if-2"
-				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/6707bd5d-ee63-41cb-9104-9e17f512539f"
-					(reference "C13")
 					(unit 1)
 				)
 			)
