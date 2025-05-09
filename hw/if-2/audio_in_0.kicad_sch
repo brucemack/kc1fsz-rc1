@@ -5,8 +5,8 @@
 	(uuid "6344e173-5b46-4c27-8cf3-83bc04928b09")
 	(paper "USLetter")
 	(title_block
-		(title "COS/CTCSS/PTT Controls (Radio 1)")
-		(date "2025-03-18")
+		(title "COS/CTCSS/PTT Controls (Radio 0)")
+		(date "2025-05-09")
 		(rev "2")
 		(company "Bruce MacKinnon KC1FSZ")
 		(comment 1 "Copyright (C) Bruce MacKinnon, 2025")
@@ -1873,6 +1873,12 @@
 		(uuid "41728e3e-52dc-4879-a01d-c57e77ba7e0b")
 	)
 	(junction
+		(at 118.11 73.66)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "477b4bb5-142c-4218-aac4-9b2fd2a25ffd")
+	)
+	(junction
 		(at 78.74 39.37)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1894,7 +1900,7 @@
 		(at 113.03 104.14)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "69a427a6-ecfd-4975-9777-79877df3985b")
+		(uuid "74a7ebf9-1232-477f-bee5-75b48e3073a5")
 	)
 	(junction
 		(at 154.94 106.68)
@@ -1919,12 +1925,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "92f931e6-05e3-417b-b4b8-2374bd634004")
-	)
-	(junction
-		(at 73.66 101.6)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "953fa921-fe70-4b48-9bef-5b4b43475ad4")
 	)
 	(junction
 		(at 177.8 151.13)
@@ -2100,6 +2100,16 @@
 	)
 	(wire
 		(pts
+			(xy 118.11 73.66) (xy 73.66 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "23cd91d6-41e7-48ed-96ff-36c0e5465486")
+	)
+	(wire
+		(pts
 			(xy 154.94 151.13) (xy 157.48 151.13)
 		)
 		(stroke
@@ -2157,6 +2167,16 @@
 			(type default)
 		)
 		(uuid "36bb51c4-e6b4-48e2-9322-aff687b0ecc0")
+	)
+	(wire
+		(pts
+			(xy 113.03 148.59) (xy 118.11 148.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3b134acd-dab4-4677-b274-dc4fec2024ca")
 	)
 	(polyline
 		(pts
@@ -2340,13 +2360,23 @@
 	)
 	(wire
 		(pts
-			(xy 191.77 73.66) (xy 73.66 73.66)
+			(xy 191.77 73.66) (xy 118.11 73.66)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "6c47ad7c-c5a3-43ed-984c-ad4188e2663c")
+	)
+	(wire
+		(pts
+			(xy 118.11 73.66) (xy 118.11 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6e199304-6941-49d8-b1d8-36b1f24ce12c")
 	)
 	(wire
 		(pts
@@ -2398,16 +2428,6 @@
 		)
 		(uuid "7e9b83f3-b088-487a-a17f-2b6fb192ff78")
 	)
-	(wire
-		(pts
-			(xy 113.03 104.14) (xy 118.11 104.14)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "808b6125-6a87-4658-b289-74ddcbe6dccd")
-	)
 	(polyline
 		(pts
 			(xy 211.455 131.445) (xy 211.455 150.495)
@@ -2437,16 +2457,6 @@
 			(type default)
 		)
 		(uuid "8d04f546-a365-4dcd-97bf-6f0c67a6c66e")
-	)
-	(wire
-		(pts
-			(xy 73.66 101.6) (xy 73.66 148.59)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8f3ca88e-23bd-4914-a056-589397ec29d5")
 	)
 	(wire
 		(pts
@@ -2597,16 +2607,6 @@
 			(type default)
 		)
 		(uuid "ae58c170-ff10-4712-a223-e17215d45039")
-	)
-	(wire
-		(pts
-			(xy 73.66 148.59) (xy 118.11 148.59)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "af3de2de-b922-4686-a554-1a81fb84b129")
 	)
 	(wire
 		(pts
@@ -2837,6 +2837,16 @@
 			(type default)
 		)
 		(uuid "f1565e04-d9e2-4f7e-9f8b-9ae5c9fb74b9")
+	)
+	(wire
+		(pts
+			(xy 113.03 104.14) (xy 113.03 148.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f47a2cf3-3faa-4a9e-90d2-27de7ea3ebbc")
 	)
 	(wire
 		(pts

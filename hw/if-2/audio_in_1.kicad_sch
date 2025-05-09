@@ -6,7 +6,7 @@
 	(paper "USLetter")
 	(title_block
 		(title "COS/CTCSS/PTT Controls (Radio 1)")
-		(date "2025-03-18")
+		(date "2025-05-09")
 		(rev "2")
 		(company "Bruce MacKinnon KC1FSZ")
 		(comment 1 "Copyright (C) Bruce MacKinnon, 2025")
@@ -1844,10 +1844,10 @@
 		(uuid "f49168af-59c6-4cf3-ad11-ae16b5cd72b1")
 	)
 	(junction
-		(at 67.31 100.33)
+		(at 111.76 72.39)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "0443194b-8058-4566-a7bf-f8a5cbe1eba6")
+		(uuid "193821a3-35ec-4296-bbbf-6f1157a97c2a")
 	)
 	(junction
 		(at 171.45 105.41)
@@ -1922,12 +1922,6 @@
 		(uuid "6ddea9a7-b477-4527-9098-01823983d7aa")
 	)
 	(junction
-		(at 106.68 102.87)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "799c3e3b-1a02-4e52-992a-44543a3be1a2")
-	)
-	(junction
 		(at 148.59 149.86)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1964,6 +1958,12 @@
 		(uuid "d3fd6520-59ef-4139-941a-f89b0ea089c4")
 	)
 	(junction
+		(at 106.68 102.87)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "deded031-c0f9-49ae-82e4-d595b5b63c77")
+	)
+	(junction
 		(at 171.45 149.86)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1990,6 +1990,16 @@
 			(type default)
 		)
 		(uuid "01c49325-1b76-4cab-99f6-8a646eea4494")
+	)
+	(wire
+		(pts
+			(xy 106.68 102.87) (xy 106.68 147.32)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0634a5c4-2e2a-4271-9959-248bdf3d9690")
 	)
 	(wire
 		(pts
@@ -2080,16 +2090,6 @@
 			(type default)
 		)
 		(uuid "22969157-460d-4a2e-94f7-dfff807e5182")
-	)
-	(wire
-		(pts
-			(xy 67.31 100.33) (xy 67.31 147.32)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "23a1cfa9-3bc3-4880-9bc9-b42ae598c2ce")
 	)
 	(wire
 		(pts
@@ -2313,6 +2313,26 @@
 	)
 	(wire
 		(pts
+			(xy 111.76 72.39) (xy 111.76 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5c471522-9b12-4a9b-a533-c43e3f393524")
+	)
+	(wire
+		(pts
+			(xy 111.76 72.39) (xy 67.31 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5e2b74ec-210e-4206-8b92-bff1271b6a8b")
+	)
+	(wire
+		(pts
 			(xy 158.75 46.99) (xy 162.56 46.99)
 		)
 		(stroke
@@ -2330,6 +2350,16 @@
 			(type default)
 		)
 		(uuid "63da57ba-bc08-4e31-9c9f-36739f135dce")
+	)
+	(wire
+		(pts
+			(xy 106.68 147.32) (xy 111.76 147.32)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "67482992-2267-4878-b721-a3e6b7e7e648")
 	)
 	(wire
 		(pts
@@ -2703,16 +2733,6 @@
 	)
 	(wire
 		(pts
-			(xy 67.31 147.32) (xy 111.76 147.32)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d7fa8128-a12b-46ad-a0b6-9a533b9b5d0c")
-	)
-	(wire
-		(pts
 			(xy 67.31 100.33) (xy 71.12 100.33)
 		)
 		(stroke
@@ -2763,7 +2783,7 @@
 	)
 	(wire
 		(pts
-			(xy 185.42 72.39) (xy 67.31 72.39)
+			(xy 185.42 72.39) (xy 111.76 72.39)
 		)
 		(stroke
 			(width 0)
@@ -2840,16 +2860,6 @@
 			(type default)
 		)
 		(uuid "f70d3448-8a11-42ee-86c8-03776af59b39")
-	)
-	(wire
-		(pts
-			(xy 106.68 102.87) (xy 111.76 102.87)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f7ed6936-492e-47ea-90ee-fed1a54d2bc5")
 	)
 	(wire
 		(pts

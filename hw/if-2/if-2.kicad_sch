@@ -5,8 +5,8 @@
 	(uuid "a8c2d6aa-29bb-49bd-a367-0d62a0a32480")
 	(paper "USLetter")
 	(title_block
-		(title "COS/CTCSS/PTT Controls (Radio 1)")
-		(date "2025-03-18")
+		(title "Title Page")
+		(date "2025-05-09")
 		(rev "2")
 		(company "Bruce MacKinnon KC1FSZ")
 		(comment 1 "Copyright (C) Bruce MacKinnon, 2025")
