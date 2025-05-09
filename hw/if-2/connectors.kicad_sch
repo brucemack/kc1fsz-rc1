@@ -3736,7 +3736,7 @@
 	)
 	(global_label "DAC_DIN"
 		(shape input)
-		(at 176.53 69.85 180)
+		(at 176.53 64.77 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3746,7 +3746,7 @@
 		)
 		(uuid "94b442aa-137d-48ec-85a0-8203371f64d2")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 165.7433 69.85 0)
+			(at 165.7433 64.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3780,7 +3780,7 @@
 	)
 	(global_label "DAC_SCK"
 		(shape input)
-		(at 190.5 62.23 180)
+		(at 176.53 69.85 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3790,7 +3790,7 @@
 		)
 		(uuid "9949f5de-340e-4b5d-adbf-019f642c14f3")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 179.1691 62.23 0)
+			(at 165.1991 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3956,7 +3956,7 @@
 	)
 	(global_label "DAC_LRCK"
 		(shape input)
-		(at 176.53 64.77 180)
+		(at 190.5 62.23 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3966,7 +3966,7 @@
 		)
 		(uuid "f8aee841-f9ad-4f08-8847-3848a8af39dd")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 164.1105 64.77 0)
+			(at 178.0805 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
