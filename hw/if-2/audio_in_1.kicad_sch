@@ -4568,7 +4568,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8505000d-0512-4fd0-acc6-4e2ef92d6737")
-		(property "Reference" "TP62"
+		(property "Reference" "TP5"
 			(at 173.99 138.9379 0)
 			(effects
 				(font
@@ -4619,7 +4619,7 @@
 		(instances
 			(project "if-2"
 				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/bbe47db2-4e3f-4928-a954-056c7fb1570e"
-					(reference "TP62")
+					(reference "TP5")
 					(unit 1)
 				)
 			)
@@ -5695,7 +5695,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c893dfae-cfc2-451f-9378-78f9667b9969")
-		(property "Reference" "TP61"
+		(property "Reference" "TP4"
 			(at 173.99 97.0279 0)
 			(effects
 				(font
@@ -5746,7 +5746,7 @@
 		(instances
 			(project "if-2"
 				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/bbe47db2-4e3f-4928-a954-056c7fb1570e"
-					(reference "TP61")
+					(reference "TP4")
 					(unit 1)
 				)
 			)

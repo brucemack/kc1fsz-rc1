@@ -5429,7 +5429,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b616f0e7-7c8e-4ca7-be31-b5720d2dea34")
-		(property "Reference" "TP41"
+		(property "Reference" "TP2"
 			(at 180.34 98.2979 0)
 			(effects
 				(font
@@ -5480,7 +5480,7 @@
 		(instances
 			(project ""
 				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/a2980c2e-73f3-4531-bb7f-6a925a36f430"
-					(reference "TP41")
+					(reference "TP2")
 					(unit 1)
 				)
 			)
@@ -6304,7 +6304,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f056e55b-8ae0-4b6d-afd0-411de781a4ca")
-		(property "Reference" "TP42"
+		(property "Reference" "TP3"
 			(at 180.34 140.2079 0)
 			(effects
 				(font
@@ -6355,7 +6355,7 @@
 		(instances
 			(project "if-2"
 				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/a2980c2e-73f3-4531-bb7f-6a925a36f430"
-					(reference "TP42")
+					(reference "TP3")
 					(unit 1)
 				)
 			)
