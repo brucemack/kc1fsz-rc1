@@ -2937,7 +2937,7 @@
 			)
 		)
 	)
-	(global_label "R0_VCOM"
+	(global_label "R1_VCOM"
 		(shape input)
 		(at 132.08 152.4 180)
 		(fields_autoplaced yes)
@@ -2981,7 +2981,7 @@
 			)
 		)
 	)
-	(global_label "R0_VCOM"
+	(global_label "R1_VCOM"
 		(shape input)
 		(at 132.08 107.95 180)
 		(fields_autoplaced yes)
