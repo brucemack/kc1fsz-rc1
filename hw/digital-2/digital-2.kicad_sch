@@ -1,0 +1,140 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "ae78e9b9-9814-4a08-a50e-9313b5a684ff")
+	(paper "A4")
+	(lib_symbols)
+	(sheet
+		(at 36.83 33.02)
+		(size 33.02 31.75)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "50bc9b1a-b05e-4f42-89d2-9973ed2c2a8f")
+		(property "Sheetname" "Connectors"
+			(at 36.83 32.3084 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "connectors.kicad_sch"
+			(at 36.83 65.3546 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "digital-2"
+				(path "/ae78e9b9-9814-4a08-a50e-9313b5a684ff"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 115.57 33.02)
+		(size 26.035 31.115)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "907942c1-dc65-466b-ad26-0bf190a48cc3")
+		(property "Sheetname" "User Interface"
+			(at 115.57 32.3084 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "ui.kicad_sch"
+			(at 115.57 64.7196 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "digital-2"
+				(path "/ae78e9b9-9814-4a08-a50e-9313b5a684ff"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 80.01 33.02)
+		(size 30.48 31.75)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "fd063e56-decc-4d35-bde1-3529c411e91d")
+		(property "Sheetname" "Controller"
+			(at 80.01 32.3084 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "controller.kicad_sch"
+			(at 80.01 65.3546 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "digital-2"
+				(path "/ae78e9b9-9814-4a08-a50e-9313b5a684ff"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
+)
