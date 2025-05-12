@@ -1700,7 +1700,7 @@
 	)
 	(text "Approximately 2.5V\n"
 		(exclude_from_sim no)
-		(at 141.732 55.118 0)
+		(at 119.888 54.356 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1833,7 +1833,7 @@
 		)
 		(uuid "e81c6519-b8cf-441f-8818-1ddbab8ff98b")
 	)
-	(text "Audio Input Buffer\n(See page 4 of SCOM7K schematic)\nGain=5x"
+	(text "Audio Input Buffer\nGain=5x"
 		(exclude_from_sim no)
 		(at 141.478 66.294 0)
 		(effects
@@ -1926,6 +1926,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "7fbd2e3c-b7f8-4b55-bf9d-d81949a9aa05")
+	)
+	(junction
+		(at 138.43 49.53)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8cdd6d7a-7767-4323-8e2a-3146e7682809")
 	)
 	(junction
 		(at 129.54 102.87)
@@ -2120,6 +2126,16 @@
 			(type default)
 		)
 		(uuid "2bb24196-375e-4282-9f84-c611e867bbd0")
+	)
+	(wire
+		(pts
+			(xy 76.2 105.41) (xy 86.36 105.41)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2e1a733c-5974-4f16-b097-e96fc103720b")
 	)
 	(wire
 		(pts
@@ -2563,6 +2579,26 @@
 	)
 	(wire
 		(pts
+			(xy 124.46 49.53) (xy 138.43 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a5961ed4-58d4-4521-a827-432d32ca7c36")
+	)
+	(wire
+		(pts
+			(xy 138.43 49.53) (xy 143.51 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a655737d-4f37-4bcc-bee2-c009d3955da6")
+	)
+	(wire
+		(pts
 			(xy 162.56 35.56) (xy 162.56 46.99)
 		)
 		(stroke
@@ -2871,6 +2907,16 @@
 		)
 		(uuid "f9e95913-dc38-4e1f-a59f-89149b3864eb")
 	)
+	(wire
+		(pts
+			(xy 138.43 49.53) (xy 138.43 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fc43e50b-7367-4268-88b0-fa6c6190a85b")
+	)
 	(global_label "R1_AUDIO_IN"
 		(shape input)
 		(at 46.99 38.1 180)
@@ -2961,7 +3007,7 @@
 	)
 	(global_label "VBIAS"
 		(shape input)
-		(at 86.36 105.41 180)
+		(at 76.2 105.41 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2971,7 +3017,7 @@
 		)
 		(uuid "c4368ac0-16a2-4e11-a2d9-9a2c3761923a")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 78.1133 105.41 0)
+			(at 67.9533 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3005,7 +3051,7 @@
 	)
 	(global_label "VBIAS"
 		(shape input)
-		(at 143.51 49.53 180)
+		(at 124.46 49.53 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3015,7 +3061,7 @@
 		)
 		(uuid "efe27179-5660-4ee5-a685-cd77f0d074c8")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 135.2633 49.53 0)
+			(at 116.2133 49.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3368,6 +3414,72 @@
 			(project "if-2"
 				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/bbe47db2-4e3f-4928-a954-056c7fb1570e"
 					(reference "R74")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 138.43 57.15 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0f805515-ac77-47b5-aec3-ea0442658e83")
+		(property "Reference" "#PWR0158"
+			(at 138.43 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 138.43 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 138.43 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 138.43 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 138.43 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5ff966ba-3a30-4192-aa9f-b9ea87a48836")
+		)
+		(instances
+			(project "if-2"
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/bbe47db2-4e3f-4928-a954-056c7fb1570e"
+					(reference "#PWR0158")
 					(unit 1)
 				)
 			)
@@ -6373,6 +6485,76 @@
 			(project "if-2"
 				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/bbe47db2-4e3f-4928-a954-056c7fb1570e"
 					(reference "RV61")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C_Small")
+		(at 138.43 54.61 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f88c057e-6f1f-4833-b975-c9530128bdba")
+		(property "Reference" "C58"
+			(at 140.97 53.3462 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1u"
+			(at 140.97 55.8862 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+			(at 138.43 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 138.43 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 138.43 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5d934ff7-86ed-4347-bc52-36b72f6e96c8")
+		)
+		(pin "2"
+			(uuid "f94aebb9-273b-49ff-8435-5d13922998ec")
+		)
+		(instances
+			(project "if-2"
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/bbe47db2-4e3f-4928-a954-056c7fb1570e"
+					(reference "C58")
 					(unit 1)
 				)
 			)
