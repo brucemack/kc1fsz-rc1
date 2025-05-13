@@ -5,6 +5,179 @@
 	(uuid "617ed04e-9fe1-4eb2-996a-48611255ad6a")
 	(paper "A4")
 	(lib_symbols
+		(symbol "Device:R_US"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 2.54 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "R_US"
+				(at -2.54 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 1.016 -0.254 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Resistor, US symbol"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "R_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "R_US_0_1"
+				(polyline
+					(pts
+						(xy 0 2.286) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.286) (xy 1.016 1.905) (xy 0 1.524) (xy -1.016 1.143) (xy 0 0.762)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0.762) (xy 1.016 0.381) (xy 0 0) (xy -1.016 -0.381) (xy 0 -0.762)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -0.762) (xy 1.016 -1.143) (xy 0 -1.524) (xy -1.016 -1.905) (xy 0 -2.286)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -2.286) (xy 0 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_US_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "MCU_Module:RaspberryPi_Pico_Debug"
 			(pin_names
 				(offset 0.762)
@@ -1306,12 +1479,40 @@
 		)
 	)
 	(no_connect
+		(at 228.6 97.79)
+		(uuid "22909b0a-6e9b-4ec3-af53-5754d4c9b171")
+	)
+	(no_connect
+		(at 210.82 57.15)
+		(uuid "4a98e382-7470-464b-9524-de38aa62aebe")
+	)
+	(no_connect
+		(at 228.6 92.71)
+		(uuid "5036e2c0-d59e-460d-9f39-025582934ce9")
+	)
+	(no_connect
 		(at 228.6 102.87)
 		(uuid "50845de3-41f5-450d-91ed-3321ce5b406a")
 	)
 	(no_connect
+		(at 228.6 95.25)
+		(uuid "6209e33c-da3f-44a5-ae3b-4fd620f3a4b0")
+	)
+	(no_connect
 		(at 182.88 72.39)
 		(uuid "63904b48-abe0-4888-909d-0e7ee637fd73")
+	)
+	(no_connect
+		(at 228.6 90.17)
+		(uuid "69b3338b-a449-4254-b3f8-6c3a40effb94")
+	)
+	(no_connect
+		(at 228.6 107.95)
+		(uuid "6bb6e7de-8c6c-484a-87ec-39a6404d4d0e")
+	)
+	(no_connect
+		(at 228.6 110.49)
+		(uuid "831d4ef0-c1a7-4d15-b9e0-9505ed8e8105")
 	)
 	(no_connect
 		(at 182.88 74.93)
@@ -1320,6 +1521,14 @@
 	(no_connect
 		(at 228.6 118.11)
 		(uuid "d89d1842-6d22-44bd-abb3-53b1cb6a9a28")
+	)
+	(no_connect
+		(at 205.74 57.15)
+		(uuid "f62cc924-ddd3-4696-982c-049b937a91b2")
+	)
+	(no_connect
+		(at 228.6 113.03)
+		(uuid "f9946c1b-5598-4557-a134-9edcf8373dd9")
 	)
 	(wire
 		(pts
@@ -1330,6 +1539,16 @@
 			(type default)
 		)
 		(uuid "01772dff-f934-4fa1-a7a5-810031ad8899")
+	)
+	(wire
+		(pts
+			(xy 228.6 87.63) (xy 255.27 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "01cdbf39-5312-45c9-9aae-85b92f8bc106")
 	)
 	(wire
 		(pts
@@ -1403,6 +1622,26 @@
 	)
 	(wire
 		(pts
+			(xy 113.03 85.09) (xy 182.88 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "49614305-d424-49a9-8775-d75849898708")
+	)
+	(wire
+		(pts
+			(xy 125.73 87.63) (xy 182.88 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6a7e4eb8-d053-4c43-baae-5629fa709080")
+	)
+	(wire
+		(pts
 			(xy 149.86 90.17) (xy 182.88 90.17)
 		)
 		(stroke
@@ -1470,6 +1709,16 @@
 			(type default)
 		)
 		(uuid "cd9fdcd6-d3cd-48bf-b4c6-a5ef42300211")
+	)
+	(wire
+		(pts
+			(xy 255.27 111.76) (xy 255.27 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e970f816-f4b4-4983-a1aa-2bd64fbc3c6e")
 	)
 	(wire
 		(pts
@@ -1556,6 +1805,28 @@
 		(uuid "2c543f17-522d-4f59-9fe1-918715db0c33")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 127.4015 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "LED0"
+		(shape input)
+		(at 255.27 119.38 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "3ec9150c-6e3e-42d7-979a-6ab1396add9b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 255.27 127.0218 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1807,6 +2078,28 @@
 			)
 		)
 	)
+	(global_label "I2C_SCL"
+		(shape input)
+		(at 125.73 87.63 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "b5516adf-3dcc-47b4-8e20-f2ee4a6ae6d4")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 115.1853 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "R0_COS_B"
 		(shape input)
 		(at 151.13 115.57 180)
@@ -1869,6 +2162,28 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "I2C_SDA"
+		(shape input)
+		(at 113.03 85.09 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "efbb8951-3c0b-4fc5-a14f-d1ae17f88a8d")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 102.4248 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -1978,6 +2293,74 @@
 			(project ""
 				(path "/ae78e9b9-9814-4a08-a50e-9313b5a684ff/fd063e56-decc-4d35-bde1-3529c411e91d"
 					(reference "#PWR01")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_US")
+		(at 255.27 115.57 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "6014ded8-9cb9-4a6b-90c2-abd9f1ec1ed8")
+		(property "Reference" "R1"
+			(at 261.62 115.57 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "220"
+			(at 259.08 115.57 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
+			(at 256.286 115.824 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 255.27 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, US symbol"
+			(at 255.27 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a2f30b8d-4fed-4b7d-a5c5-1dc97e9759d7")
+		)
+		(pin "2"
+			(uuid "146fb2a6-fb42-43d6-bff5-4ca082e662a0")
+		)
+		(instances
+			(project ""
+				(path "/ae78e9b9-9814-4a08-a50e-9313b5a684ff/fd063e56-decc-4d35-bde1-3529c411e91d"
+					(reference "R1")
 					(unit 1)
 				)
 			)
