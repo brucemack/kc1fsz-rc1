@@ -1,3 +1,18 @@
+Function List
+=============
+
+Functions
+* CTCSS/PL tone detection. 
+
+
+Parameters
+
+CTCSS Tone Notes
+================
+
+88.5 Hz = 11ms.  So 
+
+
 Build/Debug Commands
 ====================
 
@@ -23,8 +38,46 @@ Flash code to board:
 
 REMOVED: -c "rp2040.dap.core1 cortex_m reset_config sysresetreq"
 
-Wiring Notes
-============
+Wiring Notes (Revision B)
+=========================
+
+Pico 2 Pinout Notes
+```
+GP0  - (Reserved for UART0 TX)
+GP1  - (Reserved for UART0 RX)
+
+GP2  - I2C SDA
+GP3  - I2C SCL
+GP4  - I2S SCK out to PCM1804 ADC and PCM5100 DAC
+GP5  - RST out to PCM1804 ADC
+
+GP6  - I2S DIN in from PC1804 ADC
+GP7  - I2S BCK out to PC1804 ADC
+GP8  - I2S LRCK out to PC1804 ADC
+GP9  - I2S DOUT out to PCM5100 DAC
+
+GP10 - I2S BCK out to PCM5100 DAC
+GP11 - I2S LRCK out to PCM5100 DAC
+GP12 - Radio 0 PTT Out
+GP13 - Radio 0 CTCSS In
+GP14 - Radio 0 COS In
+GP15 - Radio 1 PTT Out
+GP16 - Radio 1 CTCSS In
+GP17 - Radio 1 COS In
+
+GP18 - LED0 Out
+GP19 - X
+GP20 - X
+GP21 - X
+
+GP22 - X
+GP26 - X
+GP27 - X
+GP28 - X
+```
+
+Wiring Notes (Revision A)
+=========================
 
 Pico Module:
 * GP0  - (Reserved for UART0 TX)
@@ -64,7 +117,7 @@ Audio Module:
 * J1:1 -> +5V
 * J1:2 -> GND
 
-Tone Notes
-==========
+GPIO Tone Generation Notes
+==========================
 
 The tone output must be low-pass filtered.  See the [RP2040 hardware design guide](https://datasheets.raspberrypi.com/rp2040/hardware-design-with-rp2040.pdf) on page 24 for an example circuit.
