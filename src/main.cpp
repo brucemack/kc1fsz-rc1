@@ -37,6 +37,7 @@ Command used to load code onto the board:
 #include "hardware/timer.h"
 #include "hardware/irq.h"
 
+#include "kc1fsz-tools/Log.h"
 #include "kc1fsz-tools/rp2040/PicoPollTimer.h"
 #include "kc1fsz-tools/rp2040/PicoPerfTimer.h"
 #include "kc1fsz-tools/rp2040/PicoClock.h"
@@ -66,13 +67,19 @@ int main(int argc, const char** argv) {
 
     int strobe = 0;
     
+    Log log;
+
     // Display/diagnostic should happen once per second
     PicoPollTimer flashTimer;
     flashTimer.setIntervalUs(1000 * 1000);
 
     PicoClock clock;
-    TestTx tx(clock);
-    TxControl txCtl(clock, tx);
+    TestTx tx(clock, log);
+    TxControl txCtl(clock, log, tx);
+
+    TestRx rx(clock);
+
+    txCtl.setRx(0, &rx);
 
     // ===== Main Event Loop =================================================
 
@@ -85,11 +92,12 @@ int main(int argc, const char** argv) {
 
         // Do periodic display/diagnostic stuff
         if (flashTimer.poll()) {
-            printf("Flash\n");
+            //printf("Flash\n");
         }
 
         // Run all components
         tx.run();
+        rx.run();
         txCtl.run();
     }
 }

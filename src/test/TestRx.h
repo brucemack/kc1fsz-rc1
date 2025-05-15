@@ -12,11 +12,13 @@ public:
     TestRx(Clock& clock);
 
     virtual void run();
-    virtual bool isActive() const { return false; }
+    virtual bool isActive() const { return _active; }
 
 private:
 
     Clock& _clock;
+    uint32_t _startTime;
+    bool _active = false;
 };
 
 }
