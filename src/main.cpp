@@ -67,21 +67,24 @@ int main(int argc, const char** argv) {
 
     int strobe = 0;
     
-    Log log;
+    PicoClock clock;
+    clock.setScale(10);
+    Log log(&clock);
 
     // Display/diagnostic should happen once per second
     PicoPollTimer flashTimer;
     flashTimer.setIntervalUs(1000 * 1000);
 
-    PicoClock clock;
     TestTx tx(clock, log);
     TxControl txCtl(clock, log, tx);
 
-    TestRx rx(clock);
+    TestRx rx(clock, log);
 
     txCtl.setRx(0, &rx);
 
     // ===== Main Event Loop =================================================
+
+    int i = 0;
 
     while (true) { 
         
@@ -92,7 +95,8 @@ int main(int argc, const char** argv) {
 
         // Do periodic display/diagnostic stuff
         if (flashTimer.poll()) {
-            //printf("Flash\n");
+            //printf("Flash %d\n", i);
+            i++;
         }
 
         // Run all components

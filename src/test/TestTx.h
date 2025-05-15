@@ -19,6 +19,7 @@ private:
 
     Clock& _clock;
     Log& _log;
+    bool _keyed = false;
 };
 
 }

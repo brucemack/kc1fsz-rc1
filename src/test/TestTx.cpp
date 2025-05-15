@@ -8,12 +8,14 @@ TestTx::TestTx(Clock& clock, Log& log)
 }
 
 void TestTx::setPtt(bool ptt) {
-    if (ptt) {
-        _log.info("Transmitter keyed");
-    } else {
-        _log.info("Transmitter unkeyed");
+    if (ptt != _keyed)
+        if (ptt) {
+            _log.info("Transmitter keyed");
+        } else {
+            _log.info("Transmitter unkeyed");
 
-    }
+        }
+    _keyed = ptt;
 }
 
 void TestTx::run() {   

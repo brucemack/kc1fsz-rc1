@@ -12,6 +12,12 @@ CTCSS Tone Notes
 
 88.5 Hz = 11ms.  So 
 
+Relevant Rules
+==============
+
+FCC Section 97.119 Station identification
+
+(a) Each amateur station, except a space station or telecommand station, must transmit its assigned call sign on its transmitting channel at the end of each communication, and at least every 10 minutes during a communication, for the purpose of clearly making the source of the transmissions from the station known to those receiving the transmissions. No station may transmit unidentified communications or signals, or transmit as the station call sign, any call sign not authorized to the station.
 
 Build/Debug Commands
 ====================
