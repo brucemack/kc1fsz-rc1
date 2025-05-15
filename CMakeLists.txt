@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 17)
 pico_sdk_init()
 
 add_executable(main
-  main.cpp
+  src/main.cpp
   kc1fsz-tools-cpp/src/rp2040/PicoPollTimer.cpp
   kc1fsz-tools-cpp/src/rp2040/PicoPerfTimer.cpp
 )
@@ -29,3 +29,4 @@ add_executable(dtmf-test-1
 ) 
 target_compile_options(dtmf-test-1 PRIVATE -fstack-protector-all -Wall -Wpedantic -g)
 target_include_directories(dtmf-test-1 PRIVATE kc1fsz-tools-cpp/include)
+
