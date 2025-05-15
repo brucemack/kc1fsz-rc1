@@ -1,0 +1,818 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "a8c2d6aa-29bb-49bd-a367-0d62a0a32480")
+	(paper "USLetter")
+	(title_block
+		(title "Digital Repeater Controller")
+		(date "2025-05-13")
+		(rev "2")
+		(company "Bruce MacKinnon KC1FSZ")
+		(comment 1 "Copyright (C) Bruce MacKinnon, 2025")
+		(comment 2 "NOT FOR COMMERCIAL USE")
+	)
+	(lib_symbols
+		(symbol "Mechanical:MountingHole"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim yes)
+			(in_bom no)
+			(on_board yes)
+			(property "Reference" "H"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "MountingHole"
+				(at 0 3.175 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Mounting Hole without connection"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "mounting hole"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "MountingHole*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "MountingHole_0_1"
+				(circle
+					(center 0 0)
+					(radius 1.27)
+					(stroke
+						(width 1.27)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	)
+	(text "Copyright (C) Bruce MacKinnon KC1FSZ, 2025\n\nThis design is licensed under the terms of the TAPR Open Hardware License (OHL) and\nis intended for AMATEUR RADIO USE ONLY. Commercial use of this design is prohibited."
+		(exclude_from_sim no)
+		(at 18.034 29.464 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 255 4 4 1)
+			)
+			(justify left)
+		)
+		(uuid "2b23b60d-a834-496a-b999-59decd1a0f3c")
+	)
+	(text "Digital Repeater Controller V2 - Radio Interface Board"
+		(exclude_from_sim no)
+		(at 71.374 21.082 0)
+		(effects
+			(font
+				(size 2.54 2.54)
+				(thickness 0.508)
+				(bold yes)
+			)
+		)
+		(uuid "9bf73f05-6a22-4c1e-a381-ef7da0213a95")
+	)
+	(text "NOTES:\n* This is an analog board that interfaces with two radios. A separate digital board based on the RP2040 is also required. A ribbon cable\n  connects the two boards.\n* The goal of this design is to do as little as possible in hardware.\n* Many things that usually happen in hardware (or FPGA) will happen in software:\n  - Audio routing between the two radios will happen in software.\n  - Audio pre-emphasis/de-emphasis (if needed) will happen using DSP using digital filters.\n  - CTCSS decoding (if needed) will happen in DSP.\n  - CTCSS encoding (if needed) will happen in DSP.\n  - DTMF decoding will happen in DSP.\n  - CWID and other tone prompts will happen in DSP/software.\n  - Voice IDs will happen in DSP/software.\n  - Other digital audio interfaces like EchoLink (or DMR/D-Star in the future) will be directly integrated.\n\n"
+		(exclude_from_sim no)
+		(at 18.034 49.276 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "c6d0a3b9-3d32-47ff-994b-f93ae4d37f57")
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 133.35 186.69 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1df1a525-297f-4be1-a059-1fe28c4ff5d8")
+		(property "Reference" "H3"
+			(at 135.89 185.4199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 135.89 187.9599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.5mm"
+			(at 133.35 186.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 133.35 186.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 133.35 186.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "if-2"
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480"
+					(reference "H3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 133.35 180.34 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5623c838-2eee-494f-9260-453f06c02eb6")
+		(property "Reference" "H2"
+			(at 135.89 179.0699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 135.89 181.6099 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.5mm"
+			(at 133.35 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 133.35 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 133.35 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "if-2"
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480"
+					(reference "H2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 133.35 193.04 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c652f3d1-5750-4030-b2f4-15381a109391")
+		(property "Reference" "H4"
+			(at 135.89 191.7699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 135.89 194.3099 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.5mm"
+			(at 133.35 193.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 133.35 193.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 133.35 193.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "if-2"
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480"
+					(reference "H4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 133.35 173.99 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "cc95a833-6959-4edb-8048-99cb34a7eb05")
+		(property "Reference" "H1"
+			(at 135.89 172.7199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 135.89 175.2599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.5mm"
+			(at 133.35 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 133.35 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 133.35 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project ""
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480"
+					(reference "H1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(sheet
+		(at 158.115 109.22)
+		(size 24.13 22.86)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "34b2b7e3-3a7b-4c6a-8d8d-e895b4fba2b7")
+		(property "Sheetname" "Audio Out 1"
+			(at 158.115 108.5084 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "audio_out_1.kicad_sch"
+			(at 158.115 132.6646 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "if-2"
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480"
+					(page "8")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 131.445 109.22)
+		(size 22.225 22.86)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "44344ba6-1370-4a77-ab96-dbf60268a0b4")
+		(property "Sheetname" "Audio Out 0"
+			(at 131.445 108.5084 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "audio_out_0.kicad_sch"
+			(at 131.445 132.6646 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "if-2"
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480"
+					(page "7")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 77.47 109.855)
+		(size 24.13 22.86)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "6707bd5d-ee63-41cb-9104-9e17f512539f")
+		(property "Sheetname" "ADC"
+			(at 77.47 109.1434 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "adc.kicad_sch"
+			(at 77.47 133.2996 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "if-2"
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480"
+					(page "5")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 19.05 109.22)
+		(size 24.765 22.86)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "a2980c2e-73f3-4531-bb7f-6a925a36f430")
+		(property "Sheetname" "Audio In 0"
+			(at 19.05 108.5084 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "audio_in_0.kicad_sch"
+			(at 19.05 132.6646 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "if-2"
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 213.36 109.22)
+		(size 24.13 22.86)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "aaca03b7-1394-4a9e-b9db-1ef93c5c7c02")
+		(property "Sheetname" "Controls 1"
+			(at 213.36 108.5084 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "controls_1.kicad_sch"
+			(at 213.36 132.6646 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "if-2"
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480"
+					(page "10")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 46.355 109.22)
+		(size 24.765 22.86)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "bbe47db2-4e3f-4928-a954-056c7fb1570e")
+		(property "Sheetname" "Audio In 1"
+			(at 46.355 108.5084 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "audio_in_1.kicad_sch"
+			(at 46.355 132.6646 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "if-2"
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 62.865 142.24)
+		(size 22.86 22.86)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "d1654b22-6004-4416-89b1-96259d57a19f")
+		(property "Sheetname" "Power"
+			(at 62.865 141.5284 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "power.kicad_sch"
+			(at 62.865 165.6846 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "if-2"
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480"
+					(page "11")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 19.05 141.605)
+		(size 24.765 20.32)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "d264813b-cbb1-4d95-8ad4-d43dc0883cab")
+		(property "Sheetname" "Connectors"
+			(at 19.05 140.8934 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "connectors.kicad_sch"
+			(at 19.05 162.5096 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "if-2"
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 107.315 109.22)
+		(size 19.05 22.86)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "d8f56474-e9c0-4b9a-887f-34149e177022")
+		(property "Sheetname" "DAC"
+			(at 107.315 108.5084 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "dac.kicad_sch"
+			(at 107.315 132.6646 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "if-2"
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480"
+					(page "6")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 186.69 109.22)
+		(size 23.495 22.86)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "dfb1fd4a-a237-487e-a7e8-10401a602072")
+		(property "Sheetname" "Controls 0"
+			(at 186.69 108.5084 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "controls_0.kicad_sch"
+			(at 186.69 132.6646 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "if-2"
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480"
+					(page "9")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
+)

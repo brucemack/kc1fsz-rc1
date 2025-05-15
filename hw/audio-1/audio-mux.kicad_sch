@@ -1,7 +1,7 @@
 (kicad_sch
-	(version 20231120)
+	(version 20250114)
 	(generator "eeschema")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(uuid "62adc25a-dd16-473d-9d76-01f6f371f951")
 	(paper "USLetter")
 	(title_block
@@ -15,9 +15,13 @@
 	(lib_symbols
 		(symbol "power:+5V"
 			(power)
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -89,7 +93,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 0) (xy 0 2.54)
+						(xy 0 2.54) (xy 0.762 1.27)
 					)
 					(stroke
 						(width 0)
@@ -101,7 +105,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 2.54) (xy 0.762 1.27)
+						(xy 0 0) (xy 0 2.54)
 					)
 					(stroke
 						(width 0)
@@ -132,12 +136,17 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:GND"
 			(power)
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -228,6 +237,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "symbol-library-1:SN74LVC1G3157DBVR"
 			(pin_names
@@ -310,18 +320,6 @@
 			(symbol "SN74LVC1G3157DBVR_0_1"
 				(polyline
 					(pts
-						(xy 7.62 -10.16) (xy 48.26 -10.16)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
 						(xy 7.62 5.08) (xy 7.62 -10.16)
 					)
 					(stroke
@@ -334,7 +332,7 @@
 				)
 				(polyline
 					(pts
-						(xy 48.26 -10.16) (xy 48.26 5.08)
+						(xy 7.62 -10.16) (xy 48.26 -10.16)
 					)
 					(stroke
 						(width 0.127)
@@ -347,6 +345,18 @@
 				(polyline
 					(pts
 						(xy 48.26 5.08) (xy 7.62 5.08)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 48.26 -10.16) (xy 48.26 5.08)
 					)
 					(stroke
 						(width 0.127)
@@ -411,16 +421,16 @@
 					)
 				)
 				(pin input line
-					(at 55.88 -5.08 180)
+					(at 55.88 0 180)
 					(length 7.62)
-					(name "A"
+					(name "S"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "4"
+					(number "6"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -447,16 +457,16 @@
 					)
 				)
 				(pin input line
-					(at 55.88 0 180)
+					(at 55.88 -5.08 180)
 					(length 7.62)
-					(name "S"
+					(name "A"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "6"
+					(number "4"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -465,6 +475,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 	)
 	(junction
