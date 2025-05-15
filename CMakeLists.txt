@@ -10,6 +10,9 @@ add_executable(main
   src/main.cpp
   src/Tx.cpp
   src/TxControl.cpp
+  src/Rx.cpp
+  src/test/TestTx.cpp
+  src/test/TestRx.cpp
   kc1fsz-tools-cpp/src/rp2040/PicoPollTimer.cpp
   kc1fsz-tools-cpp/src/rp2040/PicoPerfTimer.cpp
 )
@@ -18,7 +21,7 @@ pico_enable_stdio_usb(main 1)
 pico_enable_stdio_uart(main 1)
 
 target_include_directories(main PRIVATE kc1fsz-tools-cpp/include)
-#target_include_directories(main PRIVATE src)
+target_include_directories(main PRIVATE src)
 target_link_libraries(main pico_stdlib hardware_i2c hardware_clocks hardware_pwm)
 
 # ------ dtmf-test-1 ---------------------------------------------------------

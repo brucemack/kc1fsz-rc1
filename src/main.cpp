@@ -41,7 +41,8 @@ Command used to load code onto the board:
 #include "kc1fsz-tools/rp2040/PicoPerfTimer.h"
 #include "kc1fsz-tools/rp2040/PicoClock.h"
 
-#include "Tx.h"
+#include "test/TestTx.h"
+#include "test/TestRx.h"
 #include "TxControl.h"
 
 using namespace kc1fsz;
@@ -70,7 +71,7 @@ int main(int argc, const char** argv) {
     flashTimer.setIntervalUs(1000 * 1000);
 
     PicoClock clock;
-    Tx tx;
+    TestTx tx(clock);
     TxControl txCtl(clock, tx);
 
     // ===== Main Event Loop =================================================
@@ -86,5 +87,9 @@ int main(int argc, const char** argv) {
         if (flashTimer.poll()) {
             printf("Flash\n");
         }
+
+        // Run all components
+        tx.run();
+        txCtl.run();
     }
 }

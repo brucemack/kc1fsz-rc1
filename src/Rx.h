@@ -1,14 +1,15 @@
-#ifndef _Tx_h
-#define _Tx_h
+#ifndef _Rx_h
+#define _Rx_h
 
 #include "kc1fsz-tools/Runnable.h"
 
 namespace kc1fsz {
 
-class Tx : public Runnable {
+class Rx : public Runnable {
 public:
 
     virtual void run() = 0;
+    virtual bool isActive() const = 0;
 
 private:
 

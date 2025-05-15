@@ -11,6 +11,8 @@ public:
 
     TxControl(Clock& clock, Tx& tx);
 
+    virtual void run();
+
 private:
 
     Clock& _clock;
