@@ -72,7 +72,7 @@ void TestRx::run() {
         if (_clock.isPast(_startTime + (245 * 1000))) {
             _active = true; 
             _state = 9;
-            _log.info("TEST: Simulating station with short (200ms) dropout");
+            _log.info("TEST: Simulating transmission with short (200ms) dropout");
         }
     }
     else if (_state == 9) {

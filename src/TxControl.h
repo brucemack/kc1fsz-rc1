@@ -27,15 +27,15 @@ private:
 
     enum State { INIT, IDLE, VOTING, ACTIVE, ID, ID_URGENT, PRE_COURTESY, COURTESY, HANG, LOCKOUT };
 
-    void _setState(State state, uint32_t timeoutWindowMs = 0) {
-        _state = state;
-        if (timeoutWindowMs != 0)
-            _currentStateEndTime = _clock.time() + timeoutWindowMs;
-        else
-            _currentStateEndTime = 0;
-    }
+    void _setState(State state, uint32_t timeoutWindowMs = 0);
+    bool _isStateTimedOut() const;
 
-    bool _isStateTimedOut() const { return _currentStateEndTime != 0 && _clock.isPast(_currentStateEndTime); }
+    /**
+     * @returns An indication of whether an ID needs to be sent now. This
+     * is slightly dependent on whether a QSO is active since we can have
+     * a grace period.
+     */
+    bool _isIdRequired(bool qsoActive) const;
 
     void _enterIdle();
     void _enterVoting();
@@ -80,12 +80,14 @@ private:
     // How long we sleep after a timeout is detected
     uint32_t _lockoutWindowMs = 1000 * 30;
     // Length of hang interval
-    uint32_t _hangWindowMs = 1000 * 5;
+    uint32_t _hangWindowMs = 1000 * 3;
     // Amount of time that passes in the idle state before we decide the 
     // repeater has gone quiet
     uint32_t _quietWindowMs = 1000 * 5;
     // Time between mandatory IDs
     uint32_t _idRequiredWindowMs = 1000 * 60 * 10; 
+    // Length of the grace period before we raise an urgent ID
+    uint32_t _idGraceWindowMs = 1000 * 15;
 };
 
 }

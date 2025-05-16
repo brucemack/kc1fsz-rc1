@@ -29,14 +29,7 @@ void TxControl::run() {
         _enterIdle();
     }
     else if (_state == State::IDLE) {
-        // Check to see if it's time to send the ID from idle. We ID
-        // if:
-        // 1. Any communication has happened since the last ID
-        // 2. It's been more than 10 minutes since the last ID
-        // 3. The pause window has passed (to make sure the )
-        if (_lastCommunicationTime > _lastIdTime && 
-            (_lastIdTime == 0 || _clock.isPast(_lastIdTime + _idRequiredWindowMs)) &&
-            _clock.isPast(_lastIdleTime + _quietWindowMs)) {
+        if (_isIdRequired(false)) {
             _log.info("CWID start");
             _enterId();
         }
@@ -65,7 +58,7 @@ void TxControl::run() {
             // TODO: Current implementation is first-come-first-served
             for (unsigned int i = 0; i < _maxRxCount; i++) {
                 if (_rx[i] != 0 && _rx[i]->isActive()) {
-                    _log.info("Receiver %d is active", i);
+                    _log.info("Receiver %d is selected", i);
                     _enterActive(_rx[i]);
                     break;
                 }
@@ -82,6 +75,9 @@ void TxControl::run() {
             _log.info("Timeout detected, lockout start");
             _enterLockout();
         } 
+        // Look for urgent ID situation
+        //else if (_isIdRequired(true)) {            
+        //}
         // Look for unkey of active receiver.
         else if (!_activeRx->isActive()) {
             _log.info("Receiver COS dropped");
@@ -197,6 +193,33 @@ void TxControl::_enterHang() {
 void TxControl::_enterLockout() {
     _tx.setPtt(false);
     _setState(State::LOCKOUT, _lockoutWindowMs);
+}
+
+void TxControl::_setState(State state, uint32_t timeoutWindowMs) {
+    _state = state;
+    if (timeoutWindowMs != 0)
+        _currentStateEndTime = _clock.time() + timeoutWindowMs;
+    else
+        _currentStateEndTime = 0;
+}
+
+bool TxControl::_isStateTimedOut() const { 
+    return _currentStateEndTime != 0 && _clock.isPast(_currentStateEndTime); 
+}
+
+bool TxControl::_isIdRequired(bool inQso) const {
+    // Check to see if it's time to send the ID from idle. We ID
+    // if:
+    // 1. Any communication has happened since the last ID
+    // 2. It's been more than 10 minutes since the last ID
+    // 3. The pause window has passed (to make sure the )
+    if (_lastCommunicationTime > _lastIdTime && 
+        (_lastIdTime == 0 || _clock.isPast(_lastIdTime + _idRequiredWindowMs)) &&
+        _clock.isPast(_lastIdleTime + _quietWindowMs)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 }
