@@ -12,8 +12,11 @@ void CourtesyToneGenerator::run() {
 }
 
 void CourtesyToneGenerator::start() {
+    _endTime = _clock.time() + 2000;
 }
 
-bool CourtesyToneGenerator::isFinished() 
-    return true;
+bool CourtesyToneGenerator::isFinished() {
+    return _clock.isPast(_endTime);
+}
+
 }

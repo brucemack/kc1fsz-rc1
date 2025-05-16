@@ -12,8 +12,11 @@ void IDToneGenerator::run() {
 }
 
 void IDToneGenerator::start() {
+    _endTime = _clock.time() + 2000;
 }
 
-bool IDToneGenerator::isFinished() 
-    return true;
+bool IDToneGenerator::isFinished() {
+    return _clock.isPast(_endTime);
+}
+
 }

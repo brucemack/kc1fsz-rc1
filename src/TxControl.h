@@ -25,6 +25,18 @@ public:
 
 private:
 
+    enum State { INIT, IDLE, VOTING, ACTIVE, ID, ID_URGENT, PRE_COURTESY, COURTESY, HANG, LOCKOUT };
+
+    void _setState(State state, uint32_t timeoutWindowMs = 0) {
+        _state = state;
+        if (timeoutWindowMs != 0)
+            _currentStateEndTime = _clock.time() + timeoutWindowMs;
+        else
+            _currentStateEndTime = 0;
+    }
+
+    bool _isStateTimedOut() const { return _currentStateEndTime != 0 && _clock.isPast(_currentStateEndTime); }
+
     void _enterIdle();
     void _enterVoting();
     void _enterActive(Rx* rx);
@@ -33,13 +45,13 @@ private:
     void _enterPreCourtesy();
     void _enterCourtesy();
     void _enterHang();
+    void _enterLockout();
     bool _anyRxActivity() const;
 
     Clock& _clock;
     Log& _log;
     Tx& _tx;
 
-    enum State { INIT, IDLE, VOTING, ACTIVE, ID, ID_URGENT, PRE_COURTESY, COURTESY, HANG, LOCKOUT };
     State _state = State::INIT;   
 
     const static unsigned int _maxRxCount = 4;
@@ -50,20 +62,25 @@ private:
     IDToneGenerator _idToneGenerator;
 
     uint32_t _lastIdleTime = 0;
-    uint32_t _votingEndTime = 0;
     uint32_t _timeoutTime = 0;
-    uint32_t _lockoutEndTime = 0;
     uint32_t _lastCommunicationTime = 0;
     uint32_t _lastIdTime = 0;
+
+    uint32_t _currentStateEndTime = 0;
+    //void (TxControl::*_currentStateTimeoutFuncPtr)() = 0;
 
     // ----- Configurations 
 
     // Disabled for now
-    uint32_t _votingWindowMs = 0;
+    uint32_t _votingWindowMs = 25;
+    // How long between the end of transmission and the courtesy tone
+    uint32_t _preCourtseyWindowMs = 500;    
     // How long a transmitter is allowed to stay active
     uint32_t _timeoutWindowMs = 1000 * 120;    
     // How long we sleep after a timeout is detected
-    uint32_t _lockoutWindowMs = 1000 * 30;    
+    uint32_t _lockoutWindowMs = 1000 * 30;
+    // Length of hang interval
+    uint32_t _hangWindowMs = 1000 * 5;
     // Amount of time that passes in the idle state before we decide the 
     // repeater has gone quiet
     uint32_t _quietWindowMs = 1000 * 5;

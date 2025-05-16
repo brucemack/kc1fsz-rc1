@@ -67,6 +67,32 @@ void TestRx::run() {
             _state = 8;
         }
     }
+    // Simulate a call with a short-dropout
+    if (_state == 8) {
+        if (_clock.isPast(_startTime + (245 * 1000))) {
+            _active = true; 
+            _state = 9;
+            _log.info("TEST: Simulating station with short (200ms) dropout");
+        }
+    }
+    else if (_state == 9) {
+        if (_clock.isPast(_startTime + (247000))) {
+            _active = false; 
+            _state = 10;
+        }
+    }
+    else if (_state == 10) {
+        if (_clock.isPast(_startTime + (247200))) {
+            _active = true; 
+            _state = 11;
+        }
+    }
+    else if (_state == 11) {
+        if (_clock.isPast(_startTime  + (249 * 1000))) {
+            _active = false; 
+            _state = 12;
+        }
+    }
 }
 
 }

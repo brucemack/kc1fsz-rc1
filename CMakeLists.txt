@@ -11,6 +11,8 @@ add_executable(main
   src/Tx.cpp
   src/TxControl.cpp
   src/Rx.cpp
+  src/CourtesyToneGenerator.cpp
+  src/IDToneGenerator.cpp
   src/test/TestTx.cpp
   src/test/TestRx.cpp
   kc1fsz-tools-cpp/src/Common.cpp

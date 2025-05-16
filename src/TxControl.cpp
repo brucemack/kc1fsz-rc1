@@ -11,7 +11,9 @@ namespace kc1fsz {
 TxControl::TxControl(Clock& clock, Log& log, Tx& tx)
 :   _clock(clock),
     _log(log),
-    _tx(tx)
+    _tx(tx),
+    _courtesyToneGenerator(log, clock),
+    _idToneGenerator(log, clock)
 {
 }
 
@@ -22,6 +24,7 @@ void TxControl::setRx(unsigned int i, Rx* rx) {
 }
 
 void TxControl::run() { 
+
     if (_state == State::INIT) {
         _enterIdle();
     }
@@ -50,18 +53,20 @@ void TxControl::run() {
         // Is the tone finished sending?
         if (_idToneGenerator.isFinished()) {
             _log.info("CWID end");
-            _enterIDLE();
+            _enterIdle();
         }
     }
     // In this state we collect receiver status and decide
     // which receiver to select. 
     else if (_state == State::VOTING) {
-        if (_clock.isPast(_votingEndTime)) {
+        // Gather information 
+        // Make decision on timeout
+        if (_isStateTimedOut()) {
             // TODO: Current implementation is first-come-first-served
             for (unsigned int i = 0; i < _maxRxCount; i++) {
                 if (_rx[i] != 0 && _rx[i]->isActive()) {
-                    _enterActive(_rx[i]);
                     _log.info("Receiver %d is active", i);
+                    _enterActive(_rx[i]);
                     break;
                 }
             }
@@ -79,14 +84,15 @@ void TxControl::run() {
         } 
         // Look for unkey of active receiver.
         else if (!_activeRx->isActive()) {
-            _log.info("Quick pause before courtesy tone");
+            _log.info("Receiver COS dropped");
+            _log.info("Short pause before courtesy tone to make sure");
             _enterPreCourtesy();
         }
     }
     // In this state we wait a bit to make sure nobody
     // else is talking and then trigger the courtesy tone.
     else if (_state == State::PRE_COURTESY) {
-        if (_clock.isPast(_preCourtesyEndTime))  {
+        if (_isStateTimedOut())  {
             _log.info("Courtesy tone start");
             _enterCourtesy();
         }
@@ -100,7 +106,8 @@ void TxControl::run() {
     // In this state we are waiting for the courtesy
     // tone to complete. Nothing can interrupt this.
     else if (_state == State::COURTESY) {
-        if (_courtesyTone.isFinished()) {
+        if (_courtesyToneGenerator.isFinished()) {
+            _log.info("Courtesy tone end");
             _log.info("Hang start");
             _enterHang();
         }
@@ -109,7 +116,7 @@ void TxControl::run() {
     // the transmitter to drop. This can be interrupted 
     // by another station transmitting.
     else if (_state == State::HANG) {
-        if (_clock.isPast(_hangEndTime))  {
+        if (_isStateTimedOut())  {
             _log.info("Hang end");
             _enterIdle();
         }
@@ -124,9 +131,9 @@ void TxControl::run() {
     // time, during which nothing can happen. 
     else if (_state == State::LOCKOUT) {
         // Look for end of sleep
-        if (_clock.isPast(_lockoutEndTime)) {
+        if (_isStateTimedOut()) {
             _log.info("Lockout end");
-            _enterIDLE();
+            _enterIdle();
         }
     }
 }
@@ -140,50 +147,56 @@ bool TxControl::_anyRxActivity() const {
     return false;
 }
 
-void TxControl::_enterIDLE() {
+void TxControl::_enterIdle() {
     _state = State::IDLE;
     _lastIdleTime = _clock.time();
     _tx.setPtt(false);
 }
 
 void TxControl::_enterVoting() {
-    _state = State::VOTING;
-    _votingEndTime = _clock.time() + _votingWindowMs;
+    _setState(State::VOTING, _votingWindowMs);
 }
 
 void TxControl::_enterActive(Rx* rx) {
-    _state = State::ACTIVE;
+    _setState(State::ACTIVE, 0);
     _activeRx = rx;
     _timeoutTime = _clock.time() + _timeoutWindowMs;
     _tx.setPtt(true);
 }
 
 void TxControl::_enterId() {
-    _state = State::ID;
-    _lastIdTime = _clock.time();
     _tx.setPtt(true);
-    _idTone.start();
+    _idToneGenerator.start();
+    _lastIdTime = _clock.time();
+    _setState(State::ID, 0);
 }
 
 void TxControl::_enterIdUrgent() {
-}
-
-void TxControl::_enterActive() {
+    _tx.setPtt(true);
+    _idToneGenerator.start();
+    _lastIdTime = _clock.time();
+    _setState(State::ID_URGENT, 0);
 }
 
 void TxControl::_enterPreCourtesy() {
+    _setState(PRE_COURTESY, _preCourtseyWindowMs);
 }
 
 void TxControl::_enterCourtesy() {
     // We no longer give any special treatment to 
     // the previously active receiver.
     _activeRx = 0;
+    _courtesyToneGenerator.start();
+    _setState(State::COURTESY, 0);
+}
+
+void TxControl::_enterHang() {
+    _setState(State::HANG, _hangWindowMs);
 }
 
 void TxControl::_enterLockout() {
-    _state = State::LOCKOUT;
-    _lockoutEndTime = _clock.time() + _lockoutWindowMs;
     _tx.setPtt(false);
+    _setState(State::LOCKOUT, _lockoutWindowMs);
 }
 
 }

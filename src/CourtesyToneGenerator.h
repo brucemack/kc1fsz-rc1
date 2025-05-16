@@ -20,6 +20,7 @@ private:
 
     Log& _log;
     Clock& _clock;
+    uint32_t _endTime = 0;
 };
 
 }
