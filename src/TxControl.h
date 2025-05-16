@@ -3,8 +3,11 @@
 
 #include "kc1fsz-tools/Log.h"
 #include "kc1fsz-tools/Clock.h"
+
 #include "Tx.h"
 #include "Rx.h"
+#include "CourtesyToneGenerator.h"
+#include "IDToneGenerator.h"
 
 namespace kc1fsz {
 
@@ -22,18 +25,29 @@ public:
 
 private:
 
-    void _enterIDLE();
+    void _enterIdle();
+    void _enterVoting();
+    void _enterActive(Rx* rx);
+    void _enterId();
+    void _enterIdUrgent();
+    void _enterPreCourtesy();
+    void _enterCourtesy();
+    void _enterHang();
+    bool _anyRxActivity() const;
 
     Clock& _clock;
     Log& _log;
     Tx& _tx;
 
-    enum State { INIT, IDLE, VOTING, ACTIVE, ID, URGENT_ID, COURTESY, HANG, LOCKOUT };
+    enum State { INIT, IDLE, VOTING, ACTIVE, ID, ID_URGENT, PRE_COURTESY, COURTESY, HANG, LOCKOUT };
     State _state = State::INIT;   
 
     const static unsigned int _maxRxCount = 4;
     Rx* _rx[_maxRxCount] = { 0, 0, 0, 0 };
     Rx* _activeRx;
+
+    CourtesyToneGenerator _courtesyToneGenerator;
+    IDToneGenerator _idToneGenerator;
 
     uint32_t _lastIdleTime = 0;
     uint32_t _votingEndTime = 0;
