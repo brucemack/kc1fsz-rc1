@@ -10,7 +10,7 @@ namespace kc1fsz {
 class TestTx : public Tx {
 public:
 
-    TestTx(Clock& clock, Log& log);
+    TestTx(Clock& clock, Log& log, int id);
 
     virtual void setPtt(bool ptt);
     virtual void run();
@@ -20,6 +20,7 @@ private:
     Clock& _clock;
     Log& _log;
     bool _keyed = false;
+    int _id;
 };
 
 }

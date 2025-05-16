@@ -36,7 +36,7 @@ void TxControl::run() {
         // Check all of the receivers for activity. If anything happens then enter
         // the voting mode to decide which receiver to focus on.
         else if (_anyRxActivity()) {
-            _log.info("RX activity seen, voting start");
+            _log.info("RX activity seen");
             _enterVoting();
         }
     }
@@ -58,7 +58,7 @@ void TxControl::run() {
             // TODO: Current implementation is first-come-first-served
             for (unsigned int i = 0; i < _maxRxCount; i++) {
                 if (_rx[i] != 0 && _rx[i]->isActive()) {
-                    _log.info("Receiver %d is selected", i);
+                    _log.info("Receiver %d is selected", _rx[i]->getId());
                     _enterActive(_rx[i]);
                     break;
                 }
@@ -80,7 +80,7 @@ void TxControl::run() {
         //}
         // Look for unkey of active receiver.
         else if (!_activeRx->isActive()) {
-            _log.info("Receiver COS dropped");
+            _log.info("Receiver COS dropped [%d]", _activeRx->getId());
             _log.info("Short pause before courtesy tone to make sure");
             _enterPreCourtesy();
         }
@@ -95,7 +95,7 @@ void TxControl::run() {
         // Check to see if the previously active receiver
         // has come back (i.e. debounce)
         else if (_activeRx->isActive()) {
-            _log.info("RX activity, cancelled courtesy tone");
+            _log.info("RX activity, cancelled courtesy tone [%d]", _activeRx->getId());
             _enterActive(_activeRx);
         }
     }

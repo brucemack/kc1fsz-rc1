@@ -3,9 +3,10 @@
 
 namespace kc1fsz {
 
-TestRx::TestRx(Clock& clock, Log& log) 
+TestRx::TestRx(Clock& clock, Log& log, int id) 
 :   _clock(clock),
-    _log(log) {
+    _log(log),
+    _id(id) {
     _startTime = _clock.time();
     _active = false;
 }
@@ -16,7 +17,7 @@ void TestRx::run() {
         if (_clock.isPast(_startTime + (10 * 1000))) {
             _active = true; 
             _state = 1;
-            _log.info("TEST: Simulating station kerchunk");
+            _log.info("TEST: Simulating receiver kerchunk [%d]", _id);
         }
     }
     else if (_state == 1) {
@@ -30,7 +31,7 @@ void TestRx::run() {
         if (_clock.isPast(_startTime + (40 * 1000))) {
             _active = true; 
             _state = 3;
-            _log.info("TEST: Simulating station key down for 125 seconds");
+            _log.info("TEST: Simulating receiver transmission for 125 seconds [%d]", _id);
         }
     }
     else if (_state == 3) {
@@ -44,7 +45,7 @@ void TestRx::run() {
         if (_clock.isPast(_startTime + (170 * 1000))) {
             _active = true; 
             _state = 5;
-            _log.info("TEST: Simulating kerchunk inside of lockout (will be ignored)");
+            _log.info("TEST: Simulating receiver kerchunk inside of lockout (will be ignored) [%d]", _id);
         }
     }
     else if (_state == 5) {
@@ -58,7 +59,7 @@ void TestRx::run() {
         if (_clock.isPast(_startTime + (205 * 1000))) {
             _active = true; 
             _state = 7;
-            _log.info("TEST: Simulating kerchunk after lockout (should work normally now)");
+            _log.info("TEST: Simulating receiver kerchunk after lockout (should work normally now) [%d]", _id);
         }
     }
     else if (_state == 7) {
@@ -72,7 +73,7 @@ void TestRx::run() {
         if (_clock.isPast(_startTime + (245 * 1000))) {
             _active = true; 
             _state = 9;
-            _log.info("TEST: Simulating transmission with short (200ms) dropout");
+            _log.info("TEST: Simulating receiver transmission with short (200ms) dropout [%d]", _id);
         }
     }
     else if (_state == 9) {

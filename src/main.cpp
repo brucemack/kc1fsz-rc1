@@ -75,10 +75,10 @@ int main(int argc, const char** argv) {
     PicoPollTimer flashTimer;
     flashTimer.setIntervalUs(1000 * 1000);
 
-    TestTx tx(clock, log);
+    TestTx tx(clock, log, 0);
     TxControl txCtl(clock, log, tx);
 
-    TestRx rx(clock, log);
+    TestRx rx(clock, log, 0);
 
     txCtl.setRx(0, &rx);
 
