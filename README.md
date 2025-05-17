@@ -1,16 +1,21 @@
-Function List
-=============
+Feature List
+============
 
-Functions
-* CTCSS/PL tone detection. 
-
+* CTCSS/PL tone generation
+* CTCSS/PL tone detection
+* CWID generation
+* Courtesy tone detection
+* Hang time implementation
+* Timeout/lockout enforcement
+* DTMF commands
+        - Link/unlink bands
 
 Parameters
-
-CTCSS Tone Notes
 ================
 
-88.5 Hz = 11ms.  So 
+* CTCSS/PL frequency on receive and transmit
+* 
+
 
 Relevant Rules
 ==============

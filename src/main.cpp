@@ -64,11 +64,14 @@ int main(int argc, const char** argv) {
     gpio_put(LED_PIN, 0);
 
     printf("Digital Repeater Controller 2\nCopyright (C) 2025 Bruce MacKinnon KC1FSZ\n");
+    printf("Firmware R00234 2025-05-16\n");
 
     int strobe = 0;
     
     PicoClock clock;
+    clock.reset();
     clock.setScale(10);
+
     Log log(&clock);
 
     // Display/diagnostic should happen once per second
@@ -76,6 +79,7 @@ int main(int argc, const char** argv) {
     flashTimer.setIntervalUs(1000 * 1000);
 
     TestTx tx(clock, log, 0);
+    tx.setTone(1230);
     TxControl txCtl(clock, log, tx);
 
     TestRx rx(clock, log, 0);

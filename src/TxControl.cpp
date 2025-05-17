@@ -1,11 +1,5 @@
 #include "TxControl.h"
 
-/*
-
-
-*/
-
-
 namespace kc1fsz {
 
 TxControl::TxControl(Clock& clock, Log& log, Tx& tx)
@@ -30,7 +24,6 @@ void TxControl::run() {
     }
     else if (_state == State::IDLE) {
         if (_isIdRequired(false)) {
-            _log.info("CWID start");
             _enterId();
         }
         // Check all of the receivers for activity. If anything happens then enter
@@ -58,7 +51,7 @@ void TxControl::run() {
             // TODO: Current implementation is first-come-first-served
             for (unsigned int i = 0; i < _maxRxCount; i++) {
                 if (_rx[i] != 0 && _rx[i]->isActive()) {
-                    _log.info("Receiver %d is selected", _rx[i]->getId());
+                    _log.info("Receiver is selected [%d]", _rx[i]->getId());
                     _enterActive(_rx[i]);
                     break;
                 }
@@ -81,7 +74,7 @@ void TxControl::run() {
         // Look for unkey of active receiver.
         else if (!_activeRx->isActive()) {
             _log.info("Receiver COS dropped [%d]", _activeRx->getId());
-            _log.info("Short pause before courtesy tone to make sure");
+            _log.info("Short pause before courtesy tone");
             _enterPreCourtesy();
         }
     }
@@ -119,17 +112,21 @@ void TxControl::run() {
         // Any receive activity will end the hang period
         // and will jump back into the voting state.
         else if (_anyRxActivity()) {
-            _log.info("RX activity, hang end");
+            _log.info("RX activity, cancelled hang");
             _enterVoting();
         }
     }
     // In this state we are waiting a defined period of 
     // time, during which nothing can happen. 
     else if (_state == State::LOCKOUT) {
-        // Look for end of sleep
-        if (_isStateTimedOut()) {
+        // Any time we have activity the lockout phase gets restarted
+        if (_anyRxActivity()) {
+            _enterLockout();
+        }
+        // Look for end of lockout time
+        else if (_isStateTimedOut()) {
             _log.info("Lockout end");
-            _enterIdle();
+            _enterId();
         }
     }
 }

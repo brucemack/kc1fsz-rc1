@@ -13,6 +13,7 @@ void IDToneGenerator::run() {
 
 void IDToneGenerator::start() {
     _endTime = _clock.time() + 2000;
+    _log.info("CWID start");
 }
 
 bool IDToneGenerator::isFinished() {

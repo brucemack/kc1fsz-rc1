@@ -15,6 +15,7 @@ public:
     virtual int getId() const { return _id; }
     virtual void run();
     virtual bool isActive() const { return _active; }
+    void setTone(int toneX10) { _toneX10 = toneX10; }
 
 private:
 
@@ -24,6 +25,7 @@ private:
     bool _active = false;
     unsigned int _state = 0;
     int _id;
+    int _toneX10 = 0;
 };
 
 }

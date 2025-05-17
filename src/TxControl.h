@@ -78,7 +78,7 @@ private:
     // How long a transmitter is allowed to stay active
     uint32_t _timeoutWindowMs = 1000 * 120;    
     // How long we sleep after a timeout is detected
-    uint32_t _lockoutWindowMs = 1000 * 30;
+    uint32_t _lockoutWindowMs = 1000 * 60;
     // Length of hang interval
     uint32_t _hangWindowMs = 1000 * 3;
     // Amount of time that passes in the idle state before we decide the 
