@@ -1,4 +1,8 @@
 #include <stdio.h>
+#include <cassert>
+
+#include <hardware/gpio.h>
+
 #include "StdRx.h"
 
 namespace kc1fsz {
@@ -17,23 +21,23 @@ void StdRx::run() {
 
 bool StdRx::isActive() const { 
     bool cos;
-    if (_cosMode == CosMode::EXT_HIGH) {
+    if (_cosMode == CosMode::COS_EXT_HIGH) {
         cos = gpio_get(_cosPin) == 1;
     }
-    else if (_cosMode == CosMode::EXT_LOW) {
+    else if (_cosMode == CosMode::COS_EXT_LOW) {
         cos = gpio_get(_cosPin) == 0;
     }
     else {
         assert(false);
     }
     bool tone;
-    if (_toneMode == ToneMode::NONE) {
+    if (_toneMode == ToneMode::TONE_NONE) {
         tone = true;
     }     
-    else if (_toneMode == ToneMode::EXT_HIGH) {
+    else if (_toneMode == ToneMode::TONE_EXT_HIGH) {
         tone = gpio_get(_tonePin) == 1;
     }
-    else if (_toneMode == ToneMode::EXT_LOW) {
+    else if (_toneMode == ToneMode::TONE_EXT_LOW) {
         tone = gpio_get(_tonePin) == 0;
     }
     else {

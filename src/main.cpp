@@ -103,7 +103,7 @@ int main(int argc, const char** argv) {
     flashTimer.setIntervalUs(1000 * 1000);
 
 //    TestTx tx(clock, log, 0);
-    StdTx(clock, log, 0, R0_PTT_PIN);
+    StdTx tx(clock, log, 0, R0_PTT_PIN);
     tx.setToneMode(StdTx::ToneMode::NONE);
     tx.setTone(1230);
     TxControl txCtl(clock, log, tx);

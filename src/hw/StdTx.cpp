@@ -1,3 +1,5 @@
+#include <hardware/gpio.h>
+
 #include "StdTx.h"
 
 namespace kc1fsz {
@@ -9,7 +11,7 @@ StdTx::StdTx(Clock& clock, Log& log, int id, int pttPin)
     _pttPin(pttPin) {
 }
 
-void TestTx::setPtt(bool ptt) {
+void StdTx::setPtt(bool ptt) {
     if (ptt != _keyed)
         if (ptt) {
             gpio_put(_pttPin, 1);
@@ -21,7 +23,7 @@ void TestTx::setPtt(bool ptt) {
     _keyed = ptt;
 }
 
-void TestTx::run() {   
+void StdTx::run() {   
 }
 
 }
