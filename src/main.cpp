@@ -44,11 +44,20 @@ Command used to load code onto the board:
 
 #include "test/TestTx.h"
 #include "test/TestRx.h"
+#include "hw/StdTx.h"
+#include "hw/StdRx.h"
+
 #include "TxControl.h"
 
 using namespace kc1fsz;
 
 #define LED_PIN (PICO_DEFAULT_LED_PIN)
+#define R0_COS_PIN (14)
+#define R0_CTCSS_PIN (13)
+#define R0_PTT_PIN (12)
+#define R1_COS_PIN (17)
+#define R1_CTCSS_PIN (16)
+#define R1_PTT_PIN (15)
 
 int main(int argc, const char** argv) {
 
@@ -56,6 +65,21 @@ int main(int argc, const char** argv) {
 
     gpio_init(LED_PIN);
     gpio_set_dir(LED_PIN, GPIO_OUT);
+    
+    gpio_init(R0_COS_PIN);
+    gpio_set_dir(R0_COS_PIN, GPIO_IN);
+    gpio_init(R0_CTCSS_PIN);
+    gpio_set_dir(R0_CTCSS_PIN, GPIO_IN);
+    gpio_init(R0_PTT_PIN);
+    gpio_set_dir(R0_PTT_PIN, GPIO_OUT);
+    gpio_put(R0_PTT_PIN, 0);
+    gpio_init(R1_COS_PIN);
+    gpio_set_dir(R1_COS_PIN, GPIO_IN);
+    gpio_init(R1_CTCSS_PIN);
+    gpio_set_dir(R1_CTCSS_PIN, GPIO_IN);
+    gpio_init(R1_PTT_PIN);
+    gpio_set_dir(R1_PTT_PIN, GPIO_OUT);
+    gpio_put(R1_PTT_PIN, 0);
 
     // Startup ID
     sleep_ms(500);
@@ -78,11 +102,14 @@ int main(int argc, const char** argv) {
     PicoPollTimer flashTimer;
     flashTimer.setIntervalUs(1000 * 1000);
 
-    TestTx tx(clock, log, 0);
+//    TestTx tx(clock, log, 0);
+    StdTx(clock, log, 0, R0_PTT_PIN);
+    tx.setToneMode(StdTx::ToneMode::NONE);
     tx.setTone(1230);
     TxControl txCtl(clock, log, tx);
 
-    TestRx rx(clock, log, 0);
+//    TestRx rx(clock, log, 0);
+    StdRx rx(clock, log, 0, R0_COS_PIN, R0_CTCSS_PIN);
 
     txCtl.setRx(0, &rx);
 

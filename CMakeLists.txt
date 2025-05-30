@@ -15,6 +15,8 @@ add_executable(main
   src/IDToneGenerator.cpp
   src/test/TestTx.cpp
   src/test/TestRx.cpp
+  src/hw/StdTx.cpp
+  src/hw/StdRx.cpp
   kc1fsz-tools-cpp/src/Common.cpp
   kc1fsz-tools-cpp/src/rp2040/PicoPollTimer.cpp
   kc1fsz-tools-cpp/src/rp2040/PicoPerfTimer.cpp
