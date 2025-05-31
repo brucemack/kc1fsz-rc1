@@ -65,6 +65,7 @@ void TxControl::run() {
 
         // Look for timeout
         if (_clock.isPast(_timeoutTime)) {
+            
             _log.info("Timeout detected, lockout start");
             _enterLockout();
         } 

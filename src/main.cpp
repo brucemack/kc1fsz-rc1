@@ -94,7 +94,7 @@ int main(int argc, const char** argv) {
     
     PicoClock clock;
     clock.reset();
-    clock.setScale(10);
+    //clock.setScale(10);
 
     Log log(&clock);
 
@@ -108,10 +108,16 @@ int main(int argc, const char** argv) {
     tx.setTone(1230);
     TxControl txCtl(clock, log, tx);
 
-//    TestRx rx(clock, log, 0);
-    StdRx rx(clock, log, 0, R0_COS_PIN, R0_CTCSS_PIN);
+//    TestRx rx0(clock, log, 0);
+    StdRx rx0(clock, log, 0, R0_COS_PIN, R0_CTCSS_PIN);
+    rx0.setCosMode(StdRx::CosMode::COS_EXT_HIGH);
+    rx0.setToneMode(StdRx::ToneMode::TONE_EXT_HIGH);
+    txCtl.setRx(0, &rx0);
 
-    txCtl.setRx(0, &rx);
+    StdRx rx1(clock, log, 1, R1_COS_PIN, R1_CTCSS_PIN);
+    rx1.setCosMode(StdRx::CosMode::COS_EXT_HIGH);
+    rx1.setToneMode(StdRx::ToneMode::TONE_EXT_HIGH);
+    txCtl.setRx(1, &rx1);
 
     // ===== Main Event Loop =================================================
 
@@ -122,7 +128,8 @@ int main(int argc, const char** argv) {
         int c = getchar_timeout_us(0);
         if (c == 's') {
             printf("Status:\n");
-            printf("  RX0 isActve %d\n", (int)rx.isActive());
+            printf("  RX0 isActve %d\n", (int)rx0.isActive());
+            printf("  RX1 isActve %d\n", (int)rx1.isActive());
         }
 
         // Do periodic display/diagnostic stuff
@@ -133,7 +140,8 @@ int main(int argc, const char** argv) {
 
         // Run all components
         tx.run();
-        rx.run();
+        rx0.run();
+        rx1.run();
         txCtl.run();
     }
 }

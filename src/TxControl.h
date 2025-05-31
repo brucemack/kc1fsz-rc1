@@ -76,11 +76,15 @@ private:
     // How long between the end of transmission and the courtesy tone
     uint32_t _preCourtseyWindowMs = 500;    
     // How long a transmitter is allowed to stay active
-    uint32_t _timeoutWindowMs = 1000 * 120;    
+    //uint32_t _timeoutWindowMs = 1000 * 120;    
+    //TEMP
+    uint32_t _timeoutWindowMs = 1000 * 20;    
     // How long we sleep after a timeout is detected
-    uint32_t _lockoutWindowMs = 1000 * 60;
+    //uint32_t _lockoutWindowMs = 1000 * 60;
+    //TEMP
+    uint32_t _lockoutWindowMs = 1000 * 20;
     // Length of hang interval
-    uint32_t _hangWindowMs = 1000 * 3;
+    uint32_t _hangWindowMs = 1000 * 2;
     // Amount of time that passes in the idle state before we decide the 
     // repeater has gone quiet
     uint32_t _quietWindowMs = 1000 * 5;
