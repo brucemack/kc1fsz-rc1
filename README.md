@@ -49,6 +49,13 @@ Flash code to board:
 
 REMOVED: -c "rp2040.dap.core1 cortex_m reset_config sysresetreq"
 
+Serial Console
+==============
+
+Connect serial-USB module to GPIO0/GPIO1 pins and use this command:
+
+        minicom -b 115200 -o -D /dev/ttyUSB0
+
 Wiring Notes (Revision B)
 =========================
 

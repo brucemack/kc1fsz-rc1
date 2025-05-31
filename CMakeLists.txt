@@ -22,7 +22,7 @@ add_executable(main
   kc1fsz-tools-cpp/src/rp2040/PicoPerfTimer.cpp
 )
 target_compile_definitions(main PRIVATE -DPICO_BUILD=1)
-pico_enable_stdio_usb(main 1)
+pico_enable_stdio_usb(main 0)
 pico_enable_stdio_uart(main 1)
 
 target_include_directories(main PRIVATE kc1fsz-tools-cpp/include)

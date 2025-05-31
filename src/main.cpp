@@ -122,6 +122,7 @@ int main(int argc, const char** argv) {
         int c = getchar_timeout_us(0);
         if (c == 's') {
             printf("Status:\n");
+            printf("  RX0 isActve %d\n", (int)rx.isActive());
         }
 
         // Do periodic display/diagnostic stuff

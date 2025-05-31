@@ -22,10 +22,12 @@ void StdRx::run() {
 bool StdRx::isActive() const { 
     bool cos;
     if (_cosMode == CosMode::COS_EXT_HIGH) {
-        cos = gpio_get(_cosPin) == 1;
+        // There is a built-in inverter in the hardware
+        cos = (gpio_get(_cosPin) == 0);
     }
     else if (_cosMode == CosMode::COS_EXT_LOW) {
-        cos = gpio_get(_cosPin) == 0;
+        // There is a built-in inverter in the hardware
+        cos = (gpio_get(_cosPin) == 1);
     }
     else {
         assert(false);
@@ -35,10 +37,12 @@ bool StdRx::isActive() const {
         tone = true;
     }     
     else if (_toneMode == ToneMode::TONE_EXT_HIGH) {
-        tone = gpio_get(_tonePin) == 1;
+        // There is a built-in inverter in the hardware
+        tone = (gpio_get(_tonePin) == 0);
     }
     else if (_toneMode == ToneMode::TONE_EXT_LOW) {
-        tone = gpio_get(_tonePin) == 0;
+        // There is a built-in inverter in the hardware
+        tone = (gpio_get(_tonePin) == 1);
     }
     else {
         assert(false);
