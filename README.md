@@ -27,8 +27,16 @@ Parameters
 CTCSS Tone Notes
 ================
 
-88.5 Hz = 11ms.  So 
+* CTCSS/PL frequency on receive and transmit
+* 
 
+
+Relevant Rules
+==============
+
+FCC Section 97.119 Station identification
+
+(a) Each amateur station, except a space station or telecommand station, must transmit its assigned call sign on its transmitting channel at the end of each communication, and at least every 10 minutes during a communication, for the purpose of clearly making the source of the transmissions from the station known to those receiving the transmissions. No station may transmit unidentified communications or signals, or transmit as the station call sign, any call sign not authorized to the station.
 
 Build/Debug Commands
 ====================
@@ -54,6 +62,13 @@ Flash code to board:
         ~/git/openocd/src/openocd -s ~/git/openocd/tcl -f interface/cmsis-dap.cfg -f target/rp2040.cfg -c "adapter speed 5000" -c "program main.elf verify reset exit"
 
 REMOVED: -c "rp2040.dap.core1 cortex_m reset_config sysresetreq"
+
+Serial Console
+==============
+
+Connect serial-USB module to GPIO0/GPIO1 pins and use this command:
+
+        minicom -b 115200 -o -D /dev/ttyUSB0
 
 Wiring Notes (Revision B)
 =========================
