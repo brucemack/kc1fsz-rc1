@@ -5,8 +5,8 @@
 	(uuid "8c78c3b9-f9a8-4722-99cd-c55dc43f6612")
 	(paper "USLetter")
 	(title_block
-		(title "COS/CTCSS/PTT Controls (Radio 1)")
-		(date "2025-05-13")
+		(title "Connectors")
+		(date "2025-05-31")
 		(rev "2")
 		(company "Bruce MacKinnon KC1FSZ")
 		(comment 1 "Copyright (C) Bruce MacKinnon, 2025")
@@ -2917,6 +2917,16 @@
 			)
 		)
 		(uuid "a28484e8-673a-4d33-9670-a0c0ac59bd2f")
+	)
+	(text "See: AMP L77SDB25SA4CH4F"
+		(exclude_from_sim no)
+		(at 101.6 118.618 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "f01fea76-03f0-47a3-8ceb-f557fd88988d")
 	)
 	(junction
 		(at 87.63 152.4)

@@ -6,7 +6,7 @@
 	(paper "USLetter")
 	(title_block
 		(title "COS/CTCSS/PTT Controls (Radio 1)")
-		(date "2025-05-13")
+		(date "2025-05-31")
 		(rev "2")
 		(company "Bruce MacKinnon KC1FSZ")
 		(comment 1 "Copyright (C) Bruce MacKinnon, 2025")
@@ -1676,16 +1676,6 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "Converts 5V logic to 3.3V logic. Works\neven if radio can't source +5 for a pull-up"
-		(exclude_from_sim no)
-		(at 121.92 130.81 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "05a59edb-f61c-43d7-8aed-a1b23ef64e15")
-	)
 	(text "When Rx_COS is +5V, base \nvoltage is 1.6V."
 		(exclude_from_sim no)
 		(at 154.94 64.77 0)
@@ -1698,7 +1688,7 @@
 	)
 	(text "Clamping OVP"
 		(exclude_from_sim no)
-		(at 116.84 25.4 0)
+		(at 83.82 24.384 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1706,17 +1696,7 @@
 		)
 		(uuid "2a319022-76c4-4da8-9bf6-11a9190aff54")
 	)
-	(text "Converts 5V logic to 3.3V logic. Works\neven if radio can't source +5 for a pull-up"
-		(exclude_from_sim no)
-		(at 120.65 69.85 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "3797beae-92d3-42f5-8849-0a2c1b3529f2")
-	)
-	(text "Protection from relay-induced \n(or other) transients."
+	(text "Protection from relay-induced \n(or other) transients. (SOT-323)"
 		(exclude_from_sim no)
 		(at 102.362 167.64 0)
 		(effects
@@ -1759,7 +1739,7 @@
 		)
 		(uuid "a179c0d9-24e4-47c5-95fd-3ec5ae3ef663")
 	)
-	(text "When Rx_COS is +5V, base \nvoltage is 1.6V."
+	(text "When Rx_CTCSS is +5V, base \nvoltage is 1.6V."
 		(exclude_from_sim no)
 		(at 154.94 125.73 0)
 		(effects
@@ -1779,21 +1759,25 @@
 		)
 		(uuid "dd3ba5a1-55cb-410b-ae4e-27509377a910")
 	)
+	(text "Converts 5V logic to 3.3V logic. Works\neven if radio can't source +5 for a pull-up.\nIMPORTANT: Results in a logic inversion which \nwill need to be undone in software."
+		(exclude_from_sim no)
+		(at 122.174 72.39 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "e54cb95c-5707-4457-a92b-4bed3b825356")
+	)
 	(text "Clamping OVP"
 		(exclude_from_sim no)
-		(at 118.11 86.36 0)
+		(at 86.106 86.868 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 		)
 		(uuid "f943cc0f-9434-4e76-b202-819aaa7710ac")
-	)
-	(junction
-		(at 137.16 49.53)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "3b076a8f-c914-4083-9554-1067ee1e54c1")
 	)
 	(junction
 		(at 102.87 151.13)
@@ -1808,22 +1792,28 @@
 		(uuid "5ec725f5-ee5f-48bb-b840-038ea832ec15")
 	)
 	(junction
+		(at 102.87 49.53)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "6bd727cc-2c36-4226-96fb-eda99ca9b555")
+	)
+	(junction
 		(at 134.62 49.53)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "7694e389-f310-42f5-b9fc-694a9cc03388")
 	)
 	(junction
-		(at 138.43 110.49)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "7c3eaeba-675b-40c8-bb9f-c4a272b72f64")
-	)
-	(junction
 		(at 109.22 49.53)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "83e1e2e1-ea64-484c-a1fb-3e2a9e0f6161")
+	)
+	(junction
+		(at 104.14 110.49)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "956e05fb-cc66-4edb-9acd-15853b18d1f6")
 	)
 	(junction
 		(at 148.59 104.14)
@@ -1855,26 +1845,6 @@
 	)
 	(wire
 		(pts
-			(xy 133.35 92.71) (xy 138.43 92.71)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0a736899-64af-49dd-93b3-b00f481f66d7")
-	)
-	(wire
-		(pts
-			(xy 138.43 92.71) (xy 138.43 110.49)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "17a30251-fa61-4c0e-987e-ca386578f2f6")
-	)
-	(wire
-		(pts
 			(xy 109.22 44.45) (xy 109.22 49.53)
 		)
 		(stroke
@@ -1882,6 +1852,16 @@
 			(type default)
 		)
 		(uuid "1b62b043-6c86-4fd2-a183-e71cc8431bff")
+	)
+	(wire
+		(pts
+			(xy 100.33 30.48) (xy 102.87 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "22361cd4-31be-44e9-9e5c-b039e3bfc24b")
 	)
 	(wire
 		(pts
@@ -1935,23 +1915,13 @@
 	)
 	(wire
 		(pts
-			(xy 109.22 49.53) (xy 93.98 49.53)
+			(xy 109.22 49.53) (xy 102.87 49.53)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "5504f1e2-6404-46b7-be48-4a322fdfb053")
-	)
-	(wire
-		(pts
-			(xy 137.16 31.75) (xy 137.16 49.53)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6cc3fd5a-3ce6-4117-9562-4add51324c08")
 	)
 	(wire
 		(pts
@@ -1962,6 +1932,16 @@
 			(type default)
 		)
 		(uuid "6d9b2b3f-aa41-42af-9ef0-e2b62c45a398")
+	)
+	(wire
+		(pts
+			(xy 104.14 110.49) (xy 93.98 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "753ed347-5a14-4a66-8a26-482060cc35cd")
 	)
 	(wire
 		(pts
@@ -1985,17 +1965,27 @@
 	)
 	(wire
 		(pts
-			(xy 134.62 110.49) (xy 138.43 110.49)
+			(xy 104.14 92.71) (xy 104.14 110.49)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "96cbb5eb-89e8-4c15-b360-cde02bc365df")
+		(uuid "92a55202-1acf-4da7-8424-663671128fc4")
 	)
 	(wire
 		(pts
-			(xy 138.43 110.49) (xy 140.97 110.49)
+			(xy 102.87 30.48) (xy 102.87 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a35ac295-09b8-4ea3-a448-ffc10a59d1ea")
+	)
+	(wire
+		(pts
+			(xy 134.62 110.49) (xy 140.97 110.49)
 		)
 		(stroke
 			(width 0)
@@ -2012,16 +2002,6 @@
 			(type default)
 		)
 		(uuid "b3d36c21-2831-4638-bd3b-dddf13a3763d")
-	)
-	(wire
-		(pts
-			(xy 133.35 31.75) (xy 137.16 31.75)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b96d9a81-0d4a-4a9a-9ee3-44fc3548712a")
 	)
 	(wire
 		(pts
@@ -2055,7 +2035,7 @@
 	)
 	(wire
 		(pts
-			(xy 109.22 110.49) (xy 93.98 110.49)
+			(xy 109.22 110.49) (xy 104.14 110.49)
 		)
 		(stroke
 			(width 0)
@@ -2072,16 +2052,6 @@
 			(type default)
 		)
 		(uuid "cd472443-7a44-469c-8c06-f9d3a271786b")
-	)
-	(wire
-		(pts
-			(xy 137.16 49.53) (xy 134.62 49.53)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d3627498-f68a-4033-97be-5627cc4a076e")
 	)
 	(wire
 		(pts
@@ -2115,7 +2085,7 @@
 	)
 	(wire
 		(pts
-			(xy 140.97 49.53) (xy 137.16 49.53)
+			(xy 134.62 49.53) (xy 140.97 49.53)
 		)
 		(stroke
 			(width 0)
@@ -2145,6 +2115,16 @@
 	)
 	(wire
 		(pts
+			(xy 100.33 92.71) (xy 104.14 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "efd12902-4e09-47f9-b26e-e1d5d2684288")
+	)
+	(wire
+		(pts
 			(xy 134.62 110.49) (xy 134.62 113.03)
 		)
 		(stroke
@@ -2152,6 +2132,16 @@
 			(type default)
 		)
 		(uuid "f366bd7c-982a-4081-aab7-f726ff2d0eae")
+	)
+	(wire
+		(pts
+			(xy 102.87 49.53) (xy 93.98 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f82719ff-c4e4-4e9f-b7ff-4c53ebbf9748")
 	)
 	(wire
 		(pts
@@ -2503,7 +2493,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 128.27 100.33 0)
+		(at 95.25 100.33 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2512,7 +2502,7 @@
 		(fields_autoplaced yes)
 		(uuid "0773a85e-1200-4253-a5ab-1f639b564610")
 		(property "Reference" "#PWR021"
-			(at 128.27 106.68 0)
+			(at 95.25 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2521,7 +2511,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 128.27 105.41 0)
+			(at 95.25 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2529,7 +2519,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 128.27 100.33 0)
+			(at 95.25 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2538,7 +2528,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 128.27 100.33 0)
+			(at 95.25 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2547,7 +2537,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 128.27 100.33 0)
+			(at 95.25 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2569,7 +2559,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 128.27 39.37 0)
+		(at 95.25 38.1 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2578,7 +2568,7 @@
 		(fields_autoplaced yes)
 		(uuid "09e93326-adef-4cc3-b5cd-2e56d594c6f2")
 		(property "Reference" "#PWR066"
-			(at 128.27 45.72 0)
+			(at 95.25 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2587,7 +2577,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 128.27 44.45 0)
+			(at 95.25 43.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2595,7 +2585,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 128.27 39.37 0)
+			(at 95.25 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2604,7 +2594,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 128.27 39.37 0)
+			(at 95.25 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2613,7 +2603,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 128.27 39.37 0)
+			(at 95.25 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2917,7 +2907,7 @@
 	)
 	(symbol
 		(lib_id "Diode:BAT54S")
-		(at 128.27 92.71 90)
+		(at 95.25 92.71 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2926,7 +2916,7 @@
 		(fields_autoplaced yes)
 		(uuid "423c27a8-4602-42ec-bfbf-e58fe3d6cfc0")
 		(property "Reference" "D11"
-			(at 125.73 91.4399 90)
+			(at 92.71 91.4399 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2935,7 +2925,7 @@
 			)
 		)
 		(property "Value" "BAT54S"
-			(at 125.73 93.9799 90)
+			(at 92.71 93.9799 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2944,7 +2934,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
-			(at 125.095 90.805 0)
+			(at 92.075 90.805 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2954,7 +2944,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.diodes.com/assets/Datasheets/ds11005.pdf"
-			(at 128.27 95.758 0)
+			(at 95.25 95.758 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2963,7 +2953,7 @@
 			)
 		)
 		(property "Description" "Vr 30V, If 200mA, Dual schottky barrier diode, in series, SOT-323"
-			(at 128.27 92.71 0)
+			(at 95.25 92.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3683,7 +3673,7 @@
 	)
 	(symbol
 		(lib_id "power:+5V")
-		(at 128.27 24.13 0)
+		(at 95.25 22.86 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3692,7 +3682,7 @@
 		(fields_autoplaced yes)
 		(uuid "926fe2ed-85b3-43c5-bf92-cff47d13e52c")
 		(property "Reference" "#PWR022"
-			(at 128.27 27.94 0)
+			(at 95.25 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3701,7 +3691,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 128.27 19.05 0)
+			(at 95.25 17.78 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3709,7 +3699,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 128.27 24.13 0)
+			(at 95.25 22.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3718,7 +3708,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 128.27 24.13 0)
+			(at 95.25 22.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3727,7 +3717,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 128.27 24.13 0)
+			(at 95.25 22.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3749,7 +3739,7 @@
 	)
 	(symbol
 		(lib_id "power:+5V")
-		(at 128.27 85.09 0)
+		(at 95.25 85.09 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3758,7 +3748,7 @@
 		(fields_autoplaced yes)
 		(uuid "9440b2ca-7964-46bc-8d42-75f47be84385")
 		(property "Reference" "#PWR020"
-			(at 128.27 88.9 0)
+			(at 95.25 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3767,7 +3757,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 128.27 80.01 0)
+			(at 95.25 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3775,7 +3765,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 128.27 85.09 0)
+			(at 95.25 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3784,7 +3774,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 128.27 85.09 0)
+			(at 95.25 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3793,7 +3783,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 128.27 85.09 0)
+			(at 95.25 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3815,7 +3805,7 @@
 	)
 	(symbol
 		(lib_id "Diode:BAT54S")
-		(at 128.27 31.75 90)
+		(at 95.25 30.48 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3824,7 +3814,7 @@
 		(fields_autoplaced yes)
 		(uuid "946e645b-bc20-422a-bfc4-805f5f532536")
 		(property "Reference" "D12"
-			(at 125.73 30.4799 90)
+			(at 92.71 29.2099 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3833,7 +3823,7 @@
 			)
 		)
 		(property "Value" "BAT54S"
-			(at 125.73 33.0199 90)
+			(at 92.71 31.7499 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3842,7 +3832,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
-			(at 125.095 29.845 0)
+			(at 92.075 28.575 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3852,7 +3842,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.diodes.com/assets/Datasheets/ds11005.pdf"
-			(at 128.27 34.798 0)
+			(at 95.25 33.528 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3861,7 +3851,7 @@
 			)
 		)
 		(property "Description" "Vr 30V, If 200mA, Dual schottky barrier diode, in series, SOT-323"
-			(at 128.27 31.75 0)
+			(at 95.25 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)

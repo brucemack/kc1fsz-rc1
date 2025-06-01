@@ -1,11 +1,28 @@
-Function List
-=============
+Features
+========
 
-Functions
-* CTCSS/PL tone detection. 
-
+* CTCSS Decode
+* CWID
+* Courtesy Tone (1480/1760 20ms)
+* Noise Reduction
+* AGC/Input Balance
+* DTMF Commands
+   - Open/close VHF-UHF link
 
 Parameters
+==========
+
+* CTCSS Decoder
+   - Minimum time for valid CTCSS
+   - CTCSS debounce interval (i.e. max drop-out)
+* CWID
+   - Time between IDs
+   - Max interruption interval (i.e. how long before CWID steps on normal use)
+* Misc
+   - Transmit timeout
+   - Lockout time after transmit timeout
+   - Hang time (how long TX stays keyed after input drops)
+   - COS debounce interval (i.e. max drop-out of COS)
 
 CTCSS Tone Notes
 ================

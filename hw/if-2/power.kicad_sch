@@ -6,7 +6,7 @@
 	(paper "USLetter")
 	(title_block
 		(title "COS/CTCSS/PTT Controls (Radio 1)")
-		(date "2025-05-13")
+		(date "2025-05-31")
 		(rev "2")
 		(company "Bruce MacKinnon KC1FSZ")
 		(comment 1 "Copyright (C) Bruce MacKinnon, 2025")
@@ -2987,7 +2987,7 @@
 		)
 		(uuid "41894fa0-8fed-478e-9352-b30c73f6bc99")
 	)
-	(text "Ensures that OVP \ncircuits clamp to \n5V max."
+	(text "Ensures that OVP \ncircuits clamp to \n5V max.\n(SOD-123 Package)"
 		(exclude_from_sim no)
 		(at 248.666 56.134 0)
 		(effects
