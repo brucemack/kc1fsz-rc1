@@ -252,9 +252,9 @@ static void generateTestTone() {
     float ft = fIncrement * 7;
     omega *= ft;
     float phi = 0;
-    float a = 25000000.0;
+    //float a = 25000000.0;
     // Full scale
-    //float a   = 8000000.0;
+    float a = 8000000.0;
     float phase;
     
     phase = PI / 2.0 + phaseAdjust;
@@ -266,7 +266,6 @@ static void generateTestTone() {
         // (Left)
         dac_buffer_ping[i + 1] = c1 << 8;
         dac_buffer_pong[i + 1] = c1 << 8;
-        //printf("%u %u\n", dac_buffer_ping[i+1], dac_buffer_pong[i+1]);
 
         float d0 = a * cos(phi - phase);
         int32_t d1 = d0;
