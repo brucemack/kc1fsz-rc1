@@ -3,6 +3,7 @@
 
 #include "kc1fsz-tools/Log.h"
 #include "kc1fsz-tools/Clock.h"
+#include "kc1fsz-tools/ToneSynthesizer.h"
 
 #include "Tx.h"
 #include "Rx.h"
@@ -14,7 +15,7 @@ namespace kc1fsz {
 class TxControl {
 public:
 
-    TxControl(Clock& clock, Log& log, Tx& tx);
+    TxControl(Clock& clock, Log& log, Tx& tx, ToneSynthesizer& toneSynth);
 
     virtual void run();
 
@@ -22,6 +23,10 @@ public:
      * Makes a receiver visible to the transmitter.
      */
     void setRx(unsigned int i, Rx* rx);
+
+    void forceId() {
+        _idToneGenerator.start();
+    }
 
 private:
 

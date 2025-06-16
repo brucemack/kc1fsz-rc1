@@ -2,12 +2,12 @@
 
 namespace kc1fsz {
 
-TxControl::TxControl(Clock& clock, Log& log, Tx& tx)
+TxControl::TxControl(Clock& clock, Log& log, Tx& tx, ToneSynthesizer& toneSynth)
 :   _clock(clock),
     _log(log),
     _tx(tx),
     _courtesyToneGenerator(log, clock),
-    _idToneGenerator(log, clock)
+    _idToneGenerator(log, clock, toneSynth)
 {
 }
 
@@ -18,6 +18,10 @@ void TxControl::setRx(unsigned int i, Rx* rx) {
 }
 
 void TxControl::run() { 
+
+    // Advance sub-components
+    _idToneGenerator.run();
+    _courtesyToneGenerator.run();
 
     if (_state == State::INIT) {
         _enterIdle();

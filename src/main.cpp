@@ -73,6 +73,7 @@ uint dac_dout_pin = 9;
 #define ADC_SAMPLE_COUNT (256)
 #define ADC_SAMPLE_BYTES_LOG2 (11)
 #define DAC_SAMPLE_BYTES_LOG2 (11)
+#define FS_HZ (48000)
 
 // Buffer used to drive the DAC via DMA.
 // 2* for L and R
@@ -173,14 +174,13 @@ static float an1_i[ADC_SAMPLE_COUNT];
 static float an1_q[ADC_SAMPLE_COUNT];
 static bool overflow = false;
 
+static ToneSynthesizer toneSynth(FS_HZ, 5);
+
 // -----------------------------------------------------------------------------
 // IMPORTANT FUNCTION: 
 //
-// This should be called in receive mode when a complete frame of I/Q 
+// This should be called in receive mode when a complete frame of audio 
 // data has been converted.
-//
-// Benchmark: Approximately 1ms per call, using a 51 tap Hilbert transform
-// and a 91 tap low pass filter.
 //
 static void process_in_frame_rx() {
 
@@ -209,8 +209,6 @@ static void process_in_frame_rx() {
         j++;
     }
 
-    // ### PROCESSING
-
     // Write to the DAC buffer based on our current tracking of which 
     // is available for use.
     int32_t* dac_buffer;
@@ -218,6 +216,27 @@ static void process_in_frame_rx() {
         dac_buffer = (int32_t*)dac_buffer_ping;
     else
         dac_buffer = (int32_t*)dac_buffer_pong;
+
+    // -----------------------------------------------------------------------
+    // AUDIO PROCESSING HAPPENS HERE
+    
+    // Half scale
+    const float a = 4000000.0;  
+
+    j = 0;
+    for (unsigned int i = 0; i < ADC_SAMPLE_COUNT; i++) {
+
+        float r0 = a * toneSynth.getSample();
+        // Convert to 32-bit padded with zeros on the left
+        int32_t ir0 = r0;
+        int32_t ir1 = 0;
+        // Radio 1
+        dac_buffer[j++] = ir1 << 8;
+        // Radio 0
+        dac_buffer[j++] = ir0 << 8;
+    }
+
+    // -----------------------------------------------------------------------
 
     /*
     // Note that we are only writing to the left DAC channel.
@@ -744,7 +763,7 @@ int main(int argc, const char** argv) {
 
     // ===== AUDIO SETUP 
 
-    unsigned long fs = 48000;
+    //unsigned long fs = 48000;
 
     generateTestTone();
     //generate_silence();
@@ -766,7 +785,7 @@ int main(int argc, const char** argv) {
     StdTx tx(clock, log, 0, R0_PTT_PIN);
     tx.setToneMode(StdTx::ToneMode::NONE);
     tx.setTone(1230);
-    TxControl txCtl(clock, log, tx);
+    TxControl txCtl(clock, log, tx, toneSynth);
 
 //    TestRx rx0(clock, log, 0);
     StdRx rx0(clock, log, 0, R0_COS_PIN, R0_CTCSS_PIN);
@@ -790,6 +809,14 @@ int main(int argc, const char** argv) {
             printf("Status:\n");
             printf("  RX0 isActve %d\n", (int)rx0.isActive());
             printf("  RX1 isActve %d\n", (int)rx1.isActive());
+        }
+        else if (c == ' ') {
+            txCtl.forceId();
+            //toneSynth.setFreq(700);
+            //toneSynth.setEnabled(true);
+        }
+        else if (c == '.') {
+            toneSynth.setEnabled(false);
         }
 
         // Do periodic display/diagnostic stuff
