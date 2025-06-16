@@ -6,7 +6,7 @@ TxControl::TxControl(Clock& clock, Log& log, Tx& tx, ToneSynthesizer& toneSynth)
 :   _clock(clock),
     _log(log),
     _tx(tx),
-    _courtesyToneGenerator(log, clock),
+    _courtesyToneGenerator(log, clock, toneSynth),
     _idToneGenerator(log, clock, toneSynth)
 {
 }

@@ -2,21 +2,32 @@
 
 namespace kc1fsz {
 
-CourtesyToneGenerator::CourtesyToneGenerator(Log& log, Clock& clock) 
+CourtesyToneGenerator::CourtesyToneGenerator(Log& log, Clock& clock, ToneSynthesizer& synth) 
 :   _log(log),
-    _clock(clock)
+    _clock(clock),
+    _synth(synth)
 {
 }
 
 void CourtesyToneGenerator::run() {
+    if (_running) {
+        if (_clock.isPast(_endTime)) {
+            _running = false;
+            _synth.setEnabled(false);
+        }
+    }
 }
 
 void CourtesyToneGenerator::start() {
-    _endTime = _clock.time() + 250;
+    _running = true;
+    _endTime = _clock.time() + 70;
+    _synth.setFreq(1200);
+    _synth.setEnabled(true);
+
 }
 
 bool CourtesyToneGenerator::isFinished() {
-    return _clock.isPast(_endTime);
+    return !_running;
 }
 
 }

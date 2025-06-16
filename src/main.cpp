@@ -237,27 +237,6 @@ static void process_in_frame_rx() {
     }
 
     // -----------------------------------------------------------------------
-
-    /*
-    // Note that we are only writing to the left DAC channel.
-    j = 0;
-    for (unsigned int i = 0; i < ADC_SAMPLE_COUNT; i++) {
-        // TODO!!
-        float fScaled = 1;
-        // 24 bit signed
-        if (fabs(fScaled) > 8388607.0) {
-            overflow = true;
-            fScaled = 0;
-        }
-        // Move data into the 24 high bits of a 32 bit DAC word
-        int32_t aScaled = fScaled;
-        aScaled = aScaled << 8;
-        // Right 
-        dac_buffer[j++] = 0;
-        // Left
-        dac_buffer[j++] = aScaled;
-    }
-    */
 }
 
 // TEMP
