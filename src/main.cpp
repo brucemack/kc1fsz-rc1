@@ -19,7 +19,7 @@
  */
 
 /*
-Targeting RP2040 (Pico 1)
+When targeting RP2040 (Pico 1):
 
 Command used to load code onto the board: 
 ~/git/openocd/src/openocd -s ~/git/openocd/tcl -f interface/cmsis-dap.cfg -f target/rp040.cfg -c "adapter speed 5000" -c "rp2350.dap.core1 cortex_m reset_config sysresetreq" -c "program main.elf verify reset exit"
@@ -47,6 +47,7 @@ Command used to load code onto the board:
 #include "test/TestRx.h"
 #include "hw/StdTx.h"
 #include "hw/StdRx.h"
+#include "AudioSourceControl.h"
 
 #include "i2s.pio.h"
 #include "TxControl.h"
@@ -115,12 +116,7 @@ static volatile bool adc_frame_ready = false;
 // was just written and is waiting to be sent.
 static volatile bool dac_buffer_ping_open = false;
 
-// ----- Adjustable Parameters ----------------------------------
-
-// Scale when prouding audio output
-static float rxDacScale = 80.0;
-
-static void process_in_frame_rx();
+static void process_in_frame();
 
 // This will be called once every AUDIO_BUFFER_SIZE/2 samples.
 // VERY IMPORTANT: This interrupt handler needs to be fast enough 
@@ -130,8 +126,7 @@ static void dma_adc_handler() {
     dma_in_count++;
     adc_frame_ready = true;
 
-    process_in_frame_rx();
-    //process_in_frame_tx();
+    process_in_frame();
 
     // Clear the IRQ status
     dma_hw->ints0 = 1u << dma_ch_in_data;
@@ -168,22 +163,27 @@ static void dma_irq_handler() {
     }
 }
 
-// RX mode processing buffers
+// Audio input processing buffers
 // (Pulled outside to enable introspection)
-static float an1_i[ADC_SAMPLE_COUNT];
-static float an1_q[ADC_SAMPLE_COUNT];
-static bool overflow = false;
+static float an1_r0[ADC_SAMPLE_COUNT];
+static float an1_r1[ADC_SAMPLE_COUNT];
 
-static ToneSynthesizer toneSynth(FS_HZ, 5);
+// Objects used for tone generation (CW, courtesy, PL, etc.)
+static ToneSynthesizer toneSynth0(FS_HZ, 5);
+static ToneSynthesizer toneSynth1(FS_HZ, 5);
 static ToneSynthesizer plSynth0(FS_HZ, 5);
+static ToneSynthesizer plSynth1(FS_HZ, 5);
+static AudioSourceControl audioSource0;
+static AudioSourceControl audioSource1;
 
 // -----------------------------------------------------------------------------
 // IMPORTANT FUNCTION: 
 //
-// This should be called in receive mode when a complete frame of audio 
-// data has been converted.
+// This should be called when a complete frame of audio 
+// data has been converted. The audio output is generated
+// in this function.
 //
-static void process_in_frame_rx() {
+static void process_in_frame() {
 
     // Counter used to alternate between double-buffer sides
     static uint32_t dma_count_0 = 0;
@@ -199,14 +199,14 @@ static void process_in_frame_rx() {
     dma_count_0++;
 
     // Move from the DMA buffer to analysis buffers.  This also 
-    // separates the I/Q streams and corrects the scaling.
+    // separates the radio 0/1 streams and corrects the scaling.
     unsigned int j = 0;
     for (unsigned int i = 0; i < ADC_BUFFER_SIZE; i += 2) {
         // The 24-bit signed value is left-justified in the 32-bit word, 
         // so we need to shift right 8. Sign extension is automatic.
         // Range of 24 bits is -8,388,608 to 8,388,607.
-        an1_i[j] = adc_data[i] >> 8;
-        an1_q[j] = (float)(adc_data[i + 1] >> 8);
+        an1_r0[j] = adc_data[i] >> 8;
+        an1_r1[j] = (float)(adc_data[i + 1] >> 8);
         j++;
     }
 
@@ -224,13 +224,41 @@ static void process_in_frame_rx() {
     // Half scale
     const float toneScale = 4000000.0;  
     const float plScale = 1000000.0;
+    const float audioScale = 0.8;
 
     j = 0;
     for (unsigned int i = 0; i < ADC_SAMPLE_COUNT; i++) {
 
         // Blend the various audio sources
-        float r0 = (toneScale * toneSynth.getSample()) + (plScale * plSynth0.getSample());
-        float r1 = 0;
+        float r0 = (plScale * plSynth0.getSample());
+        // Bring in tone if it is running
+        if (toneSynth0.isActive()) {
+            r10 += toneScale * toneSynth0.getSample();
+        } 
+        // If there is no tone then bring in the audio
+        else {
+            if (audioSource0.getSource() == AudioSourceControl::Source::RADIO0) {
+                r0 += audioScale * an1_r0[i];                
+            } else if (audioSource0.getSource() == AudioSourceControl::Source::RADIO1) {
+                r0 += audioScale * an1_r1[i];                
+            }
+        }
+
+        // Blend the various audio sources
+        float r1 = (plScale * plSynth1.getSample());
+        // Bring in tone if it is running
+        if (toneSynth1.isActive()) {
+            r1 += toneScale * toneSynth1.getSample();
+        } 
+        // If there is no tone then bring in the audio
+        else {
+            if (audioSource1.getSource() == AudioSourceControl::Source::RADIO0) {
+                r1 += audioScale * an1_r0[i];                
+            } else if (audioSource1.getSource() == AudioSourceControl::Source::RADIO1) {
+                r1 += audioScale * an1_r1[i];                
+            }
+        }
+        
         // Convert to 32-bit padded with zeros on the left
         // Radio 1
         dac_buffer[j++] = ((int32_t)r1) << 8;

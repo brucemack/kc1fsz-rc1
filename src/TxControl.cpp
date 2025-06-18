@@ -1,13 +1,34 @@
+/**
+ * Digital Repeater Controller
+ * Copyright (C) 2025, Bruce MacKinnon KC1FSZ
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ * NOT FOR COMMERCIAL USE WITHOUT PERMISSION.
+ */
 #include "TxControl.h"
 
 namespace kc1fsz {
 
-TxControl::TxControl(Clock& clock, Log& log, Tx& tx, ToneSynthesizer& toneSynth)
+TxControl::TxControl(Clock& clock, Log& log, Tx& tx, 
+    ToneSynthesizer& toneSynth, AudioSourceControl& audioSource)
 :   _clock(clock),
     _log(log),
     _tx(tx),
     _courtesyToneGenerator(log, clock, toneSynth),
-    _idToneGenerator(log, clock, toneSynth)
+    _idToneGenerator(log, clock, toneSynth),
+    _audioSource(audioSource)
 {
 }
 
@@ -82,7 +103,6 @@ void TxControl::run() {
 
         // Look for timeout
         if (_clock.isPast(_timeoutTime)) {
-            
             _log.info("Timeout detected, lockout start");
             _enterLockout();
         } 
@@ -168,6 +188,7 @@ void TxControl::_enterIdle() {
     _state = State::IDLE;
     _lastIdleTime = _clock.time();
     _tx.setPtt(false);
+    _audioSource.setSource(AudioSourceControl::Source::SILENT);
 }
 
 void TxControl::_enterVoting() {
@@ -178,15 +199,25 @@ void TxControl::_enterActive(Rx* rx) {
     _setState(State::ACTIVE, 0);
     _activeRx = rx;
     _timeoutTime = _clock.time() + _timeoutWindowMs;
+    // Adjust the audio source
+    if (rx->getId() == 0) {
+        _audioSource.setSource(AudioSourceControl::Source::RADIO0);
+    } else if (rx->getId() == 1) {
+        _audioSource.setSource(AudioSourceControl::Source::RADIO1);
+    } else {
+        _audioSource.setSource(AudioSourceControl::Source::SILENT);
+    }
+    // Key the transmitter
     _tx.setPtt(true);
 }
 
 void TxControl::_enterPreId() {
+    _audioSource.setSource(AudioSourceControl::Source::SILENT);
     _tx.setPtt(true);
-    _setState(State::PRE_ID, _preIdWindowMs);
 }
 
 void TxControl::_enterId() {
+    _audioSource.setSource(AudioSourceControl::Source::SILENT);
     _tx.setPtt(true);
     _idToneGenerator.start();
     _lastIdTime = _clock.time();
@@ -194,6 +225,7 @@ void TxControl::_enterId() {
 }
 
 void TxControl::_enterPostId() {
+    _audioSource.setSource(AudioSourceControl::Source::SILENT);
     _tx.setPtt(true);
     _setState(State::POST_ID, _preIdWindowMs);
 }
@@ -206,6 +238,7 @@ void TxControl::_enterIdUrgent() {
 }
 
 void TxControl::_enterPreCourtesy() {
+    _audioSource.setSource(AudioSourceControl::Source::SILENT);
     _setState(PRE_COURTESY, _preCourtseyWindowMs);
 }
 
@@ -222,6 +255,7 @@ void TxControl::_enterHang() {
 }
 
 void TxControl::_enterLockout() {
+    _audioSource.setSource(AudioSourceControl::Source::SILENT);
     _tx.setPtt(false);
     _setState(State::LOCKOUT, _lockoutWindowMs);
 }

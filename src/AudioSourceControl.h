@@ -17,8 +17,27 @@
  *
  * NOT FOR COMMERCIAL USE WITHOUT PERMISSION.
  */
-#include "Tx.h"
+#ifndef _AudioSourceControl_h
+#define _AudioSourceControl_h
+
+#include "kc1fsz-tools/Runnable.h"
 
 namespace kc1fsz {
 
+class AudioSourceControl : public Runnable {
+public:
+
+    enum Source { SILENT, RADIO0, RADIO1 };
+
+    void setSource(Source source) { _source = source; }
+    Source getSource() const { return _source; }
+    virtual void run() { }
+
+private:
+
+    Source _source = Source::SILENT;
+};
+
 }
+
+#endif
