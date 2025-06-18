@@ -229,7 +229,7 @@ static void process_in_frame() {
         float r0 = (plScale * plSynth0.getSample());
         // Bring in tone if it is running
         if (toneSynth0.isActive()) {
-            r10 += toneScale * toneSynth0.getSample();
+            r0 += toneScale * toneSynth0.getSample();
         } 
         // If there is no tone then bring in the audio
         else {
@@ -763,8 +763,8 @@ int main(int argc, const char** argv) {
     rx1.setCosMode(StdRx::CosMode::COS_EXT_HIGH);
     rx1.setToneMode(StdRx::ToneMode::TONE_EXT_HIGH);
 
-    TxControl txCtl0(clock, log, tx0, toneSynth0);
-    TxControl txCtl1(clock, log, tx1, toneSynth1);
+    TxControl txCtl0(clock, log, tx0, toneSynth0, audioSource0);
+    TxControl txCtl1(clock, log, tx1, toneSynth1, audioSource1);
 
     txCtl0.setRx(0, &rx0);
     txCtl0.setRx(1, &rx1);
@@ -784,12 +784,8 @@ int main(int argc, const char** argv) {
             printf("  RX1 isActve %d\n", (int)rx1.isActive());
         }
         else if (c == ' ') {
-            txCtl.forceId();
-            //toneSynth.setFreq(700);
-            //toneSynth.setEnabled(true);
-        }
-        else if (c == '.') {
-            toneSynth.setEnabled(false);
+            txCtl0.forceId();
+            txCtl1.forceId();
         }
         // Radio 0 input display
         else if (c == '1') {
@@ -816,9 +812,11 @@ int main(int argc, const char** argv) {
         }
 
         // Run all components
-        tx.run();
+        tx0.run();
+        tx1.run();
         rx0.run();
         rx1.run();
-        txCtl.run();
+        txCtl0.run();
+        txCtl1.run();
     }
 }

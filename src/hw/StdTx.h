@@ -30,7 +30,7 @@ public:
 
     void setTone(int toneX10) { 
         _toneX10 = toneX10;
-        _plSynth.setFreq(((float)_toneZ10) / 10.0); 
+        _plSynth.setFreq(((float)_toneX10) / 10.0); 
     }
 
 private:
