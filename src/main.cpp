@@ -108,8 +108,6 @@ static uint dma_ch_in_data = 0;
 static uint dma_ch_out_data0 = 0;
 static uint dma_ch_out_data1 = 0;
 
-// Enabled inside ADC DMA IRQ to indicate that a new frame is available
-static volatile bool adc_frame_ready = false;
 // This flag is used to manage the alternating buffers. "ping open"
 // indicates that the ping buffer was just written and should be sent
 // out on the next opportunity. Otherwise, it's the pong buffer that
@@ -124,8 +122,6 @@ static void process_in_frame();
 static void dma_adc_handler() {   
 
     dma_in_count++;
-    adc_frame_ready = true;
-
     process_in_frame();
 
     // Clear the IRQ status
@@ -164,7 +160,7 @@ static void dma_irq_handler() {
 }
 
 // Audio input processing buffers
-// (Pulled outside to enable introspection)
+// (Pulled into global space  to enable introspection)
 static float an1_r0[ADC_SAMPLE_COUNT];
 static float an1_r1[ADC_SAMPLE_COUNT];
 
@@ -736,8 +732,8 @@ int main(int argc, const char** argv) {
     // ===== AUDIO SETUP 
 
     audio_setup();
-    plSynth0.setFreq(123.0);
-    plSynth0.setEnabled(true);
+    //plSynth0.setFreq(123.0);
+    //plSynth0.setEnabled(true);
 
     int strobe = 0;
     
@@ -751,22 +747,29 @@ int main(int argc, const char** argv) {
     PicoPollTimer flashTimer;
     flashTimer.setIntervalUs(1000 * 1000);
 
-//    TestTx tx(clock, log, 0);
-    StdTx tx(clock, log, 0, R0_PTT_PIN);
-    tx.setToneMode(StdTx::ToneMode::NONE);
-    tx.setTone(1230);
-    TxControl txCtl(clock, log, tx, toneSynth);
+    StdTx tx0(clock, log, 0, R0_PTT_PIN, plSynth0);
+    tx0.setToneMode(StdTx::ToneMode::SOFT);
+    tx0.setTone(1230);
 
-//    TestRx rx0(clock, log, 0);
+    StdTx tx1(clock, log, 1, R1_PTT_PIN, plSynth1);
+    tx1.setToneMode(StdTx::ToneMode::SOFT);
+    tx1.setTone(8850);
+
     StdRx rx0(clock, log, 0, R0_COS_PIN, R0_CTCSS_PIN);
     rx0.setCosMode(StdRx::CosMode::COS_EXT_HIGH);
     rx0.setToneMode(StdRx::ToneMode::TONE_EXT_HIGH);
-    txCtl.setRx(0, &rx0);
 
     StdRx rx1(clock, log, 1, R1_COS_PIN, R1_CTCSS_PIN);
     rx1.setCosMode(StdRx::CosMode::COS_EXT_HIGH);
     rx1.setToneMode(StdRx::ToneMode::TONE_EXT_HIGH);
-    txCtl.setRx(1, &rx1);
+
+    TxControl txCtl0(clock, log, tx0, toneSynth0);
+    TxControl txCtl1(clock, log, tx1, toneSynth1);
+
+    txCtl0.setRx(0, &rx0);
+    txCtl0.setRx(1, &rx1);
+    txCtl1.setRx(0, &rx0);
+    txCtl1.setRx(1, &rx1);
 
     // ===== Main Event Loop =================================================
 
@@ -787,6 +790,22 @@ int main(int argc, const char** argv) {
         }
         else if (c == '.') {
             toneSynth.setEnabled(false);
+        }
+        // Radio 0 input display
+        else if (c == '1') {
+            printf("\n");
+            for (unsigned int i = 0; i < ADC_SAMPLE_COUNT; i++) {
+                printf("%f\n", an1_r0[i]);
+            }
+            printf("\n");
+        }
+        // Radio 1 input display
+        else if (c == '2') {
+            printf("\n");
+            for (unsigned int i = 0; i < ADC_SAMPLE_COUNT; i++) {
+                printf("%f\n", an1_r1[i]);
+            }
+            printf("\n");
         }
 
         // Do periodic display/diagnostic stuff

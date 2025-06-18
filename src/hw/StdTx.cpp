@@ -4,11 +4,13 @@
 
 namespace kc1fsz {
 
-StdTx::StdTx(Clock& clock, Log& log, int id, int pttPin) 
+StdTx::StdTx(Clock& clock, Log& log, int id, int pttPin,
+    ToneSynthesizer& plSynth) 
 :   _clock(clock),
     _log(log),
     _id(id),
-    _pttPin(pttPin) {
+    _pttPin(pttPin),
+    _plSynth(plSynth) {
 }
 
 void StdTx::setPtt(bool ptt) {
