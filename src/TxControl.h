@@ -79,7 +79,7 @@ private:
     // Disabled for now
     uint32_t _votingWindowMs = 25;
     // How long between the end of transmission and the courtesy tone
-    uint32_t _preCourtseyWindowMs = 2000;    
+    uint32_t _preCourtseyWindowMs = 1500;    
     // How long a transmitter is allowed to stay active
     //uint32_t _timeoutWindowMs = 1000 * 120;    
     //TEMP

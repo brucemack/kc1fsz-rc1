@@ -42,7 +42,6 @@ void TxControl::run() {
     else if (_state == State::ID) {
         // Is the tone finished sending?
         if (_idToneGenerator.isFinished()) {
-            _log.info("CWID end");
             _enterIdle();
         }
     }
@@ -95,6 +94,12 @@ void TxControl::run() {
         else if (_activeRx->isActive()) {
             _log.info("RX activity, cancelled courtesy tone [%d]", _activeRx->getId());
             _enterActive(_activeRx);
+        }
+        // Check all of the receivers for activity. If anything happens then enter
+        // the voting mode to decide which receiver to focus on.
+        else if (_anyRxActivity()) {
+            _log.info("RX activity seen");
+            _enterVoting();
         }
     }
     // In this state we are waiting for the courtesy

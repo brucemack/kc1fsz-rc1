@@ -175,6 +175,7 @@ static float an1_q[ADC_SAMPLE_COUNT];
 static bool overflow = false;
 
 static ToneSynthesizer toneSynth(FS_HZ, 5);
+static ToneSynthesizer plSynth0(FS_HZ, 5);
 
 // -----------------------------------------------------------------------------
 // IMPORTANT FUNCTION: 
@@ -221,71 +222,35 @@ static void process_in_frame_rx() {
     // AUDIO PROCESSING HAPPENS HERE
     
     // Half scale
-    const float a = 4000000.0;  
+    const float toneScale = 4000000.0;  
+    const float plScale = 1000000.0;
 
     j = 0;
     for (unsigned int i = 0; i < ADC_SAMPLE_COUNT; i++) {
 
-        float r0 = a * toneSynth.getSample();
+        // Blend the various audio sources
+        float r0 = (toneScale * toneSynth.getSample()) + (plScale * plSynth0.getSample());
+        float r1 = 0;
         // Convert to 32-bit padded with zeros on the left
-        int32_t ir0 = r0;
-        int32_t ir1 = 0;
         // Radio 1
-        dac_buffer[j++] = ir1 << 8;
+        dac_buffer[j++] = ((int32_t)r1) << 8;
         // Radio 0
-        dac_buffer[j++] = ir0 << 8;
+        dac_buffer[j++] = ((int32_t)r0) << 8;
     }
 
     // -----------------------------------------------------------------------
 }
 
-// TEMP
-float phaseAdjust = 0.17;
-
-static void generateTestTone() {
-
-    float fs = 48000;
-    float omega = 2.0 * PI / fs;
-    float fIncrement = fs / (ADC_SAMPLE_COUNT);
-    float ft = fIncrement * 7;
-    omega *= ft;
-    float phi = 0;
-    //float a = 25000000.0;
-    // Full scale
-    float a = 8000000.0;
-    float phase;
-    
-    phase = PI / 2.0 + phaseAdjust;
-
-    for (unsigned int i = 0; i < DAC_BUFFER_SIZE; i += 2) {
-            
-        float c0 = a * cos(phi);
-        int32_t c1 = c0;
-        // (Left)
-        dac_buffer_ping[i + 1] = c1 << 8;
-        dac_buffer_pong[i + 1] = c1 << 8;
-
-        float d0 = a * cos(phi - phase);
-        int32_t d1 = d0;
-        // (Right)
-        dac_buffer_ping[i] = d1 << 8;
-        dac_buffer_pong[i] = d1 << 8;
-        //printf("%u %u\n", dac_buffer_ping[i], dac_buffer_pong[i]);
-        phi += omega;
-    }
-}
-
 static void generate_silence() {
     for (unsigned int i = 0; i < DAC_BUFFER_SIZE; i += 2) {
         // (Left)
-        dac_buffer_ping[i + 1] = 000005;
-        dac_buffer_pong[i + 1] = 000005;
+        dac_buffer_ping[i + 1] = 0;
+        dac_buffer_pong[i + 1] = 0;
         // (Right)
-        dac_buffer_ping[i] = 00005;
-        dac_buffer_pong[i] = 00005;
+        dac_buffer_ping[i] = 0;
+        dac_buffer_pong[i] = 0;
     }
 }
-
 
 static void audio_setup() {
 
@@ -742,11 +707,9 @@ int main(int argc, const char** argv) {
 
     // ===== AUDIO SETUP 
 
-    //unsigned long fs = 48000;
-
-    generateTestTone();
-    //generate_silence();
     audio_setup();
+    plSynth0.setFreq(123.0);
+    plSynth0.setEnabled(true);
 
     int strobe = 0;
     

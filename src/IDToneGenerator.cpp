@@ -3,7 +3,8 @@
 namespace kc1fsz {
 
 // Space, dot, dash
-const char IDToneGenerator::_id[] = ". - -   . - - - -   -   - . -   - - . .";
+// TODO: REMOVE TRAILING PAUSE
+const char IDToneGenerator::_id[] = ". - -   . - - - -   -   - . -   - - . .      ";
 const float freq = 600;
 const unsigned int dotMs = 50;
 
