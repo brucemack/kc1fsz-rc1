@@ -25,12 +25,12 @@ public:
     void setRx(unsigned int i, Rx* rx);
 
     void forceId() {
-        _idToneGenerator.start();
+        _enterPreId();
     }
 
 private:
 
-    enum State { INIT, IDLE, VOTING, ACTIVE, ID, ID_URGENT, PRE_COURTESY, COURTESY, HANG, LOCKOUT };
+    enum State { INIT, IDLE, VOTING, ACTIVE, PRE_ID, ID, POST_ID, ID_URGENT, PRE_COURTESY, COURTESY, HANG, LOCKOUT };
 
     void _setState(State state, uint32_t timeoutWindowMs = 0);
     bool _isStateTimedOut() const;
@@ -45,7 +45,9 @@ private:
     void _enterIdle();
     void _enterVoting();
     void _enterActive(Rx* rx);
+    void _enterPreId();
     void _enterId();
+    void _enterPostId();
     void _enterIdUrgent();
     void _enterPreCourtesy();
     void _enterCourtesy();
@@ -80,6 +82,10 @@ private:
     uint32_t _votingWindowMs = 25;
     // How long between the end of transmission and the courtesy tone
     uint32_t _preCourtseyWindowMs = 1500;    
+    // How long we pause with the transmitter keyed before sending the CWID
+    uint32_t _preIdWindowMs = 1000;    
+    // How long we pause with the transmitter keyed after sending the CWID
+    uint32_t _postIdWindowMs = 1000;    
     // How long a transmitter is allowed to stay active
     //uint32_t _timeoutWindowMs = 1000 * 120;    
     //TEMP

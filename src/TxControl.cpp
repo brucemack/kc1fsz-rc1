@@ -28,7 +28,7 @@ void TxControl::run() {
     }
     else if (_state == State::IDLE) {
         if (_isIdRequired(false)) {
-            _enterId();
+            _enterPreId();
         }
         // Check all of the receivers for activity. If anything happens then enter
         // the voting mode to decide which receiver to focus on.
@@ -37,11 +37,25 @@ void TxControl::run() {
             _enterVoting();
         }
     }
+    // In this state we are pausing before sending the CW ID.  Nothing
+    // can interrupt.
+    else if (_state == State::PRE_ID) {
+        if (_isStateTimedOut()) {
+            _enterId();
+        }
+    }
     // In this state we are sending the CW ID.  Nothing
     // can interrupt.
     else if (_state == State::ID) {
         // Is the tone finished sending?
         if (_idToneGenerator.isFinished()) {
+            _enterPostId();
+        }
+    }
+    // In this state we are pausing after sending the CW ID.  Nothing
+    // can interrupt.
+    else if (_state == State::POST_ID) {
+        if (_isStateTimedOut()) {
             _enterIdle();
         }
     }
@@ -136,7 +150,7 @@ void TxControl::run() {
         // Look for end of lockout time
         else if (_isStateTimedOut()) {
             _log.info("Lockout end");
-            _enterId();
+            _enterPreId();
         }
     }
 }
@@ -167,11 +181,21 @@ void TxControl::_enterActive(Rx* rx) {
     _tx.setPtt(true);
 }
 
+void TxControl::_enterPreId() {
+    _tx.setPtt(true);
+    _setState(State::PRE_ID, _preIdWindowMs);
+}
+
 void TxControl::_enterId() {
     _tx.setPtt(true);
     _idToneGenerator.start();
     _lastIdTime = _clock.time();
     _setState(State::ID, 0);
+}
+
+void TxControl::_enterPostId() {
+    _tx.setPtt(true);
+    _setState(State::POST_ID, _preIdWindowMs);
 }
 
 void TxControl::_enterIdUrgent() {
