@@ -214,6 +214,7 @@ void TxControl::_enterActive(Rx* rx) {
 void TxControl::_enterPreId() {
     _audioSource.setSource(AudioSourceControl::Source::SILENT);
     _tx.setPtt(true);
+    _setState(State::PRE_ID, _preIdWindowMs);
 }
 
 void TxControl::_enterId() {
@@ -227,7 +228,7 @@ void TxControl::_enterId() {
 void TxControl::_enterPostId() {
     _audioSource.setSource(AudioSourceControl::Source::SILENT);
     _tx.setPtt(true);
-    _setState(State::POST_ID, _preIdWindowMs);
+    _setState(State::POST_ID, _postIdWindowMs);
 }
 
 void TxControl::_enterIdUrgent() {

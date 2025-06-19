@@ -732,8 +732,6 @@ int main(int argc, const char** argv) {
     // ===== AUDIO SETUP 
 
     audio_setup();
-    //plSynth0.setFreq(123.0);
-    //plSynth0.setEnabled(true);
 
     int strobe = 0;
     
@@ -753,7 +751,7 @@ int main(int argc, const char** argv) {
 
     StdTx tx1(clock, log, 1, R1_PTT_PIN, plSynth1);
     tx1.setToneMode(StdTx::ToneMode::SOFT);
-    tx1.setTone(8850);
+    tx1.setTone(885);
 
     StdRx rx0(clock, log, 0, R0_COS_PIN, R0_CTCSS_PIN);
     rx0.setCosMode(StdRx::CosMode::COS_EXT_HIGH);
