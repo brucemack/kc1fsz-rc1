@@ -202,10 +202,13 @@ void TxControl::_enterActive(Rx* rx) {
     _timeoutTime = _clock.time() + _timeoutWindowMs;
     // Adjust the audio source
     if (rx->getId() == 0) {
+        _log.info("Set source 0");
         _audioSource.setSource(AudioSourceControl::Source::RADIO0);
     } else if (rx->getId() == 1) {
+        _log.info("Set source 1");
         _audioSource.setSource(AudioSourceControl::Source::RADIO1);
     } else {
+        _log.info("Set source Silent");
         _audioSource.setSource(AudioSourceControl::Source::SILENT);
     }
     // Key the transmitter

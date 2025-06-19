@@ -181,6 +181,8 @@ static AudioSourceControl audioSource1;
 //
 static void process_in_frame() {
 
+    dma_in_count++;
+
     // Counter used to alternate between double-buffer sides
     static uint32_t dma_count_0 = 0;
 
@@ -220,7 +222,7 @@ static void process_in_frame() {
     // Half scale
     const float toneScale = 4000000.0;  
     const float plScale = 1000000.0;
-    const float audioScale = 0.8;
+    const float audioScale = 1.0;
 
     j = 0;
     for (unsigned int i = 0; i < ADC_SAMPLE_COUNT; i++) {
@@ -234,9 +236,9 @@ static void process_in_frame() {
         // If there is no tone then bring in the audio
         else {
             if (audioSource0.getSource() == AudioSourceControl::Source::RADIO0) {
-                r0 += audioScale * an1_r0[i];                
-            } else if (audioSource0.getSource() == AudioSourceControl::Source::RADIO1) {
                 r0 += audioScale * an1_r1[i];                
+            } else if (audioSource0.getSource() == AudioSourceControl::Source::RADIO1) {
+                r0 += audioScale * an1_r0[i];                
             }
         }
 
@@ -249,9 +251,9 @@ static void process_in_frame() {
         // If there is no tone then bring in the audio
         else {
             if (audioSource1.getSource() == AudioSourceControl::Source::RADIO0) {
-                r1 += audioScale * an1_r0[i];                
-            } else if (audioSource1.getSource() == AudioSourceControl::Source::RADIO1) {
                 r1 += audioScale * an1_r1[i];                
+            } else if (audioSource1.getSource() == AudioSourceControl::Source::RADIO1) {
+                r1 += audioScale * an1_r0[i];                
             }
         }
         
@@ -277,6 +279,13 @@ static void generate_silence() {
 }
 
 static void audio_setup() {
+
+    // TODO: REVIEW WHETHER THIS IS NEEDED
+    // Reset the CODEC
+    gpio_put(adc_rst_pin, 0);
+    sleep_ms(100);
+    gpio_put(adc_rst_pin, 1);
+    sleep_ms(100);
 
     // ===== I2S SCK PIO Setup ===============================================
 
@@ -680,7 +689,6 @@ static void audio_setup() {
     gpio_put(adc_rst_pin, 1);
 }
 
-
 #define LED_PIN (PICO_DEFAULT_LED_PIN)
 #define R0_COS_PIN (14)
 #define R0_CTCSS_PIN (13)
@@ -727,7 +735,7 @@ int main(int argc, const char** argv) {
     gpio_put(LED_PIN, 0);
 
     printf("Digital Repeater Controller 2\nCopyright (C) 2025 Bruce MacKinnon KC1FSZ\n");
-    printf("Firmware R00234 2025-05-16\n");
+    printf("Firmware R00234 2025-06-19\n");
 
     // ===== AUDIO SETUP 
 
@@ -746,11 +754,11 @@ int main(int argc, const char** argv) {
     flashTimer.setIntervalUs(1000 * 1000);
 
     StdTx tx0(clock, log, 0, R0_PTT_PIN, plSynth0);
-    tx0.setToneMode(StdTx::ToneMode::SOFT);
+    //tx0.setToneMode(StdTx::ToneMode::SOFT);
     tx0.setTone(1230);
 
     StdTx tx1(clock, log, 1, R1_PTT_PIN, plSynth1);
-    tx1.setToneMode(StdTx::ToneMode::SOFT);
+    //tx1.setToneMode(StdTx::ToneMode::SOFT);
     tx1.setTone(885);
 
     StdRx rx0(clock, log, 0, R0_COS_PIN, R0_CTCSS_PIN, CourtesyToneGenerator::Type::FAST_UPCHIRP);
@@ -795,10 +803,12 @@ int main(int argc, const char** argv) {
         }
         // Radio 1 input display
         else if (c == '2') {
+            float hold[ADC_SAMPLE_COUNT];
+            for (unsigned int i = 0; i < ADC_SAMPLE_COUNT; i++)     
+                hold[i] = an1_r1[i];
             printf("\n");
-            for (unsigned int i = 0; i < ADC_SAMPLE_COUNT; i++) {
-                printf("%f\n", an1_r1[i]);
-            }
+            for (unsigned int i = 0; i < ADC_SAMPLE_COUNT; i++) 
+                printf("%f\n", hold[i]);
             printf("\n");
         }
 
@@ -807,6 +817,7 @@ int main(int argc, const char** argv) {
             //printf("Flash %d\n", i);
             i++;
             //printf("DMA out %u\n", dma_out_count);
+            //printf("ADC in %u\n", dma_in_count);
         }
 
         // Run all components

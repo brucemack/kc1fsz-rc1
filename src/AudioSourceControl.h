@@ -20,6 +20,7 @@
 #ifndef _AudioSourceControl_h
 #define _AudioSourceControl_h
 
+#include <cstdio>
 #include "kc1fsz-tools/Runnable.h"
 
 namespace kc1fsz {
@@ -35,7 +36,7 @@ public:
 
 private:
 
-    Source _source = Source::SILENT;
+    volatile Source _source = Source::SILENT;
 };
 
 }

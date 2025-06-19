@@ -79,7 +79,7 @@ private:
     Clock& _clock;
     Log& _log;
     Tx& _tx;
-    AudioSourceControl _audioSource;
+    AudioSourceControl& _audioSource;
 
     State _state = State::INIT;   
 
