@@ -113,6 +113,7 @@ void TxControl::run() {
         else if (!_activeRx->isActive()) {
             _log.info("Receiver COS dropped [%d]", _activeRx->getId());
             _log.info("Short pause before courtesy tone");
+            _courtesyToneGenerator.setType(_activeRx->getCourtesyType());
             _enterPreCourtesy();
         }
     }

@@ -753,11 +753,11 @@ int main(int argc, const char** argv) {
     tx1.setToneMode(StdTx::ToneMode::SOFT);
     tx1.setTone(885);
 
-    StdRx rx0(clock, log, 0, R0_COS_PIN, R0_CTCSS_PIN);
+    StdRx rx0(clock, log, 0, R0_COS_PIN, R0_CTCSS_PIN, CourtesyToneGenerator::Type::FAST_UPCHIRP);
     rx0.setCosMode(StdRx::CosMode::COS_EXT_HIGH);
     rx0.setToneMode(StdRx::ToneMode::TONE_EXT_HIGH);
 
-    StdRx rx1(clock, log, 1, R1_COS_PIN, R1_CTCSS_PIN);
+    StdRx rx1(clock, log, 1, R1_COS_PIN, R1_CTCSS_PIN, CourtesyToneGenerator::Type::FAST_DOWNCHIRP);
     rx1.setCosMode(StdRx::CosMode::COS_EXT_HIGH);
     rx1.setToneMode(StdRx::ToneMode::TONE_EXT_HIGH);
 

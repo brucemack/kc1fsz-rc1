@@ -7,12 +7,14 @@
 
 namespace kc1fsz {
 
-StdRx::StdRx(Clock& clock, Log& log, int id, int cosPin, int tonePin) 
+StdRx::StdRx(Clock& clock, Log& log, int id, int cosPin, int tonePin,
+    CourtesyToneGenerator::Type courtesyType) 
 :   _clock(clock),
     _log(log),
     _id(id),
     _cosPin(cosPin),
-    _tonePin(tonePin) {
+    _tonePin(tonePin),
+    _courtesyType(courtesyType) {
     _startTime = _clock.time();
 }
 

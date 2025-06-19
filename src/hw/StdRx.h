@@ -10,7 +10,8 @@ namespace kc1fsz {
 class StdRx : public Rx {
 public:
 
-    StdRx(Clock& clock, Log& log, int id, int cosPin, int tonePin);
+    StdRx(Clock& clock, Log& log, int id, int cosPin, int tonePin, 
+        CourtesyToneGenerator::Type courtesyType);
 
     virtual int getId() const { return _id; }
     virtual void run();
@@ -38,17 +39,24 @@ public:
 
     void setToneMode(ToneMode mode) { _toneMode = mode; }
 
+    virtual CourtesyToneGenerator::Type getCourtesyType() const { 
+        return _courtesyType;
+    }
+
+
 private:
 
     Clock& _clock;
     Log& _log;
+    const int _id;
+    const int _cosPin;
+    const int _tonePin;
+    const CourtesyToneGenerator::Type _courtesyType;
+
     uint32_t _startTime;
     bool _active = false;
     unsigned int _state = 0;
-    int _id;
     int _toneX10 = 0;
-    int _cosPin;
-    int _tonePin;
     CosMode _cosMode = CosMode::COS_EXT_HIGH;
     ToneMode _toneMode = ToneMode::TONE_NONE;
 };

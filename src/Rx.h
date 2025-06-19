@@ -2,6 +2,7 @@
 #define _Rx_h
 
 #include "kc1fsz-tools/Runnable.h"
+#include "CourtesyToneGenerator.h"
 
 namespace kc1fsz {
 
@@ -12,9 +13,9 @@ public:
 
     virtual int getId() const = 0;
     virtual bool isActive() const = 0;
-
-private:
-
+    virtual CourtesyToneGenerator::Type getCourtesyType() const { 
+        return CourtesyToneGenerator::Type::FAST_UPCHIRP; 
+    }
 };
 
 }
