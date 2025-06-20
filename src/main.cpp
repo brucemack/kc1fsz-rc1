@@ -160,9 +160,19 @@ static void dma_irq_handler() {
 }
 
 // Audio input processing buffers
-// (Pulled into global space  to enable introspection)
-static float an1_r0[ADC_SAMPLE_COUNT];
-static float an1_r1[ADC_SAMPLE_COUNT];
+// (Pulled into global space to enable introspection)
+static float raw_in_r0[ADC_SAMPLE_COUNT];
+static float raw_in_r1[ADC_SAMPLE_COUNT];
+
+// Used for holding a down-sampled version of the audio for level analysis
+static const unsigned int downSampleSize = 48;
+static unsigned int downSamplePtr = 0;
+static float downSampleAcc_r0 = 0;
+static float downSampleAcc_r1 = 0;
+static const unsigned int downSampleBufSize = 1024;
+static unsigned int downSampleBufPtr = 0;
+static float downSampleBuf_r0[downSampleBufSize];
+static float downSampleBuf_r1[downSampleBufSize];
 
 // Objects used for tone generation (CW, courtesy, PL, etc.)
 static ToneSynthesizer toneSynth0(FS_HZ, 5);
@@ -205,19 +215,39 @@ static void process_in_frame() {
     }
     dma_count_0++;
 
-    // Move from the DMA buffer to analysis buffers.  This also 
-    // separates the radio 0/1 streams and corrects the scaling.
+    // Move from the DMA buffer to raw input buffers.  This separates the 
+    // radio 0/1 streams and corrects the scaling.
     unsigned int j = 0;
     for (unsigned int i = 0; i < ADC_BUFFER_SIZE; i += 2) {
         // The 24-bit signed value is left-justified in the 32-bit word, 
         // so we need to shift right 8. Sign extension is automatic.
         // Range of 24 bits is -8,388,608 to 8,388,607.
-        an1_r0[j] = adc_data[i] >> 8;
-        an1_r1[j] = (float)(adc_data[i + 1] >> 8);
+        float r0_sample = (float)(adc_data[i] >> 8);
+        float r1_sample = (float)(adc_data[i + 1] >> 8);     
+
+        raw_in_r0[j] = r0_sample;
+        raw_in_r1[j] = r1_sample;
         j++;
+
+        // FIX REVERSE PROBLEM!!
+        // Create down-sampled history 
+        downSampleAcc_r0 += r1_sample;
+        downSampleAcc_r1 += r0_sample;
+        downSamplePtr++;
+        if (downSamplePtr >= downSampleSize) {
+            downSamplePtr = 0;
+            downSampleBuf_r0[downSampleBufPtr] = downSampleAcc_r0 / downSampleSize;
+            downSampleBuf_r1[downSampleBufPtr] = downSampleAcc_r1 / downSampleSize;
+            downSampleAcc_r0 = 0;
+            downSampleAcc_r1 = 0;
+            // Increment ptr and wrap
+            downSampleBufPtr++;
+            if (downSampleBufPtr >= downSampleBufSize)
+                downSampleBufPtr = 0;
+        }
     }
 
-    // Write to the DAC buffer based on our current tracking of which 
+    // Write to the appropriate DAC buffer based on our current tracking of which 
     // is available for use.
     int32_t* dac_buffer;
     if (dac_buffer_ping_open) 
@@ -250,9 +280,9 @@ static void process_in_frame() {
             // If there is no tone then bring in the audio
             else {
                 if (audioSource0.getSource() == AudioSourceControl::Source::RADIO0) {
-                    r0 += audioScale * an1_r1[i];                
+                    r0 += audioScale * raw_in_r1[i];                
                 } else if (audioSource0.getSource() == AudioSourceControl::Source::RADIO1) {
-                    r0 += audioScale * an1_r0[i];                
+                    r0 += audioScale * raw_in_r0[i];                
                 }
             }
         }
@@ -268,9 +298,9 @@ static void process_in_frame() {
             // If there is no tone then bring in the audio
             else {
                 if (audioSource1.getSource() == AudioSourceControl::Source::RADIO0) {
-                    r1 += audioScale * an1_r1[i];                
+                    r1 += audioScale * raw_in_r1[i];                
                 } else if (audioSource1.getSource() == AudioSourceControl::Source::RADIO1) {
-                    r1 += audioScale * an1_r0[i];                
+                    r1 += audioScale * raw_in_r0[i];                
                 }
             }
         }
@@ -752,14 +782,16 @@ int main(int argc, const char** argv) {
     sleep_ms(500);
     gpio_put(LED_PIN, 0);
 
-    printf("Digital Repeater Controller 2\nCopyright (C) 2025 Bruce MacKinnon KC1FSZ\n");
-    printf("Firmware R00234 2025-06-19\n");
+    //puts("\033[2J");
+    printf("Software Defined Repeater Controller\nCopyright (C) 2025 Bruce MacKinnon KC1FSZ\n");
+    printf("Firmware R00234 2025-06-20\n");
 
     // ===== AUDIO SETUP 
 
     audio_setup();
 
     int strobe = 0;
+    bool liveDisplay = false;
     
     PicoClock clock;
     clock.reset();
@@ -769,7 +801,7 @@ int main(int argc, const char** argv) {
 
     // Display/diagnostic should happen once per second
     PicoPollTimer flashTimer;
-    flashTimer.setIntervalUs(1000 * 1000);
+    flashTimer.setIntervalUs(500 * 1000);
 
     StdTx tx0(clock, log, 0, R0_PTT_PIN, plSynth0);
     //tx0.setToneMode(StdTx::ToneMode::SOFT);
@@ -813,9 +845,12 @@ int main(int argc, const char** argv) {
         }
         // Radio 0 input display
         else if (c == '1') {
+            float hold[ADC_SAMPLE_COUNT];
+            for (unsigned int i = 0; i < ADC_SAMPLE_COUNT; i++) 
+                hold[i] = raw_in_r1[i];
             printf("\n");
             for (unsigned int i = 0; i < ADC_SAMPLE_COUNT; i++) {
-                printf("%f\n", an1_r0[i]);
+                printf("%f\n", hold[i]);
             }
             printf("\n");
         }
@@ -845,6 +880,17 @@ int main(int argc, const char** argv) {
                 diagScale -= 10000;
             printf("Diag f=%f, s=%f\n", diagFreqHz, diagScale);
         }
+        else if (c == 'l') {
+            if (liveDisplay) {
+                liveDisplay = false;
+                log.setEnabled(true);
+            }
+            else {
+                liveDisplay = true;
+                log.setEnabled(false);
+                puts("\033[2J");
+            }
+        }
 
         // Do periodic display/diagnostic stuff
         if (flashTimer.poll()) {
@@ -852,6 +898,92 @@ int main(int argc, const char** argv) {
             i++;
             //printf("DMA out %u\n", dma_out_count);
             //printf("ADC in %u\n", dma_in_count);
+
+            if (liveDisplay) {
+                puts("\033[H");
+                printf("W1TKZ Software Defined Repater Controller\n");
+                printf("\n");
+
+                printf("R0 COS   : ");
+                if (rx0.isActive()) {
+                    printf("\033[30;42m");
+                    printf("ACTIVE  ");
+                    printf("\n");
+                    printf("\033[0m");
+                }
+                else {
+                    printf("\033[2m");
+                    printf("INACTIVE");
+                    printf("\n");
+                    printf("\033[0m");
+                }
+                printf("R0 PTT   : ");
+                if (tx0.getPtt()) {
+                    printf("\033[30;42m");
+                    printf("ACTIVE  ");
+                    printf("\n");
+                    printf("\033[0m");
+                }
+                else {
+                    printf("\033[2m");
+                    printf("INACTIVE");
+                    printf("\n");
+                    printf("\033[0m");
+                }
+
+                printf("R1 COS   : ");
+                if (rx1.isActive()) {
+                    printf("\033[30;42m");
+                    printf("ACTIVE  ");
+                    printf("\n");
+                    printf("\033[0m");
+                }
+                else {
+                    printf("\033[2m");
+                    printf("INACTIVE");
+                    printf("\n");
+                    printf("\033[0m");
+
+                }
+                printf("R1 PTT   : ");
+                if (tx1.getPtt()) {
+                    printf("\033[30;42m");
+                    printf("ACTIVE  ");
+                    printf("\n");
+                    printf("\033[0m");
+                }
+                else {
+                    printf("\033[2m");
+                    printf("INACTIVE");
+                    printf("\n");
+                    printf("\033[0m");
+                }
+
+                // Levels
+                float avg_r0 = 0;
+                float peak_r0 = 0;
+                float avg_r1 = 0;
+                float peak_r1 = 0;
+                for (unsigned int i = 0; i < downSampleBufSize; i++) {
+                    //avg_r0 += (downSampleBuf_r0[i] * downSampleBuf_r0[i]);
+                    //avg_r1 += (downSampleBuf_r1[i] * downSampleBuf_r1[i]);
+                    avg_r0 += downSampleBuf_r0[i];
+                    avg_r1 += downSampleBuf_r1[i];
+                    if (downSampleBuf_r0[i] > peak_r0)
+                        peak_r0 = downSampleBuf_r0[i];
+                    if (downSampleBuf_r1[i] > peak_r1)
+                        peak_r1 = downSampleBuf_r1[i];
+                }
+                avg_r0 /= (float)downSampleBufSize;
+                avg_r1 /= (float)downSampleBufSize;
+                printf("R0 LVL   : ");
+                //printf("%f", sqrt(avg_r0));
+                printf("%f", avg_r0);
+                printf("\n");
+                printf("R0 PEAK  : ");
+                printf("%f", peak_r0);
+                printf("\n");
+            }
         }
 
         // Run all components

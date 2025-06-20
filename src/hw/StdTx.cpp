@@ -25,6 +25,10 @@ void StdTx::setPtt(bool ptt) {
     _keyed = ptt;
 }
 
+bool StdTx::getPtt() const {
+    return _keyed;
+}
+
 void StdTx::run() {   
 }
 

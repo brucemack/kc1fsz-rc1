@@ -14,8 +14,10 @@ public:
     StdTx(Clock& clock, Log& log, int id, int pttPin,
         ToneSynthesizer& plSynth);
 
-    virtual void setPtt(bool ptt);
     virtual void run();
+
+    virtual void setPtt(bool ptt);
+    virtual bool getPtt() const;
 
     enum ToneMode { NONE, SOFT };
 

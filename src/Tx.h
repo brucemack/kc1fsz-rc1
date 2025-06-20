@@ -28,6 +28,7 @@ class Tx : public Runnable {
 public:
 
     virtual void setPtt(bool ptt) = 0;
+    virtual bool getPtt() const = 0;
     virtual void run() = 0;
 
 private:
