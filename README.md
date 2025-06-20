@@ -8,17 +8,39 @@ as much of the repeater functionality in software as
 possible. For this reason, we call this a "Software 
 Defined Repeater Controller" (SDRC). 
 
+The system was developed by Bruce MacKinnon (KC1FSZ) and
+Dan Brown (W1DAN) of the Wellesley Amateur Radio Society (W1TKZ).
+
 Key capabilities:
 
-* Support for two receivers and two transmitters.
-* CTCSS (PL) tone encoding and decoding.
+* Support for two receivers and two transmitters. Radios
+can operate independently or can be linked to support
+remote receiver or cross-band repeater systems.
+* CTCSS (PL) tone encoding and decoding, with support 
+for independent frequencies for each transmitter/receiver.
 * CWID generation.
 * Configurable hang time.
-* Courtesy tone generation.
+* Configurable courtesy tone generation.
 * Timeout and lockout with configurable times.
-* Soft gain control adjustable remotely.
 * Optional digital voice ID and other prompts.
 * Remote firmware update via LoRa connection.
+* Hardware gain adjustments to calibrate dynamic range during initial installation.
+* Soft RX/TX gain control adjustable remotely.
+* "Soft console" via USB-connected computer computer with
+serial terminal provides live display of the following
+for each radio:
+  - Carrier detect (COS) status
+  - PL tone detect (CTSS) status
+  - Push-to-talk (PTT) status
+  - Receiver audio level RMS and peak
+
+Other things to know:
+
+* Runs on +12VDC power input.
+* DB25 connection for radio interfaces.
+
+A demonstration video of the current prototype 
+[can be seen here](https://www.youtube.com/watch?v=HBwrpokd7FI).
 
 Parameters
 ==========
