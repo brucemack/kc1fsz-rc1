@@ -1,13 +1,24 @@
-Features
+Overview
 ========
 
-* CTCSS Decode
-* CWID
-* Courtesy Tone (1480/1760 20ms)
-* Noise Reduction
-* AGC/Input Balance
-* DTMF Commands
-   - Open/close VHF-UHF link
+This project attempts to create a basic 
+two-radio repeater controller typical of the kind used
+at analog VHF/UHF repeater sites. Our goal is to implement
+as much of the repeater functionality in software as 
+possible. For this reason, we call this a "Software 
+Defined Repeater Controller" (SDRC). 
+
+Key capabilities:
+
+* Support for two receivers and two transmitters.
+* CTCSS (PL) tone encoding and decoding.
+* CWID generation.
+* Configurable hang time.
+* Courtesy tone generation.
+* Timeout and lockout with configurable times.
+* Soft gain control adjustable remotely.
+* Optional digital voice ID and other prompts.
+* Remote firmware update via LoRa connection.
 
 Parameters
 ==========
@@ -24,15 +35,8 @@ Parameters
    - Hang time (how long TX stays keyed after input drops)
    - COS debounce interval (i.e. max drop-out of COS)
 
-CTCSS Tone Notes
-================
-
-* CTCSS/PL frequency on receive and transmit
-* 
-
-
-Relevant Rules
-==============
+Relevant Regs
+=============
 
 FCC Section 97.119 Station identification
 
@@ -146,8 +150,3 @@ Audio Module:
 * J4:2 -> Pico GP7 (Audio Select Radio 1)
 * J1:1 -> +5V
 * J1:2 -> GND
-
-GPIO Tone Generation Notes
-==========================
-
-The tone output must be low-pass filtered.  See the [RP2040 hardware design guide](https://datasheets.raspberrypi.com/rp2040/hardware-design-with-rp2040.pdf) on page 24 for an example circuit.
