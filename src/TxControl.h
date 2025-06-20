@@ -28,6 +28,7 @@
 #include "Rx.h"
 #include "CourtesyToneGenerator.h"
 #include "IDToneGenerator.h"
+#include "VoiceGenerator.h"
 #include "AudioSourceControl.h"
 
 namespace kc1fsz {
@@ -88,7 +89,8 @@ private:
     Rx* _activeRx;
 
     CourtesyToneGenerator _courtesyToneGenerator;
-    IDToneGenerator _idToneGenerator;
+    //IDToneGenerator _idToneGenerator;
+    VoiceGenerator _idToneGenerator;
 
     uint32_t _lastIdleTime = 0;
     uint32_t _timeoutTime = 0;
@@ -109,13 +111,9 @@ private:
     // How long we pause with the transmitter keyed after sending the CWID
     uint32_t _postIdWindowMs = 1000;    
     // How long a transmitter is allowed to stay active
-    //uint32_t _timeoutWindowMs = 1000 * 120;    
-    //TEMP
-    uint32_t _timeoutWindowMs = 1000 * 20;    
+    uint32_t _timeoutWindowMs = 1000 * 120;    
     // How long we sleep after a timeout is detected
-    //uint32_t _lockoutWindowMs = 1000 * 60;
-    //TEMP
-    uint32_t _lockoutWindowMs = 1000 * 20;
+    uint32_t _lockoutWindowMs = 1000 * 60;
     // Length of hang interval
     uint32_t _hangWindowMs = 1000 * 2;
     // Amount of time that passes in the idle state before we decide the 

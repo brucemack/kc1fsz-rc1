@@ -14,6 +14,7 @@ add_executable(main
   src/Rx.cpp
   src/CourtesyToneGenerator.cpp
   src/IDToneGenerator.cpp
+  src/VoiceGenerator.cpp
   src/test/TestTx.cpp
   src/test/TestRx.cpp
   src/hw/StdTx.cpp
