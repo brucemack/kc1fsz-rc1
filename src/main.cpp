@@ -172,6 +172,15 @@ static ToneSynthesizer plSynth1(FS_HZ, 5);
 static AudioSourceControl audioSource0;
 static AudioSourceControl audioSource1;
 
+// Controls the maximum value that can be output from the DAC
+// (plus or minus) before clipping happens somewhere in the audio 
+// output path.
+#define MAX_DAC_SCALE (6750000)
+
+static ToneSynthesizer diagSynth(FS_HZ, 5);
+static float diagScale = MAX_DAC_SCALE;
+static float diagFreqHz = 100.0;
+
 // -----------------------------------------------------------------------------
 // IMPORTANT FUNCTION: 
 //
@@ -220,40 +229,49 @@ static void process_in_frame() {
     // AUDIO PROCESSING HAPPENS HERE
     
     // Half scale
-    const float toneScale = 4000000.0;  
-    const float plScale = 1000000.0;
+    const float toneScale = MAX_DAC_SCALE;  
+    const float plScale = (MAX_DAC_SCALE / 4);
     const float audioScale = 1.0;
 
     j = 0;
     for (unsigned int i = 0; i < ADC_SAMPLE_COUNT; i++) {
 
-        // Blend the various audio sources
-        float r0 = (plScale * plSynth0.getSample());
-        // Bring in tone if it is running
-        if (toneSynth0.isActive()) {
-            r0 += toneScale * toneSynth0.getSample();
+        float r0 = 0;
+        if (diagSynth.isActive()) {
+            r0 = diagScale * diagSynth.getSample();
         } 
-        // If there is no tone then bring in the audio
         else {
-            if (audioSource0.getSource() == AudioSourceControl::Source::RADIO0) {
-                r0 += audioScale * an1_r1[i];                
-            } else if (audioSource0.getSource() == AudioSourceControl::Source::RADIO1) {
-                r0 += audioScale * an1_r0[i];                
+            // Blend the various audio sources
+            r0 = (plScale * plSynth0.getSample());
+            // Bring in tone if it is running
+            if (toneSynth0.isActive()) {
+                r0 += toneScale * toneSynth0.getSample();
+            } 
+            // If there is no tone then bring in the audio
+            else {
+                if (audioSource0.getSource() == AudioSourceControl::Source::RADIO0) {
+                    r0 += audioScale * an1_r1[i];                
+                } else if (audioSource0.getSource() == AudioSourceControl::Source::RADIO1) {
+                    r0 += audioScale * an1_r0[i];                
+                }
             }
         }
 
-        // Blend the various audio sources
-        float r1 = (plScale * plSynth1.getSample());
-        // Bring in tone if it is running
-        if (toneSynth1.isActive()) {
-            r1 += toneScale * toneSynth1.getSample();
-        } 
-        // If there is no tone then bring in the audio
-        else {
-            if (audioSource1.getSource() == AudioSourceControl::Source::RADIO0) {
-                r1 += audioScale * an1_r1[i];                
-            } else if (audioSource1.getSource() == AudioSourceControl::Source::RADIO1) {
-                r1 += audioScale * an1_r0[i];                
+        float r1 = 0;
+        {
+            // Blend the various audio sources
+            r1 = (plScale * plSynth1.getSample());
+            // Bring in tone if it is running
+            if (toneSynth1.isActive()) {
+                r1 += toneScale * toneSynth1.getSample();
+            } 
+            // If there is no tone then bring in the audio
+            else {
+                if (audioSource1.getSource() == AudioSourceControl::Source::RADIO0) {
+                    r1 += audioScale * an1_r1[i];                
+                } else if (audioSource1.getSource() == AudioSourceControl::Source::RADIO1) {
+                    r1 += audioScale * an1_r0[i];                
+                }
             }
         }
         
@@ -801,15 +819,31 @@ int main(int argc, const char** argv) {
             }
             printf("\n");
         }
-        // Radio 1 input display
+        else if (c == 'd') {
+            diagSynth.setEnabled(true);
+            diagFreqHz = 100;
+            diagScale = MAX_DAC_SCALE;
+            diagSynth.setFreq(diagFreqHz);
+        }
+        else if (c == '8') {
+            diagFreqHz += 50;
+            diagSynth.setFreq(diagFreqHz);
+            printf("Diag f=%f, s=%f\n", diagFreqHz, diagScale);
+        }
         else if (c == '2') {
-            float hold[ADC_SAMPLE_COUNT];
-            for (unsigned int i = 0; i < ADC_SAMPLE_COUNT; i++)     
-                hold[i] = an1_r1[i];
-            printf("\n");
-            for (unsigned int i = 0; i < ADC_SAMPLE_COUNT; i++) 
-                printf("%f\n", hold[i]);
-            printf("\n");
+            if (diagFreqHz > 100)
+                diagFreqHz -= 50;
+            diagSynth.setFreq(diagFreqHz);
+            printf("Diag f=%f, s=%f\n", diagFreqHz, diagScale);
+        }
+        else if (c == '9') {
+            diagScale += 10000;
+            printf("Diag f=%f, s=%f\n", diagFreqHz, diagScale);
+        }
+        else if (c == '3') {
+            if (diagScale > 10000)
+                diagScale -= 10000;
+            printf("Diag f=%f, s=%f\n", diagFreqHz, diagScale);
         }
 
         // Do periodic display/diagnostic stuff

@@ -89,8 +89,8 @@ private:
     Rx* _activeRx;
 
     CourtesyToneGenerator _courtesyToneGenerator;
-    //IDToneGenerator _idToneGenerator;
-    VoiceGenerator _idToneGenerator;
+    IDToneGenerator _idToneGenerator;
+    //VoiceGenerator _idToneGenerator;
 
     uint32_t _lastIdleTime = 0;
     uint32_t _timeoutTime = 0;
