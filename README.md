@@ -11,6 +11,8 @@ Defined Repeater Controller" (SDRC).
 The system was developed by Bruce MacKinnon (KC1FSZ) and
 Dan Brown (W1DAN) of the Wellesley Amateur Radio Society (W1TKZ).
 
+![Controller](docs/sdrc1.jpg)
+
 Key capabilities:
 
 * Support for two receivers and two transmitters. Radios
