@@ -16,8 +16,8 @@ provides a compact EchoLink implementation. Soon the SDRC and MicroLink
 systems will be integrated. Reverse-engineering of the D-Star/DMR protocols
 will also enable direct integration of those modes at some point.
 
-The SDRC system was developed by Bruce MacKinnon (KC1FSZ) and
-Dan Brown (W1DAN) of the Wellesley Amateur Radio Society (W1TKZ).
+The SDRC system was developed by Bruce MacKinnon (KC1FSZ) with design 
+input from Dan Brown (W1DAN) of the Wellesley Amateur Radio Society (W1TKZ).
 Please reach out with any questions/suggestions.
 
 ![Controller](docs/sdrc1.jpg)
@@ -44,7 +44,6 @@ for independent frequencies for each transmitter/receiver.
 * Configurable courtesy tone generation.
 * Timeout and lockout with configurable times.
 * Optional digital voice ID and other prompts.
-* Remote firmware update via LoRa connection.
 * Soft RX/TX gain control adjustable remotely.
 * "Soft console" via USB-connected computer computer with
 serial terminal provides live display of the following
@@ -53,6 +52,8 @@ for each radio:
   - PL tone detect (CTSS) status
   - Push-to-talk (PTT) status
   - Receiver audio level RMS and peak
+* (In development) Remote firmware update via LoRa connection.
+* (In development) <= 3 second digital audio delay to avoid "static crashes."
 
 Other things to know:
 
