@@ -6,7 +6,9 @@ two-radio repeater controller typical of the kind used
 at analog VHF/UHF repeater sites. Our goal is to implement
 as much of the repeater functionality in software as 
 possible. For this reason, we call this the "Software 
-Defined Repeater Controller" (SDRC) project. 
+Defined Repeater Controller" (SDRC) project. This Github
+repo contains the source code for the controller and the 
+KiCad designs for the hardware.
 
 The system was developed by Bruce MacKinnon (KC1FSZ) and
 Dan Brown (W1DAN) of the Wellesley Amateur Radio Society (W1TKZ).
@@ -16,9 +18,9 @@ Dan Brown (W1DAN) of the Wellesley Amateur Radio Society (W1TKZ).
 Capabilities
 ============
 
-This is a development in process. The prototype is undergoing bench 
-testing. We plan to install it at our real repeater site within the 
-next few months.
+This is development in process. The prototype is undergoing bench 
+testing at the moment. We plan to install it at our repeater site within the 
+next month.
 
 Key capabilities of the software so far:
 
@@ -53,15 +55,22 @@ during initial installation.
 an FM analog repeater system.
 * Runs on +12VDC power input.
 * DB25 connection for radio interfaces.
+* Overvoltage protection is provided on the audio and logic inputs.
+* Overvoltage, reverse-polarity, and transient spike protection is provided
+on the power input.
 
 Hardware specs:
 
 * Microcontroller is the RP2350 running at 125 MHz.
-* Audio path is 24-bits at 48k samples/second.
+* Audio path is 24-bits at 48k samples/second. More than enough for 
+an analog FM repeater.
 * Low-noise op amps are used for audio scaling (TL072).
 
-A demonstration video of the current prototype 
+More documentation:
+
+* A demonstration video of the current prototype 
 [can be seen here](https://www.youtube.com/watch?v=HBwrpokd7FI).
+* A demonstration video of the soft console [can be seen here](https://www.youtube.com/watch?v=gWjOw0UzMgY).
 
 Parameters
 ==========
