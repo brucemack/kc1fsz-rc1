@@ -9,8 +9,16 @@ Defined Repeater Controller" (SDRC) project. This Github
 repo contains the source code for the controller and the 
 KiCad designs for the hardware.
 
-The system was developed by Bruce MacKinnon (KC1FSZ) and
+One of the advantages of an all-digital architecture is that integration
+with other digital-voice technologies should be seamless. Please
+see the related project called [MicroLink](https://github.com/brucemack/microlink) which
+provides a compact EchoLink implementation. Soon the SDRC and MicroLink
+systems will be integrated. Reverse-engineering of the D-Star/DMR protocols
+will also enable direct integration of those modes at some point.
+
+The SDRC system was developed by Bruce MacKinnon (KC1FSZ) and
 Dan Brown (W1DAN) of the Wellesley Amateur Radio Society (W1TKZ).
+Please reach out with any questions/suggestions.
 
 ![Controller](docs/sdrc1.jpg)
 
@@ -71,6 +79,8 @@ More documentation:
 * A demonstration video of the current prototype 
 [can be seen here](https://www.youtube.com/watch?v=HBwrpokd7FI).
 * A demonstration video of the soft console [can be seen here](https://www.youtube.com/watch?v=gWjOw0UzMgY).
+* The hardware for the LoRa integration [is here](https://github.com/brucemack/lora-r2).
+* The software for the LoRa integration [is here](https://github.com/brucemack/remote-probe).
 
 Parameters
 ==========
