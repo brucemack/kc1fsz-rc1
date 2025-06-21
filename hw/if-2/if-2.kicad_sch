@@ -5,9 +5,9 @@
 	(uuid "a8c2d6aa-29bb-49bd-a367-0d62a0a32480")
 	(paper "USLetter")
 	(title_block
-		(title "Digital Repeater Controller")
-		(date "2025-05-31")
-		(rev "2")
+		(title "Software Defined Repeater Controller")
+		(date "2025-06-21")
+		(rev "3")
 		(company "Bruce MacKinnon KC1FSZ")
 		(comment 1 "Copyright (C) Bruce MacKinnon, 2025")
 		(comment 2 "NOT FOR COMMERCIAL USE")
@@ -109,7 +109,7 @@
 		)
 		(uuid "2b23b60d-a834-496a-b999-59decd1a0f3c")
 	)
-	(text "Digital Repeater Controller V2 - Radio Interface Board"
+	(text "Software Defined Repeater Controller - Radio Interface Board"
 		(exclude_from_sim no)
 		(at 71.374 21.082 0)
 		(effects

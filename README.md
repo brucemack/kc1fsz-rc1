@@ -97,6 +97,17 @@ The hardware for this project is published under the terms of [The TAPR Open Har
 
 The software for this project is published under the terms of [GNU GENERAL PUBLIC LICENSE](https://www.gnu.org/licenses/gpl-3.0.en.html).
 
+Technical/Design Notes
+======================
+
+The DAC is 24-bit, so full scale runs from +/- 8,388,608. 
+
+Dan suggested that tones (ex: CWID) should be generated at a level of between
+-14dB and -10dB of full DAC full scale.  A tone of -10dB down should scale 
+by 10<sup>(-10/20)</sup> = 0.32 linear scale. 
+
+The PL tone should be another -12dB down, or 0.32 * 0.25 = 0.08 linear scale.
+
 Parameters
 ==========
 
