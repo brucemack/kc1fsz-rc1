@@ -1,13 +1,112 @@
-Features
+Overview
 ========
 
-* CTCSS Decode
-* CWID
-* Courtesy Tone (1480/1760 20ms)
-* Noise Reduction
-* AGC/Input Balance
-* DTMF Commands
-   - Open/close VHF-UHF link
+This project attempts to create a basic two-radio repeater controller typical used
+at analog FM VHF/UHF repeater sites. Our goal is to implement
+as much of the repeater functionality in software as 
+possible. For this reason, we call this the "Software 
+Defined Repeater Controller" (SDRC) project. This Github
+repo contains the source code for the controller and the 
+KiCad designs for the hardware.
+
+One of the advantages of an all-digital architecture is that integration
+with other digital-voice technologies should be seamless. Please
+see the related project called [MicroLink](https://github.com/brucemack/microlink) which
+provides a compact EchoLink implementation. Soon the SDRC and MicroLink
+systems will be integrated. Reverse-engineering of the D-Star/DMR protocols
+will also enable direct integration of those modes at some point. 
+
+Much of the hardware traditionally used in analog repeater designs
+(analog cross-point switches, FPGAs, custom DTMF/CTCSS tone detection chips, 
+digital voice CODECs, voice delay modules, etc.) will not be necessary
+if all of these functions can be performed in software.
+
+The SDRC system was developed by Bruce MacKinnon (KC1FSZ) with design 
+input from Dan Brown (W1DAN) of the Wellesley Amateur Radio Society (W1TKZ).
+Please reach out with any questions/suggestions.
+
+![Controller](docs/sdrc1.jpg)
+
+Capabilities
+============
+
+This is development in process. The prototype is undergoing bench 
+testing at the moment. We plan to install it at our repeater site within the 
+next month.
+
+Key capabilities of the software so far:
+
+* Support for two receivers and two transmitters. Radios
+can operate independently or can be linked to support
+remote receiver or cross-band repeater systems.
+* Hardware COS and CTCSS inputs are available for each radio. Positive
+and negative logic are supported.
+* An optically-isolated hardware PTT output is available for each radio.
+* Optional soft CTCSS (PL) tone encoding and decoding, with support 
+for independent frequencies for each transmitter/receiver.
+* CWID generation.
+* Configurable hang time.
+* Configurable courtesy tone generation.
+* Timeout and lockout with configurable times.
+* Optional digital voice ID and other prompts.
+* Soft RX/TX gain control adjustable remotely.
+* "Soft console" via USB-connected computer computer with
+serial terminal provides live display of the following
+for each radio:
+  - Carrier detect (COS) status
+  - PL tone detect (CTSS) status
+  - Push-to-talk (PTT) status
+  - Receiver audio level RMS and peak
+* (In development) Remote firmware update via LoRa connection.
+* (In development) <= 3 second digital audio delay to avoid "static crashes."
+
+Other things to know:
+
+* The audio input/output range is around 2Vpp.
+* Hardware gain adjustments (pots) are used to calibrate dynamic range 
+during initial installation.
+* The audio path is about 10 kHz wide, which should be plenty for 
+an FM analog repeater system.
+* Runs on +12VDC power input.
+* DB25 connection for radio interfaces.
+* Overvoltage protection is provided on the audio and logic inputs.
+* Overvoltage, reverse-polarity, and transient spike protection is provided
+on the power input.
+
+Hardware specs:
+
+* Microcontroller is the RP2350 running at 125 MHz.
+* Audio path is 24-bits at 48k samples/second. More than enough for 
+an analog FM repeater.
+* Low-noise op amps are used for audio scaling (TL072).
+
+More documentation:
+
+* A demonstration video of the current prototype 
+[can be seen here](https://www.youtube.com/watch?v=HBwrpokd7FI).
+* A demonstration video of the soft console [can be seen here](https://www.youtube.com/watch?v=gWjOw0UzMgY).
+* The hardware for the LoRa integration [is here](https://github.com/brucemack/lora-r2).
+* The software for the LoRa integration [is here](https://github.com/brucemack/remote-probe).
+
+Legal/License
+=============
+
+This work is being made available for non-commercial use by the amateur radio community. Redistribution, commercial use or sale of any part is prohibited.
+
+The hardware for this project is published under the terms of [The TAPR Open Hardware License](https://tapr.org/the-tapr-open-hardware-license).
+
+The software for this project is published under the terms of [GNU GENERAL PUBLIC LICENSE](https://www.gnu.org/licenses/gpl-3.0.en.html).
+
+Technical/Design Notes
+======================
+
+The DAC is 24-bit, so full scale runs from +/- 8,388,608. 
+
+Dan suggested that tones (ex: CWID) should be generated at a level of between
+-14dB and -10dB of full DAC full scale.  A tone of -10dB down should scale 
+by 10<sup>(-10/20)</sup> = 0.32 linear scale. 
+
+The PL tone should be another -12dB down, or 0.32 * 0.25 = 0.08 linear scale.
 
 Parameters
 ==========
@@ -24,15 +123,8 @@ Parameters
    - Hang time (how long TX stays keyed after input drops)
    - COS debounce interval (i.e. max drop-out of COS)
 
-CTCSS Tone Notes
-================
-
-* CTCSS/PL frequency on receive and transmit
-* 
-
-
-Relevant Rules
-==============
+Relevant Regs
+=============
 
 FCC Section 97.119 Station identification
 
@@ -105,49 +197,3 @@ GP26 - X
 GP27 - X
 GP28 - X
 ```
-
-Wiring Notes (Revision A)
-=========================
-
-Pico Module:
-* GP0  - (Reserved for UART0 TX)
-* GP1  - (Reserved for UART0 RX)
-* GP2  - I2C1 SDA 
-* GP3  - I2C1 SCL 
-* GP4  - Audio Select Radio 0 
-* GP5  - PTT Radio 0
-* GP6  - COS Radio 0
-* GP7  - Audio Select Radio 1
-* GP8  - PTT Radio 1
-* GP9  - COS Radio 1
-* GP10 - Tone output (PWM)
-* GP11
-* GP12
-* GP13
-* GP14
-* GP15
-* GP16 - 
-* GP17 - 
-
-Control Module: 
-* J2:1 -> +3.3V
-* J2:2 -> Pico GP6 (COS Radio 0)
-* J2:3 -> Pico GP9 (COS Radio 1)
-* J2:4 -> Pico GP5 (PTT Radio 0)
-* J2:5 -> Pico GP8 (PTT Radio 1)
-* J2:6 -> GND
-* J1:1 -> COS- Radio 0 (Optocoupler cathode)
-* J1:2 -> COS+ Radio 0 (Through 220R and optocoupler anode)
-* J1:5 -> PTT+ Radio 0 (Optocoupler collector)
-* J1:6 -> PTT- Radio 0 (Optocoupler emitter)
-
-Audio Module:
-* J4:1 -> Pico GP4 (Audio Select Radio 0)
-* J4:2 -> Pico GP7 (Audio Select Radio 1)
-* J1:1 -> +5V
-* J1:2 -> GND
-
-GPIO Tone Generation Notes
-==========================
-
-The tone output must be low-pass filtered.  See the [RP2040 hardware design guide](https://datasheets.raspberrypi.com/rp2040/hardware-design-with-rp2040.pdf) on page 24 for an example circuit.

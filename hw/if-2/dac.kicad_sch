@@ -5,9 +5,9 @@
 	(uuid "a86295e8-b38e-4374-b8c0-7f03d2a68358")
 	(paper "USLetter")
 	(title_block
-		(title "COS/CTCSS/PTT Controls (Radio 1)")
-		(date "2025-05-31")
-		(rev "2")
+		(title "DAC")
+		(date "2025-06-21")
+		(rev "3")
 		(company "Bruce MacKinnon KC1FSZ")
 		(comment 1 "Copyright (C) Bruce MacKinnon, 2025")
 		(comment 2 "NOT FOR COMMERCIAL USE")
@@ -3001,7 +3001,25 @@
 			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAJmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZ"
+			"////////////////////////////////////////////////////////////////////////////"
+			"////////////////////////////////////////////////////////////////////////////"
+			"////////////////////////////////////////////////////////////////////////////"
+			"////////////////////////////////////////////////////////////////////////////"
+			"////////////////////////////////////////////////////////////////////////////"
+			"////////////////////////////////////////////////////////////////////////////"
+			"////////////////////mZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZ"
+			"mZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZ////////////////"
+			"////////////////////////////////////////////////////////////////////////////"
+			"////////////////////////////////////////////////////////////////////////////"
+			"////////////////////////////////////////////////////////////////////////////"
+			"8NtGQ3IBAAAXAAAXJJCNAMARv15yAQAAIEilM3IBAABw3EZDcgEAAHDcRkNyAQAAsNxGQ3IBAACw"
+			"3EZDcgEAAPDcRkNyAQAA8NxGQ3IBAAAw3UZDcgEAADDdRkNyAQAAcN1GQ3IBAABw3UZDcgEAALDd"
+			"RkNyAQAAsN1GQ3IBAAAw3kZDcgEAADDeRkNyAQAAcN5GQ3IBAABw3kZDcgEAAPDdRkNyAQAA8N1G"
+			"Q3IBAAAw30ZDcgEAADDfRkNyAQAAwP1FQ3IBAADA/UVDcgEAAPDfRkNyAQAA8N9GQ3IBAAAw4EZD"
+			"cgEAADDgRkNyAQAAEP5FQ3IBAAAQ/kVDcgEAAAD/RUNyAQAAAP9FQ3IBAADw4UZDcgEAAPDhRkNy"
+			"AQAAMOJGQ3IBAAAw4kZDcgEAAHDiRkNyAQAAcOJGQ3IBAACw4kZDcgEAALDiRkNyAQAAUP9FQ3IB"
+			"AABQ/0VDcgEAADDjRkNyAQAAMONGQw=="
 		)
 	)
 	(global_label "XSMT"
