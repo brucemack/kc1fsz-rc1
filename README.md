@@ -16,10 +16,10 @@ provides a compact EchoLink implementation. Soon the SDRC and MicroLink
 systems will be integrated. Reverse-engineering of the D-Star/DMR protocols
 will also enable direct integration of those modes at some point. 
 
-Many of the special hardware traditionally used in analog repeater designs
+Much of the hardware traditionally used in analog repeater designs
 (analog cross-point switches, FPGAs, custom DTMF/CTCSS tone detection chips, 
 digital voice CODECs, voice delay modules, etc.) will not be necessary
-if all of these functions are performed in software.
+if all of these functions can be performed in software.
 
 The SDRC system was developed by Bruce MacKinnon (KC1FSZ) with design 
 input from Dan Brown (W1DAN) of the Wellesley Amateur Radio Society (W1TKZ).
