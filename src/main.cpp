@@ -75,6 +75,10 @@ uint dac_dout_pin = 9;
 #define ADC_SAMPLE_BYTES_LOG2 (11)
 #define DAC_SAMPLE_BYTES_LOG2 (11)
 #define FS_HZ (48000)
+// Controls the maximum value that can be output from the DAC
+// (plus or minus) before clipping happens somewhere in the audio 
+// output path.
+#define MAX_DAC_SCALE (8388608)
 
 // Buffer used to drive the DAC via DMA.
 // 2* for L and R
@@ -167,12 +171,26 @@ static float raw_in_r1[ADC_SAMPLE_COUNT];
 // Used for holding a down-sampled version of the audio for level analysis
 static const unsigned int downSampleSize = 48;
 static unsigned int downSamplePtr = 0;
-static float downSampleAcc_r0 = 0;
-static float downSampleAcc_r1 = 0;
-static const unsigned int downSampleBufSize = 1024;
+static const unsigned int downSampleBufSize = 512;
 static unsigned int downSampleBufPtr = 0;
-static float downSampleBuf_r0[downSampleBufSize];
-static float downSampleBuf_r1[downSampleBufSize];
+
+static float adcSampleRmsAcc_r0 = 0;
+static float adcSampleRmsAcc_r1 = 0;
+static float adcSamplePeakAcc_r0 = 0;
+static float adcSamplePeakAcc_r1 = 0;
+static float adcSampleRmsBuf_r0[downSampleBufSize];
+static float adcSampleRmsBuf_r1[downSampleBufSize];
+static float adcSamplePeakBuf_r0[downSampleBufSize];
+static float adcSamplePeakBuf_r1[downSampleBufSize];
+
+static float dacSampleRmsAcc_r0 = 0;
+static float dacSampleRmsAcc_r1 = 0;
+static float dacSamplePeakAcc_r0 = 0;
+static float dacSamplePeakAcc_r1 = 0;
+static float dacSampleRmsBuf_r0[downSampleBufSize];
+static float dacSampleRmsBuf_r1[downSampleBufSize];
+static float dacSamplePeakBuf_r0[downSampleBufSize];
+static float dacSamplePeakBuf_r1[downSampleBufSize];
 
 // Objects used for tone generation (CW, courtesy, PL, etc.)
 static ToneSynthesizer toneSynth0(FS_HZ, 5);
@@ -182,14 +200,12 @@ static ToneSynthesizer plSynth1(FS_HZ, 5);
 static AudioSourceControl audioSource0;
 static AudioSourceControl audioSource1;
 
-// Controls the maximum value that can be output from the DAC
-// (plus or minus) before clipping happens somewhere in the audio 
-// output path.
-#define MAX_DAC_SCALE (6750000)
-
-static ToneSynthesizer diagSynth(FS_HZ, 5);
-static float diagScale = MAX_DAC_SCALE;
-static float diagFreqHz = 100.0;
+// A tone generator used for diagnostic and calibration
+static ToneSynthesizer diagSynth0(FS_HZ, 5);
+static ToneSynthesizer diagSynth1(FS_HZ, 5);
+static float diagScaleDb = 0;
+static float diagScaleLinear = 1.0;
+static float diagFreqHz = 1000.0;
 
 // -----------------------------------------------------------------------------
 // IMPORTANT FUNCTION: 
@@ -215,38 +231,6 @@ static void process_in_frame() {
     }
     dma_count_0++;
 
-    // Move from the DMA buffer to raw input buffers.  This separates the 
-    // radio 0/1 streams and corrects the scaling.
-    unsigned int j = 0;
-    for (unsigned int i = 0; i < ADC_BUFFER_SIZE; i += 2) {
-        // The 24-bit signed value is left-justified in the 32-bit word, 
-        // so we need to shift right 8. Sign extension is automatic.
-        // Range of 24 bits is -8,388,608 to 8,388,607.
-        float r0_sample = (float)(adc_data[i] >> 8);
-        float r1_sample = (float)(adc_data[i + 1] >> 8);     
-
-        raw_in_r0[j] = r0_sample;
-        raw_in_r1[j] = r1_sample;
-        j++;
-
-        // FIX REVERSE PROBLEM!!
-        // Create down-sampled history 
-        downSampleAcc_r0 += r1_sample;
-        downSampleAcc_r1 += r0_sample;
-        downSamplePtr++;
-        if (downSamplePtr >= downSampleSize) {
-            downSamplePtr = 0;
-            downSampleBuf_r0[downSampleBufPtr] = downSampleAcc_r0 / downSampleSize;
-            downSampleBuf_r1[downSampleBufPtr] = downSampleAcc_r1 / downSampleSize;
-            downSampleAcc_r0 = 0;
-            downSampleAcc_r1 = 0;
-            // Increment ptr and wrap
-            downSampleBufPtr++;
-            if (downSampleBufPtr >= downSampleBufSize)
-                downSampleBufPtr = 0;
-        }
-    }
-
     // Write to the appropriate DAC buffer based on our current tracking of which 
     // is available for use.
     int32_t* dac_buffer;
@@ -255,64 +239,130 @@ static void process_in_frame() {
     else
         dac_buffer = (int32_t*)dac_buffer_pong;
 
-    // -----------------------------------------------------------------------
-    // AUDIO PROCESSING HAPPENS HERE
-    
-    // Half scale
-    const float toneScale = MAX_DAC_SCALE;  
-    const float plScale = (MAX_DAC_SCALE / 4);
+    // Move from the DMA buffer to raw input buffers.  This separates the 
+    // radio 0/1 streams and corrects the scaling.
+    unsigned int j = 0;
+    // Down -10dB
+    const float toneScale = MAX_DAC_SCALE * 0.32;
+    // Down another -12dB
+    const float plScale = toneScale * 0.25;
+    // Audio is allowed to pass unscaled
     const float audioScale = 1.0;
 
-    j = 0;
     for (unsigned int i = 0; i < ADC_SAMPLE_COUNT; i++) {
 
-        float r0 = 0;
-        if (diagSynth.isActive()) {
-            r0 = diagScale * diagSynth.getSample();
+        // The 24-bit signed value is left-justified in the 32-bit word, 
+        // so we need to shift right 8. Sign extension is automatic.
+        // Range of 24 bits is -8,388,608 to 8,388,607.
+        float r1_sample = (float)(adc_data[j] >> 8);
+        float r0_sample = (float)(adc_data[j + 1] >> 8);     
+
+        raw_in_r0[i] = r0_sample;
+        raw_in_r1[i] = r1_sample;
+
+        // Create down-sampled history 
+        adcSampleRmsAcc_r0 += r0_sample * r0_sample;
+        adcSampleRmsAcc_r1 += r1_sample * r1_sample;
+        if (r0_sample > adcSamplePeakAcc_r0) 
+            adcSamplePeakAcc_r0 = r0_sample;
+        if (r1_sample > adcSamplePeakAcc_r1) 
+            adcSamplePeakAcc_r1 = r1_sample;
+
+        // -----------------------------------------------------------------------
+        // AUDIO PROCESSING HAPPENS HERE
+
+        float r0_out = 0;
+        if (diagSynth0.isActive()) {
+            r0_out = diagScaleLinear * diagSynth0.getSample();
         } 
         else {
             // Blend the various audio sources
-            r0 = (plScale * plSynth0.getSample());
+            r0_out = (plScale * plSynth0.getSample());
             // Bring in tone if it is running
             if (toneSynth0.isActive()) {
-                r0 += toneScale * toneSynth0.getSample();
+                r0_out += toneScale * toneSynth0.getSample();
             } 
             // If there is no tone then bring in the audio
             else {
                 if (audioSource0.getSource() == AudioSourceControl::Source::RADIO0) {
-                    r0 += audioScale * raw_in_r1[i];                
+                    r0_out += audioScale * r0_sample;                
                 } else if (audioSource0.getSource() == AudioSourceControl::Source::RADIO1) {
-                    r0 += audioScale * raw_in_r0[i];                
+                    r0_out += audioScale * r1_sample;
                 }
             }
         }
 
-        float r1 = 0;
-        {
+        float r1_out = 0;
+        if (diagSynth1.isActive()) {
+            r1_out = diagScaleLinear * diagSynth1.getSample();
+        } 
+        else {
             // Blend the various audio sources
-            r1 = (plScale * plSynth1.getSample());
+            r1_out = (plScale * plSynth1.getSample());
             // Bring in tone if it is running
             if (toneSynth1.isActive()) {
-                r1 += toneScale * toneSynth1.getSample();
+                r1_out += toneScale * toneSynth1.getSample();
             } 
             // If there is no tone then bring in the audio
             else {
                 if (audioSource1.getSource() == AudioSourceControl::Source::RADIO0) {
-                    r1 += audioScale * raw_in_r1[i];                
+                    r1_out += audioScale * r0_sample;
                 } else if (audioSource1.getSource() == AudioSourceControl::Source::RADIO1) {
-                    r1 += audioScale * raw_in_r0[i];                
+                    r1_out += audioScale * r1_sample;
                 }
             }
         }
+        // -----------------------------------------------------------------------
         
         // Convert to 32-bit padded with zeros on the left
         // Radio 1
-        dac_buffer[j++] = ((int32_t)r1) << 8;
+        dac_buffer[j] = ((int32_t)r1_out) << 8;
         // Radio 0
-        dac_buffer[j++] = ((int32_t)r0) << 8;
-    }
+        dac_buffer[j + 1] = ((int32_t)r0_out) << 8;
 
-    // -----------------------------------------------------------------------
+        // Create down-sampled history 
+        dacSampleRmsAcc_r0 += r0_out * r0_out;
+        dacSampleRmsAcc_r1 += r1_out * r1_out;
+        //r0_out = max(r0_out, dacSamplePeakAcc_r0);
+        //r1_out = max(r1_out, dacSamplePeakAcc_r1);
+        if (r0_out > dacSamplePeakAcc_r0) 
+            dacSamplePeakAcc_r0 = r0_out;
+        if (r1_out > dacSamplePeakAcc_r1) 
+            dacSamplePeakAcc_r1 = r1_out;
+
+        // Deal with down-sampled power data
+        downSamplePtr++;
+        if (downSamplePtr >= downSampleSize) {
+
+            downSamplePtr = 0;
+
+            adcSampleRmsBuf_r0[downSampleBufPtr] = adcSampleRmsAcc_r0;
+            adcSampleRmsBuf_r1[downSampleBufPtr] = adcSampleRmsAcc_r1;
+            adcSamplePeakBuf_r0[downSampleBufPtr] = adcSamplePeakAcc_r0;
+            adcSamplePeakBuf_r1[downSampleBufPtr] = adcSamplePeakAcc_r1;
+            adcSampleRmsAcc_r0 = 0;
+            adcSampleRmsAcc_r1 = 0;
+            adcSamplePeakAcc_r0 = 0;
+            adcSamplePeakAcc_r1 = 0;
+
+            dacSampleRmsBuf_r0[downSampleBufPtr] = dacSampleRmsAcc_r0;
+            dacSampleRmsBuf_r1[downSampleBufPtr] = dacSampleRmsAcc_r1;
+            dacSamplePeakBuf_r0[downSampleBufPtr] = dacSamplePeakAcc_r0;
+            dacSamplePeakBuf_r1[downSampleBufPtr] = dacSamplePeakAcc_r1;
+            dacSampleRmsAcc_r0 = 0;
+            dacSampleRmsAcc_r1 = 0;
+            dacSamplePeakAcc_r0 = 0;
+            dacSamplePeakAcc_r1 = 0;
+
+            // Increment ptr and wrap
+            downSampleBufPtr++;
+            if (downSampleBufPtr >= downSampleBufSize)
+                downSampleBufPtr = 0;
+        }
+
+        // This is the pointer into the DMA buffers
+        j += 2;
+    }
 }
 
 static void generate_silence() {
@@ -745,6 +795,55 @@ static void audio_setup() {
 #define R1_CTCSS_PIN (16)
 #define R1_PTT_PIN (15)
 
+static int calc_rms(float* data, unsigned int dataSize, unsigned int sampleSize) {
+    float rms = 0;
+    for (unsigned int i = 0; i < dataSize; i++) {
+        float p = sqrt(data[i] / (float)sampleSize);
+        rms += p * p;
+    }
+    rms = sqrt(rms / (float)dataSize);
+    float max = 8000000;
+    return rms = 10.0 * log10(rms / max);
+}
+
+static int calc_peak(float* data, unsigned int dataSize) {
+    float peak = 0;
+    for (unsigned int i = 0; i < dataSize; i++) {
+        if (data[i] > peak)
+            peak = data[i];
+    }
+    float max = 7500000;
+    return 20.0 * log10(peak / max);
+}
+
+static void print_vu_bar(int rms_db, int peak_db) {
+    if (rms_db > -1 || peak_db > -1)
+        printf("\033[31m");
+
+    printf("[");
+    int max_db_scale = 33;
+    if (rms_db < -max_db_scale) 
+        rms_db = -99;
+    if (peak_db < -max_db_scale) 
+        peak_db = -99;
+    int rms_len = max_db_scale + (int)rms_db;
+    if (rms_len < 0)
+        rms_len = 0;
+    int peak_len = max_db_scale + (int)peak_db;
+    if (peak_len < 0)
+        peak_len = 0;
+    for (int i = 0; i < max_db_scale; i++) {
+        if (i == peak_len) 
+            printf("|");
+        else if (i < rms_len)
+            printf("=");
+        else 
+            printf(" ");
+    }
+    printf("] RMS %3ddB Peak %3ddB", (int)rms_db, (int)peak_db);
+    printf("\033[0m");
+}
+
 int main(int argc, const char** argv) {
 
     // Adjust system clock to more evenly divide the 
@@ -782,7 +881,7 @@ int main(int argc, const char** argv) {
     sleep_ms(500);
     gpio_put(LED_PIN, 0);
 
-    //puts("\033[2J");
+    //printf("\033[2J");
     printf("Software Defined Repeater Controller\nCopyright (C) 2025 Bruce MacKinnon KC1FSZ\n");
     printf("Firmware R00234 2025-06-20\n");
 
@@ -855,40 +954,52 @@ int main(int argc, const char** argv) {
             printf("\n");
         }
         else if (c == 'd') {
-            diagSynth.setEnabled(true);
-            diagFreqHz = 100;
-            diagScale = MAX_DAC_SCALE;
-            diagSynth.setFreq(diagFreqHz);
+            diagFreqHz = 700;
+            diagScaleDb = -10.0;
+            // Convert from dB to linear
+            diagScaleLinear = pow(10, (diagScaleDb / 20)) * MAX_DAC_SCALE;
+            diagSynth0.setFreq(diagFreqHz);
+            diagSynth1.setFreq(diagFreqHz);
+            diagSynth0.setEnabled(true);
+            diagSynth1.setEnabled(true);
+            log.info("Diag tone enabled");
         }
         else if (c == '8') {
             diagFreqHz += 50;
-            diagSynth.setFreq(diagFreqHz);
-            printf("Diag f=%f, s=%f\n", diagFreqHz, diagScale);
-        }
+            diagSynth0.setFreq(diagFreqHz);
+            diagSynth1.setFreq(diagFreqHz);
+            log.info("Diag tone f=%f", diagFreqHz);
+        } 
         else if (c == '2') {
             if (diagFreqHz > 100)
                 diagFreqHz -= 50;
-            diagSynth.setFreq(diagFreqHz);
-            printf("Diag f=%f, s=%f\n", diagFreqHz, diagScale);
+            diagSynth0.setFreq(diagFreqHz);
+            diagSynth1.setFreq(diagFreqHz);
+            log.info("Diag tone f=%f", diagFreqHz);
         }
         else if (c == '9') {
-            diagScale += 10000;
-            printf("Diag f=%f, s=%f\n", diagFreqHz, diagScale);
+            if (diagScaleDb < 0)
+                diagScaleDb += 1.0;
+            // Convert from dB to linear
+            diagScaleLinear = pow(10, (diagScaleDb / 20)) * MAX_DAC_SCALE;
+            printf("Diag s=%f\n", diagScaleDb);
         }
         else if (c == '3') {
-            if (diagScale > 10000)
-                diagScale -= 10000;
-            printf("Diag f=%f, s=%f\n", diagFreqHz, diagScale);
+            diagScaleDb -= 1.0;
+            // Convert from dB to linear
+            diagScaleLinear = pow(10, (diagScaleDb / 20)) * MAX_DAC_SCALE;
+            printf("Diag s=%f\n", diagScaleDb);
         }
         else if (c == 'l') {
             if (liveDisplay) {
                 liveDisplay = false;
                 log.setEnabled(true);
+                puts("\033[2J\033[?25h");
             }
             else {
                 liveDisplay = true;
                 log.setEnabled(false);
-                puts("\033[2J");
+                puts("\033[2J\033[?25l");
             }
         }
 
@@ -900,88 +1011,92 @@ int main(int argc, const char** argv) {
             //printf("ADC in %u\n", dma_in_count);
 
             if (liveDisplay) {
-                puts("\033[H");
+                printf("\033[H");
                 printf("W1TKZ Software Defined Repater Controller\n");
                 printf("\n");
 
-                printf("R0 COS   : ");
+                printf("Radio 0\n");
+
+                printf("RX0 COS : ");
                 if (rx0.isActive()) {
                     printf("\033[30;42m");
                     printf("ACTIVE  ");
-                    printf("\n");
-                    printf("\033[0m");
                 }
                 else {
                     printf("\033[2m");
                     printf("INACTIVE");
-                    printf("\n");
-                    printf("\033[0m");
                 }
-                printf("R0 PTT   : ");
+                printf("\n");
+                printf("\033[0m");
+
+                printf("TX0 PTT : ");
                 if (tx0.getPtt()) {
                     printf("\033[30;42m");
                     printf("ACTIVE  ");
-                    printf("\n");
-                    printf("\033[0m");
                 }
                 else {
                     printf("\033[2m");
                     printf("INACTIVE");
-                    printf("\n");
-                    printf("\033[0m");
                 }
+                printf("\n");
+                printf("\033[0m");
 
-                printf("R1 COS   : ");
+                int rx_rms_r0_db = calc_rms(adcSampleRmsBuf_r0, downSampleBufSize,
+                    downSampleSize);
+                int rx_peak_r0_db = calc_peak(adcSamplePeakBuf_r0, downSampleBufSize);
+                printf("RX0 LVL : ");
+                print_vu_bar(rx_rms_r0_db, rx_peak_r0_db);
+                printf("\n");
+
+                int tx_rms_r0_db = calc_rms(dacSampleRmsBuf_r0, downSampleBufSize,
+                    downSampleSize);
+                int tx_peak_r0_db = calc_peak(dacSamplePeakBuf_r0, downSampleBufSize);
+                printf("TX0 LVL : ");
+                print_vu_bar(tx_rms_r0_db, tx_peak_r0_db);
+                printf("\n");
+
+                printf("\n");
+                
+                printf("Radio 1\n");
+
+                printf("RX1 COS : ");
                 if (rx1.isActive()) {
                     printf("\033[30;42m");
                     printf("ACTIVE  ");
-                    printf("\n");
-                    printf("\033[0m");
                 }
                 else {
                     printf("\033[2m");
                     printf("INACTIVE");
-                    printf("\n");
-                    printf("\033[0m");
-
                 }
-                printf("R1 PTT   : ");
+                printf("\n");
+                printf("\033[0m");
+
+                printf("TX1 PTT : ");
                 if (tx1.getPtt()) {
                     printf("\033[30;42m");
                     printf("ACTIVE  ");
-                    printf("\n");
-                    printf("\033[0m");
                 }
                 else {
                     printf("\033[2m");
                     printf("INACTIVE");
-                    printf("\n");
-                    printf("\033[0m");
                 }
-
-                // Levels
-                float avg_r0 = 0;
-                float peak_r0 = 0;
-                float avg_r1 = 0;
-                float peak_r1 = 0;
-                for (unsigned int i = 0; i < downSampleBufSize; i++) {
-                    //avg_r0 += (downSampleBuf_r0[i] * downSampleBuf_r0[i]);
-                    //avg_r1 += (downSampleBuf_r1[i] * downSampleBuf_r1[i]);
-                    avg_r0 += downSampleBuf_r0[i];
-                    avg_r1 += downSampleBuf_r1[i];
-                    if (downSampleBuf_r0[i] > peak_r0)
-                        peak_r0 = downSampleBuf_r0[i];
-                    if (downSampleBuf_r1[i] > peak_r1)
-                        peak_r1 = downSampleBuf_r1[i];
-                }
-                avg_r0 /= (float)downSampleBufSize;
-                avg_r1 /= (float)downSampleBufSize;
-                printf("R0 LVL   : ");
-                //printf("%f", sqrt(avg_r0));
-                printf("%f", avg_r0);
                 printf("\n");
-                printf("R0 PEAK  : ");
-                printf("%f", peak_r0);
+                printf("\033[0m");
+
+                int rx_rms_r1_db = calc_rms(adcSampleRmsBuf_r1, downSampleBufSize,
+                    downSampleSize);
+                int rx_peak_r1_db = calc_peak(adcSamplePeakBuf_r1, downSampleBufSize);
+                printf("RX1 LVL : ");
+                print_vu_bar(rx_rms_r1_db, rx_peak_r1_db);
+                printf("\n");
+
+                int tx_rms_r1_db = calc_rms(dacSampleRmsBuf_r1, downSampleBufSize,
+                    downSampleSize);
+                int tx_peak_r1_db = calc_peak(dacSamplePeakBuf_r1, downSampleBufSize);
+                printf("TX1 LVL : ");
+                print_vu_bar(tx_rms_r1_db, tx_peak_r1_db);
+                printf("\n");
+
                 printf("\n");
             }
         }
