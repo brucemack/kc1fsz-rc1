@@ -1,9 +1,8 @@
 Overview
 ========
 
-This project attempts to create a basic 
-two-radio repeater controller typical of the kind used
-at analog VHF/UHF repeater sites. Our goal is to implement
+This project attempts to create a basic two-radio repeater controller typical used
+at analog FM VHF/UHF repeater sites. Our goal is to implement
 as much of the repeater functionality in software as 
 possible. For this reason, we call this the "Software 
 Defined Repeater Controller" (SDRC) project. This Github
@@ -27,7 +26,8 @@ Key capabilities of the software so far:
 * Support for two receivers and two transmitters. Radios
 can operate independently or can be linked to support
 remote receiver or cross-band repeater systems.
-* Hardware COS and CTCSS inputs are available for each radio.
+* Hardware COS and CTCSS inputs are available for each radio. Positive
+and negative logic are supported.
 * An optically-isolated hardware PTT output is available for each radio.
 * Optional soft CTCSS (PL) tone encoding and decoding, with support 
 for independent frequencies for each transmitter/receiver.
