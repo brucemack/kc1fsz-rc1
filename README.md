@@ -88,6 +88,15 @@ More documentation:
 * The hardware for the LoRa integration [is here](https://github.com/brucemack/lora-r2).
 * The software for the LoRa integration [is here](https://github.com/brucemack/remote-probe).
 
+Legal/License
+=============
+
+This work is being made available for non-commercial use by the amateur radio community. Redistribution, commercial use or sale of any part is prohibited.
+
+The hardware for this project is published under the terms of [The TAPR Open Hardware License](https://tapr.org/the-tapr-open-hardware-license).
+
+The software for this project is published under the terms of [GNU GENERAL PUBLIC LICENSE](https://www.gnu.org/licenses/gpl-3.0.en.html).
+
 Parameters
 ==========
 
