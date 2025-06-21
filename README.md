@@ -5,20 +5,29 @@ This project attempts to create a basic
 two-radio repeater controller typical of the kind used
 at analog VHF/UHF repeater sites. Our goal is to implement
 as much of the repeater functionality in software as 
-possible. For this reason, we call this a "Software 
-Defined Repeater Controller" (SDRC). 
+possible. For this reason, we call this the "Software 
+Defined Repeater Controller" (SDRC) project. 
 
 The system was developed by Bruce MacKinnon (KC1FSZ) and
 Dan Brown (W1DAN) of the Wellesley Amateur Radio Society (W1TKZ).
 
 ![Controller](docs/sdrc1.jpg)
 
-Key capabilities:
+Capabilities
+============
+
+This is a development in process. The prototype is undergoing bench 
+testing. We plan to install it at our real repeater site within the 
+next few months.
+
+Key capabilities of the software so far:
 
 * Support for two receivers and two transmitters. Radios
 can operate independently or can be linked to support
 remote receiver or cross-band repeater systems.
-* CTCSS (PL) tone encoding and decoding, with support 
+* Hardware COS and CTCSS inputs are available for each radio.
+* An optically-isolated hardware PTT output is available for each radio.
+* Optional soft CTCSS (PL) tone encoding and decoding, with support 
 for independent frequencies for each transmitter/receiver.
 * CWID generation.
 * Configurable hang time.
@@ -26,7 +35,6 @@ for independent frequencies for each transmitter/receiver.
 * Timeout and lockout with configurable times.
 * Optional digital voice ID and other prompts.
 * Remote firmware update via LoRa connection.
-* Hardware gain adjustments to calibrate dynamic range during initial installation.
 * Soft RX/TX gain control adjustable remotely.
 * "Soft console" via USB-connected computer computer with
 serial terminal provides live display of the following
@@ -38,8 +46,19 @@ for each radio:
 
 Other things to know:
 
+* The audio input/output range is around 2Vpp.
+* Hardware gain adjustments (pots) are used to calibrate dynamic range 
+during initial installation.
+* The audio path is about 10 kHz wide, which should be plenty for 
+an FM analog repeater system.
 * Runs on +12VDC power input.
 * DB25 connection for radio interfaces.
+
+Hardware specs:
+
+* Microcontroller is the RP2350 running at 125 MHz.
+* Audio path is 24-bits at 48k samples/second.
+* Low-noise op amps are used for audio scaling (TL072).
 
 A demonstration video of the current prototype 
 [can be seen here](https://www.youtube.com/watch?v=HBwrpokd7FI).
@@ -133,44 +152,3 @@ GP26 - X
 GP27 - X
 GP28 - X
 ```
-
-Wiring Notes (Revision A)
-=========================
-
-Pico Module:
-* GP0  - (Reserved for UART0 TX)
-* GP1  - (Reserved for UART0 RX)
-* GP2  - I2C1 SDA 
-* GP3  - I2C1 SCL 
-* GP4  - Audio Select Radio 0 
-* GP5  - PTT Radio 0
-* GP6  - COS Radio 0
-* GP7  - Audio Select Radio 1
-* GP8  - PTT Radio 1
-* GP9  - COS Radio 1
-* GP10 - Tone output (PWM)
-* GP11
-* GP12
-* GP13
-* GP14
-* GP15
-* GP16 - 
-* GP17 - 
-
-Control Module: 
-* J2:1 -> +3.3V
-* J2:2 -> Pico GP6 (COS Radio 0)
-* J2:3 -> Pico GP9 (COS Radio 1)
-* J2:4 -> Pico GP5 (PTT Radio 0)
-* J2:5 -> Pico GP8 (PTT Radio 1)
-* J2:6 -> GND
-* J1:1 -> COS- Radio 0 (Optocoupler cathode)
-* J1:2 -> COS+ Radio 0 (Through 220R and optocoupler anode)
-* J1:5 -> PTT+ Radio 0 (Optocoupler collector)
-* J1:6 -> PTT- Radio 0 (Optocoupler emitter)
-
-Audio Module:
-* J4:1 -> Pico GP4 (Audio Select Radio 0)
-* J4:2 -> Pico GP7 (Audio Select Radio 1)
-* J1:1 -> +5V
-* J1:2 -> GND
