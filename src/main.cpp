@@ -41,8 +41,6 @@ When targeting RP2350 (Pico 2), command used to load code onto the board:
 #include "kc1fsz-tools/rp2040/PicoPerfTimer.h"
 #include "kc1fsz-tools/rp2040/PicoClock.h"
 
-//#include "test/TestTx.h"
-//#include "test/TestRx.h"
 #include "hw/StdTx.h"
 #include "hw/StdRx.h"
 #include "AudioSourceControl.h"
@@ -78,7 +76,10 @@ const uint dac_dout_pin = 9;
 #define ADC_SAMPLE_BYTES_LOG2 (11)
 #define DAC_SAMPLE_BYTES_LOG2 (11)
 // Audio sample rate
-#define FS_HZ (48000)
+// CHANGED AUDIO RATE ON 22-JUNE-2025
+//#define FS_HZ (48000)
+#define FS_HZ (32000)
+
 // Controls the maximum value that can be output from the DAC
 // (plus or minus) before clipping happens somewhere in the audio 
 // output path.
@@ -413,11 +414,19 @@ static void audio_setup() {
     //
     // d d d d d d d d d d d d d d d d . f f f f f f f f
     //            Integer Part         |  Fraction Part
-    unsigned int sck_sm_clock_d = 3;
-    unsigned int sck_sm_clock_f = 132;
+
+    //unsigned int sck_sm_clock_d = 3;
+    //unsigned int sck_sm_clock_f = 132;
     // Sanity check:
     // 2 * (3 + (132/256)) = 7.03125
     // 7.03125 * 48,000 * 384 = 129,600,000
+
+    // CHANGED AUDIO RATE ON 22-JUNE-2025
+    unsigned int sck_sm_clock_d = 5;
+    unsigned int sck_sm_clock_f = 70;
+    // Sanity check:
+    // 2 * (5 + (70/256)) = 10.546875
+    // 10.546875 * 32,000 * 384 = 129,600,000
     pio_sm_set_clkdiv_int_frac(pio0, sck_sm, sck_sm_clock_d, sck_sm_clock_f);
 
     // Final enable of the SCK state machine
@@ -503,7 +512,9 @@ static void audio_setup() {
     // d d d d d d d d d d d d d d d d . f f f f f f f f
     //            Integer Part         |  Fraction Part
     // 
-    pio_sm_set_clkdiv_int_frac(pio0, din_sm, 21, 24);
+    // CHANGED AUDIO RATE ON 22-JUNE-2025
+    //pio_sm_set_clkdiv_int_frac(pio0, din_sm, 21, 24);
+    pio_sm_set_clkdiv_int_frac(pio0, din_sm, 31, 164);
     
     // ----- ADC DMA setup ---------------------------------------
 
@@ -648,7 +659,9 @@ static void audio_setup() {
     //            Integer Part         |  Fraction Part
     // 
     // TODO: USE VARIABLES SHARED WITH DIN
-    pio_sm_set_clkdiv_int_frac(pio0, dout_sm, 21, 24);
+    // CHANGED AUDIO RATE ON 22-JUNE-2025
+    //pio_sm_set_clkdiv_int_frac(pio0, dout_sm, 21, 24);
+    pio_sm_set_clkdiv_int_frac(pio0, dout_sm, 31, 164);
     
     dma_ch_out_data0 = dma_claim_unused_channel(true);
     dma_ch_out_data1 = dma_claim_unused_channel(true);
