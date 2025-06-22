@@ -803,7 +803,7 @@ static int calc_rms(float* data, unsigned int dataSize, unsigned int sampleSize)
     }
     rms = sqrt(rms / (float)dataSize);
     float max = 8000000;
-    return rms = 10.0 * log10(rms / max);
+    return rms = 20.0 * log10(rms / max);
 }
 
 static int calc_peak(float* data, unsigned int dataSize) {
