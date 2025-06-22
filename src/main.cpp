@@ -72,7 +72,7 @@ const uint dac_dout_pin = 9;
 #define R1_CTCSS_PIN (16)
 #define R1_PTT_PIN (15)
 
-#define WATCHDOG_INTERVAL_MS (250)
+#define WATCHDOG_INTERVAL_MS (2000)
 
 // Number of ADC samples in a block
 #define ADC_SAMPLE_COUNT (256)
@@ -158,7 +158,6 @@ static uint out_history_ptr = 0;
 // ===========================================================================
 //
 static PicoClock clock;
-static Log log(&clock);
 // Objects used for tone generation (CW, courtesy, PL, etc.)
 static ToneSynthesizer toneSynth0(FS_HZ, AUDIO_FADE_MS);
 static ToneSynthesizer toneSynth1(FS_HZ, AUDIO_FADE_MS);
@@ -894,6 +893,8 @@ int main(int argc, const char** argv) {
     sleep_ms(500);
     gpio_put(LED_PIN, 0);
 
+    Log log(&clock);
+
     log.info("W1TKZ Software Defined Repeater Controller");
     log.info("Copyright (C) 2025 Bruce MacKinnon KC1FSZ");
     log.info("Firmware R00236 2025-06-22");
@@ -959,7 +960,7 @@ int main(int argc, const char** argv) {
             printf("  RX0 isActve %d\n", (int)rx0.isActive());
             printf("  RX1 isActve %d\n", (int)rx1.isActive());
         }
-        else if (c == ' ') {
+        else if (c == 'i') {
             txCtl0.forceId();
             txCtl1.forceId();
         }
@@ -1027,6 +1028,11 @@ int main(int argc, const char** argv) {
                 log.setEnabled(false);
                 puts("\033[2J\033[?25l");
             }
+        }
+        else if (c == 'r') {
+            log.info("Reboot requested");
+            // The watchdog will take over from here
+            while (true);            
         }
 
         // Do periodic display/diagnostic stuff
