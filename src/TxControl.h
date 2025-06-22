@@ -52,7 +52,7 @@ public:
 
 private:
 
-    enum State { INIT, IDLE, VOTING, ACTIVE, PRE_ID, ID, POST_ID, ID_URGENT, PRE_COURTESY, COURTESY, HANG, LOCKOUT };
+    enum State { INIT, IDLE, VOTING, ACTIVE, ACTIVE_DEBOUNCE, PRE_ID, ID, POST_ID, ID_URGENT, PRE_COURTESY, COURTESY, HANG, LOCKOUT };
 
     void _setState(State state, uint32_t timeoutWindowMs = 0);
     bool _isStateTimedOut() const;
@@ -71,6 +71,7 @@ private:
     void _enterId();
     void _enterPostId();
     void _enterIdUrgent();
+    void _enterActiveDebounce();
     void _enterPreCourtesy();
     void _enterCourtesy();
     void _enterHang();
@@ -104,6 +105,8 @@ private:
 
     // Disabled for now
     uint32_t _votingWindowMs = 25;
+    // How long we need to be inactive before really dropping (i.e. COS debounce)
+    uint32_t _activeDebounceWindowMs = 50;    
     // How long between the end of transmission and the courtesy tone
     uint32_t _preCourtseyWindowMs = 1500;    
     // How long we pause with the transmitter keyed before sending the CWID

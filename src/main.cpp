@@ -52,8 +52,6 @@ When targeting RP2350 (Pico 2), command used to load code onto the board:
 
 using namespace kc1fsz;
 
-//#define PI (3.14159265359)
-
 // ===========================================================================
 // CONFIGURATION PARAMETERS
 // ===========================================================================
@@ -89,11 +87,8 @@ const uint dac_dout_pin = 9;
 #define IN_HISTORY_COUNT (16384)
 #define OUT_HISTORY_COUNT (16384)
 
-// Scale of tone vs full-scale. Per Dan, this should be around
-// -10dB of full-scale.
-#define TONE_SCALE (0.33)
-// Scale of PL TONE vs TONE_SCALE
-#define PL_SCALE (TONE_SCALE * 0.25)
+// How long an audio source takes to ramp up/down to avoid pops 
+#define AUDIO_FADE_MS (25)
 
 // ===========================================================================
 // DIAGNOSTIC COUNTERS/FLAGS
@@ -158,17 +153,18 @@ static uint out_history_ptr = 0;
 // RUNTIME OBJECTS
 // ===========================================================================
 //
+static PicoClock clock;
 // Objects used for tone generation (CW, courtesy, PL, etc.)
-static ToneSynthesizer toneSynth0(FS_HZ, 5);
-static ToneSynthesizer toneSynth1(FS_HZ, 5);
-static ToneSynthesizer plSynth0(FS_HZ, 5);
-static ToneSynthesizer plSynth1(FS_HZ, 5);
-static AudioSourceControl audioSource0;
-static AudioSourceControl audioSource1;
+static ToneSynthesizer toneSynth0(FS_HZ, AUDIO_FADE_MS);
+static ToneSynthesizer toneSynth1(FS_HZ, AUDIO_FADE_MS);
+static ToneSynthesizer plSynth0(FS_HZ, AUDIO_FADE_MS);
+static ToneSynthesizer plSynth1(FS_HZ, AUDIO_FADE_MS);
+static AudioSourceControl audioSource0(clock, AUDIO_FADE_MS);
+static AudioSourceControl audioSource1(clock, AUDIO_FADE_MS);
 
 // A tone generator used for diagnostic and calibration
-static ToneSynthesizer diagSynth0(FS_HZ, 5);
-static ToneSynthesizer diagSynth1(FS_HZ, 5);
+static ToneSynthesizer diagSynth0(FS_HZ, AUDIO_FADE_MS);
+static ToneSynthesizer diagSynth1(FS_HZ, AUDIO_FADE_MS);
 
 // Controls for diagnostic tone
 static float diagOn = false;
@@ -176,14 +172,20 @@ static float diagScaleDb = -10.0;
 static float diagScaleLinear = pow(10, (diagScaleDb / 20)) * MAX_DAC_VALUE;
 static float diagFreqHz = 700.0;
 
-// Gain controls
-static float toneGain_r0 = 1.0;
-static float plGain_r0 = 1.0;
-static float audioGain_r0 = 1.0;
+// Soft gain controls
 
-static float toneGain_r1 = 1.0;
-static float plGain_r1 = 1.0;
+// Scale of tone vs full-scale. Per Dan, this should be around
+// -10dB of full-scale.
+static float toneGain_r0 = 0.33;
+// PL is 25% of tone
+static float plGain_r0 = 0.33 * 0.25;
+static float audioGain_r0 = 1.0;
+static float audioGain_t0 = 1.0;
+
+static float toneGain_r1 = 0.33;
+static float plGain_r1 = 0.33 * 0.25;
 static float audioGain_r1 = 1.0;
+static float audioGain_t1 = 1.0;
 
 static void process_in_frame();
 
@@ -263,10 +265,8 @@ static void process_in_frame() {
         dac_buffer = (int32_t*)dac_buffer_pong;
 
     unsigned int j = 0;
-    const float toneScale = MAX_DAC_VALUE * TONE_SCALE;
-    const float plScale = MAX_DAC_VALUE * PL_SCALE;
-    // Audio is passed unscaled
-    const float audioScale = 1.0;
+    //const float toneScale = MAX_DAC_VALUE * toneTONE_SCALE;
+    //const float plScale = MAX_DAC_VALUE * PL_SCALE;
 
     for (unsigned int i = 0; i < ADC_SAMPLE_COUNT; i++) {
 
@@ -278,6 +278,10 @@ static void process_in_frame() {
         // Range of 24 bits is -8,388,608 to 8,388,607.
         float r1_sample = (float)(adc_data[j] >> 8);
         float r0_sample = (float)(adc_data[j + 1] >> 8);     
+
+        // Apply input soft gain immediately on receive
+        r0_sample *= audioGain_r0;
+        r1_sample *= audioGain_r1;
 
         // Hold history in circular buffer.
         in_history_r0[in_history_ptr] = r0_sample;
@@ -295,15 +299,15 @@ static void process_in_frame() {
         } 
         else {
             if (plSynth0.isActive()) {
-                r0_out += (plScale * plSynth0.getSample());
+                r0_out += (MAX_DAC_VALUE * plGain_r0 * plSynth0.getSample());
             }
             if (toneSynth0.isActive()) {
-                r0_out += toneScale * toneSynth0.getSample();
+                r0_out += (MAX_DAC_VALUE * toneGain_r0 * toneSynth0.getSample());
             } 
             if (audioSource0.getSource() == AudioSourceControl::Source::RADIO0) {
-                r0_out += audioScale * r0_sample;                
+                r0_out += (r0_sample * audioSource0.getFade());
             } else if (audioSource0.getSource() == AudioSourceControl::Source::RADIO1) {
-                r0_out += audioScale * r1_sample;
+                r0_out += (r1_sample * audioSource0.getFade());
             }
         }
 
@@ -313,18 +317,22 @@ static void process_in_frame() {
         } 
         else {
             if (plSynth1.isActive()) {
-                r1_out += (plScale * plSynth1.getSample());
+                r1_out += (MAX_DAC_VALUE * plGain_r1 * plSynth1.getSample());
             }
             if (toneSynth1.isActive()) {
-                r1_out += toneScale * toneSynth1.getSample();
+                r1_out += (MAX_DAC_VALUE * toneGain_r1 * toneSynth1.getSample());
             } 
             if (audioSource1.getSource() == AudioSourceControl::Source::RADIO0) {
-                r1_out += audioScale * r0_sample;
+                r1_out += (r0_sample * audioSource1.getFade());
             } else if (audioSource1.getSource() == AudioSourceControl::Source::RADIO1) {
-                r1_out += audioScale * r1_sample;
+                r1_out += (r1_sample * audioSource1.getFade());
             }
         }
-        
+
+        // Apply soft gain just before transmitting
+        r0_out *= audioGain_t0;
+        r1_out *= audioGain_t1;
+
         // Convert to 32-bit padded with zeros on the right, per the PCM5100 datasheet.
         dac_buffer[j] = ((int32_t)r1_out) << 8;
         dac_buffer[j + 1] = ((int32_t)r0_out) << 8;
@@ -880,7 +888,6 @@ int main(int argc, const char** argv) {
     int strobe = 0;
     bool liveDisplay = false;
     
-    PicoClock clock;
     clock.reset();
     //clock.setScale(10);
 
@@ -1100,5 +1107,7 @@ int main(int argc, const char** argv) {
         rx1.run();
         txCtl0.run();
         txCtl1.run();
+        audioSource0.run();        
+        audioSource1.run();
     }
 }

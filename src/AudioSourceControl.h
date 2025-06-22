@@ -22,21 +22,47 @@
 
 #include <cstdio>
 #include "kc1fsz-tools/Runnable.h"
+#include "kc1fsz-tools/Clock.h"
 
 namespace kc1fsz {
 
 class AudioSourceControl : public Runnable {
 public:
 
+    AudioSourceControl(Clock& clock, float fadeMs) 
+    :  _clock(clock), 
+       _fadeMs(fadeMs) { }
+
     enum Source { SILENT, RADIO0, RADIO1 };
 
-    void setSource(Source source) { _source = source; }
+    void setSource(Source source) { 
+        _source = source; 
+        _fadeEnv = 0;
+        _fadeStart = _clock.time();
+    }
+
     Source getSource() const { return _source; }
-    virtual void run() { }
+
+    float getFade() { return _fadeEnv; }
+
+    virtual void run() { 
+        // Fade up if necessary
+        if (_fadeEnv < 1.0) {
+            uint32_t elapsed = _clock.time() - _fadeStart;
+            _fadeEnv = (float)elapsed / (float)_fadeMs;
+            if (_fadeEnv > 1.0)
+                _fadeEnv = 1.0;
+        }
+    }
 
 private:
 
+    const Clock& _clock;
+    const uint32_t _fadeMs;
+
     volatile Source _source = Source::SILENT;
+    float _fadeEnv = 0.0;
+    uint32_t _fadeStart = 0;
 };
 
 }
