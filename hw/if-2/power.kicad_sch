@@ -5,7 +5,7 @@
 	(uuid "e6e8e433-89d4-41e3-9a94-b2b60c0353ac")
 	(paper "USLetter")
 	(title_block
-		(title "COS/CTCSS/PTT Controls (Radio 1)")
+		(title "Power")
 		(date "2025-06-21")
 		(rev "3")
 		(company "Bruce MacKinnon KC1FSZ")
@@ -2946,6 +2946,16 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "Band is on the \ncathode (this end)"
+		(exclude_from_sim no)
+		(at 237.744 37.846 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "102aff93-312b-4ebb-9c2a-f36591e25dd2")
+	)
 	(text "TVS Diode (12V_{wm}) for protection\nagainst ESD and other over-voltage transients."
 		(exclude_from_sim no)
 		(at 162.052 128.778 0)
@@ -2987,7 +2997,7 @@
 		)
 		(uuid "41894fa0-8fed-478e-9352-b30c73f6bc99")
 	)
-	(text "Ensures that OVP \ncircuits clamp to \n5V max.\n(SOD-123 Package)"
+	(text "Ensures that all OVP \ncircuits clamp to \n5V max.\n(SOD-123 Package)"
 		(exclude_from_sim no)
 		(at 248.666 56.134 0)
 		(effects
@@ -2997,7 +3007,7 @@
 		)
 		(uuid "4ca6ddfb-8b78-4d9a-98bd-789a3851f2d8")
 	)
-	(text "Reverse polarity protection"
+	(text "Reverse polarity protection (marking \"KL\")"
 		(exclude_from_sim no)
 		(at 142.494 79.756 0)
 		(effects

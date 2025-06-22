@@ -111,7 +111,7 @@
 	)
 	(text "Software Defined Repeater Controller - Radio Interface Board"
 		(exclude_from_sim no)
-		(at 71.374 21.082 0)
+		(at 77.978 20.828 0)
 		(effects
 			(font
 				(size 2.54 2.54)

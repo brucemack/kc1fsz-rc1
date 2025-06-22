@@ -5,7 +5,7 @@
 	(uuid "6c5e94b2-d31a-4d08-b922-c199d91bb877")
 	(paper "USLetter")
 	(title_block
-		(title "COS/CTCSS/PTT Controls (Radio 0)")
+		(title "Audio Output (Radio 0)")
 		(date "2025-06-21")
 		(rev "3")
 		(company "Bruce MacKinnon KC1FSZ")
@@ -1193,6 +1193,28 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "Max 5Vpp"
+		(exclude_from_sim no)
+		(at 58.42 77.724 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 254 69 255 1)
+			)
+		)
+		(uuid "1c298827-84c7-4a60-8afa-39cb4c1a1bf6")
+	)
+	(text "Expected RL 600 Ohms"
+		(exclude_from_sim no)
+		(at 232.156 91.948 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 254 69 255 1)
+			)
+		)
+		(uuid "40c653bd-c13d-46dd-a3c3-d5b2001b77b3")
+	)
 	(text "Approximately 2.5V\n"
 		(exclude_from_sim no)
 		(at 76.708 83.058 0)
@@ -1203,7 +1225,7 @@
 		)
 		(uuid "412b0c7b-81bc-48a1-ad3f-1c7e528180d2")
 	)
-	(text "We will use large solder pads and a \nthru-hole part for this resistor to \nmake it easy to change in the field\nif the gain is way off."
+	(text "We will use large solder pads and a \nthru-hole part for this resistor to \nmake it easy to change in the field\nif the gain is off."
 		(exclude_from_sim no)
 		(at 187.96 68.58 0)
 		(effects
@@ -1214,7 +1236,7 @@
 		)
 		(uuid "57913c06-5720-4ff6-aa45-924def4a795a")
 	)
-	(text "Audio output level trim.\nAdjust to allow DAC full-scale.\n"
+	(text "Audio output level trim.\nAdjust to reduce magnitude from DAC full-scale.\nCW increases gain."
 		(exclude_from_sim no)
 		(at 120.904 97.282 0)
 		(effects
@@ -1223,6 +1245,17 @@
 			)
 		)
 		(uuid "5cfda937-c696-46f3-a224-7f5947ec2c19")
+	)
+	(text "Max 5Vpp"
+		(exclude_from_sim no)
+		(at 121.158 74.168 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 254 69 255 1)
+			)
+		)
+		(uuid "5f8bee68-110a-412c-b635-3d853ac4f716")
 	)
 	(junction
 		(at 167.64 86.36)
@@ -2021,7 +2054,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TL072"
+		(property "Value" "TLV9152"
 			(at 229.87 45.7199 0)
 			(effects
 				(font
@@ -2230,15 +2263,15 @@
 	(symbol
 		(lib_id "Device:R_Potentiometer_US")
 		(at 120.65 83.82 0)
+		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "5bf35007-2731-4d88-9bda-7c67571e69bf")
 		(property "Reference" "RV81"
-			(at 118.11 82.5499 0)
+			(at 118.11 85.0901 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2247,7 +2280,7 @@
 			)
 		)
 		(property "Value" "50k"
-			(at 118.11 85.0899 0)
+			(at 118.11 82.5501 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2591,7 +2624,7 @@
 				)
 			)
 		)
-		(property "Value" "TL072"
+		(property "Value" "TLV9152"
 			(at 156.21 78.74 0)
 			(effects
 				(font
@@ -2745,7 +2778,7 @@
 				)
 			)
 		)
-		(property "Value" "20k"
+		(property "Value" "4.7k"
 			(at 140.97 80.01 90)
 			(effects
 				(font
@@ -3015,7 +3048,7 @@
 				)
 			)
 		)
-		(property "Value" "TL072"
+		(property "Value" "TLV9152"
 			(at 97.79 68.58 0)
 			(effects
 				(font
@@ -3374,7 +3407,7 @@
 				)
 			)
 		)
-		(property "Value" "100k"
+		(property "Value" "4.7k"
 			(at 156.21 66.04 90)
 			(effects
 				(font

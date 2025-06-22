@@ -5,7 +5,7 @@
 	(uuid "72c53b20-707d-4775-aab9-7010b3199571")
 	(paper "USLetter")
 	(title_block
-		(title "COS/CTCSS/PTT Controls (Radio 1)")
+		(title "Audio Output (Radio 1)")
 		(date "2025-06-21")
 		(rev "3")
 		(company "Bruce MacKinnon KC1FSZ")
@@ -1227,15 +1227,15 @@
 		)
 		(uuid "cd6088fa-2d34-4934-8648-d4aa2da80da3")
 	)
-	(text "Audio output level trim.\nAdjust to allow DAC full-scale.\n"
+	(text "Audio output level trim.\nAdjust to reduce magnitude from DAC full-scale.\nCW increases gain.\n"
 		(exclude_from_sim no)
-		(at 108.204 98.552 0)
+		(at 108.712 98.806 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 		)
-		(uuid "dcee5977-e79c-4f6b-8e9a-21a4707207e3")
+		(uuid "dd3d7192-9171-44c8-8f25-4b2d4d27a373")
 	)
 	(junction
 		(at 133.35 85.09)
@@ -2309,7 +2309,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TL072"
+		(property "Value" "TLV9152"
 			(at 217.17 46.9899 0)
 			(effects
 				(font
@@ -2533,7 +2533,7 @@
 				)
 			)
 		)
-		(property "Value" "TL072"
+		(property "Value" "TLV9152"
 			(at 85.09 69.85 0)
 			(effects
 				(font
@@ -2823,7 +2823,7 @@
 				)
 			)
 		)
-		(property "Value" "20k"
+		(property "Value" "4.7k"
 			(at 128.27 81.28 90)
 			(effects
 				(font
@@ -3010,15 +3010,15 @@
 	(symbol
 		(lib_id "Device:R_Potentiometer_US")
 		(at 107.95 85.09 0)
+		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "944e1995-d9a5-4fca-8989-21534151a595")
 		(property "Reference" "RV91"
-			(at 105.41 83.8199 0)
+			(at 105.41 86.3601 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3027,7 +3027,7 @@
 			)
 		)
 		(property "Value" "50k"
-			(at 105.41 86.3599 0)
+			(at 105.41 83.8201 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3165,7 +3165,7 @@
 				)
 			)
 		)
-		(property "Value" "TL072"
+		(property "Value" "TLV9152"
 			(at 143.51 80.01 0)
 			(effects
 				(font
@@ -3521,7 +3521,7 @@
 				)
 			)
 		)
-		(property "Value" "100k"
+		(property "Value" "4.7k"
 			(at 143.51 67.31 90)
 			(effects
 				(font

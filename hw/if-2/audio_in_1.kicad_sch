@@ -1688,9 +1688,9 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "Audio input level trim. Adjust\nattenuation for ADC full-scale."
+	(text "Audio input level trim. Adjust\nattenuation for ADC full-scale.\nCW increases gain."
 		(exclude_from_sim no)
-		(at 92.456 57.404 0)
+		(at 92.456 57.912 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3570,7 +3570,7 @@
 				)
 			)
 		)
-		(property "Value" "TL072"
+		(property "Value" "TLV9152"
 			(at 93.98 95.25 0)
 			(effects
 				(font
@@ -3864,7 +3864,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0516_L15.5mm_D5.0mm_P5.08mm_Vertical"
 			(at 149.86 35.56 0)
 			(effects
 				(font
@@ -4464,7 +4464,7 @@
 				)
 			)
 		)
-		(property "Value" "TL072"
+		(property "Value" "TLV9152"
 			(at 141.986 145.796 0)
 			(effects
 				(font
@@ -5361,7 +5361,7 @@
 				)
 			)
 		)
-		(property "Value" "TL072"
+		(property "Value" "TLV9152"
 			(at 142.748 100.584 0)
 			(effects
 				(font
@@ -5729,7 +5729,7 @@
 				)
 			)
 		)
-		(property "Value" "TL072"
+		(property "Value" "TLV9152"
 			(at 151.638 40.894 0)
 			(effects
 				(font
@@ -6348,7 +6348,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "TL072"
+		(property "Value" "TLV9152"
 			(at 219.71 39.3701 0)
 			(effects
 				(font
@@ -6420,15 +6420,15 @@
 	(symbol
 		(lib_id "Device:R_Potentiometer_US")
 		(at 91.44 44.45 0)
+		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "f588f0ad-5234-425e-9051-19016b7cb9a0")
 		(property "Reference" "RV61"
-			(at 88.9 43.1799 0)
+			(at 88.9 45.7201 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6437,7 +6437,7 @@
 			)
 		)
 		(property "Value" "50k"
-			(at 88.9 45.7199 0)
+			(at 88.9 43.1801 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6647,7 +6647,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TL072"
+		(property "Value" "TLV9152"
 			(at 226.06 151.1299 0)
 			(effects
 				(font

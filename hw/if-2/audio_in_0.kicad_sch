@@ -1739,15 +1739,48 @@
 		)
 		(uuid "3fcaf3d4-558c-413b-92c4-188228b4b6d8")
 	)
-	(text "Audio input level trim. Adjust\nattenuation for ADC full-scale."
+	(text "Max 2.5Vpp"
 		(exclude_from_sim no)
-		(at 98.806 58.674 0)
+		(at 124.206 76.708 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 254 69 255 1)
+			)
+		)
+		(uuid "44b1c156-9e15-44ee-a7bc-6fa93f97aa53")
+	)
+	(text "Max 2.5Vpp"
+		(exclude_from_sim no)
+		(at 180.848 156.464 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 254 69 255 1)
+			)
+		)
+		(uuid "45d24ead-6263-4cea-a85e-38dd3b9b15dd")
+	)
+	(text "Audio input level trim. Adjust\nattenuation for ADC full-scale.\nCW increases gain."
+		(exclude_from_sim no)
+		(at 98.806 59.182 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 		)
 		(uuid "4b4c1d67-7168-4be2-b9c7-bc911e8c7c7d")
+	)
+	(text "Max 5Vpp"
+		(exclude_from_sim no)
+		(at 168.656 55.118 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 254 69 255 1)
+			)
+		)
+		(uuid "54c9db30-b085-4cad-9fb7-1af2582882ee")
 	)
 	(text "RFI Filter\n(-3dB at 160kHz)"
 		(exclude_from_sim no)
@@ -1799,6 +1832,17 @@
 			)
 		)
 		(uuid "ca92a9a8-d21d-432d-9a19-db9953ccfa57")
+	)
+	(text "Max 2.5Vpp"
+		(exclude_from_sim no)
+		(at 181.102 110.998 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 254 69 255 1)
+			)
+		)
+		(uuid "d4032516-5de5-43b8-9db9-29ab146146de")
 	)
 	(text "AC-coupled audio input from radio. \nExpected to be in the 100-1000mVpp range."
 		(exclude_from_sim no)
@@ -3076,7 +3120,7 @@
 				)
 			)
 		)
-		(property "Value" "TL072"
+		(property "Value" "TLV9152"
 			(at 149.098 101.854 0)
 			(effects
 				(font
@@ -3363,7 +3407,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TL072"
+		(property "Value" "TLV9152"
 			(at 232.41 152.3999 0)
 			(effects
 				(font
@@ -4412,7 +4456,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0516_L15.5mm_D5.0mm_P5.08mm_Vertical"
 			(at 156.21 36.83 0)
 			(effects
 				(font
@@ -4818,7 +4862,7 @@
 				)
 			)
 		)
-		(property "Value" "TL072"
+		(property "Value" "TLV9152"
 			(at 148.336 147.066 0)
 			(effects
 				(font
@@ -5242,7 +5286,7 @@
 				)
 			)
 		)
-		(property "Value" "TL072"
+		(property "Value" "TLV9152"
 			(at 157.988 42.164 0)
 			(effects
 				(font
@@ -5328,7 +5372,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "TL072"
+		(property "Value" "TLV9152"
 			(at 226.06 40.6401 0)
 			(effects
 				(font
@@ -6546,15 +6590,15 @@
 	(symbol
 		(lib_id "Device:R_Potentiometer_US")
 		(at 97.79 45.72 0)
+		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "f804817b-f4d8-4d82-beb1-cb0e54662dbd")
 		(property "Reference" "RV41"
-			(at 95.25 44.4499 0)
+			(at 95.25 46.9901 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6563,7 +6607,7 @@
 			)
 		)
 		(property "Value" "50k"
-			(at 95.25 46.9899 0)
+			(at 95.25 44.4501 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6635,7 +6679,7 @@
 				)
 			)
 		)
-		(property "Value" "TL072"
+		(property "Value" "TLV9152"
 			(at 100.33 96.52 0)
 			(effects
 				(font
