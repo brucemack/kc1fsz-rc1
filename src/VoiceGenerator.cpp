@@ -27,7 +27,7 @@ void VoiceGenerator::start() {
     float timeMs = (audio_id_length / fs) * 1000.0;
     _endTime = _clock.time() + (unsigned int)timeMs;
     // Trigger voice
-    _synth.setPcm(audio_id, audio_id_length, 8000);
+    _synth.setPcm(audio_id, audio_id_length, 16000);
     _synth.setEnabled(true);
     _log.info("Voice ID start");
 }
