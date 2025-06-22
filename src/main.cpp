@@ -1,5 +1,5 @@
 /**
- * Digital Repeater Controller
+ * Software Defined Repeater Controller
  * Copyright (C) 2025, Bruce MacKinnon KC1FSZ
  *
  * This program is free software: you can redistribute it and/or modify
@@ -19,10 +19,8 @@
  */
 
 /*
-When targeting RP2040 (Pico 1):
-
-Command used to load code onto the board: 
-~/git/openocd/src/openocd -s ~/git/openocd/tcl -f interface/cmsis-dap.cfg -f target/rp040.cfg -c "adapter speed 5000" -c "rp2350.dap.core1 cortex_m reset_config sysresetreq" -c "program main.elf verify reset exit"
+When targeting RP2350 (Pico 2), command used to load code onto the board: 
+~/git/openocd/src/openocd -s ~/git/openocd/tcl -f interface/cmsis-dap.cfg -f target/rp2350.cfg -c "adapter speed 5000" -c "rp2350.dap.core1 cortex_m reset_config sysresetreq" -c "program main.elf verify reset exit"
 */
 
 #include <stdio.h>
@@ -43,8 +41,8 @@ Command used to load code onto the board:
 #include "kc1fsz-tools/rp2040/PicoPerfTimer.h"
 #include "kc1fsz-tools/rp2040/PicoClock.h"
 
-#include "test/TestTx.h"
-#include "test/TestRx.h"
+//#include "test/TestTx.h"
+//#include "test/TestRx.h"
 #include "hw/StdTx.h"
 #include "hw/StdRx.h"
 #include "AudioSourceControl.h"
@@ -54,7 +52,7 @@ Command used to load code onto the board:
 
 using namespace kc1fsz;
 
-#define PI (3.1415926)
+//#define PI (3.14159265359)
 
 // ===========================================================================
 // CONFIGURATION PARAMETERS
