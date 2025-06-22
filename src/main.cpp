@@ -35,6 +35,7 @@ When targeting RP2350 (Pico 2), command used to load code onto the board:
 #include "hardware/pwm.h"
 #include "hardware/timer.h"
 #include "hardware/irq.h"
+#include "hardware/watchdog.h"
 
 #include "kc1fsz-tools/Log.h"
 #include "kc1fsz-tools/rp2040/PicoPollTimer.h"
@@ -70,6 +71,8 @@ const uint dac_dout_pin = 9;
 #define R1_COS_PIN (17)
 #define R1_CTCSS_PIN (16)
 #define R1_PTT_PIN (15)
+
+#define WATCHDOG_INTERVAL_MS (250)
 
 // Number of ADC samples in a block
 #define ADC_SAMPLE_COUNT (256)
@@ -155,6 +158,7 @@ static uint out_history_ptr = 0;
 // ===========================================================================
 //
 static PicoClock clock;
+static Log log(&clock);
 // Objects used for tone generation (CW, courtesy, PL, etc.)
 static ToneSynthesizer toneSynth0(FS_HZ, AUDIO_FADE_MS);
 static ToneSynthesizer toneSynth1(FS_HZ, AUDIO_FADE_MS);
@@ -890,11 +894,20 @@ int main(int argc, const char** argv) {
     sleep_ms(500);
     gpio_put(LED_PIN, 0);
 
-    //printf("\033[2J");
-    printf("Software Defined Repeater Controller\nCopyright (C) 2025 Bruce MacKinnon KC1FSZ\n");
-    printf("Firmware R00234 2025-06-20\n");
+    log.info("W1TKZ Software Defined Repeater Controller");
+    log.info("Copyright (C) 2025 Bruce MacKinnon KC1FSZ");
+    log.info("Firmware R00236 2025-06-22");
 
-    // ===== AUDIO SETUP 
+    if (watchdog_enable_caused_reboot()) {
+        log.info("Rebooted by watchdog timer");
+    } else {
+        log.info("Clean boot");
+    }
+
+    // Enable the watchdog, requiring the watchdog to be updated or the chip 
+    // will reboot. The second arg is "pause on debug" which means 
+    // the watchdog will pause when stepping through code
+    watchdog_enable(WATCHDOG_INTERVAL_MS, 1);
 
     audio_setup();
 
@@ -903,8 +916,6 @@ int main(int argc, const char** argv) {
     
     clock.reset();
     //clock.setScale(10);
-
-    Log log(&clock);
 
     // Display/diagnostic should happen once per second
     PicoPollTimer flashTimer;
@@ -939,6 +950,8 @@ int main(int argc, const char** argv) {
     int i = 0;
 
     while (true) { 
+
+        watchdog_update();
         
         int c = getchar_timeout_us(0);
         if (c == 's') {
