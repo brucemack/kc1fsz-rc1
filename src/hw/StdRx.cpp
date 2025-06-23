@@ -21,7 +21,7 @@ StdRx::StdRx(Clock& clock, Log& log, int id, int cosPin, int tonePin,
 void StdRx::run() {
 }
 
-bool StdRx::isActive() const { 
+bool StdRx::isCOS() const {
     bool cos;
     if (_cosMode == CosMode::COS_EXT_HIGH) {
         // There is a built-in inverter in the hardware
@@ -34,23 +34,23 @@ bool StdRx::isActive() const {
     else {
         assert(false);
     }
-    bool tone;
-    if (_toneMode == ToneMode::TONE_NONE) {
-        tone = true;
-    }     
-    else if (_toneMode == ToneMode::TONE_EXT_HIGH) {
+    return cos;
+}
+
+bool StdRx::isCTCSS() const {
+    bool tone = false;
+    if (_toneMode == ToneMode::TONE_EXT_HIGH) {
         // There is a built-in inverter in the hardware
         tone = (gpio_get(_tonePin) == 0);
-    }
-    else if (_toneMode == ToneMode::TONE_EXT_LOW) {
+    } else if (_toneMode == ToneMode::TONE_EXT_LOW) {
         // There is a built-in inverter in the hardware
         tone = (gpio_get(_tonePin) == 1);
     }
-    else {
-        assert(false);
-    }
+    return tone;
+}
 
-    return cos && tone; 
+bool StdRx::isActive() const { 
+    return isCOS() && (_toneMode == ToneMode::TONE_IGNORE || isCTCSS());
 }
 
 }

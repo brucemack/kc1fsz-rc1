@@ -16,6 +16,8 @@ public:
     virtual int getId() const { return _id; }
     virtual void run();
     virtual bool isActive() const;
+    virtual bool isCOS() const;
+    virtual bool isCTCSS() const;
 
     /**
      * @brief Sets the CTCSS frequency used for 
@@ -34,7 +36,7 @@ public:
      * @brief Controls how the CTCSS tone decode works.
      */
     enum ToneMode {
-        TONE_NONE, TONE_EXT_LOW, TONE_EXT_HIGH, TONE_SOFT
+        TONE_IGNORE, TONE_EXT_LOW, TONE_EXT_HIGH, TONE_SOFT
     };
 
     void setToneMode(ToneMode mode) { _toneMode = mode; }
@@ -58,7 +60,7 @@ private:
     unsigned int _state = 0;
     int _toneX10 = 0;
     CosMode _cosMode = CosMode::COS_EXT_HIGH;
-    ToneMode _toneMode = ToneMode::TONE_NONE;
+    ToneMode _toneMode = ToneMode::TONE_IGNORE;
 };
 
 }

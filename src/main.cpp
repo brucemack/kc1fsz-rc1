@@ -936,7 +936,7 @@ int main(int argc, const char** argv) {
 
     StdRx rx1(clock, log, 1, R1_COS_PIN, R1_CTCSS_PIN, CourtesyToneGenerator::Type::FAST_DOWNCHIRP);
     rx1.setCosMode(StdRx::CosMode::COS_EXT_HIGH);
-    rx1.setToneMode(StdRx::ToneMode::TONE_EXT_HIGH);
+    //rx1.setToneMode(StdRx::ToneMode::TONE_EXT_HIGH);
 
     TxControl txCtl0(clock, log, tx0, toneSynth0, audioSource0);
     TxControl txCtl1(clock, log, tx1, toneSynth1, audioSource1);
@@ -1048,24 +1048,33 @@ int main(int argc, const char** argv) {
 
                 printf("Radio 0\n");
 
-                printf("RX0 COS : ");
-                if (rx0.isActive()) {
+                printf("RX0 COS  : ");
+                if (rx0.isCOS()) {
                     printf("\033[30;42m");
                     printf("ACTIVE  ");
-                }
-                else {
+                } else {
                     printf("\033[2m");
                     printf("INACTIVE");
                 }
                 printf("\n");
                 printf("\033[0m");
 
-                printf("TX0 PTT : ");
+                printf("RX0 CTCSS: ");
+                if (rx0.isCTCSS()) {
+                    printf("\033[30;42m");
+                    printf("ACTIVE  ");
+                } else {
+                    printf("\033[2m");
+                    printf("INACTIVE");
+                }
+                printf("\n");
+                printf("\033[0m");
+
+                printf("TX0 PTT  : ");
                 if (tx0.getPtt()) {
                     printf("\033[30;42m");
                     printf("ACTIVE  ");
-                }
-                else {
+                } else {
                     printf("\033[2m");
                     printf("INACTIVE");
                 }
@@ -1074,15 +1083,13 @@ int main(int argc, const char** argv) {
 
                 int rx_rms_r0_db = calc_rms_db(in_history_r0, IN_HISTORY_COUNT, MAX_DAC_VALUE);
                 int rx_peak_r0_db = calc_peak_db(in_history_r0, IN_HISTORY_COUNT, MAX_DAC_VALUE);
-                printf("RX0 LVL : ");
+                printf("RX0 LVL  : ");
                 print_vu_bar(rx_rms_r0_db, rx_peak_r0_db);
                 printf("\n");
 
                 int tx_rms_r0_db = calc_rms_db(out_history_r0, OUT_HISTORY_COUNT, 128);
                 int tx_peak_r0_db = calc_peak_db(out_history_r0, OUT_HISTORY_COUNT, 128);
-                //int tx_rms_r0_db = calc_rms_db(out_history_r0, OUT_HISTORY_COUNT, MAX_DAC_VALUE);
-                //int tx_peak_r0_db = calc_peak_db(out_history_r0, OUT_HISTORY_COUNT, MAX_DAC_VALUE);
-                printf("TX0 LVL : ");
+                printf("TX0 LVL  : ");
                 print_vu_bar(tx_rms_r0_db, tx_peak_r0_db);
                 printf("\n");
 
@@ -1090,24 +1097,34 @@ int main(int argc, const char** argv) {
                 
                 printf("Radio 1\n");
 
-                printf("RX1 COS : ");
-                if (rx1.isActive()) {
+                printf("RX1 COS  : ");
+                if (rx1.isCOS()) {
                     printf("\033[30;42m");
                     printf("ACTIVE  ");
-                }
-                else {
+                } else {
                     printf("\033[2m");
                     printf("INACTIVE");
                 }
                 printf("\n");
                 printf("\033[0m");
 
-                printf("TX1 PTT : ");
+                printf("RX1 CTCSS: ");
+                if (rx1.isCTCSS()) {
+                    printf("\033[30;42m");
+                    printf("ACTIVE  ");
+                } else {
+                    printf("\033[2m");
+                    printf("INACTIVE");
+                }
+                printf("\n");
+                printf("\033[0m");
+
+
+                printf("TX1 PTT  : ");
                 if (tx1.getPtt()) {
                     printf("\033[30;42m");
                     printf("ACTIVE  ");
-                }
-                else {
+                } else {
                     printf("\033[2m");
                     printf("INACTIVE");
                 }
@@ -1116,15 +1133,13 @@ int main(int argc, const char** argv) {
 
                 int rx_rms_r1_db = calc_rms_db(in_history_r1, IN_HISTORY_COUNT, MAX_DAC_VALUE);
                 int rx_peak_r1_db = calc_peak_db(in_history_r1, IN_HISTORY_COUNT, MAX_DAC_VALUE);
-                printf("RX1 LVL : ");
+                printf("RX1 LVL  : ");
                 print_vu_bar(rx_rms_r1_db, rx_peak_r1_db);
                 printf("\n");
 
                 int tx_rms_r1_db = calc_rms_db(out_history_r1, OUT_HISTORY_COUNT, 128);
                 int tx_peak_r1_db = calc_peak_db(out_history_r1, OUT_HISTORY_COUNT, 128);
-                //int tx_rms_r1_db = calc_rms_db(out_history_r1, OUT_HISTORY_COUNT, MAX_DAC_VALUE);
-                //int tx_peak_r1_db = calc_peak_db(out_history_r1, OUT_HISTORY_COUNT, MAX_DAC_VALUE);
-                printf("TX1 LVL : ");
+                printf("TX1 LVL  : ");
                 print_vu_bar(tx_rms_r1_db, tx_peak_r1_db);
                 printf("\n");
 
