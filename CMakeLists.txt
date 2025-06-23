@@ -9,6 +9,7 @@ pico_sdk_init()
 add_executable(main
   src/i2s.pio
   src/main.cpp
+  src/Config.cpp
   src/Tx.cpp
   src/TxControl.cpp
   src/Rx.cpp
@@ -32,7 +33,7 @@ pico_generate_pio_header(main ${CMAKE_CURRENT_LIST_DIR}/src/i2s.pio)
 
 target_include_directories(main PRIVATE kc1fsz-tools-cpp/include)
 target_include_directories(main PRIVATE src)
-target_link_libraries(main pico_stdlib hardware_i2c hardware_clocks hardware_pwm hardware_dma hardware_pio)
+target_link_libraries(main pico_stdlib hardware_i2c hardware_clocks hardware_pwm hardware_dma hardware_pio hardware_flash)
 
 # ------ dtmf-test-1 ---------------------------------------------------------
 # Target: Host

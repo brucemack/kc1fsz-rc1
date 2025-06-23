@@ -1041,9 +1041,6 @@ static void render_status(const Rx& rx0, const Rx& rx1, const Tx& tx0, const Tx&
 
 int main(int argc, const char** argv) {
 
-    // TEMP
-    strcpy(config.callSign, "W1TKZ");
-
     // Adjust system clock to more evenly divide the 
     // audio sampling frequency.
     unsigned long system_clock_khz = 129600;
@@ -1091,6 +1088,13 @@ int main(int argc, const char** argv) {
         log.info("Rebooted by watchdog timer");
     } else {
         log.info("Clean boot");
+    }
+    
+    // ----- READ CONFIGURATION FROM FLASH ------------------------------------
+    Config::loadConfig(&config);
+    if (!config.isValid()) {
+        log.info("Invalid config, setting factory default");
+        Config::setFactoryDefaults(&config);
     }
 
     // Enable the watchdog, requiring the watchdog to be updated or the chip 
