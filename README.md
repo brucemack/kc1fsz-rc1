@@ -77,9 +77,9 @@ on the power input.
 Hardware specs:
 
 * Microcontroller is the RP2350 running at 125 MHz.
-* Audio path is 24-bits at 48k samples/second. More than enough for 
+* Audio path is 24-bits at 32k samples/second. More than enough for 
 an analog FM repeater.
-* Low-noise op amps are used for audio scaling (TL072).
+* Low-noise op amps are used for audio scaling (TLV9152).
 
 More documentation:
 
@@ -207,3 +207,19 @@ GP26 - X
 GP27 - X
 GP28 - X
 ```
+
+Todo List
+=========
+* Integrate CTCSS pins into firmware, add to status page
+* Implement polarity control for COS/CTCSS/PTT pins
+* Centralize configuration into flash structure
+* Improve command parsing in console/shell
+* Improve layout of live status page
+* Implement ability to switch between log, shell, and status
+* Send board revision to fab
+* Load rest of voice prompts
+* AGC experimentation
+* Live test at HWH
+
+
+
