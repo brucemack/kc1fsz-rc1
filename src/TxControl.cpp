@@ -22,12 +22,14 @@
 namespace kc1fsz {
 
 TxControl::TxControl(Clock& clock, Log& log, Tx& tx, 
-    ToneSynthesizer& toneSynth, AudioSourceControl& audioSource)
+    ToneSynthesizer& toneSynth, AudioSourceControl& audioSource,
+    const Config& config)
 :   _clock(clock),
     _log(log),
     _tx(tx),
+    _config(config),
     _courtesyToneGenerator(log, clock, toneSynth),
-    _idToneGenerator(log, clock, toneSynth),
+    _idToneGenerator(log, clock, toneSynth, config),
     _audioSource(audioSource)
 {
 }

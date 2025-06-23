@@ -20,6 +20,7 @@ add_executable(main
   src/hw/StdTx.cpp
   src/hw/StdRx.cpp
   kc1fsz-tools-cpp/src/Common.cpp
+  kc1fsz-tools-cpp/src/CommandShell.cpp
   kc1fsz-tools-cpp/src/ToneSynthesizer.cpp
   kc1fsz-tools-cpp/src/rp2040/PicoPollTimer.cpp
   kc1fsz-tools-cpp/src/rp2040/PicoPerfTimer.cpp
