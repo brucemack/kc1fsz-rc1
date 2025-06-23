@@ -191,6 +191,15 @@ static float plGain_r1 = 0.33 * 0.25;
 static float audioGain_r1 = 1.0;
 static float audioGain_t1 = 1.0;
 
+// The console can work in one of three modes:
+// 
+// Log    - A stream of log/diagnostic messages (default)
+// Shell  - An interactive command prompt
+// Status - A continuously updated live status page
+//
+enum UIMode { UIMODE_LOG, UIMODE_SHELL, UIMODE_STATUS };
+static UIMode uiMode = UIMode::UIMODE_LOG;
+
 static void process_in_frame();
 
 // This will be called once every AUDIO_BUFFER_SIZE/2 samples.
@@ -856,6 +865,115 @@ static void print_vu_bar(int rms_db, int peak_db) {
     printf("\033[0m");
 }
 
+static void render_status(const Rx& rx0, const Rx& rx1, const Tx& tx0, const Tx& tx1) {
+
+    printf("\033[H");
+    printf("W1TKZ Software Defined Repater Controller\n");
+    printf("\n");
+
+    printf("\033[30;47m");
+    printf(" Radio 0 \n");
+    printf("\033[0m");
+
+    printf("RX0 COS  : ");
+    if (rx0.isCOS()) {
+        printf("\033[30;42m");
+        printf("ACTIVE  ");
+    } else {
+        printf("\033[2m");
+        printf("INACTIVE");
+    }
+    printf("\n");
+    printf("\033[0m");
+
+    printf("RX0 CTCSS: ");
+    if (rx0.isCTCSS()) {
+        printf("\033[30;42m");
+        printf("ACTIVE  ");
+    } else {
+        printf("\033[2m");
+        printf("INACTIVE");
+    }
+    printf("\n");
+    printf("\033[0m");
+
+    printf("TX0 PTT  : ");
+    if (tx0.getPtt()) {
+        printf("\033[30;42m");
+        printf("ACTIVE  ");
+    } else {
+        printf("\033[2m");
+        printf("INACTIVE");
+    }
+    printf("\n");
+    printf("\033[0m");
+
+    int rx_rms_r0_db = calc_rms_db(in_history_r0, IN_HISTORY_COUNT, MAX_DAC_VALUE);
+    int rx_peak_r0_db = calc_peak_db(in_history_r0, IN_HISTORY_COUNT, MAX_DAC_VALUE);
+    printf("RX0 LVL  : ");
+    print_vu_bar(rx_rms_r0_db, rx_peak_r0_db);
+    printf("\n");
+
+    int tx_rms_r0_db = calc_rms_db(out_history_r0, OUT_HISTORY_COUNT, 128);
+    int tx_peak_r0_db = calc_peak_db(out_history_r0, OUT_HISTORY_COUNT, 128);
+    printf("TX0 LVL  : ");
+    print_vu_bar(tx_rms_r0_db, tx_peak_r0_db);
+    printf("\n");
+
+    printf("\n");
+                
+    printf("\033[30;47m");
+    printf(" Radio 1 \n");
+    printf("\033[0m");
+
+    printf("RX1 COS  : ");
+    if (rx1.isCOS()) {
+        printf("\033[30;42m");
+        printf("ACTIVE  ");
+    } else {
+        printf("\033[2m");
+        printf("INACTIVE");
+    }
+    printf("\n");
+    printf("\033[0m");
+
+    printf("RX1 CTCSS: ");
+    if (rx1.isCTCSS()) {
+        printf("\033[30;42m");
+        printf("ACTIVE  ");
+    } else {
+        printf("\033[2m");
+        printf("INACTIVE");
+    }
+    printf("\n");
+    printf("\033[0m");
+
+    printf("TX1 PTT  : ");
+    if (tx1.getPtt()) {
+        printf("\033[30;42m");
+        printf("ACTIVE  ");
+    } else {
+        printf("\033[2m");
+        printf("INACTIVE");
+    }
+    printf("\n");
+    printf("\033[0m");
+
+    int rx_rms_r1_db = calc_rms_db(in_history_r1, IN_HISTORY_COUNT, MAX_DAC_VALUE);
+    int rx_peak_r1_db = calc_peak_db(in_history_r1, IN_HISTORY_COUNT, MAX_DAC_VALUE);
+    printf("RX1 LVL  : ");
+    print_vu_bar(rx_rms_r1_db, rx_peak_r1_db);
+    printf("\n");
+
+    int tx_rms_r1_db = calc_rms_db(out_history_r1, OUT_HISTORY_COUNT, 128);
+    int tx_peak_r1_db = calc_peak_db(out_history_r1, OUT_HISTORY_COUNT, 128);
+    printf("TX1 LVL  : ");
+    print_vu_bar(tx_rms_r1_db, tx_peak_r1_db);
+    printf("\n");
+
+    printf("\n");
+}
+
 int main(int argc, const char** argv) {
 
     // Adjust system clock to more evenly divide the 
@@ -894,6 +1012,8 @@ int main(int argc, const char** argv) {
     gpio_put(LED_PIN, 0);
 
     Log log(&clock);
+    uiMode = UIMode::UIMODE_LOG;
+    log.setEnabled(true);
 
     log.info("W1TKZ Software Defined Repeater Controller");
     log.info("Copyright (C) 2025 Bruce MacKinnon KC1FSZ");
@@ -944,7 +1064,7 @@ int main(int argc, const char** argv) {
     txCtl0.setRx(0, &rx0);
     txCtl0.setRx(1, &rx1);
     txCtl1.setRx(0, &rx0);
-    txCtl1.setRx(1, &rx1);
+    txCtl1.setRx(1, &rx1);  
 
     // ===== Main Event Loop =================================================
 
@@ -953,28 +1073,51 @@ int main(int argc, const char** argv) {
     while (true) { 
 
         watchdog_update();
-        
+      
         int c = getchar_timeout_us(0);
-        if (c == 's') {
-            printf("Status:\n");
-            printf("  RX0 isActve %d\n", (int)rx0.isActive());
-            printf("  RX1 isActve %d\n", (int)rx1.isActive());
-        }
-        else if (c == 'i') {
-            txCtl0.forceId();
-            txCtl1.forceId();
-        }
-        // Radio 0 input display
-        else if (c == '1') {
-            float hold[ADC_SAMPLE_COUNT];
-            for (unsigned int i = 0; i < ADC_SAMPLE_COUNT; i++) 
-                hold[i] = in_history_r0[i];
-            printf("\n");
-            for (unsigned int i = 0; i < ADC_SAMPLE_COUNT; i++) {
-                printf("%f\n", hold[i]);
+        bool flash = flashTimer.poll();
+
+        if (uiMode == UIMode::UIMODE_LOG) {
+            if (c == 's') {
+                uiMode = UIMode::UIMODE_SHELL;
+                log.setEnabled(false);
+                // ENTER SHELL MODE
+            } else if (c == 't') {
+                uiMode = UIMode::UIMODE_STATUS;
+                log.setEnabled(false);
+                // Clear off the status screen
+                printf("\033[2J");
+            } else if (c == 'i') {
+                txCtl0.forceId();
+                txCtl1.forceId();
             }
-            printf("\n");
         }
+        else if (uiMode == UIMode::UIMODE_SHELL) {
+        }
+        else if (uiMode == UIMode::UIMODE_STATUS) {
+            // Do periodic display/diagnostic stuff
+            if (flash)
+                render_status(rx0, rx1, tx0, tx1);
+            if (c == 'l') {
+                // Clear off the status screen
+                printf("\033[2J");
+                uiMode = UIMode::UIMODE_LOG;
+                log.setEnabled(true);
+                log.info("Entered log mode");
+            } 
+            else if (c == 's') {
+                // Clear off the status screen
+                printf("\033[2J");
+                uiMode = UIMode::UIMODE_SHELL;
+                log.setEnabled(false);
+                // ENTER SHELL MODE
+            } 
+            else if (c == 'i') {
+                txCtl0.forceId();
+                txCtl1.forceId();
+            }
+        }
+        /*
         else if (c == 'd') {
             if (!diagOn) {
                 diagOn = true;
@@ -1034,118 +1177,7 @@ int main(int argc, const char** argv) {
             // The watchdog will take over from here
             while (true);            
         }
-
-        // Do periodic display/diagnostic stuff
-        if (flashTimer.poll()) {
-            i++;
-            //printf("DMA out %u\n", dma_out_count);
-            //printf("ADC in %u\n", dma_in_count);
-
-            if (liveDisplay) {
-                printf("\033[H");
-                printf("W1TKZ Software Defined Repater Controller\n");
-                printf("\n");
-
-                printf("Radio 0\n");
-
-                printf("RX0 COS  : ");
-                if (rx0.isCOS()) {
-                    printf("\033[30;42m");
-                    printf("ACTIVE  ");
-                } else {
-                    printf("\033[2m");
-                    printf("INACTIVE");
-                }
-                printf("\n");
-                printf("\033[0m");
-
-                printf("RX0 CTCSS: ");
-                if (rx0.isCTCSS()) {
-                    printf("\033[30;42m");
-                    printf("ACTIVE  ");
-                } else {
-                    printf("\033[2m");
-                    printf("INACTIVE");
-                }
-                printf("\n");
-                printf("\033[0m");
-
-                printf("TX0 PTT  : ");
-                if (tx0.getPtt()) {
-                    printf("\033[30;42m");
-                    printf("ACTIVE  ");
-                } else {
-                    printf("\033[2m");
-                    printf("INACTIVE");
-                }
-                printf("\n");
-                printf("\033[0m");
-
-                int rx_rms_r0_db = calc_rms_db(in_history_r0, IN_HISTORY_COUNT, MAX_DAC_VALUE);
-                int rx_peak_r0_db = calc_peak_db(in_history_r0, IN_HISTORY_COUNT, MAX_DAC_VALUE);
-                printf("RX0 LVL  : ");
-                print_vu_bar(rx_rms_r0_db, rx_peak_r0_db);
-                printf("\n");
-
-                int tx_rms_r0_db = calc_rms_db(out_history_r0, OUT_HISTORY_COUNT, 128);
-                int tx_peak_r0_db = calc_peak_db(out_history_r0, OUT_HISTORY_COUNT, 128);
-                printf("TX0 LVL  : ");
-                print_vu_bar(tx_rms_r0_db, tx_peak_r0_db);
-                printf("\n");
-
-                printf("\n");
-                
-                printf("Radio 1\n");
-
-                printf("RX1 COS  : ");
-                if (rx1.isCOS()) {
-                    printf("\033[30;42m");
-                    printf("ACTIVE  ");
-                } else {
-                    printf("\033[2m");
-                    printf("INACTIVE");
-                }
-                printf("\n");
-                printf("\033[0m");
-
-                printf("RX1 CTCSS: ");
-                if (rx1.isCTCSS()) {
-                    printf("\033[30;42m");
-                    printf("ACTIVE  ");
-                } else {
-                    printf("\033[2m");
-                    printf("INACTIVE");
-                }
-                printf("\n");
-                printf("\033[0m");
-
-
-                printf("TX1 PTT  : ");
-                if (tx1.getPtt()) {
-                    printf("\033[30;42m");
-                    printf("ACTIVE  ");
-                } else {
-                    printf("\033[2m");
-                    printf("INACTIVE");
-                }
-                printf("\n");
-                printf("\033[0m");
-
-                int rx_rms_r1_db = calc_rms_db(in_history_r1, IN_HISTORY_COUNT, MAX_DAC_VALUE);
-                int rx_peak_r1_db = calc_peak_db(in_history_r1, IN_HISTORY_COUNT, MAX_DAC_VALUE);
-                printf("RX1 LVL  : ");
-                print_vu_bar(rx_rms_r1_db, rx_peak_r1_db);
-                printf("\n");
-
-                int tx_rms_r1_db = calc_rms_db(out_history_r1, OUT_HISTORY_COUNT, 128);
-                int tx_peak_r1_db = calc_peak_db(out_history_r1, OUT_HISTORY_COUNT, 128);
-                printf("TX1 LVL  : ");
-                print_vu_bar(tx_rms_r1_db, tx_peak_r1_db);
-                printf("\n");
-
-                printf("\n");
-            }
-        }
+        */
 
         // Run all components
         tx0.run();
