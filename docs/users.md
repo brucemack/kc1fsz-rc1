@@ -37,7 +37,7 @@ Standard 5.5mm power connector. +12VDC on center pin.
 | 25  | NC                      |    |
 
 NOTES:
-* The terms "audio in" and "audio out" are from the perspective of the controller. The "audio in" pins take audio from a receiver and the "audio out" pins deliver audio to a transmitter.
+* The terms "audio in" and "audio out" should be interpreted from the perspective of the controller. The audio in pins take audio from a receiver and the audio out pins deliver audio to a transmitter.
 * Audio in and out pins have DC blocking capacitors.
 * Audio out pins support 0 to 1.5Vpp into a 600 ohm load. 
 * The COS/CTCSS are 5V logic inputs. The software allows the polarity of these controls to be configured to support positive or negative logic (depending on radio)
@@ -46,6 +46,19 @@ NOTES:
 ### USB Connector
 
 Male, USB-A. For console connection. Runs at 115,200 baud.
+
+## Board Adjustments
+
+There are 4 hardware gain controls on the radio interface board that
+are used to adjust receive and transmit audio levels.  
+
+![Board Adjustments](trims.jpg)
+
+Use the test tone feature to generate a continuous transmit tone to adjust the transmit levels.
+
+Use the receive level meter on the console to adjust the receive levels.
+
+Fine adjustments can be made to the audio level using the soft gain controls.
 
 ## Shell Commands
 
@@ -60,6 +73,19 @@ Saves the current configuration to flash
 
 #### factory
 Restores the configuration to the factory defaults
+
+#### tone (on | off)
+Turns on or off a test tone that can be used for adjusting transmit audio levels.
+
+#### set tonelvl (level_db)
+Sets the level of the test tone.
+
+(level_db) is the audio level in dB relative to full scale. Default is -10dB.
+
+#### set tonefreq (freq_hz)
+Sets the frequency of the test tone.
+
+(freq_hz) The test tone frequency in Hertz.  Default is 1000.
 
 #### set call (callsign)
 Sets the station callsign. Limit 16 characters, slashes are allowed.
@@ -104,7 +130,7 @@ Controls the audio level of the courtesy tone.
 
 (radio) is either 0 or 1.
 
-(level) is the audio level in dB relative to full scale.
+(level_db) is the audio level in dB relative to full scale.
 
 #### set idlvl (radio) (level_db)
 Controls the audio level of the CW ID.
@@ -189,3 +215,10 @@ Used for soft CTCSS encoding only.
 (radio) is either 0 or 1.
 
 (freq_hz) the CTCSS frequency being encoded
+
+#### set rxgain (radio) (adj_db)
+Used to make fine adjustments to the receive audio level.
+
+(radio) is either 0 or 1.
+
+(adj_db) The receive audio is amplified/attenuated by this value.
