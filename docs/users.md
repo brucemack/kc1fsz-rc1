@@ -69,7 +69,7 @@ below.
 
 ### Log Mode
 
-The controller boots into log mode. Log mode displays a scrolling list
+The controller boots into log mode. Log mode displays a continuously scrolling list
 of timestamped controller activity messages.
 
 For example:
@@ -83,7 +83,7 @@ For example:
         I: 000000:10.529 Transmitter unkeyed [0]                                
         I: 000000:10.532 Transmitter unkeyed [1]       
 
-In log mode some key inputs are supported:
+In log mode some keyboard inputs are supported:
 
 * s - Go to shell mode (see below)
 * t - Go to status mode (see below)
@@ -96,7 +96,7 @@ Status mode displays a real-time dashboard of controller status. For example:
 
 ![Status Mode](status.jpg)
 
-In status mode some key inputs are supported:
+In status mode some keyboard inputs are supported:
 
 * l - Go to log mode (see above)
 * s - Go to shell mode (see below)
@@ -130,6 +130,9 @@ Saves the current configuration to flash.
 #### factory
 Restores the configuration to the factory defaults.
 
+#### set call (callsign)
+Sets the station callsign. Limit 16 characters, slashes are allowed.
+
 #### tone (on | off)
 Turns on or off a test tone that can be used for adjusting transmit audio levels.
 
@@ -143,26 +146,23 @@ Sets the frequency of the test tone.
 
 (freq_hz) The test tone frequency in Hertz.  Default is 1000.
 
-#### set call (callsign)
-Sets the station callsign. Limit 16 characters, slashes are allowed.
-
 #### set timeout (radio) (duration_ms)
-Controls the longest continuous transmission before the transmitter times out and enters lockout state.
+Controls the longest continuous transmission before the transmitter times out and enters the lockout state. This feature is for the protection of the transmitter.
 
 (radio) is either 0 or 1.
 
-(duration_ms) Milliseconds for timeout. Default is 2 minutes.
+(duration_ms) milliseconds for timeout. Default is 120000 milliseconds (2 minutes).
 
 #### set lockout (radio) (duration_ms)
-Controls how long the radio is locked out (i.e. shut off) after a timeout condition is detected. This timer starts after the connected receivers go  inactive.
+Controls how long the radio is locked out (i.e. transmitter shut off) after a timeout condition is detected. This timer starts after the connected receivers go  inactive.
 
 (radio) is either 0 or 1.
 
-(duration_ms) Milliseconds for lockout.  Default is 1 minute.
+(duration_ms) milliseconds for lockout.  Default is 60000 milliseconds (1 minute).
 
 #### set hang (radio) (duration_ms)
 
-Controls the length of the hang interval time. The hang time starts when the receiver drops and ends when the courtesy tone is generated. The transmitters remain keyed during the hang time.
+Controls the length of the hang interval time. The hang time starts when the receiver becomes inactive and ends when the courtesy tone is generated. The transmitter remains keyed during the hang time.
 
 (radio) is either 0 or 1.
 
@@ -178,8 +178,8 @@ Controls the courtesy tone mode
 
 * 0 - No courtesy tone
 * 1 - Single tone
-* 1 - Upchirp
-* 2 - Downchrip
+* 2 - Upchirp (default)
+* 3 - Downchrip
 
 #### set ctlvl (radio) (level_db)
 Controls the audio level of the courtesy tone.
@@ -196,6 +196,8 @@ Controls the audio level of the CW ID.
 (level) is the audio level in dB relative to full scale.
 
 #### set cosmode (radio) (mode)
+Controls the carrier detect (COS) mode used by the radio.
+
 (radio) is either 0 or 1.
 
 (mode) is one of the following:
@@ -225,14 +227,17 @@ Used for soft COS detect only.
 (level) is the audio level in dB relative to full scale used to trigger the soft COS.
 
 #### set ctcssdecmode (radio) (mode)
+
+Controls the tone detect (CTCSS) mode used by the radio.
+
 (radio) is either 0 or 1.
 
 (mode) is one of the following:
 
 * 0 - No CTCSS detection used.
-* 1 - Hardware CTCSS detect, active low polarity
-* 2 - Hardware CTCSS detect, active high polarity (default)
-* 3 - Soft CTCSS detect
+* 1 - Hardware CTCSS detect, active low polarity.
+* 2 - Hardware CTCSS detect, active high polarity (default).
+* 3 - Soft CTCSS detect.
 
 #### set ctcssdecondur (radio) (duration_ms)
 
@@ -272,7 +277,7 @@ Used for soft CTCSS encoding only.
 
 (freq_hz) the CTCSS frequency being encoded
 
-#### set rxgain (radio) (adj_db)
+#### set recgain (radio) (adj_db)
 Used to make fine adjustments to the receive audio level.
 
 (radio) is either 0 or 1.
