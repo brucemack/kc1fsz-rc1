@@ -132,11 +132,22 @@ Saves the current configuration to flash.
 #### factory
 Restores the configuration to the factory defaults.
 
-#### set call (callsign)
-Sets the station callsign. Limit 16 characters, slashes are allowed.
-
 #### tone (on | off)
 Turns on or off a test tone that can be used for adjusting transmit audio levels.
+
+#### set rptmode (mode)
+
+(mode) is one of the following:
+
+* 0 - Two radios operate independently.
+* 1 - Cross-radio repeat, exclusive. When both receivers are active at the same time,
+the first to become active is repeated through both transmitters and the 
+second receiver is ignored.
+* 2 - Cross-radio repeat, mixed. When both receivers are active at the same time,
+the audio from both receivers is mixed and transmitted through both transmitters. (Default)
+
+#### set call (callsign)
+Sets the station callsign. Limit 16 characters, slashes are allowed.
 
 #### set tonelvl (level_db)
 Sets the level of the test tone.

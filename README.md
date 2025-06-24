@@ -9,6 +9,12 @@ Defined Repeater Controller" (SDRC) project. This Github
 repo contains the source code for the controller and the 
 KiCad design files for the hardware.
 
+The hardware is on two boards. The radio interface board is on the left
+and the digital control board is on the right. The digital control board
+is mostly a Pico Pi2.
+
+![Controller](docs/boards.jpg)
+
 One of the advantages of an all-digital architecture is that integration
 with other digital-voice technologies should be seamless. Please
 see the related project called [MicroLink](https://github.com/brucemack/microlink) which
@@ -32,7 +38,7 @@ Please reach out with any questions/suggestions.
 Capabilities
 ============
 
-This is development in process. The prototype is undergoing bench 
+The development is in process. The prototype is undergoing bench 
 testing at the moment. We plan to install it at our repeater site within the 
 next month.
 
@@ -40,12 +46,12 @@ Key capabilities of the software so far:
 
 * Support for two receivers and two transmitters. Radios
 can operate independently or can be linked to support
-remote receiver or cross-band repeater systems.
+remote receiver or cross-band repeater operation.
 * Hardware COS and CTCSS inputs for each radio. Positive
 and negative logic are supported.
 * An optically-isolated hardware PTT output for each radio.
 * Optional soft CTCSS (PL) tone encoding and decoding, with support 
-for independent frequencies for each transmitter/receiver.
+for independent tone frequencies for each transmitter/receiver.
 * CWID generation.
 * Configurable hang time.
 * Configurable courtesy tone generation.
@@ -57,7 +63,7 @@ serial terminal provides a configuration shell and live display of the following
   - Carrier detect (COS) status
   - PL tone detect (CTCSS) status
   - Push-to-talk (PTT) status
-  - Receiver audio level RMS and peak
+  - Receive/transmit audio level RMS and peak
 * (In development) Remote firmware update via LoRa connection.
 * (In development) <=1 second digital audio delay to avoid "static crashes."
 * Microcontroller uses a watchdog timer to limit the risk of lockup.
