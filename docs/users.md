@@ -49,16 +49,17 @@ Male, USB-A. For console connection. Runs at 115,200 baud.
 
 ## Board Adjustments
 
-There are 4 hardware gain controls on the radio interface board that
-are used to adjust receive and transmit audio levels.  
+All radios operate with different audio levels and at different impedances.
+The 4 hardware gain controls are used to adjust receive and transmit audio levels
+to make best use of the dynamic range of the controller. These hardware adjustments 
+should be made during initial installation. Fine adjustments can be made to the 
+audio level using the soft gain controls.
 
 ![Board Adjustments](trims.jpg)
 
 Use the test tone feature to generate a continuous transmit tone to adjust the transmit levels.
 
 Use the receive level meter on the console to adjust the receive levels.
-
-Fine adjustments can be made to the audio level using the soft gain controls.
 
 ## Console Interface 
 
@@ -82,11 +83,25 @@ For example:
         I: 000000:10.529 Transmitter unkeyed [0]                                
         I: 000000:10.532 Transmitter unkeyed [1]       
 
+In log mode some key inputs are supported:
+
+* s - Go to shell mode (see below)
+* t - Go to status mode (see below)
+* i - Force an ID cycle
+* d - Turn on/off the test tone
+
 ### Status Mode
 
 Status mode displays a real-time dashboard of controller status. For example:
 
 ![Status Mode](status.jpg)
+
+In status mode some key inputs are supported:
+
+* l - Go to log mode (see above)
+* s - Go to shell mode (see below)
+* i - Force an ID cycle
+* d - Turn on/off the test tone
 
 ### Shell Mode
 
@@ -95,16 +110,25 @@ can be used to view status and change configuration parameters
 of the repeater controller.
 
 ####  ping
-Responds with pong
+Responds with pong.
+
+#### version
+Displays firmware version information.
 
 #### reset 
-Causes a reboot
+Causes a reboot.
+
+#### status
+Go to status mode (see above).
+
+#### log
+Go to log mode (see above).
 
 #### save 
-Saves the current configuration to flash
+Saves the current configuration to flash.
 
 #### factory
-Restores the configuration to the factory defaults
+Restores the configuration to the factory defaults.
 
 #### tone (on | off)
 Turns on or off a test tone that can be used for adjusting transmit audio levels.
