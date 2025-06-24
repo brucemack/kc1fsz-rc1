@@ -21,6 +21,8 @@ Much of the hardware traditionally used in analog repeater designs
 digital voice CODECs, voice delay modules, etc.) will not be necessary
 if all of these functions can be performed in software.
 
+A [user's guide is provided here](docs/users.md).
+
 The SDRC system was developed by Bruce MacKinnon (KC1FSZ) with extensive design 
 input from Dan Brown (W1DAN) of the Wellesley Amateur Radio Society (W1TKZ).
 Please reach out with any questions/suggestions.
