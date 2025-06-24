@@ -2,19 +2,23 @@
 
 This is the user guide for the [W1TKZ Software Defined Repeater Controller](https://github.com/brucemack/kc1fsz-rc1). Please contact KC1FSZ with any questions or corrections.
 
-## Firmware Update (Local via USB)
+## Firmware Flash Update (Local via USB)
 
 The controller board comes with the firmware installed. There may be 
-instances where the firmware needs to be updated. The Pico architecture
+instances when the firmware needs to be updated. The Pico architecture
 makes firmware updates easy:
 
-* Connect a USB micro connector to the Pico Pi 2 board. 
+* Disconnect the digital board from the radio interface board.
+* Connect a USB micro cable to the connector on the Pico Pi 2. 
 * Hold down the BOOTSEL button on the Pico and plug the USB cable into a computer.
 * The Pico should appear as a USB-connected storage device.
-* Copy/drag the main.uf2 file into the top folder of the Pico.
+* Copy/drag the main.uf2 file into the root folder of the Pico.
 * The controller should restart with the new firmware.
+* Connect to the console interface (see below), enter the command shell,
+and use the version command to validate the firmware version.
+* Configuration settings may need to be re-applied after a firmware flash.
 
-## Firmware Update (Remote via LoRa)
+## Firmware Flash Update (Remote via LoRa)
 
 (Work in process)
 
@@ -127,7 +131,7 @@ Shell mode provides an interactive command line that
 can be used to view status and change configuration parameters
 of the repeater controller.
 
-####  ping
+#### ping
 Responds with pong.
 
 #### version
@@ -147,6 +151,9 @@ Saves the current configuration to flash.
 
 #### factory
 Restores the configuration to the factory defaults.
+
+#### show
+Displays the current configuration settings of the controller.
 
 #### tone (on | off)
 Turns on or off a test tone that can be used for adjusting transmit audio levels.
