@@ -60,7 +60,39 @@ Use the receive level meter on the console to adjust the receive levels.
 
 Fine adjustments can be made to the audio level using the soft gain controls.
 
-## Shell Commands
+## Console Interface 
+
+The console interface is accessed via the serial USB connection or via the LoRa 
+link (in development). The console operates in three modes, each described 
+below.
+
+### Log Mode
+
+The controller boots into log mode. Log mode displays a scrolling list
+of timestamped controller activity messages.
+
+For example:
+
+        I: 000000:05.039 Transmitter keyed [0]                                  
+        I: 000000:05.040 Transmitter keyed [1]                                  
+        I: 000000:06.041 CWID start W1TKZ                                       
+        I: 000000:06.044 CWID start W1TKZ                                       
+        I: 000000:09.528 CWID end                                               
+        I: 000000:09.531 CWID end                                               
+        I: 000000:10.529 Transmitter unkeyed [0]                                
+        I: 000000:10.532 Transmitter unkeyed [1]       
+
+### Status Mode
+
+Status mode displays a real-time dashboard of controller status. For example:
+
+![Status Mode](status.jpg)
+
+### Shell Mode
+
+Shell mode provides an interactive command line that
+can be used to view status and change configuration parameters
+of the repeater controller.
 
 ####  ping
 Responds with pong
