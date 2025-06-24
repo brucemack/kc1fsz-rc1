@@ -33,11 +33,13 @@
 
 namespace kc1fsz {
 
+class Config;
+
 class TxControl {
 public:
 
     TxControl(Clock& clock, Log& log, Tx& tx, ToneSynthesizer& toneSynth,
-        AudioSourceControl& audioSource);
+        AudioSourceControl& audioSource, const Config& config);
 
     virtual void run();
 
@@ -82,6 +84,7 @@ private:
     Log& _log;
     Tx& _tx;
     AudioSourceControl& _audioSource;
+    const Config& _config;
 
     State _state = State::INIT;   
 
@@ -90,8 +93,8 @@ private:
     Rx* _activeRx;
 
     CourtesyToneGenerator _courtesyToneGenerator;
-    //IDToneGenerator _idToneGenerator;
-    VoiceGenerator _idToneGenerator;
+    IDToneGenerator _idToneGenerator;
+    //VoiceGenerator _idToneGenerator;
 
     uint32_t _lastIdleTime = 0;
     uint32_t _timeoutTime = 0;

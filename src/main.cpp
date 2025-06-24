@@ -23,7 +23,7 @@ When targeting RP2350 (Pico 2), command used to load code onto the board:
 ~/git/openocd/src/openocd -s ~/git/openocd/tcl -f interface/cmsis-dap.cfg -f target/rp2350.cfg -c "adapter speed 5000" -c "rp2350.dap.core1 cortex_m reset_config sysresetreq" -c "program main.elf verify reset exit"
 */
 
-#include <stdio.h>
+#include <cstdio>
 #include <cstring>
 #include <cmath>
 
@@ -38,14 +38,17 @@ When targeting RP2350 (Pico 2), command used to load code onto the board:
 #include "hardware/watchdog.h"
 
 #include "kc1fsz-tools/Log.h"
+#include "kc1fsz-tools/CommandShell.h"
+#include "kc1fsz-tools/OutStream.h"
 #include "kc1fsz-tools/rp2040/PicoPollTimer.h"
 #include "kc1fsz-tools/rp2040/PicoPerfTimer.h"
 #include "kc1fsz-tools/rp2040/PicoClock.h"
 
 #include "hw/StdTx.h"
 #include "hw/StdRx.h"
-#include "AudioSourceControl.h"
 
+#include "Config.h"
+#include "AudioSourceControl.h"
 #include "i2s.pio.h"
 #include "TxControl.h"
 
@@ -157,6 +160,9 @@ static uint out_history_ptr = 0;
 // RUNTIME OBJECTS
 // ===========================================================================
 //
+// The global configuration parameters
+static Config config;
+
 static PicoClock clock;
 // Objects used for tone generation (CW, courtesy, PL, etc.)
 static ToneSynthesizer toneSynth0(FS_HZ, AUDIO_FADE_MS);
@@ -199,6 +205,65 @@ static float audioGain_t1 = 1.0;
 //
 enum UIMode { UIMODE_LOG, UIMODE_SHELL, UIMODE_STATUS };
 static UIMode uiMode = UIMode::UIMODE_LOG;
+
+// Used for integrating with the command shell
+class ShellOutput : public OutStream {
+public:
+
+    /**
+     * @returns Number of bytes actually written.
+     */
+    int write(uint8_t b) { printf("%c", (char)b); return 1; }
+    bool isWritable() const { return true; }
+};
+
+class ShellCommand : public CommandSink {
+public:
+ 
+    void process(const char* cmd) {
+        // Tokenize
+        const unsigned int maxTokenCount = 4;
+        const unsigned int maxTokenLen = 32;
+        char tokens[maxTokenCount][maxTokenLen];
+        int tokenCount = 0;
+        int tokenPtr = 0;
+        for (int i = 0; i <= strlen(cmd) && tokenCount < maxTokenCount; i++) {
+            // Space is the inter-token delimiter
+            if (cmd[i] == ' ' || cmd[i] == 0) {
+                // Leading spaces are ignored
+                if (tokenPtr > 0)
+                    tokenCount++;
+                tokenPtr = 0;
+            } else {
+                if (tokenPtr < maxTokenLen - 1) {
+                    tokens[tokenCount][tokenPtr++] = cmd[i];
+                    tokens[tokenCount][tokenPtr] = 0;
+                }
+            }
+        }
+
+        //for (int i = 0; i < tokenCount; i++)
+        //    printf("%d: [%s]\n", i, tokens[i]);
+
+        if (tokenCount == 1) {
+            if (strcmp(tokens[0], "reset") == 0) {
+                printf("Reboot requested");
+                // The watchdog will take over from here
+                while (true);            
+            }
+            else if (strcmp(tokens[0], "ping") == 0) {
+                printf("pong\n");
+            }
+        }
+        else if (tokenCount == 3) {
+            if (strcmp(tokens[0], "set") == 0) {
+                if (strcmp(tokens[1], "call") == 0) {
+                    printf("Callsign %s\n", tokens[2]);
+                }
+            }
+        }
+    }
+};
 
 static void process_in_frame();
 
@@ -1024,6 +1089,13 @@ int main(int argc, const char** argv) {
     } else {
         log.info("Clean boot");
     }
+    
+    // ----- READ CONFIGURATION FROM FLASH ------------------------------------
+    Config::loadConfig(&config);
+    if (!config.isValid()) {
+        log.info("Invalid config, setting factory default");
+        Config::setFactoryDefaults(&config);
+    }
 
     // Enable the watchdog, requiring the watchdog to be updated or the chip 
     // will reboot. The second arg is "pause on debug" which means 
@@ -1058,8 +1130,8 @@ int main(int argc, const char** argv) {
     rx1.setCosMode(StdRx::CosMode::COS_EXT_HIGH);
     //rx1.setToneMode(StdRx::ToneMode::TONE_EXT_HIGH);
 
-    TxControl txCtl0(clock, log, tx0, toneSynth0, audioSource0);
-    TxControl txCtl1(clock, log, tx1, toneSynth1, audioSource1);
+    TxControl txCtl0(clock, log, tx0, toneSynth0, audioSource0, config);
+    TxControl txCtl1(clock, log, tx1, toneSynth1, audioSource1, config);
 
     txCtl0.setRx(0, &rx0);
     txCtl0.setRx(1, &rx1);
@@ -1069,6 +1141,12 @@ int main(int argc, const char** argv) {
     // ===== Main Event Loop =================================================
 
     int i = 0;
+
+    ShellOutput shellOutput;
+    ShellCommand shellCommand;
+    CommandShell shell;
+    shell.setOutput(&shellOutput);
+    shell.setSink(&shellCommand);
 
     while (true) { 
 
@@ -1081,18 +1159,24 @@ int main(int argc, const char** argv) {
             if (c == 's') {
                 uiMode = UIMode::UIMODE_SHELL;
                 log.setEnabled(false);
-                // ENTER SHELL MODE
+                shell.reset();
             } else if (c == 't') {
-                uiMode = UIMode::UIMODE_STATUS;
-                log.setEnabled(false);
                 // Clear off the status screen
                 printf("\033[2J");
+                // Hide cursor
+                printf("\033[?25l");
+                uiMode = UIMode::UIMODE_STATUS;
+                log.setEnabled(false);
+
             } else if (c == 'i') {
                 txCtl0.forceId();
                 txCtl1.forceId();
             }
         }
         else if (uiMode == UIMode::UIMODE_SHELL) {
+            if (c != 0) {
+                shell.process(c);
+            }
         }
         else if (uiMode == UIMode::UIMODE_STATUS) {
             // Do periodic display/diagnostic stuff
@@ -1101,6 +1185,8 @@ int main(int argc, const char** argv) {
             if (c == 'l') {
                 // Clear off the status screen
                 printf("\033[2J");
+                // Show cursor
+                printf("\033[?25h");
                 uiMode = UIMode::UIMODE_LOG;
                 log.setEnabled(true);
                 log.info("Entered log mode");
@@ -1108,9 +1194,11 @@ int main(int argc, const char** argv) {
             else if (c == 's') {
                 // Clear off the status screen
                 printf("\033[2J");
+                // Show cursor
+                printf("\033[?25h");
                 uiMode = UIMode::UIMODE_SHELL;
                 log.setEnabled(false);
-                // ENTER SHELL MODE
+                shell.reset();
             } 
             else if (c == 'i') {
                 txCtl0.forceId();

@@ -9,26 +9,30 @@
 
 namespace kc1fsz {
 
-    class IDToneGenerator : public ToneGenerator {
+class Config;
+
+class IDToneGenerator : public ToneGenerator {
 public:
 
-    IDToneGenerator(Log& log, Clock& clock, ToneSynthesizer& synth);
+    IDToneGenerator(Log& log, Clock& clock, ToneSynthesizer& synth, const Config& config);
 
     virtual void run();
+
     virtual void start();
     virtual bool isFinished();
 
 private:
 
-    static const char _id[];
-
     Log& _log;
     Clock& _clock;
     ToneSynthesizer& _synth;
-    
+    const Config& _config;
+
     bool _running = false;
     uint32_t _endTime = 0;
-    unsigned int _idPtr = 0;
+    unsigned int _state = 0;
+    unsigned int _callPtr = 0;
+    unsigned int _symPtr = 0;
 };
 
 }
