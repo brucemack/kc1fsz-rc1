@@ -203,12 +203,23 @@ GP27 - X
 GP28 - X
 ```
 
-Todo List
-=========
+Work In Process
+===============
+Firmware
+* Finish configuration/command interface
 * Separate Morse ID from voice ID 
-* Implement polarity control for COS/CTCSS/PTT pins
+* Implement polarity control PTT pins
 * Improve layout of live status page
-* Send board revision to fab
+* Come up with a way to load voice prompts
 * Load rest of voice prompts
 * AGC experimentation
-* Live test at HWH
+* Implement blended audio mode
+
+Hardware
+* Enclosure
+* Change to MOSFET switch for PTT
+* Overvoltage protection testing
+* Send board revision to fab
+* Live test at NWH
+* Self-test feature
+

@@ -86,8 +86,11 @@ Use the receive level meter on the console to adjust the receive levels.
 ## Console Interface 
 
 The console interface is accessed via the serial USB connection or via the LoRa 
-link (in development). The console operates in three modes, each described 
-below.
+link (in development). The console is accessed using a serial terminal program
+that supports VT100 emulation. minicom (Linux, MacOS) and Putty (Windows) have been
+used successfully. Other would work I'm sure.
+
+The console operates in three modes, each described below.
 
 ### Log Mode
 
