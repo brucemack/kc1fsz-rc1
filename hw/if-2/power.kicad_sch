@@ -3082,6 +3082,17 @@
 		)
 		(uuid "e9512d6c-42e2-4635-b72e-91f292013e07")
 	)
+	(text "TODO: CONSIDER CHANGING THIS TO A ZENER REFERENCE."
+		(exclude_from_sim no)
+		(at 205.994 68.326 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 255 2 2 1)
+			)
+		)
+		(uuid "f3edac85-87c9-44ab-a055-e3919003ddbe")
+	)
 	(text "Per datasheet: \"output capacitor minimum of \n4.7uF with ESR in range of 33mO to 2.2O\"\n\nUsing tanalum."
 		(exclude_from_sim no)
 		(at 51.308 32.766 0)

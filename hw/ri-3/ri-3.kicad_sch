@@ -1,0 +1,182 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "110f0872-f0f3-48d7-8cc0-6d84dcccd4c0")
+	(paper "USLetter")
+	(lib_symbols)
+	(sheet
+		(at 96.52 30.48)
+		(size 27.94 22.86)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "0ec0339f-187c-413f-a3a3-b497acd59b98")
+		(property "Sheetname" "Radio Controls"
+			(at 96.52 29.7684 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "controls.kicad_sch"
+			(at 96.52 53.9246 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ri-3"
+				(path "/110f0872-f0f3-48d7-8cc0-6d84dcccd4c0"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 33.02 30.48)
+		(size 27.94 22.86)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "1419ccf2-b5f1-45f2-9e96-4bb7d6eb50d1")
+		(property "Sheetname" "Audio Input"
+			(at 33.02 29.7684 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "audio-input.kicad_sch"
+			(at 33.02 53.9246 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ri-3"
+				(path "/110f0872-f0f3-48d7-8cc0-6d84dcccd4c0"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 66.04 30.48)
+		(size 25.4 22.86)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "76d9a10c-315c-4fd3-90a7-478a17975a50")
+		(property "Sheetname" "Audio Output"
+			(at 66.04 29.7684 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "audio-output.kicad_sch"
+			(at 66.04 53.9246 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ri-3"
+				(path "/110f0872-f0f3-48d7-8cc0-6d84dcccd4c0"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 129.54 30.48)
+		(size 27.94 22.86)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "8b2a0f15-9fe8-4636-a420-b666c390822d")
+		(property "Sheetname" "Misc"
+			(at 129.54 29.7684 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "misc.kicad_sch"
+			(at 129.54 53.9246 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ri-3"
+				(path "/110f0872-f0f3-48d7-8cc0-6d84dcccd4c0"
+					(page "5")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
+)

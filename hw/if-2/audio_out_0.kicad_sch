@@ -1206,7 +1206,7 @@
 	)
 	(text "Expected RL 600 Ohms"
 		(exclude_from_sim no)
-		(at 232.156 91.948 0)
+		(at 227.076 91.948 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1393,7 +1393,7 @@
 	)
 	(wire
 		(pts
-			(xy 196.85 86.36) (xy 212.09 86.36)
+			(xy 196.85 86.36) (xy 218.44 86.36)
 		)
 		(stroke
 			(width 0)
@@ -1643,16 +1643,6 @@
 	)
 	(wire
 		(pts
-			(xy 217.17 86.36) (xy 223.52 86.36)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ed190bb9-8030-486d-9f6a-9222999982e6")
-	)
-	(wire
-		(pts
 			(xy 191.77 86.36) (xy 196.85 86.36)
 		)
 		(stroke
@@ -1683,7 +1673,7 @@
 	)
 	(global_label "R0_AUDIO_OUT"
 		(shape input)
-		(at 223.52 86.36 0)
+		(at 218.44 86.36 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1693,7 +1683,7 @@
 		)
 		(uuid "8823652d-d9f5-47c6-91f5-73c5d7a430a9")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 240.1729 86.36 0)
+			(at 235.0929 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2956,74 +2946,6 @@
 			(project "if-2"
 				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/44344ba6-1370-4a77-ab96-dbf60268a0b4"
 					(reference "C84")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C_Small")
-		(at 214.63 86.36 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "a13413a1-6439-410c-8a74-4aeecbc0211f")
-		(property "Reference" "C86"
-			(at 214.6363 80.01 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "10uF"
-			(at 214.6363 82.55 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
-			(at 214.63 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 214.63 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 214.63 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "edb170cc-983e-4d40-aa12-ae2052b4614d")
-		)
-		(pin "2"
-			(uuid "7ad52df4-8a6d-4c8d-b448-109ee5ed40b9")
-		)
-		(instances
-			(project "if-2"
-				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/44344ba6-1370-4a77-ab96-dbf60268a0b4"
-					(reference "C86")
 					(unit 1)
 				)
 			)
