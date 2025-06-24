@@ -1,13 +1,13 @@
 Overview
 ========
 
-This project attempts to create a basic two-radio repeater controller typical used
-at analog FM VHF/UHF repeater sites. Our goal is to implement
+This is a basic two-radio repeater controller that can be used
+at an analog FM VHF/UHF repeater site. Our goal is to implement
 as much of the repeater functionality in software as 
 possible. For this reason, we call this the "Software 
 Defined Repeater Controller" (SDRC) project. This Github
 repo contains the source code for the controller and the 
-KiCad designs for the hardware.
+KiCad design files for the hardware.
 
 One of the advantages of an all-digital architecture is that integration
 with other digital-voice technologies should be seamless. Please
@@ -16,12 +16,12 @@ provides a compact EchoLink implementation. Soon the SDRC and MicroLink
 systems will be integrated. Reverse-engineering of the D-Star/DMR protocols
 will also enable direct integration of those modes at some point. 
 
-Much of the hardware traditionally used in analog repeater designs
+Much of the hardware used in traditional analog repeater designs
 (analog cross-point switches, FPGAs, custom DTMF/CTCSS tone detection chips, 
 digital voice CODECs, voice delay modules, etc.) will not be necessary
-if all of these functions can be performed in software.
+if these functions can be performed in software.
 
-A [user's guide is provided here](docs/users.md).
+A [users guide is provided here](docs/users.md).
 
 The SDRC system was developed by Bruce MacKinnon (KC1FSZ) with extensive design 
 input from Dan Brown (W1DAN) of the Wellesley Amateur Radio Society (W1TKZ).
@@ -41,9 +41,9 @@ Key capabilities of the software so far:
 * Support for two receivers and two transmitters. Radios
 can operate independently or can be linked to support
 remote receiver or cross-band repeater systems.
-* Hardware COS and CTCSS inputs are available for each radio. Positive
+* Hardware COS and CTCSS inputs for each radio. Positive
 and negative logic are supported.
-* An optically-isolated hardware PTT output is available for each radio.
+* An optically-isolated hardware PTT output for each radio.
 * Optional soft CTCSS (PL) tone encoding and decoding, with support 
 for independent frequencies for each transmitter/receiver.
 * CWID generation.
@@ -53,25 +53,24 @@ for independent frequencies for each transmitter/receiver.
 * Optional digital voice ID and other prompts.
 * Soft RX/TX gain control adjustable remotely.
 * "Soft console" via USB-connected computer computer with
-serial terminal provides live display of the following
-for each radio:
+serial terminal provides a configuration shell and live display of the following:
   - Carrier detect (COS) status
   - PL tone detect (CTSS) status
   - Push-to-talk (PTT) status
   - Receiver audio level RMS and peak
 * (In development) Remote firmware update via LoRa connection.
-* (In development) <= 3 second digital audio delay to avoid "static crashes."
+* (In development) <=1 second digital audio delay to avoid "static crashes."
 * Microcontroller uses a watchdog timer to limit the risk of lockup.
 
 Other things to know:
 
-* The audio input/output range is around 2Vpp.
+* The audio input/output range is around 1.5Vpp into 600 ohms.
 * Hardware gain adjustments (pots) are used to calibrate dynamic range 
 during initial installation.
 * The audio path is about 10 kHz wide, which should be plenty for 
 an FM analog repeater system.
-* Runs on +12VDC power input.
-* DB25 connection for radio interfaces.
+* The controller runs on +12VDC power input.
+* A DB25 connection is used for radio interfaces.
 * Overvoltage protection is provided on the audio and logic inputs.
 * Overvoltage, reverse-polarity, and transient spike protection is provided
 on the power input.
@@ -120,23 +119,8 @@ Op Amp Notes
 * [TLV2462](https://www.ti.com/lit/ds/symlink/tlv2462-q1.pdf?ts=1750512090542) - Output rail-to-rail, can drive +/- 80mA. Noise 11nV/RHz.
 * [TLV9152](https://www.ti.com/lit/ds/symlink/tlv9152.pdf?ts=1750522536760) - Suggested by Dan, output rail-to-rail, noise 10.5nV/RHz.
 
-Parameters
-==========
-
-* CTCSS Decoder
-   - Minimum time for valid CTCSS
-   - CTCSS debounce interval (i.e. max drop-out)
-* CWID
-   - Time between IDs
-   - Max interruption interval (i.e. how long before CWID steps on normal use)
-* Misc
-   - Transmit timeout
-   - Lockout time after transmit timeout
-   - Hang time (how long TX stays keyed after input drops)
-   - COS debounce interval (i.e. max drop-out of COS)
-
-Relevant Regs
-=============
+Relevant FCC Regs
+=================
 
 FCC Section 97.119 Station identification
 
@@ -219,6 +203,3 @@ Todo List
 * Load rest of voice prompts
 * AGC experimentation
 * Live test at HWH
-
-
-

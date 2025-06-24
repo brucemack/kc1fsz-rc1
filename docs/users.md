@@ -1,4 +1,6 @@
-# Software Defined Repeater Controller - Users Guide
+# Software Defined Repeater Controller - User Guide
+
+This is the user guide for the [W1TKZ Software Defined Repeater Controller](https://github.com/brucemack/kc1fsz-rc1). Please contact KC1FSZ with any questions or corrections.
 
 ## Connectors
 
