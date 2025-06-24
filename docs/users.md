@@ -2,6 +2,22 @@
 
 This is the user guide for the [W1TKZ Software Defined Repeater Controller](https://github.com/brucemack/kc1fsz-rc1). Please contact KC1FSZ with any questions or corrections.
 
+## Firmware Update (Local via USB)
+
+The controller board comes with the firmware installed. There may be 
+instances where the firmware needs to be updated. The Pico architecture
+makes firmware updates easy:
+
+* Connect a USB micro connector to the Pico Pi 2 board. 
+* Hold down the BOOTSEL button on the Pico and plug the USB cable into a computer.
+* The Pico should appear as a USB-connected storage device.
+* Copy/drag the main.uf2 file into the top folder of the Pico.
+* The controller should restart with the new firmware.
+
+## Firmware Update (Remote via LoRa)
+
+(Work in process)
+
 ## Connectors
 
 ### Power Connector
