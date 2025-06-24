@@ -210,12 +210,9 @@ GP28 - X
 
 Todo List
 =========
-* Integrate CTCSS pins into firmware, add to status page
+* Separate Morse ID from voice ID 
 * Implement polarity control for COS/CTCSS/PTT pins
-* Centralize configuration into flash structure
-* Improve command parsing in console/shell
 * Improve layout of live status page
-* Implement ability to switch between log, shell, and status
 * Send board revision to fab
 * Load rest of voice prompts
 * AGC experimentation
