@@ -87,8 +87,10 @@ More documentation:
 * A demonstration video of the current prototype 
 [can be seen here](https://www.youtube.com/watch?v=HBwrpokd7FI).
 * A demonstration video of the soft console [can be seen here](https://www.youtube.com/watch?v=gWjOw0UzMgY).
-* The hardware for the LoRa integration [is here](https://github.com/brucemack/lora-r2).
-* The software for the LoRa integration [is here](https://github.com/brucemack/remote-probe).
+* The schematic for the main radio interface board [is here](https://github.com/brucemack/kc1fsz-rc1/blob/main/hw/if-2/plots/if-2.pdf).
+* The schematic for the microcontrollre board [is here](https://github.com/brucemack/kc1fsz-rc1/blob/main/hw/digital-2/plots/digital-2.pdf).
+* The hardware project for the LoRa integration [is here](https://github.com/brucemack/lora-r2).
+* The software project for the LoRa integration [is here](https://github.com/brucemack/remote-probe).
 
 Legal/License
 =============
