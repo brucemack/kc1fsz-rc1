@@ -88,7 +88,7 @@ More documentation:
 [can be seen here](https://www.youtube.com/watch?v=HBwrpokd7FI).
 * A demonstration video of the soft console [can be seen here](https://www.youtube.com/watch?v=gWjOw0UzMgY).
 * The schematic for the main radio interface board [is here](https://github.com/brucemack/kc1fsz-rc1/blob/main/hw/if-2/plots/if-2.pdf).
-* The schematic for the microcontrollre board [is here](https://github.com/brucemack/kc1fsz-rc1/blob/main/hw/digital-2/plots/digital-2.pdf).
+* The schematic for the microcontroller board [is here](https://github.com/brucemack/kc1fsz-rc1/blob/main/hw/digital-2/plots/digital-2.pdf).
 * The hardware project for the LoRa integration [is here](https://github.com/brucemack/lora-r2).
 * The software project for the LoRa integration [is here](https://github.com/brucemack/remote-probe).
 
@@ -104,7 +104,8 @@ The software for this project is published under the terms of [GNU GENERAL PUBLI
 Technical/Design Notes
 ======================
 
-The DAC is 24-bit, so full scale runs from +/- 8,388,608. 
+The ADC/DAC is 24-bit, so full scale runs from +/- 8,388,608. Audio sample rate
+is 16kHz.
 
 Dan suggested that tones (ex: CWID) should be generated at a level of between
 -14dB and -10dB of full DAC full scale.  A tone of -10dB down should scale 
