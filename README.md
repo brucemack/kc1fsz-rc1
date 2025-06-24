@@ -1,8 +1,8 @@
 Overview
 ========
 
-This is a basic two-radio repeater controller that can be used
-at an analog FM VHF/UHF repeater site. Our goal is to implement
+This is a basic two-radio repeater controller that can be used 
+to create an amateur or GMRS repeater site. Our goal is to implement
 as much of the repeater functionality in software as 
 possible. For this reason, we call this the "Software 
 Defined Repeater Controller" (SDRC) project. This Github
@@ -55,7 +55,7 @@ for independent frequencies for each transmitter/receiver.
 * "Soft console" via USB-connected computer computer with
 serial terminal provides a configuration shell and live display of the following:
   - Carrier detect (COS) status
-  - PL tone detect (CTSS) status
+  - PL tone detect (CTCSS) status
   - Push-to-talk (PTT) status
   - Receiver audio level RMS and peak
 * (In development) Remote firmware update via LoRa connection.
@@ -71,8 +71,8 @@ during initial installation.
 an FM analog repeater system.
 * The controller runs on +12VDC power input.
 * A DB25 connection is used for radio interfaces.
-* Overvoltage protection is provided on the audio and logic inputs.
-* Overvoltage, reverse-polarity, and transient spike protection is provided
+* Over-voltage protection is provided on the audio and logic inputs.
+* Over-voltage, reverse-polarity, and transient spike protection is provided
 on the power input.
 
 Hardware specs:
@@ -119,8 +119,8 @@ Op Amp Notes
 * [TLV2462](https://www.ti.com/lit/ds/symlink/tlv2462-q1.pdf?ts=1750512090542) - Output rail-to-rail, can drive +/- 80mA. Noise 11nV/RHz.
 * [TLV9152](https://www.ti.com/lit/ds/symlink/tlv9152.pdf?ts=1750522536760) - Suggested by Dan, output rail-to-rail, noise 10.5nV/RHz.
 
-Relevant FCC Regs
-=================
+Relevant FCC Regulations
+========================
 
 FCC Section 97.119 Station identification
 
