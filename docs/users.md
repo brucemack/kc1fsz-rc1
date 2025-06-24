@@ -30,6 +30,9 @@ Standard 5.5mm power connector. +12VDC on center pin.
 
 ### DB25 Radio Connector
 
+The radios connect via a DB25 (female) connector.  The pinout should 
+look a bit familiar to users of the SCOM-7000.
+
 | Pin | Function                | IO |
 |-----|-------------------------|----|
 | 1   | Radio 0 audio in        | I  |
