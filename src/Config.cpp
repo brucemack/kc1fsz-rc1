@@ -1,10 +1,13 @@
 #include "Config.h"
 
 #include <cstring>
+
 #include "pico/stdlib.h"
 #include "hardware/flash.h"
 #include "hardware/irq.h"
 #include "hardware/sync.h"
+
+#include "kc1fsz-tools/Common.h"
 
 namespace kc1fsz {
 
@@ -27,7 +30,7 @@ void Config::loadConfig(Config* cfg) {
 
 void Config::setFactoryDefaults(Config* cfg) {
     cfg->magic = CONFIG_VERSION;
-    strcpy(cfg->callSign, "W1TKZ");
+    strcpyLimited(cfg->general.callSign, "W1TKZ", Config::callSignMaxLen);
 }
 
 }

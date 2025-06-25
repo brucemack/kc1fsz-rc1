@@ -20,6 +20,8 @@
 #ifndef _Config_h
 #define _Config_h
 
+#include <cstdint>
+
 namespace kc1fsz {
 
 /**
@@ -44,18 +46,18 @@ struct Config {
         uint32_t cosMode;
         uint32_t cosActiveTime;
         uint32_t cosInactiveTime;
-        float cosLvl;
+        float cosLevel;
         uint32_t toneMode;
         uint32_t toneActiveTime;
         uint32_t toneInactiveTime;
-        float toneLvl;
+        float toneLevel;
         float toneFreq;
         float gain;
     } rx0, rx1;
 
     struct TransmitterConfig {
         uint32_t toneMode;
-        float toneLvl;
+        float toneLevel;
         float toneFreq;
     } tx0, tx1;
 
@@ -65,8 +67,8 @@ struct Config {
         uint32_t lockoutTime;
         uint32_t hangTime;
         uint32_t ctMode;
-        float ctLvl;
-        float idLvl; 
+        float ctLevel;
+        float idLevel; 
     } txc0, txc1;
 
     char pad[CONFIG_SIZE - 

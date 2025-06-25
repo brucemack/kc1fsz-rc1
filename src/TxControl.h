@@ -33,8 +33,6 @@
 
 namespace kc1fsz {
 
-class Config;
-
 class TxControl {
 public:
 
@@ -66,7 +64,7 @@ public:
 
 private:
 
-    enum State { INIT, IDLE, VOTING, ACTIVE, ACTIVE_DEBOUNCE, PRE_ID, ID, POST_ID, ID_URGENT, PRE_COURTESY, COURTESY, HANG, LOCKOUT };
+    enum State { INIT, IDLE, VOTING, ACTIVE, PRE_ID, ID, POST_ID, ID_URGENT, PRE_COURTESY, COURTESY, HANG, LOCKOUT };
 
     void _setState(State state, uint32_t timeoutWindowMs = 0);
     bool _isStateTimedOut() const;
@@ -85,7 +83,6 @@ private:
     void _enterId();
     void _enterPostId();
     void _enterIdUrgent();
-    void _enterActiveDebounce();
     void _enterPreCourtesy();
     void _enterCourtesy();
     void _enterHang();
@@ -96,7 +93,6 @@ private:
     Log& _log;
     Tx& _tx;
     AudioSourceControl& _audioSource;
-    const Config& _config;
 
     State _state = State::INIT;   
 

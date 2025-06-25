@@ -9,8 +9,6 @@
 
 namespace kc1fsz {
 
-class Config;
-
 class IDToneGenerator : public ToneGenerator {
 public:
 

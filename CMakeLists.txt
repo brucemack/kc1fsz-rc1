@@ -35,6 +35,9 @@ target_include_directories(main PRIVATE kc1fsz-tools-cpp/include)
 target_include_directories(main PRIVATE src)
 target_link_libraries(main pico_stdlib hardware_i2c hardware_clocks hardware_pwm hardware_dma hardware_pio hardware_flash)
 
+# Set target properties for UF2 build
+pico_add_extra_outputs(main)
+
 # ------ dtmf-test-1 ---------------------------------------------------------
 # Target: Host
 

@@ -28,9 +28,13 @@ public:
         }
     }
 
-    void setTone(int toneX10) { 
-        _toneX10 = toneX10;
-        _plSynth.setFreq(((float)_toneX10) / 10.0); 
+    void setToneFreq(float hz) { 
+        _toneFreq = hz;
+        _plSynth.setFreq(_toneFreq); 
+    }
+
+    void setToneLevel(float lvl) {
+        _toneLevel = lvl;
     }
 
 private:
@@ -42,8 +46,11 @@ private:
     ToneSynthesizer& _plSynth;
 
     bool _keyed = false;
-    int _toneX10 = 0;
+
+    // Configuration
     ToneMode _toneMode = ToneMode::NONE;
+    float _toneFreq = 0;
+    float _toneLevel = 0;
 };
 
 }

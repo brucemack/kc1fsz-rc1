@@ -37,10 +37,7 @@ public:
 
     virtual void setToneMode(ToneMode mode) = 0;
     virtual void setToneFreq(float hz) = 0;
-    virtual void setToneLvl(float lvl) = 0;
-
-private:
-
+    virtual void setToneLevel(float lvl) = 0;
 };
 
 }

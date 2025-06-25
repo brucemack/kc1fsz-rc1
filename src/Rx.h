@@ -56,6 +56,12 @@ public:
     virtual void setCosInactiveTime(unsigned ms) = 0;
 
     /**
+     * @brief For soft COS detection, sets the audio threshold that 
+     * must be exceeded to trigger a detection.
+     */
+    virtual void setCosLevel(float lvl) = 0;
+
+    /**
      * @brief Controls how the CTCSS tone decode works.
      */
     enum ToneMode {

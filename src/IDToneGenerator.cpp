@@ -164,7 +164,7 @@ void IDToneGenerator::start() {
     // This is set in the past so that we immediately start working on the first
     // symbol of the ID.
     _endTime = 0;
-    _log.info("CWID start %s", _config.callSign);
+    _log.info("CWID start %s", _callSign);
 }
 
 bool IDToneGenerator::isFinished() {

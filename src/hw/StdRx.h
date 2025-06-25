@@ -15,20 +15,21 @@ public:
 
     virtual int getId() const { return _id; }
     virtual void run();
+
     virtual bool isActive() const;
     virtual bool isCOS() const;
     virtual bool isCTCSS() const;
 
-    /**
-     * @brief Sets the CTCSS frequency used for 
-     * soft decoding.
-     * @param toneX10 The tone frequency in tenths of Hertz.
-     */
-    void setToneFreq(float hz) { _toneX10 = toneX10; }
-
     void setCosMode(CosMode mode) { _cosMode = mode; }
-
+    void setCosActiveTime(unsigned ms) { _cosActiveTime = ms; }
+    void setCosInactiveTime(unsigned ms) { _cosInactiveTime = ms; }
+    void setCosLevel(float lvl) { _cosLevel = lvl; }
     void setToneMode(ToneMode mode) { _toneMode = mode; }
+    void setToneActiveTime(unsigned ms) { _toneActiveTime = ms; }
+    void setToneInactiveTime(unsigned ms) { _toneInactiveTime = ms; }
+    void setToneLevel(float lvl) { _toneLevel = lvl; }
+    void setToneFreq(float hz) { _toneFreq = hz; }
+    void setGain(float lvl) { _gain = lvl; }
 
     virtual CourtesyToneGenerator::Type getCourtesyType() const { 
         return _courtesyType;
@@ -47,9 +48,18 @@ private:
     uint32_t _startTime;
     bool _active = false;
     unsigned int _state = 0;
-    int _toneX10 = 0;
+
     CosMode _cosMode = CosMode::COS_EXT_HIGH;
+    uint32_t _cosActiveTime = 0;
+    uint32_t _cosInactiveTime = 0;
+    float _cosLevel = 0.0;
+
     ToneMode _toneMode = ToneMode::TONE_IGNORE;
+    uint32_t _toneActiveTime = 0;
+    uint32_t _toneInactiveTime = 0;
+    float _toneFreq = 0;
+    float _toneLevel = 1.0;
+    float _gain = 1.0;
 };
 
 }

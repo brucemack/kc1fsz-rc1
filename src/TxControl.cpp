@@ -26,7 +26,6 @@ TxControl::TxControl(Clock& clock, Log& log, Tx& tx,
 :   _clock(clock),
     _log(log),
     _tx(tx),
-    _config(config),
     _courtesyToneGenerator(log, clock, toneSynth),
     _idToneGenerator(log, clock, toneSynth),
     _audioSource(audioSource)
@@ -113,22 +112,11 @@ void TxControl::run() {
         // Look for unkey of active receiver.
         else if (!_activeRx->isActive()) {
             _log.info("Receiver COS dropped [%d]", _activeRx->getId());
-            _enterActiveDebounce();
-        }
-    }
-    else if (_state == State::ACTIVE_DEBOUNCE) {
-        if (_isStateTimedOut()) {
             _log.info("Short pause before courtesy tone");
             _courtesyToneGenerator.setType(_activeRx->getCourtesyType());
             _enterPreCourtesy();
         }
-        // Look for re-activation
-        if (_activeRx->isActive()) {
-            // Jump right back to ACTIVE
-            _setState(State::ACTIVE, 0);
-        }
     }
-
     // In this state we wait a bit to make sure nobody
     // else is talking and then trigger the courtesy tone.
     else if (_state == State::PRE_COURTESY) {
@@ -252,13 +240,6 @@ void TxControl::_enterIdUrgent() {
     _idToneGenerator.start();
     _lastIdTime = _clock.time();
     _setState(State::ID_URGENT, 0);
-}
-
-void TxControl::_enterActiveDebounce() {
-    // Nothing really changes since we are still allowing audio 
-    // to come through. This state is just giving us a short
-    // window to get the carrier/tone back.
-    _setState(ACTIVE_DEBOUNCE, _activeDebounceWindowMs);
 }
 
 void TxControl::_enterPreCourtesy() {

@@ -1103,31 +1103,33 @@ static void transferConfig(const Config& config,
     txc1.setCall(config.general.callSign);
 
     // Receiver configuration
-    rx0.setCosMode(config.rx0.cosMode);
+    rx0.setCosMode((Rx::CosMode)config.rx0.cosMode);
     rx0.setCosActiveTime(config.rx0.cosActiveTime);
     rx0.setCosInactiveTime(config.rx0.cosInactiveTime);
-    rx0.setToneMode(config.rx0.toneMode);
+    rx0.setCosLevel(config.rx0.cosLevel);
+    rx0.setToneMode((Rx::ToneMode)config.rx0.toneMode);
     rx0.setToneActiveTime(config.rx0.toneActiveTime);
     rx0.setToneInactiveTime(config.rx0.toneInactiveTime);
-    rx0.setToneLvl(config.rx0.toneLvl);
+    rx0.setToneLevel(config.rx0.toneLevel);
     rx0.setToneFreq(config.rx0.toneFreq);
 
-    rx1.setCosMode(config.rx1.cosMode);
+    rx1.setCosMode((Rx::CosMode)config.rx1.cosMode);
     rx1.setCosActiveTime(config.rx1.cosActiveTime);
     rx1.setCosInactiveTime(config.rx1.cosInactiveTime);
-    rx1.setToneMode(config.rx1.toneMode);
+    rx0.setCosLevel(config.rx1.cosLevel);
+    rx1.setToneMode((Rx::ToneMode)config.rx1.toneMode);
     rx1.setToneActiveTime(config.rx1.toneActiveTime);
     rx1.setToneInactiveTime(config.rx1.toneInactiveTime);
-    rx1.setToneLvl(config.rx1.toneLvl);
+    rx1.setToneLevel(config.rx1.toneLevel);
     rx1.setToneFreq(config.rx1.toneFreq);
 
     // Transmitter configuration
-    tx0.setToneMode(config.tx0.toneMode);
-    tx0.setToneLvl(config.tx0.toneLvl);
+    tx0.setToneMode((Tx::ToneMode)config.tx0.toneMode);
+    tx0.setToneLevel(config.tx0.toneLevel);
     tx0.setToneFreq(config.tx0.toneFreq);
 
-    tx1.setToneMode(config.tx1.toneMode);
-    tx1.setToneLvl(config.tx1.toneLvl);
+    tx1.setToneMode((Tx::ToneMode)config.tx1.toneMode);
+    tx1.setToneLevel(config.tx1.toneLevel);
     tx1.setToneFreq(config.tx1.toneFreq);
 
     // Controller configuration
@@ -1224,8 +1226,8 @@ int main(int argc, const char** argv) {
 
     StdRx rx1(clock, log, 1, R1_COS_PIN, R1_CTCSS_PIN, CourtesyToneGenerator::Type::FAST_DOWNCHIRP);
 
-    TxControl txCtl0(clock, log, tx0, toneSynth0, audioSource0, config);
-    TxControl txCtl1(clock, log, tx1, toneSynth1, audioSource1, config);
+    TxControl txCtl0(clock, log, tx0, toneSynth0, audioSource0);
+    TxControl txCtl1(clock, log, tx1, toneSynth1, audioSource1);
 
     txCtl0.setRx(0, &rx0);
     txCtl0.setRx(1, &rx1);
@@ -1251,7 +1253,7 @@ int main(int argc, const char** argv) {
         // parameters from the config structure and into 
         // the controller objects.
         if (configChanged) {
-            transfer_config(config, rx0, rx1, tx0, tx1, txCtl0, txCtl1);
+            transferConfig(config, rx0, rx1, tx0, tx1, txCtl0, txCtl1);
             configChanged = false;
         }
       

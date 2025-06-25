@@ -14,8 +14,8 @@ StdRx::StdRx(Clock& clock, Log& log, int id, int cosPin, int tonePin,
     _id(id),
     _cosPin(cosPin),
     _tonePin(tonePin),
-    _courtesyType(courtesyType) {
-    _startTime = _clock.time();
+    _courtesyType(courtesyType),
+    _startTime(_clock.time()) {
 }
 
 void StdRx::run() {
