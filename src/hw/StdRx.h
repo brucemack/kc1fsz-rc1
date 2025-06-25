@@ -24,20 +24,9 @@ public:
      * soft decoding.
      * @param toneX10 The tone frequency in tenths of Hertz.
      */
-    void setTone(int toneX10) { _toneX10 = toneX10; }
-
-    enum CosMode {
-        COS_EXT_LOW, COS_EXT_HIGH, COS_SOFT
-    };
+    void setToneFreq(float hz) { _toneX10 = toneX10; }
 
     void setCosMode(CosMode mode) { _cosMode = mode; }
-
-    /**
-     * @brief Controls how the CTCSS tone decode works.
-     */
-    enum ToneMode {
-        TONE_IGNORE, TONE_EXT_LOW, TONE_EXT_HIGH, TONE_SOFT
-    };
 
     void setToneMode(ToneMode mode) { _toneMode = mode; }
 

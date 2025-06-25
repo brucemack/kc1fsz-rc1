@@ -29,12 +29,53 @@ struct Config {
 
     const static int CONFIG_VERSION = 0xbabe + 1;
     const static int CONFIG_SIZE = 512;
+
     const static int callSignMaxLen = 16;
+    const static int passMaxLen = 16;
 
     int magic;
-    char callSign[callSignMaxLen];   
 
-    char pad[CONFIG_SIZE - (4 + callSignMaxLen)];
+    struct GeneralConfig {
+        char callSign[callSignMaxLen]; 
+        char pass[passMaxLen];
+    } general;
+
+    struct ReceiverConfig {
+        uint32_t cosMode;
+        uint32_t cosActiveTime;
+        uint32_t cosInactiveTime;
+        float cosLvl;
+        uint32_t toneMode;
+        uint32_t toneActiveTime;
+        uint32_t toneInactiveTime;
+        float toneLvl;
+        float toneFreq;
+        float gain;
+    } rx0, rx1;
+
+    struct TransmitterConfig {
+        uint32_t toneMode;
+        float toneLvl;
+        float toneFreq;
+    } tx0, tx1;
+
+    struct ControlConfig {
+        uint32_t rptMode;
+        uint32_t timeoutTime;
+        uint32_t lockoutTime;
+        uint32_t hangTime;
+        uint32_t ctMode;
+        float ctLvl;
+        float idLvl; 
+    } txc0, txc1;
+
+    char pad[CONFIG_SIZE - 
+        4 + 
+        sizeof(GeneralConfig) + 
+        2 * sizeof(ReceiverConfig) +
+        2 * sizeof(TransmitterConfig) +
+        2 * sizeof(ControlConfig)
+        ];
 
     bool isValid() { return magic == CONFIG_VERSION; }
     

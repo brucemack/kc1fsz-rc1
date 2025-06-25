@@ -39,7 +39,7 @@ class TxControl {
 public:
 
     TxControl(Clock& clock, Log& log, Tx& tx, ToneSynthesizer& toneSynth,
-        AudioSourceControl& audioSource, const Config& config);
+        AudioSourceControl& audioSource);
 
     virtual void run();
 
@@ -50,6 +50,18 @@ public:
 
     void forceId() {
         _enterPreId();
+    }
+
+    void setCall(const char* callSign) {
+        _idToneGenerator.setCall(callSign);
+    }
+
+    void setTimeoutTime(uint32_t ms) {
+        _timeoutWindowMs = ms;    
+    }
+
+    void setLockoutTime(uint32_t ms) {
+        _lockoutWindowMs = ms;
     }
 
 private:
@@ -108,8 +120,6 @@ private:
 
     // Disabled for now
     uint32_t _votingWindowMs = 25;
-    // How long we need to be inactive before really dropping (i.e. COS debounce)
-    uint32_t _activeDebounceWindowMs = 50;    
     // How long between the end of transmission and the courtesy tone
     uint32_t _preCourtseyWindowMs = 1500;    
     // How long we pause with the transmitter keyed before sending the CWID

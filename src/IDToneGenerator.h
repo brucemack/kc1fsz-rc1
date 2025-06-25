@@ -14,20 +14,24 @@ class Config;
 class IDToneGenerator : public ToneGenerator {
 public:
 
-    IDToneGenerator(Log& log, Clock& clock, ToneSynthesizer& synth, const Config& config);
+    IDToneGenerator(Log& log, Clock& clock, ToneSynthesizer& synth);
 
     virtual void run();
 
     virtual void start();
     virtual bool isFinished();
 
+    void setCall(const char* callSign);
+
 private:
 
     Log& _log;
     Clock& _clock;
     ToneSynthesizer& _synth;
-    const Config& _config;
 
+    static const unsigned _maxCallSignLen = 16;
+    char _callSign[_maxCallSignLen];
+    
     bool _running = false;
     uint32_t _endTime = 0;
     unsigned int _state = 0;

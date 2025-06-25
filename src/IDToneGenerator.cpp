@@ -70,13 +70,12 @@ static const char* MorseSymbols[] = {
 const float freq = 600;
 const unsigned int dotMs = 50;
 
-IDToneGenerator::IDToneGenerator(Log& log, Clock& clock, ToneSynthesizer& synth,
-     const Config& config) 
+IDToneGenerator::IDToneGenerator(Log& log, Clock& clock, ToneSynthesizer& synth) 
 :   _log(log),
     _clock(clock),
-    _synth(synth),
-    _config(config)
+    _synth(synth)
 {
+    _callSign[0] = 0;
 }
 
 void IDToneGenerator::run() {
@@ -84,12 +83,12 @@ void IDToneGenerator::run() {
         if (_clock.isPast(_endTime)) {
             // Start of call letter
             if (_state == 0) {
-                if (_config.callSign[_callPtr] == 0) {
+                if (_callSign[_callPtr] == 0) {
                     _running = false;
                     _log.info("CWID end");
                 }
                 else {
-                    char c = toupper(_config.callSign[_callPtr]);
+                    char c = toupper(_callSign[_callPtr]);
                     //_log.info("Working on %c", c);
                     if (c == ' ') {
                         // Schedule a seven dot pause between letters
@@ -111,7 +110,7 @@ void IDToneGenerator::run() {
             }
             // Start of symbol
             else if (_state == 1) {
-                char c = toupper(_config.callSign[_callPtr]);
+                char c = toupper(_callSign[_callPtr]);
                 int i = c - MorseSymbolStart;
                 // Look for the end of the call sign letter
                 if (MorseSymbols[i][_symPtr] == 0) {
@@ -170,6 +169,10 @@ void IDToneGenerator::start() {
 
 bool IDToneGenerator::isFinished() {
     return !_running;
+}
+
+void IDToneGenerator::setCall(const char* callSign) {
+    strcpyLimited(_callSign, callSign, _maxCallSignLen);
 }
 
 }

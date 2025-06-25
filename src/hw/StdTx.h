@@ -19,8 +19,6 @@ public:
     virtual void setPtt(bool ptt);
     virtual bool getPtt() const;
 
-    enum ToneMode { NONE, SOFT };
-
     void setToneMode(ToneMode mode) { 
         _toneMode = mode; 
         if (_toneMode == ToneMode::SOFT) {

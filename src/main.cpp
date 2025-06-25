@@ -162,6 +162,7 @@ static uint out_history_ptr = 0;
 //
 // The global configuration parameters
 static Config config;
+static bool configChanged = false;
 
 static PicoClock clock;
 // Objects used for tone generation (CW, courtesy, PL, etc.)
@@ -196,6 +197,9 @@ static float toneGain_r1 = 0.33;
 static float plGain_r1 = 0.33 * 0.25;
 static float audioGain_r1 = 1.0;
 static float audioGain_t1 = 1.0;
+
+static void process_in_frame();
+static void showConfig(const Config& c);
 
 // The console can work in one of three modes:
 // 
@@ -254,6 +258,9 @@ public:
             else if (strcmp(tokens[0], "ping") == 0) {
                 printf("pong\n");
             }
+            else if (strcmp(tokens[0], "show") == 0) {
+                showConfig(config);
+            }
         }
         else if (tokenCount == 3) {
             if (strcmp(tokens[0], "set") == 0) {
@@ -264,8 +271,6 @@ public:
         }
     }
 };
-
-static void process_in_frame();
 
 // This will be called once every AUDIO_BUFFER_SIZE/2 samples.
 // VERY IMPORTANT: This interrupt handler needs to be fast enough 
@@ -1039,6 +1044,100 @@ static void render_status(const Rx& rx0, const Rx& rx1, const Tx& tx0, const Tx&
     printf("\n");
 }
 
+static void showConfig(const Config& c) {
+
+    // General configuration
+    printf("callsign    : %s\n", config.general.callSign);
+
+    // Receiver configuration
+    printf("R0 cosmode  : %d\n", config.rx0.cosMode);
+    /*
+    rx0.setCosActiveTime(config.rx0.cosActiveTime);
+    rx0.setCosInactiveTime(config.rx0.cosInactiveTime);
+    rx0.setToneMode(config.rx0.toneMode);
+    rx0.setToneActiveTime(config.rx0.toneActiveTime);
+    rx0.setToneInactiveTime(config.rx0.toneInactiveTime);
+    rx0.setToneLvl(config.rx0.toneLvl);
+    rx0.setToneFreq(config.rx0.toneFreq);
+
+    rx1.setCosMode(config.rx1.cosMode);
+    rx1.setCosActiveTime(config.rx1.cosActiveTime);
+    rx1.setCosInactiveTime(config.rx1.cosInactiveTime);
+    rx1.setToneMode(config.rx1.toneMode);
+    rx1.setToneActiveTime(config.rx1.toneActiveTime);
+    rx1.setToneInactiveTime(config.rx1.toneInactiveTime);
+    rx1.setToneLvl(config.rx1.toneLvl);
+    rx1.setToneFreq(config.rx1.toneFreq);
+
+    // Transmitter configuration
+    tx0.setToneMode(config.tx0.toneMode);
+    tx0.setToneLvl(config.tx0.toneLvl);
+    tx0.setToneFreq(config.tx0.toneFreq);
+
+    tx1.setToneMode(config.tx1.toneMode);
+    tx1.setToneLvl(config.tx1.toneLvl);
+    tx1.setToneFreq(config.tx1.toneFreq);
+
+    // Controller configuration
+    txc0.setTimeoutTime(config.txc0.timeoutTime);
+    txc0.setLockoutTime(config.txc0.lockoutTime);
+
+    txc1.setTimeoutTime(config.txc1.timeoutTime);
+    txc1.setLockoutTime(config.txc1.lockoutTime);
+    */
+}
+
+/**
+ * @brief Transfers configuration parameters from the 
+ * Config structure into the actual repeater controller.
+ * This needs to happen once at started and then any 
+ * time that the configuration is changed.
+ */
+static void transferConfig(const Config& config,
+    Rx& rx0, Rx& rx1,
+    Tx& tx0, Tx& tx1,
+    TxControl& txc0, TxControl& txc1) 
+{
+    // General configuration
+    txc0.setCall(config.general.callSign);
+    txc1.setCall(config.general.callSign);
+
+    // Receiver configuration
+    rx0.setCosMode(config.rx0.cosMode);
+    rx0.setCosActiveTime(config.rx0.cosActiveTime);
+    rx0.setCosInactiveTime(config.rx0.cosInactiveTime);
+    rx0.setToneMode(config.rx0.toneMode);
+    rx0.setToneActiveTime(config.rx0.toneActiveTime);
+    rx0.setToneInactiveTime(config.rx0.toneInactiveTime);
+    rx0.setToneLvl(config.rx0.toneLvl);
+    rx0.setToneFreq(config.rx0.toneFreq);
+
+    rx1.setCosMode(config.rx1.cosMode);
+    rx1.setCosActiveTime(config.rx1.cosActiveTime);
+    rx1.setCosInactiveTime(config.rx1.cosInactiveTime);
+    rx1.setToneMode(config.rx1.toneMode);
+    rx1.setToneActiveTime(config.rx1.toneActiveTime);
+    rx1.setToneInactiveTime(config.rx1.toneInactiveTime);
+    rx1.setToneLvl(config.rx1.toneLvl);
+    rx1.setToneFreq(config.rx1.toneFreq);
+
+    // Transmitter configuration
+    tx0.setToneMode(config.tx0.toneMode);
+    tx0.setToneLvl(config.tx0.toneLvl);
+    tx0.setToneFreq(config.tx0.toneFreq);
+
+    tx1.setToneMode(config.tx1.toneMode);
+    tx1.setToneLvl(config.tx1.toneLvl);
+    tx1.setToneFreq(config.tx1.toneFreq);
+
+    // Controller configuration
+    txc0.setTimeoutTime(config.txc0.timeoutTime);
+    txc0.setLockoutTime(config.txc0.lockoutTime);
+
+    txc1.setTimeoutTime(config.txc1.timeoutTime);
+    txc1.setLockoutTime(config.txc1.lockoutTime);
+}
+
 int main(int argc, const char** argv) {
 
     // Adjust system clock to more evenly divide the 
@@ -1096,6 +1195,9 @@ int main(int argc, const char** argv) {
         log.info("Invalid config, setting factory default");
         Config::setFactoryDefaults(&config);
     }
+    // This will force a load of the configuration data 
+    // into the controller.
+    configChanged = true;
 
     // Enable the watchdog, requiring the watchdog to be updated or the chip 
     // will reboot. The second arg is "pause on debug" which means 
@@ -1115,20 +1217,12 @@ int main(int argc, const char** argv) {
     flashTimer.setIntervalUs(500 * 1000);
 
     StdTx tx0(clock, log, 0, R0_PTT_PIN, plSynth0);
-    //tx0.setToneMode(StdTx::ToneMode::SOFT);
-    tx0.setTone(1230);
 
     StdTx tx1(clock, log, 1, R1_PTT_PIN, plSynth1);
-    //tx1.setToneMode(StdTx::ToneMode::SOFT);
-    tx1.setTone(885);
 
     StdRx rx0(clock, log, 0, R0_COS_PIN, R0_CTCSS_PIN, CourtesyToneGenerator::Type::FAST_UPCHIRP);
-    rx0.setCosMode(StdRx::CosMode::COS_EXT_HIGH);
-    rx0.setToneMode(StdRx::ToneMode::TONE_EXT_HIGH);
 
     StdRx rx1(clock, log, 1, R1_COS_PIN, R1_CTCSS_PIN, CourtesyToneGenerator::Type::FAST_DOWNCHIRP);
-    rx1.setCosMode(StdRx::CosMode::COS_EXT_HIGH);
-    //rx1.setToneMode(StdRx::ToneMode::TONE_EXT_HIGH);
 
     TxControl txCtl0(clock, log, tx0, toneSynth0, audioSource0, config);
     TxControl txCtl1(clock, log, tx1, toneSynth1, audioSource1, config);
@@ -1138,8 +1232,6 @@ int main(int argc, const char** argv) {
     txCtl1.setRx(0, &rx0);
     txCtl1.setRx(1, &rx1);  
 
-    // ===== Main Event Loop =================================================
-
     int i = 0;
 
     ShellOutput shellOutput;
@@ -1148,9 +1240,20 @@ int main(int argc, const char** argv) {
     shell.setOutput(&shellOutput);
     shell.setSink(&shellCommand);
 
+    // ===== Main Event Loop =================================================
+
     while (true) { 
 
         watchdog_update();
+
+        // If anything in the configuration structure is 
+        // changed then we force a transfer of all config
+        // parameters from the config structure and into 
+        // the controller objects.
+        if (configChanged) {
+            transfer_config(config, rx0, rx1, tx0, tx1, txCtl0, txCtl1);
+            configChanged = false;
+        }
       
         int c = getchar_timeout_us(0);
         bool flash = flashTimer.poll();

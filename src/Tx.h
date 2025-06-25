@@ -31,6 +31,14 @@ public:
     virtual bool getPtt() const = 0;
     virtual void run() = 0;
 
+    // ----- CONFIGURATION ---------------------------------------------------
+
+    enum ToneMode { NONE, SOFT };
+
+    virtual void setToneMode(ToneMode mode) = 0;
+    virtual void setToneFreq(float hz) = 0;
+    virtual void setToneLvl(float lvl) = 0;
+
 private:
 
 };
