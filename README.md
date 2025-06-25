@@ -230,6 +230,7 @@ Firmware
 * Finish configuration/command interface
 * Separate Morse ID from voice ID 
 * Implement polarity control PTT pins
+* DTMF decode and TX shutoff commands.
 * Improve layout of live status page
 * Come up with a way to load voice prompts
 * Load rest of voice prompts

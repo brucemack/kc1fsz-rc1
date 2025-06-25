@@ -6,7 +6,7 @@
 	(paper "USLetter")
 	(title_block
 		(title "COS/CTCSS/PTT Controls (Radio 0)")
-		(date "2025-06-21")
+		(date "2025-06-25")
 		(rev "3")
 		(company "Bruce MacKinnon KC1FSZ")
 		(comment 1 "Copyright (C) Bruce MacKinnon, 2025")
@@ -134,6 +134,144 @@
 				(pin passive line
 					(at 0 -3.81 90)
 					(length 2.794)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Device:R_Small_US"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.254)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 0.762 0.508 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "R_Small_US"
+				(at 0.762 -1.016 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Resistor, small US symbol"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "r resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "R_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "R_Small_US_1_1"
+				(polyline
+					(pts
+						(xy 0 1.524) (xy 1.016 1.143) (xy 0 0.762) (xy -1.016 0.381) (xy 0 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 1.016 -0.381) (xy 0 -0.762) (xy -1.016 -1.143) (xy 0 -1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at 0 2.54 270)
+					(length 1.016)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -2.54 90)
+					(length 1.016)
 					(name "~"
 						(effects
 							(font
@@ -1688,20 +1826,9 @@
 		)
 		(uuid "52625e92-5a53-4a5b-9d72-d7bec6ebde4a")
 	)
-	(text "When Rx_COS is +5V, base \nvoltage is 1.6V."
+	(text "When Rx_CTCSS is +5V, base \nvoltage is (5/(10+4.7))*4.7 = 1.6V.\n"
 		(exclude_from_sim no)
-		(at 151.13 62.23 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(color 255 14 235 1)
-			)
-		)
-		(uuid "652f0631-3eeb-4d73-85c0-9afd6edde719")
-	)
-	(text "When Rx_CTCSS is +5V, base \nvoltage is 1.6V."
-		(exclude_from_sim no)
-		(at 151.13 123.19 0)
+		(at 153.924 121.92 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1712,7 +1839,7 @@
 	)
 	(text "Controller Side"
 		(exclude_from_sim no)
-		(at 194.564 88.9 90)
+		(at 201.93 93.98 90)
 		(effects
 			(font
 				(size 5.08 5.08)
@@ -1743,13 +1870,24 @@
 	)
 	(text "Radio Side"
 		(exclude_from_sim no)
-		(at 64.008 84.328 90)
+		(at 46.736 96.266 90)
 		(effects
 			(font
 				(size 5.08 5.08)
 			)
 		)
 		(uuid "c7f00506-4b0b-476d-aa8a-62609faa5c5c")
+	)
+	(text "When Rx_COS is +5V, base \nvoltage is (5/(10+4.7))*4.7 = 1.6V.\n"
+		(exclude_from_sim no)
+		(at 158.75 61.468 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 255 5 238 1)
+			)
+		)
+		(uuid "d8b8d24d-954e-4c57-9af7-dcefd288024f")
 	)
 	(text "Protection from relay-induced \n(or other) transients. (SOT-323)"
 		(exclude_from_sim no)
@@ -1878,6 +2016,16 @@
 	)
 	(wire
 		(pts
+			(xy 83.82 107.95) (xy 101.6 107.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2ba6f499-b8df-437c-9895-4ee5faf81e0f")
+	)
+	(wire
+		(pts
 			(xy 95.25 140.97) (xy 121.92 140.97)
 		)
 		(stroke
@@ -1885,6 +2033,16 @@
 			(type default)
 		)
 		(uuid "3ed68ad8-64d0-433e-a2c4-576d02c96456")
+	)
+	(wire
+		(pts
+			(xy 73.66 107.95) (xy 78.74 107.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4166f64d-dfe4-4118-950f-c48efdb446f5")
 	)
 	(wire
 		(pts
@@ -2048,26 +2206,6 @@
 	)
 	(wire
 		(pts
-			(xy 100.33 46.99) (xy 90.17 46.99)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a623d9d2-6067-4e03-b356-9739c52f990e")
-	)
-	(wire
-		(pts
-			(xy 101.6 107.95) (xy 90.17 107.95)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ac66345b-bf84-4146-b119-6ced9597e2ea")
-	)
-	(wire
-		(pts
 			(xy 130.81 46.99) (xy 130.81 49.53)
 		)
 		(stroke
@@ -2105,6 +2243,26 @@
 			(type default)
 		)
 		(uuid "d1820c23-8742-4cd9-9ab6-d2a00ed5036f")
+	)
+	(wire
+		(pts
+			(xy 85.09 46.99) (xy 100.33 46.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dbb822e4-5c57-42f2-8866-cd2604c36b08")
+	)
+	(wire
+		(pts
+			(xy 73.66 46.99) (xy 80.01 46.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e10e57a8-ea72-48c9-a42f-31ffcb3685fd")
 	)
 	(wire
 		(pts
@@ -2202,7 +2360,7 @@
 	)
 	(global_label "R0_COS"
 		(shape input)
-		(at 90.17 46.99 180)
+		(at 73.66 46.99 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2212,7 +2370,7 @@
 		)
 		(uuid "5bbafc57-6b1d-4974-8143-df7c1b995560")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 79.9277 46.99 0)
+			(at 63.4177 46.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2246,7 +2404,7 @@
 	)
 	(global_label "R0_CTCSS"
 		(shape input)
-		(at 90.17 107.95 180)
+		(at 73.66 107.95 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2256,7 +2414,7 @@
 		)
 		(uuid "be565071-244e-4c69-bedb-de8ed5b12bd0")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 77.8111 107.95 0)
+			(at 61.3011 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3181,6 +3339,74 @@
 			(project "if-2"
 				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/dfb1fd4a-a237-487e-a7e8-10401a602072"
 					(reference "#PWR0102")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small_US")
+		(at 81.28 107.95 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "71f50f91-c2eb-43ca-9c75-918f64dd4796")
+		(property "Reference" "R30"
+			(at 81.28 101.6 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100"
+			(at 81.28 104.14 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
+			(at 81.28 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 81.28 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, small US symbol"
+			(at 81.28 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "cd42972b-5b0c-4049-90b2-5f356b7f4147")
+		)
+		(pin "1"
+			(uuid "5fe6251e-0c09-4995-910b-daab7d8e8934")
+		)
+		(instances
+			(project "if-2"
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/dfb1fd4a-a237-487e-a7e8-10401a602072"
+					(reference "R30")
 					(unit 1)
 				)
 			)
@@ -4408,6 +4634,74 @@
 			(project "if-2"
 				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/dfb1fd4a-a237-487e-a7e8-10401a602072"
 					(reference "#PWR0107")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small_US")
+		(at 82.55 46.99 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fad45012-02ec-4661-9797-070f878655cd")
+		(property "Reference" "R21"
+			(at 82.55 40.64 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100"
+			(at 82.55 43.18 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
+			(at 82.55 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 82.55 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, small US symbol"
+			(at 82.55 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "24c13016-9913-4c17-b658-b13d1fb99042")
+		)
+		(pin "1"
+			(uuid "addeb10e-23b1-4b9f-bcd9-fee9b3a5cfe2")
+		)
+		(instances
+			(project ""
+				(path "/a8c2d6aa-29bb-49bd-a367-0d62a0a32480/dfb1fd4a-a237-487e-a7e8-10401a602072"
+					(reference "R21")
 					(unit 1)
 				)
 			)

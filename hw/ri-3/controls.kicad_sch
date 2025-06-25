@@ -1690,25 +1690,27 @@
 		)
 		(uuid "5aa817ef-cd51-45a4-a1b1-b5972eb99a7a")
 	)
-	(text "When Rx_COS is +5V, base \nvoltage is 1.6V."
+	(text "When Rx_COS is +5V, base \nvoltage is (5/(10+4.7))*4.7 = 1.6V.\n"
 		(exclude_from_sim no)
-		(at 156.21 68.58 0)
+		(at 161.544 68.58 0)
 		(effects
 			(font
 				(size 1.27 1.27)
+				(color 255 5 238 1)
 			)
 		)
-		(uuid "61707660-0380-4d05-b693-5cb5205e96fc")
+		(uuid "7ee2a8c7-f89b-4b49-bb88-29b7d6932276")
 	)
-	(text "When Rx_CTCSS is +5V, base \nvoltage is 1.6V."
+	(text "When Rx_CTCSS is +5V, base \nvoltage is (5/(10+4.7))*4.7 = 1.6V.\n"
 		(exclude_from_sim no)
-		(at 156.21 129.54 0)
+		(at 159.512 129.794 0)
 		(effects
 			(font
 				(size 1.27 1.27)
+				(color 255 5 238 1)
 			)
 		)
-		(uuid "9db8103c-9f94-4a46-a4cb-eee793a3b2e1")
+		(uuid "8a384c43-bb78-4950-a870-b1b60a5c237e")
 	)
 	(text "I_{DS} max is 220mA, V_{DS} max is 60V."
 		(exclude_from_sim no)
@@ -1723,7 +1725,7 @@
 	)
 	(text "Radio Side"
 		(exclude_from_sim no)
-		(at 69.088 90.678 90)
+		(at 53.34 101.092 90)
 		(effects
 			(font
 				(size 5.08 5.08)
@@ -1857,6 +1859,16 @@
 	)
 	(wire
 		(pts
+			(xy 90.17 53.34) (xy 105.41 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1cc1a956-0e6e-4da3-9c2f-9ddf0aed0b85")
+	)
+	(wire
+		(pts
 			(xy 149.86 46.99) (xy 158.75 46.99)
 		)
 		(stroke
@@ -1897,16 +1909,6 @@
 	)
 	(wire
 		(pts
-			(xy 105.41 53.34) (xy 95.25 53.34)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "491b3d82-4d17-40a7-9bf3-6f92da8bf1ca")
-	)
-	(wire
-		(pts
 			(xy 110.49 114.3) (xy 118.11 114.3)
 		)
 		(stroke
@@ -1934,6 +1936,16 @@
 			(type default)
 		)
 		(uuid "4e024d73-9467-4b75-bf30-e9080f9fb357")
+	)
+	(wire
+		(pts
+			(xy 76.2 53.34) (xy 82.55 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5316b9e7-4daa-4f44-887d-307e618980b8")
 	)
 	(wire
 		(pts
@@ -1984,6 +1996,16 @@
 			(type default)
 		)
 		(uuid "9ba2a938-b97b-46ff-9f5f-94ebd22c70e2")
+	)
+	(wire
+		(pts
+			(xy 90.17 114.3) (xy 106.68 114.3)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9f35a512-5ea4-4389-bc1d-7cb925c18a4c")
 	)
 	(wire
 		(pts
@@ -2057,13 +2079,13 @@
 	)
 	(wire
 		(pts
-			(xy 106.68 114.3) (xy 95.25 114.3)
+			(xy 76.2 114.3) (xy 82.55 114.3)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "e472cc9e-6985-4b14-ad41-73986ca5ed49")
+		(uuid "d6dd1c9a-5229-4ddf-b9ea-bb6bc146510c")
 	)
 	(wire
 		(pts
@@ -2171,7 +2193,7 @@
 	)
 	(global_label "R0_CTCSS"
 		(shape input)
-		(at 95.25 114.3 180)
+		(at 76.2 114.3 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2181,7 +2203,7 @@
 		)
 		(uuid "36b9a4ab-62c0-4fdc-be18-07d07fc3975b")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 82.8911 114.3 0)
+			(at 63.8411 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2237,7 +2259,7 @@
 	)
 	(global_label "R0_COS"
 		(shape input)
-		(at 95.25 53.34 180)
+		(at 76.2 53.34 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2247,7 +2269,7 @@
 		)
 		(uuid "9c959625-ce88-4210-ba32-fce74395530a")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 85.0077 53.34 0)
+			(at 65.9577 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2747,6 +2769,73 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R_US")
+		(at 86.36 114.3 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "42317480-1490-494b-95b4-ea3aaac09f65")
+		(property "Reference" "R30"
+			(at 86.36 107.95 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100"
+			(at 86.36 110.49 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
+			(at 86.614 113.284 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 86.36 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, US symbol"
+			(at 86.36 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "7ada5297-ff16-4b07-ac15-702c48b6169e")
+		)
+		(pin "1"
+			(uuid "b2d32460-894a-4745-9694-a00713a94bfd")
+		)
+		(instances
+			(project "ri-3"
+				(path "/110f0872-f0f3-48d7-8cc0-6d84dcccd4c0/0ec0339f-187c-413f-a3a3-b497acd59b98"
+					(reference "R30")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Diode:BAT54W")
 		(at 100.33 151.13 90)
 		(mirror x)
@@ -3014,6 +3103,73 @@
 			(project "ri-3"
 				(path "/110f0872-f0f3-48d7-8cc0-6d84dcccd4c0/0ec0339f-187c-413f-a3a3-b497acd59b98"
 					(reference "#PWR0113")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_US")
+		(at 86.36 53.34 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "660e2ea6-fb54-4d43-8a7a-3fd5d1926eaa")
+		(property "Reference" "R28"
+			(at 86.36 46.99 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100"
+			(at 86.36 49.53 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
+			(at 86.614 52.324 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 86.36 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, US symbol"
+			(at 86.36 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "50e3a56b-07fc-4fa5-ae8e-cf787c34c2fb")
+		)
+		(pin "1"
+			(uuid "fcd6ce98-229a-4ff1-ba38-44a7d5fd69ec")
+		)
+		(instances
+			(project "ri-3"
+				(path "/110f0872-f0f3-48d7-8cc0-6d84dcccd4c0/0ec0339f-187c-413f-a3a3-b497acd59b98"
+					(reference "R28")
 					(unit 1)
 				)
 			)
