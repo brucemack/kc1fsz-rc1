@@ -31,6 +31,17 @@ void Config::loadConfig(Config* cfg) {
 void Config::setFactoryDefaults(Config* cfg) {
     cfg->magic = CONFIG_VERSION;
     strcpyLimited(cfg->general.callSign, "W1TKZ", Config::callSignMaxLen);
+    strcpyLimited(cfg->general.pass, "781", Config::passMaxLen);
+    cfg->general.repeatMode = 2;
+}
+
+void Config::show(const Config* cfg) {
+
+    // General configuration
+    printf("callsign    : %s\n", cfg->general.callSign);
+
+    // Receiver configuration
+    printf("R0 cosmode  : %d\n", cfg->rx0.cosMode);
 }
 
 }

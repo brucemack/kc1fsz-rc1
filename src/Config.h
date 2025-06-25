@@ -40,6 +40,7 @@ struct Config {
     struct GeneralConfig {
         char callSign[callSignMaxLen]; 
         char pass[passMaxLen];
+        uint32_t repeatMode;
     } general;
 
     struct ReceiverConfig {
@@ -62,7 +63,6 @@ struct Config {
     } tx0, tx1;
 
     struct ControlConfig {
-        uint32_t rptMode;
         uint32_t timeoutTime;
         uint32_t lockoutTime;
         uint32_t hangTime;
@@ -84,6 +84,7 @@ struct Config {
     static void saveConfig(const Config* cfg);
     static void loadConfig(Config* cfg);
     static void setFactoryDefaults(Config* cfg);
+    static void show(const Config* cfg);
 };
 
 }

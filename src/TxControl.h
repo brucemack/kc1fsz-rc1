@@ -1,5 +1,5 @@
 /**
- * Digital Repeater Controller
+ * Software Defined Repeater Controller
  * Copyright (C) 2025, Bruce MacKinnon KC1FSZ
  *
  * This program is free software: you can redistribute it and/or modify
@@ -50,17 +50,14 @@ public:
         _enterPreId();
     }
 
-    void setCall(const char* callSign) {
-        _idToneGenerator.setCall(callSign);
-    }
+    enum RepeatMode { MODE_INDEPENDENT, MODE_EXCLUSIVE, MODE_MIX };
 
-    void setTimeoutTime(uint32_t ms) {
-        _timeoutWindowMs = ms;    
-    }
-
-    void setLockoutTime(uint32_t ms) {
-        _lockoutWindowMs = ms;
-    }
+    void setCall(const char* callSign) { _idToneGenerator.setCall(callSign); }
+    void setPass(const char* pass) {  }
+    void setRepeatMode(RepeatMode mode) { _repeatMode = mode; }
+    void setTimeoutTime(uint32_t ms) { _timeoutWindowMs = ms; }
+    void setLockoutTime(uint32_t ms) { _lockoutWindowMs = ms; }
+   
 
 private:
 
@@ -114,6 +111,7 @@ private:
 
     // ----- Configurations 
 
+    RepeatMode _repeatMode = RepeatMode::MODE_INDEPENDENT;
     // Disabled for now
     uint32_t _votingWindowMs = 25;
     // How long between the end of transmission and the courtesy tone

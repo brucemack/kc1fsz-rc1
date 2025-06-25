@@ -51,6 +51,7 @@ When targeting RP2350 (Pico 2), command used to load code onto the board:
 #include "AudioSourceControl.h"
 #include "i2s.pio.h"
 #include "TxControl.h"
+#include "ShellCommand.h"
 
 using namespace kc1fsz;
 
@@ -199,7 +200,6 @@ static float audioGain_r1 = 1.0;
 static float audioGain_t1 = 1.0;
 
 static void process_in_frame();
-static void showConfig(const Config& c);
 
 // The console can work in one of three modes:
 // 
@@ -219,57 +219,6 @@ public:
      */
     int write(uint8_t b) { printf("%c", (char)b); return 1; }
     bool isWritable() const { return true; }
-};
-
-class ShellCommand : public CommandSink {
-public:
- 
-    void process(const char* cmd) {
-        // Tokenize
-        const unsigned int maxTokenCount = 4;
-        const unsigned int maxTokenLen = 32;
-        char tokens[maxTokenCount][maxTokenLen];
-        int tokenCount = 0;
-        int tokenPtr = 0;
-        for (int i = 0; i <= strlen(cmd) && tokenCount < maxTokenCount; i++) {
-            // Space is the inter-token delimiter
-            if (cmd[i] == ' ' || cmd[i] == 0) {
-                // Leading spaces are ignored
-                if (tokenPtr > 0)
-                    tokenCount++;
-                tokenPtr = 0;
-            } else {
-                if (tokenPtr < maxTokenLen - 1) {
-                    tokens[tokenCount][tokenPtr++] = cmd[i];
-                    tokens[tokenCount][tokenPtr] = 0;
-                }
-            }
-        }
-
-        //for (int i = 0; i < tokenCount; i++)
-        //    printf("%d: [%s]\n", i, tokens[i]);
-
-        if (tokenCount == 1) {
-            if (strcmp(tokens[0], "reset") == 0) {
-                printf("Reboot requested");
-                // The watchdog will take over from here
-                while (true);            
-            }
-            else if (strcmp(tokens[0], "ping") == 0) {
-                printf("pong\n");
-            }
-            else if (strcmp(tokens[0], "show") == 0) {
-                showConfig(config);
-            }
-        }
-        else if (tokenCount == 3) {
-            if (strcmp(tokens[0], "set") == 0) {
-                if (strcmp(tokens[1], "call") == 0) {
-                    printf("Callsign %s\n", tokens[2]);
-                }
-            }
-        }
-    }
 };
 
 // This will be called once every AUDIO_BUFFER_SIZE/2 samples.
@@ -1044,49 +993,6 @@ static void render_status(const Rx& rx0, const Rx& rx1, const Tx& tx0, const Tx&
     printf("\n");
 }
 
-static void showConfig(const Config& c) {
-
-    // General configuration
-    printf("callsign    : %s\n", config.general.callSign);
-
-    // Receiver configuration
-    printf("R0 cosmode  : %d\n", config.rx0.cosMode);
-    /*
-    rx0.setCosActiveTime(config.rx0.cosActiveTime);
-    rx0.setCosInactiveTime(config.rx0.cosInactiveTime);
-    rx0.setToneMode(config.rx0.toneMode);
-    rx0.setToneActiveTime(config.rx0.toneActiveTime);
-    rx0.setToneInactiveTime(config.rx0.toneInactiveTime);
-    rx0.setToneLvl(config.rx0.toneLvl);
-    rx0.setToneFreq(config.rx0.toneFreq);
-
-    rx1.setCosMode(config.rx1.cosMode);
-    rx1.setCosActiveTime(config.rx1.cosActiveTime);
-    rx1.setCosInactiveTime(config.rx1.cosInactiveTime);
-    rx1.setToneMode(config.rx1.toneMode);
-    rx1.setToneActiveTime(config.rx1.toneActiveTime);
-    rx1.setToneInactiveTime(config.rx1.toneInactiveTime);
-    rx1.setToneLvl(config.rx1.toneLvl);
-    rx1.setToneFreq(config.rx1.toneFreq);
-
-    // Transmitter configuration
-    tx0.setToneMode(config.tx0.toneMode);
-    tx0.setToneLvl(config.tx0.toneLvl);
-    tx0.setToneFreq(config.tx0.toneFreq);
-
-    tx1.setToneMode(config.tx1.toneMode);
-    tx1.setToneLvl(config.tx1.toneLvl);
-    tx1.setToneFreq(config.tx1.toneFreq);
-
-    // Controller configuration
-    txc0.setTimeoutTime(config.txc0.timeoutTime);
-    txc0.setLockoutTime(config.txc0.lockoutTime);
-
-    txc1.setTimeoutTime(config.txc1.timeoutTime);
-    txc1.setLockoutTime(config.txc1.lockoutTime);
-    */
-}
-
 /**
  * @brief Transfers configuration parameters from the 
  * Config structure into the actual repeater controller.
@@ -1101,6 +1007,10 @@ static void transferConfig(const Config& config,
     // General configuration
     txc0.setCall(config.general.callSign);
     txc1.setCall(config.general.callSign);
+    txc0.setPass(config.general.pass);
+    txc1.setPass(config.general.pass);
+    txc0.setRepeatMode((TxControl::RepeatMode)config.general.repeatMode);
+    txc1.setRepeatMode((TxControl::RepeatMode)config.general.repeatMode);
 
     // Receiver configuration
     rx0.setCosMode((Rx::CosMode)config.rx0.cosMode);
@@ -1237,7 +1147,7 @@ int main(int argc, const char** argv) {
     int i = 0;
 
     ShellOutput shellOutput;
-    ShellCommand shellCommand;
+    ShellCommand shellCommand(config);
     CommandShell shell;
     shell.setOutput(&shellOutput);
     shell.setSink(&shellCommand);

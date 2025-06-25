@@ -10,6 +10,7 @@ add_executable(main
   src/i2s.pio
   src/main.cpp
   src/Config.cpp
+  src/ShellCommand.cpp
   src/Tx.cpp
   src/TxControl.cpp
   src/Rx.cpp
