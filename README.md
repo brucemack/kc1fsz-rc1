@@ -11,7 +11,8 @@ KiCad design files for the hardware.
 
 The hardware is on two boards. The radio interface board is on the left
 and the digital control board is on the right. The digital control board
-is mostly a Pico Pi2.
+is mostly a Pico Pi 2. (To avoid any confusion: the Pico is an ARM Cortex-M33 microcontroller. This _is not_ a Linux system like you'd find on a full 
+a Raspberry Pi single-board computer).
 
 ![Controller](docs/boards.jpg)
 
@@ -101,6 +102,17 @@ More documentation:
 * The schematic for the microcontroller board [is here](https://github.com/brucemack/kc1fsz-rc1/blob/main/hw/digital-2/plots/digital-2.pdf).
 * The hardware project for the LoRa integration [is here](https://github.com/brucemack/lora-r2).
 * The software project for the LoRa integration [is here](https://github.com/brucemack/remote-probe).
+
+Credit/Thanks
+=============
+
+I've received help from a lot of smart people on this project.
+
+* Dan Brown W1DAN, former president of the Wellesley Club.
+* Tom Kinahan N1CPE, trustee of the W1TKZ repeater system.
+* Leandra MacLennan AF1R
+* Steve Kondo K1STK
+* George Zafiropoulos KJ6VU
 
 Legal/License
 =============
