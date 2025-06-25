@@ -164,20 +164,6 @@ Displays the current configuration settings of the controller.
 #### tone (on | off)
 Turns on or off a test tone that can be used for adjusting transmit audio levels.
 
-#### set rptmode (mode)
-
-(mode) is one of the following:
-
-* 0 - Two radios operate independently.
-* 1 - Cross-radio repeat, exclusive. When both receivers are active at the same time,
-the first to become active is repeated through both transmitters and the 
-second receiver is ignored.
-* 2 - Cross-radio repeat, mixed. When both receivers are active at the same time,
-the audio from both receivers is mixed and transmitted through both transmitters. (Default)
-
-#### set call (callsign)
-Sets the station callsign. Limit 16 characters, slashes are allowed.
-
 #### set tonelvl (level_db)
 Sets the level of the test tone.
 
@@ -188,21 +174,144 @@ Sets the frequency of the test tone.
 
 (freq_hz) The test tone frequency in Hertz.  Default is 1000.
 
-#### set timeout (radio) (duration_ms)
+#### set call (callsign)
+Sets the station callsign. Limit 16 characters, slashes are allowed.
+
+#### set pass (password)
+Sets the station password. Limit 16 characters. Used for secure access.
+You should use numbers if DTMF access is being used.
+
+#### set repeatmode (mode)
+
+(mode) is one of the following:
+
+* 0 - Two radios operate independently.
+* 1 - Cross-radio repeat, exclusive. When both receivers are active at the same time,
+the first to become active is repeated through both transmitters and the 
+second receiver is ignored.
+* 2 - Cross-radio repeat, mixed. When both receivers are active at the same time,
+the audio from both receivers is mixed and transmitted through both transmitters. (Default)
+
+#### set cosmode (radio) (mode)
+Controls the carrier detect (COS) mode used by the radio.
+
+(radio) is either 0 or 1.
+
+(mode) is one of the following:
+
+* 0 - No COS detection used.
+* 1 - Hardware COS detect, active low polarity
+* 2 - Hardware COS detect, active high polarity (default)
+* 3 - Soft COS detect based on receive audio level
+
+#### set cosactivetime (radio) (duration_ms)
+
+(radio) is either 0 or 1.
+
+(duration_ms) the length of time in milliseconds that the COS signal be on before it is considered active. Default is 50ms.
+
+#### set cosinactivetime (radio) (duration_ms)
+
+(radio) is either 0 or 1.
+
+(duration_ms) the length of time in milliseconds that the COS signal be off before it is considered inactive. Default is 50ms.
+
+#### set coslevel (radio) (level_db) 
+Used for soft COS detect only.
+
+(radio) is either 0 or 1.
+
+(level) is the audio level in dB relative to full scale used to trigger the soft COS.
+
+#### set rxtonemode (radio) (mode)
+
+Controls the tone detect (CTCSS) mode used by the radio.
+
+(radio) is either 0 or 1.
+
+(mode) is one of the following:
+
+* 0 - No CTCSS detection used.
+* 1 - Hardware CTCSS detect, active low polarity.
+* 2 - Hardware CTCSS detect, active high polarity (default).
+* 3 - Soft CTCSS detect.
+
+#### set rxtoneactivetime (radio) (duration_ms)
+
+(radio) is either 0 or 1.
+
+(duration_ms) the length of time in milliseconds that the CTCSS signal must be on before it is considered active.  Default is 50ms.
+
+#### set rxtoneinactivetime (radio) (duration_ms)
+
+(radio) is either 0 or 1.
+
+(duration_ms) the length of time in milliseconds that the CTCSS signal be off before it is considered inactive. Default is 50ms.
+
+#### set rxtonelevel (radio) (level_db) 
+
+Used for soft CTCSS detect only.
+
+(radio) is either 0 or 1.
+
+(level_db) the audio level threshold that is used for CTCSS detection
+
+#### set rxtonefreq (radio) (freq_hz) 
+
+Used for soft CTCSS detect only.
+
+(radio) is either 0 or 1.
+
+(freq_hz) the CTCSS frequency being detected
+
+#### set rxgain (radio) (adj_db)
+Used to make fine adjustments to the receive audio level.
+
+(radio) is either 0 or 1.
+
+(adj_db) The receive audio is amplified/attenuated by this value.
+
+#### set txtonemode (radio) (mode)
+
+Controls the CTCSS encoding function.
+
+(radio) is either 0 or 1.
+
+(mode) is one of the following:
+
+* 0 - No CTCSS tone is generated (default)
+* 1 - CTCSS is generated in software 
+
+#### set txtonelevel (radio) (level_db) 
+Used for soft CTCSS encoding only.
+
+(radio) is either 0 or 1.
+
+(freq_hz) the level relative to full scale used when encoding 
+the CTCSS tone.
+
+#### set txtonefreq (radio) (freq_hz) 
+Used for soft CTCSS encoding only.
+
+(radio) is either 0 or 1.
+
+(freq_hz) the CTCSS frequency being encoded.
+
+#### set timeouttime (radio) (duration_ms)
 Controls the longest continuous transmission before the transmitter times out and enters the lockout state. This feature is for the protection of the transmitter.
 
 (radio) is either 0 or 1.
 
 (duration_ms) milliseconds for timeout. Default is 120000 milliseconds (2 minutes).
 
-#### set lockout (radio) (duration_ms)
+#### set lockouttime (radio) (duration_ms)
 Controls how long the radio is locked out (i.e. transmitter shut off) after a timeout condition is detected. This timer starts after the connected receivers go  inactive.
 
 (radio) is either 0 or 1.
 
 (duration_ms) milliseconds for lockout.  Default is 60000 milliseconds (1 minute).
 
-#### set hang (radio) (duration_ms)
+#### set hangtime (radio) (duration_ms)
 
 Controls the length of the hang interval time. The hang time starts when the receiver becomes inactive and ends when the courtesy tone is generated. The transmitter remains keyed during the hang time.
 
@@ -223,105 +332,16 @@ Controls the courtesy tone mode
 * 2 - Upchirp (default)
 * 3 - Downchrip
 
-#### set ctlvl (radio) (level_db)
+#### set ctlevel (radio) (level_db)
 Controls the audio level of the courtesy tone.
 
 (radio) is either 0 or 1.
 
 (level_db) is the audio level in dB relative to full scale.
 
-#### set idlvl (radio) (level_db)
+#### set idlevel (radio) (level_db)
 Controls the audio level of the CW ID.
 
 (radio) is either 0 or 1.
 
 (level) is the audio level in dB relative to full scale.
-
-#### set cosmode (radio) (mode)
-Controls the carrier detect (COS) mode used by the radio.
-
-(radio) is either 0 or 1.
-
-(mode) is one of the following:
-
-* 0 - No COS detection used.
-* 1 - Hardware COS detect, active low polarity
-* 2 - Hardware COS detect, active high polarity (default)
-* 3 - Soft COS detect based on receive audio level
-
-#### set cosondur (radio) (duration_ms)
-
-(radio) is either 0 or 1.
-
-(duration_ms) the length of time in milliseconds that the COS signal be on before it is considered active. Default is 50ms.
-
-#### set cosoffdur (radio) (duration_ms)
-
-(radio) is either 0 or 1.
-
-(duration_ms) the length of time in milliseconds that the COS signal be off before it is considered inactive. Default is 50ms.
-
-#### set coslvl (radio) (level_db) 
-Used for soft COS detect only.
-
-(radio) is either 0 or 1.
-
-(level) is the audio level in dB relative to full scale used to trigger the soft COS.
-
-#### set ctcssdecmode (radio) (mode)
-
-Controls the tone detect (CTCSS) mode used by the radio.
-
-(radio) is either 0 or 1.
-
-(mode) is one of the following:
-
-* 0 - No CTCSS detection used.
-* 1 - Hardware CTCSS detect, active low polarity.
-* 2 - Hardware CTCSS detect, active high polarity (default).
-* 3 - Soft CTCSS detect.
-
-#### set ctcssdecondur (radio) (duration_ms)
-
-(radio) is either 0 or 1.
-
-(duration_ms) the length of time in milliseconds that the CTCSS signal must be on before it is considered active.  Default is 50ms.
-
-#### set ctcssdecoffdur (radio) (duration_ms)
-
-(radio) is either 0 or 1.
-
-(duration_ms) the length of time in milliseconds that the CTCSS signal be off before it is considered inactive. Default is 50ms.
-
-#### set ctcssdecfreq (radio) (freq_hz) 
-
-Used for soft CTCSS detect only.
-
-(radio) is either 0 or 1.
-
-(freq_hz) the CTCSS frequency being detected
-
-#### set ctcssencmode (radio) (mode)
-
-Controls the CTCSS encoding function.
-
-(radio) is either 0 or 1.
-
-(mode) is one of the following:
-
-* 0 - No CTCSS tone is generated (default)
-* 1 - CTCSS is generated in software 
-
-#### set ctcssencfreq (radio) (freq_hz) 
-Used for soft CTCSS encoding only.
-
-(radio) is either 0 or 1.
-
-(freq_hz) the CTCSS frequency being encoded
-
-#### set recgain (radio) (adj_db)
-Used to make fine adjustments to the receive audio level.
-
-(radio) is either 0 or 1.
-
-(adj_db) The receive audio is amplified/attenuated by this value.
