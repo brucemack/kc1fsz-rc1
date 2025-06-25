@@ -80,6 +80,10 @@ an FM analog repeater system.
 * Over-voltage protection is provided on the audio and logic inputs.
 * Over-voltage, reverse-polarity, and transient spike protection is provided
 on the power input.
+* During testing of the prototype board it was determined that the 
+controller consumes ~105mA when idling and ~135mA when repeating. These are
+fairly low current consumptions that indicate the the controller may 
+be relevant in solar/battery installations.
 
 Hardware specs:
 
@@ -138,9 +142,19 @@ A Zener should be chosen that has an operating voltage close to Vs/2. Resistor R
 Relevant FCC Regulations
 ========================
 
-FCC Section 97.119 Station identification
+### FCC Part 97 Section 119: Station identification
 
 (a) Each amateur station, except a space station or telecommand station, must transmit its assigned call sign on its transmitting channel at the end of each communication, and at least every 10 minutes during a communication, for the purpose of clearly making the source of the transmissions from the station known to those receiving the transmissions. No station may transmit unidentified communications or signals, or transmit as the station call sign, any call sign not authorized to the station.
+
+### FCC Part 97 Section 213: Telecommand of an amateur station.
+
+An amateur station on or within 50 km of the Earth's surface may be under telecommand where:
+
+(a) There is a radio or wireline control link between the control point and the station sufficient for the control operator to perform his/her duties. If radio, the control link must use an auxiliary station. A control link using a fiber optic cable or another telecommunication service is considered wireline.
+
+(b) Provisions are incorporated to limit transmission by the station to a period of no more than 3 minutes in the event of malfunction in the control link.
+
+(c) The station is protected against making, willfully or negligently, unauthorized transmissions.
 
 Build/Debug Commands
 ====================

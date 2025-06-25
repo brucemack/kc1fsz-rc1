@@ -1714,6 +1714,7 @@
 		(effects
 			(font
 				(size 1.27 1.27)
+				(color 255 7 253 1)
 			)
 		)
 		(uuid "17b7bb28-2dbf-4e27-91fa-a21a66fb1803")
@@ -1724,6 +1725,7 @@
 		(effects
 			(font
 				(size 1.27 1.27)
+				(color 255 12 215 1)
 			)
 		)
 		(uuid "1b555f6a-6419-4a44-bfad-806cd8f7a9ac")
@@ -1739,9 +1741,9 @@
 		)
 		(uuid "3fcaf3d4-558c-413b-92c4-188228b4b6d8")
 	)
-	(text "Max 2.5Vpp"
+	(text "Max 2.5Vpp because of the voltage \ndivider between R52 and R45."
 		(exclude_from_sim no)
-		(at 124.206 76.708 0)
+		(at 119.126 70.866 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1749,17 +1751,6 @@
 			)
 		)
 		(uuid "44b1c156-9e15-44ee-a7bc-6fa93f97aa53")
-	)
-	(text "Max 2.5Vpp"
-		(exclude_from_sim no)
-		(at 180.848 156.464 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(color 254 69 255 1)
-			)
-		)
-		(uuid "45d24ead-6263-4cea-a85e-38dd3b9b15dd")
 	)
 	(text "Audio input level trim. Adjust\nattenuation for ADC full-scale.\nCW increases gain."
 		(exclude_from_sim no)
@@ -1771,7 +1762,7 @@
 		)
 		(uuid "4b4c1d67-7168-4be2-b9c7-bc911e8c7c7d")
 	)
-	(text "Max 5Vpp"
+	(text "Max 5Vpp centered at 2.5V"
 		(exclude_from_sim no)
 		(at 168.656 55.118 0)
 		(effects
@@ -1801,6 +1792,17 @@
 			)
 		)
 		(uuid "a0b43c5d-8135-4b95-bcca-81eaa1a5a564")
+	)
+	(text "Max 2.5Vpp centered around 2.5V,\nbut opposite phase of above."
+		(exclude_from_sim no)
+		(at 187.96 155.956 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 254 69 255 1)
+			)
+		)
+		(uuid "b793eedd-957b-43fb-a702-2274d2669897")
 	)
 	(text "This is not a pre/de-emphasis filter.\nThat is handled in the DSP."
 		(exclude_from_sim no)
@@ -1833,9 +1835,9 @@
 		)
 		(uuid "ca92a9a8-d21d-432d-9a19-db9953ccfa57")
 	)
-	(text "Max 2.5Vpp"
+	(text "Max 2.5Vpp centered around 2.5V"
 		(exclude_from_sim no)
-		(at 181.102 110.998 0)
+		(at 188.468 112.268 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1856,10 +1858,11 @@
 	)
 	(text "Approximately 2.5V\n"
 		(exclude_from_sim no)
-		(at 129.54 56.134 0)
+		(at 126.238 54.61 0)
 		(effects
 			(font
 				(size 1.27 1.27)
+				(color 255 14 229 1)
 			)
 		)
 		(uuid "f647dfe2-4bf5-4a6f-858b-f4d502562957")
@@ -1873,6 +1876,27 @@
 			)
 		)
 		(uuid "f9794d11-d43e-4a78-95a2-c059500ba9e8")
+	)
+	(text_box "This page (and the next) shows the circuits that handle the audio input from the radio receivers. The main flow is (1) RF filtering (2) adjustable gain control (3) biasing to a 2.5V center (4) creation of a differential pair of signals needed to drive the ADC.\n"
+		(exclude_from_sim no)
+		(at 15.24 172.72 0)
+		(size 72.39 27.94)
+		(margins 0.9525 0.9525 0.9525 0.9525)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(fill
+			(type color)
+			(color 205 245 255 1)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "6d80fe1c-a5d3-4f79-8b31-a6fa1bc01731")
 	)
 	(junction
 		(at 154.94 151.13)

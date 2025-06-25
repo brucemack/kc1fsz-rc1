@@ -1223,7 +1223,7 @@
 	)
 	(text "DEMP Low=De-emphasis off"
 		(exclude_from_sim no)
-		(at 70.612 160.274 0)
+		(at 78.232 127.254 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1231,9 +1231,9 @@
 		)
 		(uuid "172f3f17-58ec-4760-a639-1773f801262a")
 	)
-	(text "Configuration Solder Bridges"
+	(text "Configuration Solder Bridges (unlikely to change)"
 		(exclude_from_sim no)
-		(at 53.34 130.556 0)
+		(at 63.246 98.298 0)
 		(effects
 			(font
 				(size 2.54 2.54)
@@ -1263,7 +1263,7 @@
 	)
 	(text "FMT Low=I2S Format"
 		(exclude_from_sim no)
-		(at 67.31 186.436 0)
+		(at 74.93 153.416 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1283,7 +1283,7 @@
 	)
 	(text "FLT Low=Normal Latency"
 		(exclude_from_sim no)
-		(at 40.132 160.02 0)
+		(at 47.752 127 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1291,7 +1291,7 @@
 		)
 		(uuid "d47803a3-bb50-4c15-8cab-f9a55c460401")
 	)
-	(text "The TI PCM5100 is a 24-bit stereo digital to analog converter designed for audio applications. It contains\nan integrated low-pass interpolation filter on the back-end with a cut-off around 20 kHz.  Sample rate (f_{s})\nwill be 48,000 samples/second. Narrower filtering will be achieved in DSP."
+	(text "The TI PCM5100 is a 24-bit stereo digital to analog converter designed for audio applications. It contains\nan integrated low-pass interpolation filter on the back-end with a cut-off around 20 kHz.  Sample rate (f_{s})\nwill be 32,000 samples/second. Narrower filtering will be achieved in DSP."
 		(exclude_from_sim no)
 		(at 146.558 28.448 0)
 		(effects
@@ -1303,13 +1303,34 @@
 	)
 	(text "XSMT High=Soft Unmute"
 		(exclude_from_sim no)
-		(at 39.116 186.436 0)
+		(at 46.736 153.416 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 		)
 		(uuid "fd6ccdb6-9e70-4207-84ba-8e0c95ebee63")
+	)
+	(text_box "This page shows the digital to analog converter (DAC). This part has two channels because it is intended for use in stereo audio systems. We use the left channel for radio 0 and the right channel for radio 1. Most of the setup here is copied from the PCM5100 application circuits shown in the datasheet.\n\nThe DAC has the ability to generate low frequencies needed for CTCSS encoding."
+		(exclude_from_sim no)
+		(at 16.51 168.91 0)
+		(size 72.39 27.94)
+		(margins 0.9525 0.9525 0.9525 0.9525)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(fill
+			(type color)
+			(color 205 245 255 1)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "b6ccf902-b172-443d-9480-5e859da8b7e0")
 	)
 	(junction
 		(at 143.51 50.8)
@@ -1415,7 +1436,7 @@
 	)
 	(wire
 		(pts
-			(xy 71.12 173.99) (xy 80.01 173.99)
+			(xy 78.74 140.97) (xy 87.63 140.97)
 		)
 		(stroke
 			(width 0)
@@ -1515,7 +1536,7 @@
 	)
 	(wire
 		(pts
-			(xy 43.18 147.32) (xy 52.07 147.32)
+			(xy 50.8 114.3) (xy 59.69 114.3)
 		)
 		(stroke
 			(width 0)
@@ -1585,7 +1606,7 @@
 	)
 	(wire
 		(pts
-			(xy 71.12 147.32) (xy 80.01 147.32)
+			(xy 78.74 114.3) (xy 87.63 114.3)
 		)
 		(stroke
 			(width 0)
@@ -1675,7 +1696,7 @@
 	)
 	(wire
 		(pts
-			(xy 30.48 173.99) (xy 35.56 173.99)
+			(xy 38.1 140.97) (xy 43.18 140.97)
 		)
 		(stroke
 			(width 0)
@@ -3073,7 +3094,43 @@
 			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAGMzOS00N2ZjNmMzZWViOTgiKQoJCSkKCQkoaW5zdGFuY2Vz"
+			"CgkJCShwcm9qZWN0ICJpZi0yIgoJCQkJKHBhdGggIi9hOGMyZDZhYS0yOWJiLTQ5YmQtYTM2Ny0w"
+			"ZDYyYTBhMzI0ODAvYWFjYTAzYjctMTM5NC00YTllLWI5ZGItMWVmOTNjNWM3YzAyIgoJCQkJCShy"
+			"ZWZlcmVuY2UgIlIxMiIpCgkJCQkJKHVuaXQgMSkKCQkJCSkKCQkJKQoJCSkKCSkKCShzeW1ib2wK"
+			"CQkobGliX2lkICJEZXZpY2U6QyIpCgkJKGF0IDEwOS4yMiA1NC42MSAwKQoJCSh1bml0IDEpCgkJ"
+			"KGV4Y2x1ZGVfZnJvbV9zaW0gbm8pCgkJKGluX2JvbSB5ZXMpCgkJKG9uX2JvYXJkIHllcykKCQko"
+			"ZG5wIG5vKQoJCShmaWVsZHNfYXV0b3BsYWNlZCB5ZXMpCgkJKHV1aWQgImZkYWY4ZjE3LTQxZDkt"
+			"NGM4OC1iYmY1LTBhYWQzNDAyNGVkNSIpCgkJKHByb3BlcnR5ICJSZWZlcmVuY2UiICJDMjIiCgkJ"
+			"CShhdCAxMTMuMDMgNTMuMzM5OSAwKQoJCQkoZWZmZWN0cwoJCQkJKGZvbnQKCQkJCQkoc2l6ZSAx"
+			"LjI3IDEuMjcpCgkJCQkpCgkJCQkoanVzdGlmeSBsZWZ0KQoJCQkpCgkJKQoJCShwcm9wZXJ0eSAi"
+			"VmFsdWUiICIxMDBwIgoJCQkoYXQgMTEzLjAzIDU1Ljg3OTkgMCkKCQkJKGVmZmVjdHMKCQkJCShm"
+			"b250CgkJCQkJKHNpemUgMS4yNyAxLjI3KQoJCQkJKQoJCQkJKGp1c3RpZnkgbGVmdCkKCQkJKQoJ"
+			"CSkKCQkocHJvcGVydHkgIkZvb3RwcmludCIgIkNhcGFjaXRvcl9TTUQ6Q18wODA1XzIwMTJNZXRy"
+			"aWNfUGFkMS4xOHgxLjQ1bW1fSGFuZFNvbGRlciIKCQkJKGF0IDExMC4xODUyIDU4LjQyIDApCgkJ"
+			"CShlZmZlY3RzCgkJCQkoZm9udAoJCQkJCShzaXplIDEuMjcgMS4yNykKCQkJCSkKCQkJCShoaWRl"
+			"IHllcykKCQkJKQoJCSkKCQkocHJvcGVydHkgIkRhdGFzaGVldCIgIn4iCgkJCShhdCAxMDkuMjIg"
+			"NTQuNjEgMCkKCQkJKGVmZmVjdHMKCQkJCShmb250CgkJCQkJKHNpemUgMS4yNyAxLjI3KQoJCQkJ"
+			"KQoJCQkJKGhpZGUgeWVzKQoJCQkpCgkJKQoJCShwcm9wZXJ0eSAiRGVzY3JpcHRpb24iICJVbnBv"
+			"bGFyaXplZCBjYXBhY2l0b3IiCgkJCQ=="
 		)
 	)
 	(global_label "XSMT"
@@ -3100,7 +3157,7 @@
 	)
 	(global_label "DEMP"
 		(shape input)
-		(at 80.01 147.32 0)
+		(at 87.63 114.3 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3110,7 +3167,7 @@
 		)
 		(uuid "1b92105d-8278-407c-a1ab-71c255648507")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 88.1356 147.32 0)
+			(at 95.7556 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3122,7 +3179,7 @@
 	)
 	(global_label "FLT"
 		(shape input)
-		(at 52.07 147.32 0)
+		(at 59.69 114.3 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3132,7 +3189,7 @@
 		)
 		(uuid "3bd4029a-c8a4-4cba-ac07-90b64a7c4186")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 58.1395 147.32 0)
+			(at 65.7595 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3298,7 +3355,7 @@
 	)
 	(global_label "XSMT"
 		(shape input)
-		(at 30.48 173.99 180)
+		(at 38.1 140.97 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3308,7 +3365,7 @@
 		)
 		(uuid "ed47c761-7ca3-4705-8e61-7a00e560a628")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 22.6568 173.99 0)
+			(at 30.2768 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3320,7 +3377,7 @@
 	)
 	(global_label "FMT"
 		(shape input)
-		(at 80.01 173.99 0)
+		(at 87.63 140.97 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3330,7 +3387,7 @@
 		)
 		(uuid "f0a70d44-6b2f-486b-9ac7-a2bcdbec7a08")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 86.5028 173.99 0)
+			(at 94.1228 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3386,7 +3443,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 39.37 152.4 0)
+		(at 46.99 119.38 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3395,7 +3452,7 @@
 		(fields_autoplaced yes)
 		(uuid "10ab5c50-fe6a-4e91-ae66-8c2e5a545564")
 		(property "Reference" "#PWR024"
-			(at 39.37 158.75 0)
+			(at 46.99 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3404,7 +3461,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 39.37 157.48 0)
+			(at 46.99 124.46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3412,7 +3469,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 39.37 152.4 0)
+			(at 46.99 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3421,7 +3478,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 39.37 152.4 0)
+			(at 46.99 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3430,7 +3487,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 39.37 152.4 0)
+			(at 46.99 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3518,7 +3575,7 @@
 	)
 	(symbol
 		(lib_id "Jumper:SolderJumper_3_Bridged12")
-		(at 39.37 173.99 270)
+		(at 46.99 140.97 270)
 		(unit 1)
 		(exclude_from_sim yes)
 		(in_bom no)
@@ -3527,7 +3584,7 @@
 		(fields_autoplaced yes)
 		(uuid "1869e179-75d2-408c-83d2-302d0bafa809")
 		(property "Reference" "JP2"
-			(at 41.91 173.9899 90)
+			(at 49.53 140.9699 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3536,7 +3593,7 @@
 			)
 		)
 		(property "Value" "SolderJumper_3_Bridged12"
-			(at 41.91 172.7201 90)
+			(at 49.53 139.7001 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3546,7 +3603,7 @@
 			)
 		)
 		(property "Footprint" "Jumper:SolderJumper-3_P1.3mm_Bridged12_Pad1.0x1.5mm"
-			(at 39.37 173.99 0)
+			(at 46.99 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3555,7 +3612,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 39.37 173.99 0)
+			(at 46.99 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3564,7 +3621,7 @@
 			)
 		)
 		(property "Description" "3-pole Solder Jumper, pins 1+2 closed/bridged"
-			(at 39.37 173.99 0)
+			(at 46.99 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3592,7 +3649,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 67.31 152.4 0)
+		(at 74.93 119.38 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3601,7 +3658,7 @@
 		(fields_autoplaced yes)
 		(uuid "20ef81e8-466f-4413-a886-0ebe80d1bd56")
 		(property "Reference" "#PWR054"
-			(at 67.31 158.75 0)
+			(at 74.93 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3610,7 +3667,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 67.31 157.48 0)
+			(at 74.93 124.46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3618,7 +3675,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 67.31 152.4 0)
+			(at 74.93 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3627,7 +3684,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 67.31 152.4 0)
+			(at 74.93 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3636,7 +3693,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 67.31 152.4 0)
+			(at 74.93 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3728,7 +3785,7 @@
 	)
 	(symbol
 		(lib_id "Jumper:SolderJumper_3_Bridged12")
-		(at 39.37 147.32 90)
+		(at 46.99 114.3 90)
 		(unit 1)
 		(exclude_from_sim yes)
 		(in_bom no)
@@ -3737,7 +3794,7 @@
 		(fields_autoplaced yes)
 		(uuid "28a1fb52-25d8-4ada-85a0-2be14771918c")
 		(property "Reference" "JP1"
-			(at 36.83 147.3199 90)
+			(at 44.45 114.2999 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3746,7 +3803,7 @@
 			)
 		)
 		(property "Value" "SolderJumper_3_Bridged12"
-			(at 36.83 148.5899 90)
+			(at 44.45 115.5699 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3756,7 +3813,7 @@
 			)
 		)
 		(property "Footprint" "Jumper:SolderJumper-3_P1.3mm_Bridged12_Pad1.0x1.5mm"
-			(at 39.37 147.32 0)
+			(at 46.99 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3765,7 +3822,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 39.37 147.32 0)
+			(at 46.99 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3774,7 +3831,7 @@
 			)
 		)
 		(property "Description" "3-pole Solder Jumper, pins 1+2 closed/bridged"
-			(at 39.37 147.32 0)
+			(at 46.99 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4005,7 +4062,7 @@
 	)
 	(symbol
 		(lib_id "power:+3.3V")
-		(at 67.31 168.91 0)
+		(at 74.93 135.89 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4014,7 +4071,7 @@
 		(fields_autoplaced yes)
 		(uuid "4bfbdd33-1ef9-490a-b3a9-104c71f3e586")
 		(property "Reference" "#PWR055"
-			(at 67.31 172.72 0)
+			(at 74.93 139.7 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4023,7 +4080,7 @@
 			)
 		)
 		(property "Value" "+3.3V"
-			(at 67.31 163.83 0)
+			(at 74.93 130.81 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4031,7 +4088,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 67.31 168.91 0)
+			(at 74.93 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4040,7 +4097,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 67.31 168.91 0)
+			(at 74.93 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4049,7 +4106,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
-			(at 67.31 168.91 0)
+			(at 74.93 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4071,7 +4128,7 @@
 	)
 	(symbol
 		(lib_id "power:+3.3V")
-		(at 39.37 142.24 0)
+		(at 46.99 109.22 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4080,7 +4137,7 @@
 		(fields_autoplaced yes)
 		(uuid "4cfe7ef4-2250-4132-a2ee-833b3067eea3")
 		(property "Reference" "#PWR023"
-			(at 39.37 146.05 0)
+			(at 46.99 113.03 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4089,7 +4146,7 @@
 			)
 		)
 		(property "Value" "+3.3V"
-			(at 39.37 137.16 0)
+			(at 46.99 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4097,7 +4154,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 39.37 142.24 0)
+			(at 46.99 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4106,7 +4163,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 39.37 142.24 0)
+			(at 46.99 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4115,7 +4172,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
-			(at 39.37 142.24 0)
+			(at 46.99 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4728,7 +4785,7 @@
 	)
 	(symbol
 		(lib_id "power:+3.3V")
-		(at 67.31 142.24 0)
+		(at 74.93 109.22 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4737,7 +4794,7 @@
 		(fields_autoplaced yes)
 		(uuid "8ef2f5b0-89d2-498a-a928-8992ae8bde40")
 		(property "Reference" "#PWR053"
-			(at 67.31 146.05 0)
+			(at 74.93 113.03 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4746,7 +4803,7 @@
 			)
 		)
 		(property "Value" "+3.3V"
-			(at 67.31 137.16 0)
+			(at 74.93 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4754,7 +4811,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 67.31 142.24 0)
+			(at 74.93 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4763,7 +4820,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 67.31 142.24 0)
+			(at 74.93 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4772,7 +4829,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
-			(at 67.31 142.24 0)
+			(at 74.93 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4794,7 +4851,7 @@
 	)
 	(symbol
 		(lib_id "Jumper:SolderJumper_3_Bridged12")
-		(at 67.31 147.32 90)
+		(at 74.93 114.3 90)
 		(unit 1)
 		(exclude_from_sim yes)
 		(in_bom no)
@@ -4803,7 +4860,7 @@
 		(fields_autoplaced yes)
 		(uuid "97acc4e1-6479-40a9-8b0c-7ba13fd47a33")
 		(property "Reference" "JP3"
-			(at 64.77 147.3199 90)
+			(at 72.39 114.2999 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4812,7 +4869,7 @@
 			)
 		)
 		(property "Value" "SolderJumper_3_Bridged12"
-			(at 64.77 148.5899 90)
+			(at 72.39 115.5699 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4822,7 +4879,7 @@
 			)
 		)
 		(property "Footprint" "Jumper:SolderJumper-3_P1.3mm_Bridged12_Pad1.0x1.5mm"
-			(at 67.31 147.32 0)
+			(at 74.93 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4831,7 +4888,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 67.31 147.32 0)
+			(at 74.93 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4840,7 +4897,7 @@
 			)
 		)
 		(property "Description" "3-pole Solder Jumper, pins 1+2 closed/bridged"
-			(at 67.31 147.32 0)
+			(at 74.93 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5342,7 +5399,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 67.31 179.07 0)
+		(at 74.93 146.05 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5351,7 +5408,7 @@
 		(fields_autoplaced yes)
 		(uuid "dacd19ad-c33a-4a0b-b851-cf921675185b")
 		(property "Reference" "#PWR056"
-			(at 67.31 185.42 0)
+			(at 74.93 152.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5360,7 +5417,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 67.31 184.15 0)
+			(at 74.93 151.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5368,7 +5425,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 67.31 179.07 0)
+			(at 74.93 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5377,7 +5434,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 67.31 179.07 0)
+			(at 74.93 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5386,7 +5443,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 67.31 179.07 0)
+			(at 74.93 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5408,7 +5465,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 39.37 179.07 0)
+		(at 46.99 146.05 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5417,7 +5474,7 @@
 		(fields_autoplaced yes)
 		(uuid "db73ec79-65bb-4989-945f-6c53efca5d12")
 		(property "Reference" "#PWR052"
-			(at 39.37 185.42 0)
+			(at 46.99 152.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5426,7 +5483,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 39.37 184.15 0)
+			(at 46.99 151.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5434,7 +5491,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 39.37 179.07 0)
+			(at 46.99 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5443,7 +5500,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 39.37 179.07 0)
+			(at 46.99 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5452,7 +5509,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 39.37 179.07 0)
+			(at 46.99 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5540,7 +5597,7 @@
 	)
 	(symbol
 		(lib_id "power:+3.3V")
-		(at 39.37 168.91 0)
+		(at 46.99 135.89 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5549,7 +5606,7 @@
 		(fields_autoplaced yes)
 		(uuid "e90036ce-20c7-4116-8bae-a5d4411a829c")
 		(property "Reference" "#PWR034"
-			(at 39.37 172.72 0)
+			(at 46.99 139.7 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5558,7 +5615,7 @@
 			)
 		)
 		(property "Value" "+3.3V"
-			(at 39.37 163.83 0)
+			(at 46.99 130.81 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5566,7 +5623,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 39.37 168.91 0)
+			(at 46.99 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5575,7 +5632,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 39.37 168.91 0)
+			(at 46.99 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5584,7 +5641,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
-			(at 39.37 168.91 0)
+			(at 46.99 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5606,7 +5663,7 @@
 	)
 	(symbol
 		(lib_id "Jumper:SolderJumper_3_Bridged12")
-		(at 67.31 173.99 90)
+		(at 74.93 140.97 90)
 		(unit 1)
 		(exclude_from_sim yes)
 		(in_bom no)
@@ -5615,7 +5672,7 @@
 		(fields_autoplaced yes)
 		(uuid "efa70d1a-30fb-4cb0-ad74-f39e209aad2f")
 		(property "Reference" "JP4"
-			(at 64.77 173.9899 90)
+			(at 72.39 140.9699 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5624,7 +5681,7 @@
 			)
 		)
 		(property "Value" "SolderJumper_3_Bridged12"
-			(at 64.77 175.2599 90)
+			(at 72.39 142.2399 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5634,7 +5691,7 @@
 			)
 		)
 		(property "Footprint" "Jumper:SolderJumper-3_P1.3mm_Bridged12_Pad1.0x1.5mm"
-			(at 67.31 173.99 0)
+			(at 74.93 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5643,7 +5700,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 67.31 173.99 0)
+			(at 74.93 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5652,7 +5709,7 @@
 			)
 		)
 		(property "Description" "3-pole Solder Jumper, pins 1+2 closed/bridged"
-			(at 67.31 173.99 0)
+			(at 74.93 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)

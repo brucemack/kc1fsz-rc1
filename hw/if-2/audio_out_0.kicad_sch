@@ -1257,6 +1257,27 @@
 		)
 		(uuid "5f8bee68-110a-412c-b635-3d853ac4f716")
 	)
+	(text_box "This page (and the next) shows the circuits that handle the audio output to the radio transmitters. The flow is (1) buffer stage (2) adjustable gain control (3) buffer (4) low pass filter.\n"
+		(exclude_from_sim no)
+		(at 15.24 170.18 0)
+		(size 72.39 27.94)
+		(margins 0.9525 0.9525 0.9525 0.9525)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(fill
+			(type color)
+			(color 205 245 255 1)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "e7000b8f-6494-4963-93a6-c8dd60d7cdd1")
+	)
 	(junction
 		(at 167.64 86.36)
 		(diameter 0)

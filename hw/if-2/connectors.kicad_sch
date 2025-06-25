@@ -2888,12 +2888,12 @@
 		)
 		(uuid "50a768dc-f9ed-4a3f-91b5-76342675814a")
 	)
-	(text "5.5mm Power Connector\n+12V on center pin"
+	(text "5.5mm Sytem Power Connector\n+12V on center pin"
 		(exclude_from_sim no)
-		(at 88.138 170.434 0)
+		(at 207.518 145.034 0)
 		(effects
 			(font
-				(size 1.27 1.27)
+				(size 1.905 1.905)
 			)
 		)
 		(uuid "6641f626-6735-4a19-a5d2-70e332781063")
@@ -2928,14 +2928,35 @@
 		)
 		(uuid "f01fea76-03f0-47a3-8ceb-f557fd88988d")
 	)
+	(text_box "This page shows all of the external connectors to the radio interface board.\n"
+		(exclude_from_sim no)
+		(at 15.24 171.45 0)
+		(size 72.39 27.94)
+		(margins 0.9525 0.9525 0.9525 0.9525)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(fill
+			(type color)
+			(color 205 245 255 1)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "7774d807-c5d3-49a6-ba41-243e69f58093")
+	)
 	(junction
-		(at 87.63 152.4)
+		(at 207.01 127)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "2a9419dc-d4b9-4e2c-87f7-5484439a12d4")
 	)
 	(junction
-		(at 87.63 157.48)
+		(at 207.01 132.08)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "4f8bf5be-b503-421e-a22f-f8cc2c05b3e5")
@@ -3017,7 +3038,7 @@
 		(uuid "b8058aba-a8e1-44a3-bc74-1536c6409cc1")
 	)
 	(no_connect
-		(at 83.82 154.94)
+		(at 203.2 129.54)
 		(uuid "dfa3c822-373e-47f9-9468-cf6d2dd310f9")
 	)
 	(no_connect
@@ -3190,7 +3211,7 @@
 	)
 	(wire
 		(pts
-			(xy 87.63 147.32) (xy 87.63 152.4)
+			(xy 207.01 121.92) (xy 207.01 127)
 		)
 		(stroke
 			(width 0)
@@ -3200,7 +3221,7 @@
 	)
 	(wire
 		(pts
-			(xy 87.63 147.32) (xy 93.98 147.32)
+			(xy 207.01 121.92) (xy 213.36 121.92)
 		)
 		(stroke
 			(width 0)
@@ -3290,7 +3311,7 @@
 	)
 	(wire
 		(pts
-			(xy 83.82 152.4) (xy 87.63 152.4)
+			(xy 203.2 127) (xy 207.01 127)
 		)
 		(stroke
 			(width 0)
@@ -3310,7 +3331,7 @@
 	)
 	(wire
 		(pts
-			(xy 83.82 157.48) (xy 87.63 157.48)
+			(xy 203.2 132.08) (xy 207.01 132.08)
 		)
 		(stroke
 			(width 0)
@@ -3460,7 +3481,7 @@
 	)
 	(wire
 		(pts
-			(xy 87.63 157.48) (xy 87.63 160.02)
+			(xy 207.01 132.08) (xy 207.01 134.62)
 		)
 		(stroke
 			(width 0)
@@ -3928,7 +3949,7 @@
 	)
 	(global_label "12V_UNFUSED"
 		(shape input)
-		(at 93.98 147.32 0)
+		(at 213.36 121.92 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3938,7 +3959,7 @@
 		)
 		(uuid "df01224a-cc72-4304-b29d-e7a6fe3f9924")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 110.149 147.32 0)
+			(at 229.529 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4082,7 +4103,7 @@
 	)
 	(symbol
 		(lib_id "symbol-library-1:Power_5.5mm_PJ-102AH")
-		(at 78.74 154.94 0)
+		(at 198.12 129.54 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4091,7 +4112,7 @@
 		(fields_autoplaced yes)
 		(uuid "0bdd4dd2-45c0-400c-8d65-7ba8675230b7")
 		(property "Reference" "J2"
-			(at 75.5043 146.05 0)
+			(at 194.8843 120.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4099,7 +4120,7 @@
 			)
 		)
 		(property "Value" "PJ-102AH"
-			(at 75.5043 148.59 0)
+			(at 194.8843 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4107,7 +4128,7 @@
 			)
 		)
 		(property "Footprint" "bruce-footprints:Power_5.5mm_CUI_PJ-102AH"
-			(at 78.74 154.94 0)
+			(at 198.12 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4117,7 +4138,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 78.74 154.94 0)
+			(at 198.12 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4126,7 +4147,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 78.74 154.94 0)
+			(at 198.12 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4135,7 +4156,7 @@
 			)
 		)
 		(property "MF" "CUI Devices"
-			(at 78.74 154.94 0)
+			(at 198.12 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4145,7 +4166,7 @@
 			)
 		)
 		(property "Purchase-URL" "https://pricing.snapeda.com/search/part/PJ-102AH/?ref=eda"
-			(at 78.74 154.94 0)
+			(at 198.12 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4155,7 +4176,7 @@
 			)
 		)
 		(property "Package" "None"
-			(at 78.74 154.94 0)
+			(at 198.12 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4165,7 +4186,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 78.74 154.94 0)
+			(at 198.12 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4175,7 +4196,7 @@
 			)
 		)
 		(property "CUI_purchase_URL" "https://www.cuidevices.com/product/interconnect/connectors/dc-power-connectors/jacks/pj-102ah?utm_source=snapeda.com&utm_medium=referral&utm_campaign=snapedaBOM"
-			(at 78.74 154.94 0)
+			(at 198.12 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4185,7 +4206,7 @@
 			)
 		)
 		(property "MP" "PJ-102AH"
-			(at 78.74 154.94 0)
+			(at 198.12 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4195,7 +4216,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 78.74 154.94 0)
+			(at 198.12 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4205,7 +4226,7 @@
 			)
 		)
 		(property "Description_1" "2.0 x 6.5 mm, 5.0 A, Horizontal, Through Hole, Tapered Pins, Dc Power Jack Connector"
-			(at 78.74 154.94 0)
+			(at 198.12 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4367,7 +4388,7 @@
 	)
 	(symbol
 		(lib_id "power:PWR_FLAG")
-		(at 87.63 152.4 270)
+		(at 207.01 127 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4376,7 +4397,7 @@
 		(fields_autoplaced yes)
 		(uuid "441d074c-7483-4126-ae72-bbba0c49c4ae")
 		(property "Reference" "#FLG01"
-			(at 89.535 152.4 0)
+			(at 208.915 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4385,7 +4406,7 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 91.44 152.3999 90)
+			(at 210.82 126.9999 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4394,7 +4415,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 87.63 152.4 0)
+			(at 207.01 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4403,7 +4424,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 87.63 152.4 0)
+			(at 207.01 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4412,7 +4433,7 @@
 			)
 		)
 		(property "Description" "Special symbol for telling ERC where power comes from"
-			(at 87.63 152.4 0)
+			(at 207.01 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4701,7 +4722,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 87.63 160.02 0)
+		(at 207.01 134.62 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4710,7 +4731,7 @@
 		(fields_autoplaced yes)
 		(uuid "9736fd3e-6f3e-44a3-a140-f9fa9fdf00b1")
 		(property "Reference" "#PWR03"
-			(at 87.63 166.37 0)
+			(at 207.01 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4719,7 +4740,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 87.63 165.1 0)
+			(at 207.01 139.7 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4727,7 +4748,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 87.63 160.02 0)
+			(at 207.01 134.62 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4736,7 +4757,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 87.63 160.02 0)
+			(at 207.01 134.62 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4745,7 +4766,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 87.63 160.02 0)
+			(at 207.01 134.62 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4978,7 +4999,7 @@
 	)
 	(symbol
 		(lib_id "power:PWR_FLAG")
-		(at 87.63 157.48 270)
+		(at 207.01 132.08 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4987,7 +5008,7 @@
 		(fields_autoplaced yes)
 		(uuid "d79c8be2-bd07-4d4b-9ad3-3e111b98ebe1")
 		(property "Reference" "#FLG02"
-			(at 89.535 157.48 0)
+			(at 208.915 132.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4996,7 +5017,7 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 91.44 157.4799 90)
+			(at 210.82 132.0799 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5005,7 +5026,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 87.63 157.48 0)
+			(at 207.01 132.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5014,7 +5035,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 87.63 157.48 0)
+			(at 207.01 132.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5023,7 +5044,7 @@
 			)
 		)
 		(property "Description" "Special symbol for telling ERC where power comes from"
-			(at 87.63 157.48 0)
+			(at 207.01 132.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)

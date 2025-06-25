@@ -1694,6 +1694,7 @@
 		(effects
 			(font
 				(size 1.27 1.27)
+				(color 255 14 235 1)
 			)
 		)
 		(uuid "652f0631-3eeb-4d73-85c0-9afd6edde719")
@@ -1704,6 +1705,7 @@
 		(effects
 			(font
 				(size 1.27 1.27)
+				(color 255 5 238 1)
 			)
 		)
 		(uuid "9e19f09c-9c6a-4f7e-8ae7-1b15960855f5")
@@ -1768,6 +1770,27 @@
 			)
 		)
 		(uuid "ff9a99cd-2a38-4aa6-9310-47c0dcd5ddca")
+	)
+	(text_box "This page (and the next) shows the circuits that handle the logic inputs/outputs from/to the radios. For the COS and CTSS inputs the radio's 5V logic is converted to 3.3V to be compatible with the Pico GPIO pins.\n"
+		(exclude_from_sim no)
+		(at 15.24 171.45 0)
+		(size 72.39 27.94)
+		(margins 0.9525 0.9525 0.9525 0.9525)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(fill
+			(type color)
+			(color 205 245 255 1)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "e5ceef2d-a12d-460c-b385-bc0f920a359d")
 	)
 	(junction
 		(at 100.33 46.99)
