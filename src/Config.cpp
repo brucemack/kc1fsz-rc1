@@ -107,13 +107,13 @@ void Config::show(const Config* cfg) {
     printf("   pass        : %s\n", cfg->general.pass);
     printf("   repeatmode  : %d\n", cfg->general.repeatMode);
     // Receiver configuration
-    _showRx(cfg->rx0, "R0");
-    _showRx(cfg->rx1, "R1");
+    _showRx(&cfg->rx0, "R0");
+    _showRx(&cfg->rx1, "R1");
     // Transmitter configuration
-    _showTx(cfg->tx0, "T0");
-    _showTxc(cfg->txc0, "T0");
-    _showTx(cfg->tx1, "T1");
-    _showTxc(cfg->txc1, "T1");
+    _showTx(&cfg->tx0, "T0");
+    _showTxc(&cfg->txc0, "T0");
+    _showTx(&cfg->tx1, "T1");
+    _showTxc(&cfg->txc1, "T1");
 }
 
 }
