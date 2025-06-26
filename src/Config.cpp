@@ -74,6 +74,8 @@ void Config::show(const Config* cfg) {
 
     // General configuration
     printf("callsign    : %s\n", cfg->general.callSign);
+    printf("pass        : %s\n", cfg->general.pass);
+    printf("repeatmode  : %d\n", cfg->general.repeatMode);
 
     // Receiver configuration
     printf("R0 cosmode  : %d\n", cfg->rx0.cosMode);
