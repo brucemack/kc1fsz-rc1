@@ -51,13 +51,17 @@ public:
     }
 
     enum RepeatMode { MODE_INDEPENDENT, MODE_EXCLUSIVE, MODE_MIX };
+    enum CtMode { CT_NONE, CT_SINGLE, CT_UPCHIRP, CT_DOWNCHRIP };
 
     void setCall(const char* callSign) { _idToneGenerator.setCall(callSign); }
     void setPass(const char* pass) {  }
     void setRepeatMode(RepeatMode mode) { _repeatMode = mode; }
     void setTimeoutTime(uint32_t ms) { _timeoutWindowMs = ms; }
     void setLockoutTime(uint32_t ms) { _lockoutWindowMs = ms; }
-   
+    void setHangTime(uint32_t ms) { _hangWindowMs = ms; }
+    void setCtMode(CtMode mode) { _ctMode = mode; }
+    void setCtLevel(float lvl) { _ctLevel = lvl; }
+    void setIdLevel(float lvl) { _idLevel = lvl; } 
 
 private:
 
@@ -112,6 +116,9 @@ private:
     // ----- Configurations 
 
     RepeatMode _repeatMode = RepeatMode::MODE_INDEPENDENT;
+    CtMode _ctMode = CtMode::CT_UPCHIRP;
+    float _ctLevel = 0.33;
+    float _idLevel = 0.33;    
     // Disabled for now
     uint32_t _votingWindowMs = 25;
     // How long between the end of transmission and the courtesy tone

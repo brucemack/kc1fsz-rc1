@@ -1022,6 +1022,7 @@ static void transferConfig(const Config& config,
     rx0.setToneInactiveTime(config.rx0.toneInactiveTime);
     rx0.setToneLevel(config.rx0.toneLevel);
     rx0.setToneFreq(config.rx0.toneFreq);
+    rx0.setGain(config.rx0.gain);
 
     rx1.setCosMode((Rx::CosMode)config.rx1.cosMode);
     rx1.setCosActiveTime(config.rx1.cosActiveTime);
@@ -1032,6 +1033,7 @@ static void transferConfig(const Config& config,
     rx1.setToneInactiveTime(config.rx1.toneInactiveTime);
     rx1.setToneLevel(config.rx1.toneLevel);
     rx1.setToneFreq(config.rx1.toneFreq);
+    rx1.setGain(config.rx1.gain);
 
     // Transmitter configuration
     tx0.setToneMode((Tx::ToneMode)config.tx0.toneMode);
@@ -1045,9 +1047,17 @@ static void transferConfig(const Config& config,
     // Controller configuration
     txc0.setTimeoutTime(config.txc0.timeoutTime);
     txc0.setLockoutTime(config.txc0.lockoutTime);
+    txc0.setHangTime(config.txc0.hangTime);
+    txc0.setCtMode((TxControl::CtMode)config.txc0.ctMode);
+    txc0.setCtLevel(config.txc0.ctLevel);
+    txc0.setIdLevel(config.txc0.idLevel);
 
     txc1.setTimeoutTime(config.txc1.timeoutTime);
     txc1.setLockoutTime(config.txc1.lockoutTime);
+    txc1.setHangTime(config.txc1.hangTime);
+    txc1.setCtMode((TxControl::CtMode)config.txc1.ctMode);
+    txc1.setCtLevel(config.txc1.ctLevel);
+    txc1.setIdLevel(config.txc1.idLevel);
 }
 
 int main(int argc, const char** argv) {

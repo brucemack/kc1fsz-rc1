@@ -21,6 +21,7 @@
 #define _Config_h
 
 #include <cstdint>
+#include <cmath>
 
 namespace kc1fsz {
 
@@ -85,6 +86,7 @@ struct Config {
     static void loadConfig(Config* cfg);
     static void setFactoryDefaults(Config* cfg);
     static void show(const Config* cfg);
+    static float dbToLinear(float db) { return pow(10, (db / 20)); } 
 };
 
 }
