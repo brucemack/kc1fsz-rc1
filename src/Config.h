@@ -44,7 +44,7 @@ struct Config {
         uint32_t repeatMode;
     } general;
 
-    struct ReceiverConfig {
+    struct ReceiveConfig {
         uint32_t cosMode;
         uint32_t cosActiveTime;
         uint32_t cosInactiveTime;
@@ -57,7 +57,7 @@ struct Config {
         float gain;
     } rx0, rx1;
 
-    struct TransmitterConfig {
+    struct TransmitConfig {
         uint32_t toneMode;
         float toneLevel;
         float toneFreq;
@@ -75,8 +75,8 @@ struct Config {
     char pad[CONFIG_SIZE - 
         4 + 
         sizeof(GeneralConfig) + 
-        2 * sizeof(ReceiverConfig) +
-        2 * sizeof(TransmitterConfig) +
+        2 * sizeof(ReceiveConfig) +
+        2 * sizeof(TransmitConfig) +
         2 * sizeof(ControlConfig)
         ];
 
@@ -85,8 +85,20 @@ struct Config {
     static void saveConfig(const Config* cfg);
     static void loadConfig(Config* cfg);
     static void setFactoryDefaults(Config* cfg);
+
+    /**
+     * @brief Displays configuration on stdout.
+     */
     static void show(const Config* cfg);
+
     static float dbToLinear(float db) { return pow(10, (db / 20)); } 
+    static float linearToDb(float lin) { return 20 * log10(lin); } 
+
+private:
+
+    static void _showRx(const ReceiveConfig* cfg, const char* pre);
+    static void _showTx(const TransmitConfig* cfg, const char* pre);
+    static void _showTxc(const ControlConfig* cfg, const char* pre);
 };
 
 }

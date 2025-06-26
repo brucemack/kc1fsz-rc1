@@ -70,15 +70,50 @@ void Config::setFactoryDefaults(Config* cfg) {
 
 }
 
+void Config::_showRx(const Config::ReceiveConfig* cfg,
+    const char* pre) {
+    printf("%s cosmode  : %d\n", pre, cfg->cosMode);
+    printf("%s cosactivetime  : %d\n", pre, cfg->cosActiveTime);
+    printf("%s cosinactivetime  : %d\n", pre, cfg->cosInactiveTime);
+    printf("%s coslevel  : %f\n", pre, linearToDb(cfg->cosLevel));
+    printf("%s tonemode  : %d\n", pre, cfg->toneMode);
+    printf("%s toneactivetime  : %d\n", pre, cfg->toneActiveTime);
+    printf("%s toneinactivetime  : %d\n", pre, cfg->toneInactiveTime);
+    printf("%s tonelevel  : %f\n", pre, linearToDb(cfg->toneLevel));
+    printf("%s tonefreq  : %f\n", pre, cfg->toneFreq);
+    printf("%s gain  : %f\n", pre, linearToDb(cfg->gain));
+}
+
+void Config::_showTx(const Config::TransmitConfig* cfg,
+    const char* pre) {
+    printf("%s tonemode  : %d\n", pre, cfg->toneMode);
+    printf("%s tonelevel  : %f\n", pre, linearToDb(cfg->toneLevel));
+    printf("%s tonefreq  : %f\n", pre, cfg->toneFreq);
+}
+
+void Config::_showTxc(const Config::ControlConfig* cfg,
+    const char* pre) {
+    printf("%s timeouttime  : %d\n", pre, cfg->timeoutTime);
+    printf("%s lockouttime  : %d\n", pre, cfg->lockoutTime);
+    printf("%s hangtime  : %d\n", pre, cfg->hangTime);
+    printf("%s ctmode  : %d\n", pre, cfg->ctMode);
+    printf("%s ctlevel  : %f\n", pre, linearToDb(cfg->ctLevel));
+    printf("%s idlevel  : %f\n", pre, linearToDb(cfg->idLevel));
+}
+
 void Config::show(const Config* cfg) {
-
     // General configuration
-    printf("callsign    : %s\n", cfg->general.callSign);
-    printf("pass        : %s\n", cfg->general.pass);
-    printf("repeatmode  : %d\n", cfg->general.repeatMode);
-
+    printf("   callsign    : %s\n", cfg->general.callSign);
+    printf("   pass        : %s\n", cfg->general.pass);
+    printf("   repeatmode  : %d\n", cfg->general.repeatMode);
     // Receiver configuration
-    printf("R0 cosmode  : %d\n", cfg->rx0.cosMode);
+    _showRx(cfg->rx0, "R0");
+    _showRx(cfg->rx1, "R1");
+    // Transmitter configuration
+    _showTx(cfg->tx0, "T0");
+    _showTxc(cfg->txc0, "T0");
+    _showTx(cfg->tx1, "T1");
+    _showTxc(cfg->txc1, "T1");
 }
 
 }
