@@ -240,13 +240,34 @@ Bring Up Test
 =============
 
 * Factory reset on the configuration
-* Set signal generator for 1Vpp
+* Set signal generator for 1Vpp on both sides
 * Adjust trimmers to show -10dB receive level on status (leaving headroom)
 * Change receive soft gain on both sides to validate proper functionality 
-* Turn on test tone, set to -10dB
-* Validate transmit level on status
+* Turn on test tone, set to -10dB and 1000 Hz
+* Validate transmit level on status is -10dB
 * Adjust trimmers to output 1Vpp
-* Change level of test tone, validate output
+* Change level of test tone to -13dB, validate output on status and see the output at around 700mVpp
+* Turn off test tone
+* PL tone generation test
+  - Turn on PL tone on both sides, -10dB, 100 Hz
+  - Validate -10dB TX signal on status
+  - View signal on scope to validate ~1Vpp
+  - Turn off PL tone on both sides
+* COS signal (do on both sides)
+  - Set COS mode to external, active high (2)
+  - Move signal, validate on status
+  - Set COS mode to external, active low (1)
+  - Move signal, validate on status
+* CTCSS signal (do on both sides)
+  - Set rxtonemode to external, active high (2)
+  - Move signal, validate on status
+  - Set rxtonemode mode to external, active low (1)
+  - Move signal, validate on status
+ * Active test
+  - Set rxtonemode to ignore on both sides (0)
+  - Set cosmode to external active high on both sides (2)
+  - Key each side and validate active status 
+  
 
 Work In Process
 ===============

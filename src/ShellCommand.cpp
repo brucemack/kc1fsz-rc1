@@ -61,6 +61,7 @@ void ShellCommand::process(const char* cmd) {
         else if (strcmp(tokens[0], "factoryreset") == 0) {
             Config::setFactoryDefaults(&_config);
             Config::saveConfig(&_config);
+            configChanged = true;
         }
         else if (strcmp(tokens[0], "save") == 0) {
             Config::saveConfig(&_config);
