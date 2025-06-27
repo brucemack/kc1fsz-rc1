@@ -36,7 +36,7 @@ public:
     // ----- CONFIGURATION ---------------------------------------------------
 
     enum CosMode {
-        COS_EXT_LOW, COS_EXT_HIGH, COS_SOFT
+        COS_IGNORE, COS_EXT_LOW, COS_EXT_HIGH, COS_SOFT
     };
 
     virtual void setCosMode(CosMode mode) = 0;

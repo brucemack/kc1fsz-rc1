@@ -22,6 +22,7 @@ void Config::saveConfig(const Config* cfg) {
 }
 
 void Config::loadConfig(Config* cfg) {
+    assert(sizeof(Config) == 512);
     // The very last sector of flash is used. Compute the memory-mapped address, 
     // remembering to include the offset for RAM
     const uint8_t* addr = (uint8_t*)(XIP_BASE + (PICO_FLASH_SIZE_BYTES - FLASH_SECTOR_SIZE));
@@ -52,7 +53,7 @@ void Config::setFactoryDefaults(Config* cfg) {
     // Transmitter
     cfg->tx0.toneMode = 0;
     cfg->tx0.toneFreq = 0;
-    cfg->tx0.toneLevel = 0;
+    cfg->tx0.toneLevel = dbToLinear(-16);
     cfg->tx1.toneMode = 1;
     cfg->tx1.toneFreq = 88.5;
     cfg->tx1.toneLevel = dbToLinear(-16);
@@ -75,20 +76,20 @@ void Config::_showRx(const Config::ReceiveConfig* cfg,
     printf("%s cosmode  : %d\n", pre, cfg->cosMode);
     printf("%s cosactivetime  : %d\n", pre, cfg->cosActiveTime);
     printf("%s cosinactivetime  : %d\n", pre, cfg->cosInactiveTime);
-    printf("%s coslevel  : %f\n", pre, linearToDb(cfg->cosLevel));
+    printf("%s coslevel  : %.1f\n", pre, linearToDb(cfg->cosLevel));
     printf("%s tonemode  : %d\n", pre, cfg->toneMode);
     printf("%s toneactivetime  : %d\n", pre, cfg->toneActiveTime);
     printf("%s toneinactivetime  : %d\n", pre, cfg->toneInactiveTime);
-    printf("%s tonelevel  : %f\n", pre, linearToDb(cfg->toneLevel));
-    printf("%s tonefreq  : %f\n", pre, cfg->toneFreq);
-    printf("%s gain  : %f\n", pre, linearToDb(cfg->gain));
+    printf("%s tonelevel  : %.1f\n", pre, linearToDb(cfg->toneLevel));
+    printf("%s tonefreq  : %.1f\n", pre, cfg->toneFreq);
+    printf("%s gain  : %.1f\n", pre, linearToDb(cfg->gain));
 }
 
 void Config::_showTx(const Config::TransmitConfig* cfg,
     const char* pre) {
     printf("%s tonemode  : %d\n", pre, cfg->toneMode);
-    printf("%s tonelevel  : %f\n", pre, linearToDb(cfg->toneLevel));
-    printf("%s tonefreq  : %f\n", pre, cfg->toneFreq);
+    printf("%s tonelevel  : %.1f\n", pre, linearToDb(cfg->toneLevel));
+    printf("%s tonefreq  : %.1f\n", pre, cfg->toneFreq);
 }
 
 void Config::_showTxc(const Config::ControlConfig* cfg,
@@ -97,8 +98,8 @@ void Config::_showTxc(const Config::ControlConfig* cfg,
     printf("%s lockouttime  : %d\n", pre, cfg->lockoutTime);
     printf("%s hangtime  : %d\n", pre, cfg->hangTime);
     printf("%s ctmode  : %d\n", pre, cfg->ctMode);
-    printf("%s ctlevel  : %f\n", pre, linearToDb(cfg->ctLevel));
-    printf("%s idlevel  : %f\n", pre, linearToDb(cfg->idLevel));
+    printf("%s ctlevel  : %.1f\n", pre, linearToDb(cfg->ctLevel));
+    printf("%s idlevel  : %.1f\n", pre, linearToDb(cfg->idLevel));
 }
 
 void Config::show(const Config* cfg) {

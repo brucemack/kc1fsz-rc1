@@ -20,10 +20,13 @@
 #include <cstdio>
 #include <cstring>
 
+#include "kc1fsz-tools/Common.h"
 #include "Config.h"
 #include "ShellCommand.h"
 
 namespace kc1fsz {
+
+static const char* INVALID_COMMAND = "Invalid Command\n";
 
 void ShellCommand::process(const char* cmd) {
     // Tokenize
@@ -46,6 +49,7 @@ void ShellCommand::process(const char* cmd) {
             }
         }
     }
+
     if (tokenCount == 1) {
         if (strcmp(tokens[0], "reset") == 0) {
             printf("Reboot requested");
@@ -62,10 +66,51 @@ void ShellCommand::process(const char* cmd) {
     else if (tokenCount == 3) {
         if (strcmp(tokens[0], "set") == 0) {
             if (strcmp(tokens[1], "call") == 0) {
-                printf("Callsign %s\n", tokens[2]);
+                strcpyLimited(_config.general.callSign, tokens[2], Config::callSignMaxLen);
+            } else if (strcmp(tokens[1], "pass") == 0) {
+                strcpyLimited(_config.general.pass, tokens[2], Config::passMaxLen);
+            } else if (strcmp(tokens[1], "repeatmode") == 0) {
+                _config.general.repeatMode = atoi(tokens[2]);
+            } else {
+                printf(INVALID_COMMAND);
             }
         }
+        else {
+            printf(INVALID_COMMAND);
+        }
+    }
+    else if (tokenCount == 4) {
+        if (strcmp(tokens[0], "set") == 0)
+            if (strcmp(tokens[1], "cosmode") == 0)
+                if (strcmp(tokens[2], "0") == 0)
+                    _config.rx0.cosMode = atoi(tokens[3]);
+                else if (strcmp(tokens[2], "1") == 0)
+                    _config.rx1.cosMode = atoi(tokens[3]);
+                else 
+                    printf(INVALID_COMMAND);
+            else if (strcmp(tokens[1], "cosactivetime") == 0)
+                if (strcmp(tokens[2], "0") == 0)
+                    _config.rx0.cosActiveTime = atoi(tokens[3]);
+                else if (strcmp(tokens[2], "1") == 0)
+                    _config.rx1.cosActiveTime = atoi(tokens[3]);
+                else 
+                    printf(INVALID_COMMAND);
+            else if (strcmp(tokens[1], "cosinactivetime") == 0)
+                if (strcmp(tokens[2], "0") == 0)
+                    _config.rx0.cosInactiveTime = atoi(tokens[3]);
+                else if (strcmp(tokens[2], "1") == 0)
+                    _config.rx1.cosInactiveTime = atoi(tokens[3]);
+                else 
+                    printf(INVALID_COMMAND);                
+            else if (strcmp(tokens[1], "coslevel") == 0)
+                if (strcmp(tokens[2], "0") == 0)
+                    _config.rx0.cosLevel =  Config::dbToLinear(atof(tokens[3]));
+                else if (strcmp(tokens[2], "1") == 0)
+                    _config.rx1.cosLevel = Config::dbToLinear(atof(tokens[3]));
+                else 
+                    printf(INVALID_COMMAND);                
+        else
+            printf(INVALID_COMMAND);
     }
 }
-
 }

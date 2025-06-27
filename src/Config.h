@@ -30,7 +30,7 @@ namespace kc1fsz {
  */
 struct Config {
 
-    const static int CONFIG_VERSION = 0xbabe + 1;
+    const static int CONFIG_VERSION = 0xbabe + 3;
     const static int CONFIG_SIZE = 512;
 
     const static int callSignMaxLen = 16;

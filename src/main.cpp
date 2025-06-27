@@ -1006,10 +1006,10 @@ static void transferConfig(const Config& config,
 {
     // General configuration
     txc0.setCall(config.general.callSign);
-    txc1.setCall(config.general.callSign);
     txc0.setPass(config.general.pass);
-    txc1.setPass(config.general.pass);
     txc0.setRepeatMode((TxControl::RepeatMode)config.general.repeatMode);
+    txc1.setCall(config.general.callSign);
+    txc1.setPass(config.general.pass);
     txc1.setRepeatMode((TxControl::RepeatMode)config.general.repeatMode);
 
     // Receiver configuration
@@ -1027,7 +1027,7 @@ static void transferConfig(const Config& config,
     rx1.setCosMode((Rx::CosMode)config.rx1.cosMode);
     rx1.setCosActiveTime(config.rx1.cosActiveTime);
     rx1.setCosInactiveTime(config.rx1.cosInactiveTime);
-    rx0.setCosLevel(config.rx1.cosLevel);
+    rx1.setCosLevel(config.rx1.cosLevel);
     rx1.setToneMode((Rx::ToneMode)config.rx1.toneMode);
     rx1.setToneActiveTime(config.rx1.toneActiveTime);
     rx1.setToneInactiveTime(config.rx1.toneInactiveTime);
