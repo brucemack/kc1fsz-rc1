@@ -50,11 +50,20 @@ void ShellCommand::process(const char* cmd) {
         }
     }
 
+    bool configChanged = false;
+
     if (tokenCount == 1) {
         if (strcmp(tokens[0], "reset") == 0) {
             printf("Reboot requested");
             // The watchdog will take over from here
             while (true);            
+        }
+        else if (strcmp(tokens[0], "factoryreset") == 0) {
+            Config::setFactoryDefaults(&_config);
+            Config::saveConfig(&_config);
+        }
+        else if (strcmp(tokens[0], "save") == 0) {
+            Config::saveConfig(&_config);
         }
         else if (strcmp(tokens[0], "ping") == 0) {
             printf("pong\n");
@@ -73,12 +82,19 @@ void ShellCommand::process(const char* cmd) {
     }
     else if (tokenCount == 3) {
         if (strcmp(tokens[0], "set") == 0) {
+            configChanged = true;
             if (strcmp(tokens[1], "call") == 0) {
                 strcpyLimited(_config.general.callSign, tokens[2], Config::callSignMaxLen);
             } else if (strcmp(tokens[1], "pass") == 0) {
                 strcpyLimited(_config.general.pass, tokens[2], Config::passMaxLen);
             } else if (strcmp(tokens[1], "repeatmode") == 0) {
                 _config.general.repeatMode = atoi(tokens[2]);
+            } else if (strcmp(tokens[1], "testmode") == 0) {
+                _config.general.diagMode = atoi(tokens[2]);
+            } else if (strcmp(tokens[1], "testtonefreq") == 0) {
+                _config.general.diagFreq = atof(tokens[2]);
+            } else if (strcmp(tokens[1], "testtonelevel") == 0) {
+                _config.general.diagLevel = Config::dbToLinear(atof(tokens[2]));
             } else {
                 printf(INVALID_COMMAND);
             }
@@ -89,6 +105,7 @@ void ShellCommand::process(const char* cmd) {
     }
     else if (tokenCount == 4) {
         if (strcmp(tokens[0], "set") == 0)
+            configChanged = true;
             if (strcmp(tokens[1], "cosmode") == 0)
                 if (strcmp(tokens[2], "0") == 0)
                     _config.rx0.cosMode = atoi(tokens[3]);
@@ -199,5 +216,9 @@ void ShellCommand::process(const char* cmd) {
         else
             printf(INVALID_COMMAND);
     }
+
+    // Notify the client of a change to the configuration structure
+    if (configChanged)
+        _configChangedTrigger();
 }
 }

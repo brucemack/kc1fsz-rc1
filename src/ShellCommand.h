@@ -31,10 +31,12 @@ class ShellCommand : public CommandSink {
 public:
  
     ShellCommand(Config& config, 
-        std::function<void()> logTrigger, std::function<void()> statusTrigger) 
+        std::function<void()> logTrigger, std::function<void()> statusTrigger,
+        std::function<void()> configChangedTrigger) 
     :   _config(config),
         _logTrigger(logTrigger), 
-        _statusTrigger(statusTrigger) { }
+        _statusTrigger(statusTrigger),
+        _configChangedTrigger(configChangedTrigger) { }
 
     void process(const char* cmd);
 
@@ -43,6 +45,7 @@ private:
     Config& _config;
     std::function<void()> _logTrigger;
     std::function<void()> _statusTrigger;
+    std::function<void()> _configChangedTrigger;
 };
 
 }

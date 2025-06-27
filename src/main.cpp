@@ -163,7 +163,6 @@ static uint out_history_ptr = 0;
 //
 // The global configuration parameters
 static Config config;
-static bool configChanged = false;
 
 static PicoClock clock;
 // Objects used for tone generation (CW, courtesy, PL, etc.)
@@ -177,12 +176,6 @@ static AudioSourceControl audioSource1(clock, AUDIO_FADE_MS);
 // A tone generator used for diagnostic and calibration
 static ToneSynthesizer diagSynth0(FS_HZ, AUDIO_FADE_MS);
 static ToneSynthesizer diagSynth1(FS_HZ, AUDIO_FADE_MS);
-
-// Controls for diagnostic tone
-static float diagOn = false;
-static float diagScaleDb = -10.0;
-static float diagScaleLinear = pow(10, (diagScaleDb / 20)) * MAX_DAC_VALUE;
-static float diagFreqHz = 700.0;
 
 static void process_in_frame();
 
@@ -311,7 +304,7 @@ static void process_in_frame() {
 
         float r0_out = 0;
         if (diagSynth0.isActive()) {
-            r0_out = diagScaleLinear * diagSynth0.getSample();
+            r0_out = MAX_DAC_VALUE * config.general.diagLevel * diagSynth0.getSample();
         } 
         else {
             if (plSynth0.isActive()) {
@@ -329,7 +322,7 @@ static void process_in_frame() {
 
         float r1_out = 0;
         if (diagSynth1.isActive()) {
-            r1_out = diagScaleLinear * diagSynth1.getSample();
+            r1_out = MAX_DAC_VALUE * config.general.diagLevel * diagSynth1.getSample();
         } 
         else {
             if (plSynth1.isActive()) {
@@ -989,6 +982,11 @@ static void transferConfig(const Config& config,
     TxControl& txc0, TxControl& txc1) 
 {
     // General configuration
+    diagSynth0.setEnabled(config.general.diagMode == 1);
+    diagSynth0.setFreq(config.general.diagFreq);
+    diagSynth1.setEnabled(config.general.diagMode == 1);
+    diagSynth1.setFreq(config.general.diagFreq);
+
     txc0.setCall(config.general.callSign);
     txc0.setPass(config.general.pass);
     txc0.setRepeatMode((TxControl::RepeatMode)config.general.repeatMode);
@@ -1100,10 +1098,8 @@ int main(int argc, const char** argv) {
     if (!config.isValid()) {
         log.info("Invalid config, setting factory default");
         Config::setFactoryDefaults(&config);
+        Config::saveConfig(&config);
     }
-    // This will force a load of the configuration data 
-    // into the controller.
-    configChanged = true;
 
     // Enable the watchdog, requiring the watchdog to be updated or the chip 
     // will reboot. The second arg is "pause on debug" which means 
@@ -1156,6 +1152,15 @@ int main(int argc, const char** argv) {
             printf("\033[?25l");
             uiMode = UIMode::UIMODE_STATUS;
             log.setEnabled(false);
+        },
+        // Config change trigger
+        [&rx0, &rx1, &tx0, &tx1, &txCtl0, &txCtl1, &log]() {
+            // If anything in the configuration structure is 
+            // changed then we force a transfer of all config
+            // parameters from the config structure and into 
+            // the controller objects.
+            log.info("Transferring configuration");
+            transferConfig(config, rx0, rx1, tx0, tx1, txCtl0, txCtl1);
         }
         );
 
@@ -1163,26 +1168,17 @@ int main(int argc, const char** argv) {
     shell.setOutput(&shellOutput);
     shell.setSink(&shellCommand);
 
+    // Force initial config transfer
+    transferConfig(config, rx0, rx1, tx0, tx1, txCtl0, txCtl1);
+
     // ===== Main Event Loop =================================================
 
     while (true) { 
 
         watchdog_update();
 
-        // If anything in the configuration structure is 
-        // changed then we force a transfer of all config
-        // parameters from the config structure and into 
-        // the controller objects.
-        if (configChanged) {
-            transferConfig(config, rx0, rx1, tx0, tx1, txCtl0, txCtl1);
-            configChanged = false;
-        }
-
         int c = getchar_timeout_us(0);
         bool flash = flashTimer.poll();
-
-        //if (flash)
-        //    print("A\n");
 
         if (uiMode == UIMode::UIMODE_LOG) {
             if (c == 's') {

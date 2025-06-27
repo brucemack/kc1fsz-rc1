@@ -30,12 +30,16 @@ void Config::loadConfig(Config* cfg) {
 }
 
 void Config::setFactoryDefaults(Config* cfg) {
+
     cfg->magic = CONFIG_VERSION;
 
     // General
     strcpyLimited(cfg->general.callSign, "W1TKZ", Config::callSignMaxLen);
     strcpyLimited(cfg->general.pass, "781", Config::passMaxLen);
     cfg->general.repeatMode = 2;
+    cfg->general.diagMode = 0;
+    cfg->general.diagFreq = 1000;
+    cfg->general.diagLevel = dbToLinear(-10);
 
     // Receiver
     cfg->rx0.cosMode = 2;
@@ -105,9 +109,12 @@ void Config::_showTxc(const Config::ControlConfig* cfg,
 
 void Config::show(const Config* cfg) {
     // General configuration
-    printf("   callsign    : %s\n", cfg->general.callSign);
-    printf("   pass        : %s\n", cfg->general.pass);
-    printf("   repeatmode  : %d\n", cfg->general.repeatMode);
+    printf("   callsign      : %s\n", cfg->general.callSign);
+    printf("   pass          : %s\n", cfg->general.pass);
+    printf("   repeatmode    : %d\n", cfg->general.repeatMode);
+    printf("   testmode      : %d\n", cfg->general.diagMode);
+    printf("   testtonefreq  : %.1f\n", cfg->general.diagFreq);
+    printf("   testtonelevel : %.1f\n", linearToDb(cfg->general.diagLevel));
     // Receiver configuration
     _showRx(&cfg->rx0, "R0");
     _showRx(&cfg->rx1, "R1");
