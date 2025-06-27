@@ -161,15 +161,15 @@ Restores the configuration to the factory defaults.
 #### show
 Displays the current configuration settings of the controller.
 
-#### tone (on | off)
+#### set testmode (on | off)
 Turns on or off a test tone that can be used for adjusting transmit audio levels.
 
-#### set tonelvl (level_db)
+#### set testtonelevel (level_db)
 Sets the level of the test tone.
 
 (level_db) is the audio level in dB relative to full scale. Default is -10dB.
 
-#### set tonefreq (freq_hz)
+#### set testtonefreq (freq_hz)
 Sets the frequency of the test tone.
 
 (freq_hz) The test tone frequency in Hertz.  Default is 1000.
@@ -208,20 +208,20 @@ Controls the carrier detect (COS) mode used by the radio.
 
 (radio) is either 0 or 1.
 
-(duration_ms) the length of time in milliseconds that the COS signal be on before it is considered active. Default is 50ms.
+(duration_ms) the length of time in milliseconds that the COS signal be on before it is considered active. Default is 25ms.
 
 #### set cosinactivetime (radio) (duration_ms)
 
 (radio) is either 0 or 1.
 
-(duration_ms) the length of time in milliseconds that the COS signal be off before it is considered inactive. Default is 50ms.
+(duration_ms) the length of time in milliseconds that the COS signal be off before it is considered inactive. Default is 25ms.
 
 #### set coslevel (radio) (level_db) 
 Used for soft COS detect only.
 
 (radio) is either 0 or 1.
 
-(level) is the audio level in dB relative to full scale used to trigger the soft COS.
+(level) is the audio level in dB relative to full scale used to trigger the soft COS. Default is -20dB.
 
 #### set rxtonemode (radio) (mode)
 
@@ -240,13 +240,13 @@ Controls the tone detect (CTCSS) mode used by the radio.
 
 (radio) is either 0 or 1.
 
-(duration_ms) the length of time in milliseconds that the CTCSS signal must be on before it is considered active.  Default is 50ms.
+(duration_ms) the length of time in milliseconds that the CTCSS signal must be on before it is considered active.  Default is 25ms.
 
 #### set rxtoneinactivetime (radio) (duration_ms)
 
 (radio) is either 0 or 1.
 
-(duration_ms) the length of time in milliseconds that the CTCSS signal be off before it is considered inactive. Default is 50ms.
+(duration_ms) the length of time in milliseconds that the CTCSS signal be off before it is considered inactive. Default is 25ms.
 
 #### set rxtonelevel (radio) (level_db) 
 
@@ -269,7 +269,7 @@ Used to make fine adjustments to the receive audio level.
 
 (radio) is either 0 or 1.
 
-(adj_db) The receive audio is amplified/attenuated by this value.
+(adj_db) The receive audio is amplified/attenuated by this value. Default is 0dB.
 
 #### set txtonemode (radio) (mode)
 
