@@ -236,6 +236,18 @@ GP27 - X
 GP28 - X
 ```
 
+Bring Up Test
+=============
+
+* Factory reset on the configuration
+* Set signal generator for 1Vpp
+* Adjust trimmers to show -10dB receive level on status (leaving headroom)
+* Change receive soft gain on both sides to validate proper functionality 
+* Turn on test tone, set to -10dB
+* Validate transmit level on status
+* Adjust trimmers to output 1Vpp
+* Change level of test tone, validate output
+
 Work In Process
 ===============
 Firmware

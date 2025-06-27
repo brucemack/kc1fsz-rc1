@@ -161,7 +161,7 @@ Restores the configuration to the factory defaults.
 #### show
 Displays the current configuration settings of the controller.
 
-#### set testmode (on | off)
+#### set testmode (0 | 1)
 Turns on or off a test tone that can be used for adjusting transmit audio levels.
 
 #### set testtonelevel (level_db)
