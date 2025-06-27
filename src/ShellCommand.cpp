@@ -62,6 +62,14 @@ void ShellCommand::process(const char* cmd) {
         else if (strcmp(tokens[0], "show") == 0) {
             Config::show(&_config);
         }
+        else if (strcmp(tokens[0], "log") == 0) {
+            _logTrigger();
+        }
+        else if (strcmp(tokens[0], "status") == 0) {
+            _statusTrigger();
+        }
+        else
+            printf(INVALID_COMMAND);
     }
     else if (tokenCount == 3) {
         if (strcmp(tokens[0], "set") == 0) {
@@ -107,6 +115,13 @@ void ShellCommand::process(const char* cmd) {
                     _config.rx0.cosLevel =  Config::dbToLinear(atof(tokens[3]));
                 else if (strcmp(tokens[2], "1") == 0)
                     _config.rx1.cosLevel = Config::dbToLinear(atof(tokens[3]));
+                else 
+                    printf(INVALID_COMMAND);                
+            else if (strcmp(tokens[1], "rxtonemode") == 0)
+                if (strcmp(tokens[2], "0") == 0)
+                    _config.rx0.toneMode = atoi(tokens[3]);
+                else if (strcmp(tokens[2], "1") == 0)
+                    _config.rx1.toneMode = atoi(tokens[3]);
                 else 
                     printf(INVALID_COMMAND);                
         else

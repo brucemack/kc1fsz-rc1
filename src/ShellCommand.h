@@ -20,6 +20,7 @@
 #ifndef _ShellCommand_h
 #define _ShellCommand_h
 
+#include <functional>
 #include "kc1fsz-tools/CommandShell.h"
 
 namespace kc1fsz {
@@ -29,14 +30,19 @@ class Config;
 class ShellCommand : public CommandSink {
 public:
  
-    ShellCommand(Config& config) 
-    :   _config(config) { }
+    ShellCommand(Config& config, 
+        std::function<void()> logTrigger, std::function<void()> statusTrigger) 
+    :   _config(config),
+        _logTrigger(logTrigger), 
+        _statusTrigger(statusTrigger) { }
 
     void process(const char* cmd);
 
 private:
 
     Config& _config;
+    std::function<void()> _logTrigger;
+    std::function<void()> _statusTrigger;
 };
 
 }

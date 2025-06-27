@@ -36,8 +36,12 @@ public:
         _tonePin.setActiveLow(mode == Rx::ToneMode::TONE_EXT_LOW);
     }
 
-    void setToneActiveTime(unsigned ms) { _toneDebouncer.setActiveTime(ms); }
-    void setToneInactiveTime(unsigned ms) { _toneDebouncer.setInactiveTime(ms); }
+    void setToneActiveTime(unsigned ms) { 
+        _toneDebouncer.setActiveTime(ms); 
+    }
+    void setToneInactiveTime(unsigned ms) { 
+        _toneDebouncer.setInactiveTime(ms); 
+    }
     void setToneLevel(float lvl) { _toneLevel = lvl; }
     void setToneFreq(float hz) { _toneFreq = hz; }
     void setGain(float lvl) { _gain = lvl; }

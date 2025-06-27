@@ -208,7 +208,6 @@ static void process_in_frame();
 // Status - A continuously updated live status page
 //
 enum UIMode { UIMODE_LOG, UIMODE_SHELL, UIMODE_STATUS };
-static UIMode uiMode = UIMode::UIMODE_LOG;
 
 // Used for integrating with the command shell
 class ShellOutput : public OutStream {
@@ -1097,8 +1096,8 @@ int main(int argc, const char** argv) {
     sleep_ms(500);
     gpio_put(LED_PIN, 0);
 
+    UIMode uiMode = UIMode::UIMODE_LOG;
     Log log(&clock);
-    uiMode = UIMode::UIMODE_LOG;
     log.setEnabled(true);
 
     log.info("W1TKZ Software Defined Repeater Controller");
@@ -1157,7 +1156,24 @@ int main(int argc, const char** argv) {
     int i = 0;
 
     ShellOutput shellOutput;
-    ShellCommand shellCommand(config);
+    ShellCommand shellCommand(config, 
+        // Log trigger
+        [&uiMode, &log]() {
+            uiMode = UIMode::UIMODE_LOG;
+            log.setEnabled(true);
+            log.info("Entered log mode");
+        },
+        // Status trigger
+        [&uiMode, &log]() {
+            // Clear off the status screen
+            printf("\033[2J");
+            // Hide cursor
+            printf("\033[?25l");
+            uiMode = UIMode::UIMODE_STATUS;
+            log.setEnabled(false);
+        }
+        );
+
     CommandShell shell;
     shell.setOutput(&shellOutput);
     shell.setSink(&shellCommand);
@@ -1192,7 +1208,6 @@ int main(int argc, const char** argv) {
                 printf("\033[?25l");
                 uiMode = UIMode::UIMODE_STATUS;
                 log.setEnabled(false);
-
             } else if (c == 'i') {
                 txCtl0.forceId();
                 txCtl1.forceId();
