@@ -124,6 +124,78 @@ void ShellCommand::process(const char* cmd) {
                     _config.rx1.toneMode = atoi(tokens[3]);
                 else 
                     printf(INVALID_COMMAND);                
+            else if (strcmp(tokens[1], "rxtonectivetime") == 0)
+                if (strcmp(tokens[2], "0") == 0)
+                    _config.rx0.toneActiveTime = atoi(tokens[3]);
+                else if (strcmp(tokens[2], "1") == 0)
+                    _config.rx1.toneActiveTime = atoi(tokens[3]);
+                else 
+                    printf(INVALID_COMMAND);
+            else if (strcmp(tokens[1], "rxtoneinactivetime") == 0)
+                if (strcmp(tokens[2], "0") == 0)
+                    _config.rx0.toneInactiveTime = atoi(tokens[3]);
+                else if (strcmp(tokens[2], "1") == 0)
+                    _config.rx1.toneInactiveTime = atoi(tokens[3]);
+                else 
+                    printf(INVALID_COMMAND);                
+            else if (strcmp(tokens[1], "rxtonelevel") == 0)
+                if (strcmp(tokens[2], "0") == 0)
+                    _config.rx0.toneLevel =  Config::dbToLinear(atof(tokens[3]));
+                else if (strcmp(tokens[2], "1") == 0)
+                    _config.rx1.toneLevel = Config::dbToLinear(atof(tokens[3]));
+                else 
+                    printf(INVALID_COMMAND);                
+            else if (strcmp(tokens[1], "rxtonefreq") == 0)
+                if (strcmp(tokens[2], "0") == 0)
+                    _config.rx0.toneFreq =  atof(tokens[3]);
+                else if (strcmp(tokens[2], "1") == 0)
+                    _config.rx1.toneFreq = atof(tokens[3]);
+                else 
+                    printf(INVALID_COMMAND);                
+            else if (strcmp(tokens[1], "rxgain") == 0)
+                if (strcmp(tokens[2], "0") == 0)
+                    _config.rx0.gain =  Config::dbToLinear(atof(tokens[3]));
+                else if (strcmp(tokens[2], "1") == 0)
+                    _config.rx1.gain = Config::dbToLinear(atof(tokens[3]));
+                else 
+                    printf(INVALID_COMMAND);                
+            else if (strcmp(tokens[1], "txtonemode") == 0)
+                if (strcmp(tokens[2], "0") == 0)
+                    _config.tx0.toneMode = atoi(tokens[3]);
+                else if (strcmp(tokens[2], "1") == 0)
+                    _config.tx1.toneMode = atoi(tokens[3]);
+                else 
+                    printf(INVALID_COMMAND);                
+            else if (strcmp(tokens[1], "txtonelevel") == 0)
+                if (strcmp(tokens[2], "0") == 0)
+                    _config.tx0.toneLevel =  Config::dbToLinear(atof(tokens[3]));
+                else if (strcmp(tokens[2], "1") == 0)
+                    _config.tx1.toneLevel = Config::dbToLinear(atof(tokens[3]));
+                else 
+                    printf(INVALID_COMMAND);                
+            else if (strcmp(tokens[1], "txtonefreq") == 0)
+                if (strcmp(tokens[2], "0") == 0)
+                    _config.tx0.toneFreq =  atof(tokens[3]);
+                else if (strcmp(tokens[2], "1") == 0)
+                    _config.tx1.toneFreq = atof(tokens[3]);
+                else 
+                    printf(INVALID_COMMAND);                
+            else if (strcmp(tokens[1], "timeouttime") == 0)
+                if (strcmp(tokens[2], "0") == 0)
+                    _config.txc0.timeoutTime = atoi(tokens[3]);
+                else if (strcmp(tokens[2], "1") == 0)
+                    _config.txc1.timeoutTime = atoi(tokens[3]);
+                else 
+                    printf(INVALID_COMMAND);                
+            else if (strcmp(tokens[1], "lockouttime") == 0)
+                if (strcmp(tokens[2], "0") == 0)
+                    _config.txc0.lockoutTime = atoi(tokens[3]);
+                else if (strcmp(tokens[2], "1") == 0)
+                    _config.txc1.lockoutTime = atoi(tokens[3]);
+                else 
+                    printf(INVALID_COMMAND);                
+
+
         else
             printf(INVALID_COMMAND);
     }

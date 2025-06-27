@@ -61,6 +61,7 @@ struct Config {
         uint32_t toneMode;
         float toneLevel;
         float toneFreq;
+        float gain;
     } tx0, tx1;
 
     struct ControlConfig {

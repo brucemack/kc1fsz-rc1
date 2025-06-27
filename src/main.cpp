@@ -167,8 +167,8 @@ static bool configChanged = false;
 
 static PicoClock clock;
 // Objects used for tone generation (CW, courtesy, PL, etc.)
-static ToneSynthesizer toneSynth0(FS_HZ, AUDIO_FADE_MS);
-static ToneSynthesizer toneSynth1(FS_HZ, AUDIO_FADE_MS);
+static ToneSynthesizer cwSynth0(FS_HZ, AUDIO_FADE_MS);
+static ToneSynthesizer cwSynth1(FS_HZ, AUDIO_FADE_MS);
 static ToneSynthesizer plSynth0(FS_HZ, AUDIO_FADE_MS);
 static ToneSynthesizer plSynth1(FS_HZ, AUDIO_FADE_MS);
 static AudioSourceControl audioSource0(clock, AUDIO_FADE_MS);
@@ -183,21 +183,6 @@ static float diagOn = false;
 static float diagScaleDb = -10.0;
 static float diagScaleLinear = pow(10, (diagScaleDb / 20)) * MAX_DAC_VALUE;
 static float diagFreqHz = 700.0;
-
-// Soft gain controls
-
-// Scale of tone vs full-scale. Per Dan, this should be around
-// -10dB of full-scale.
-static float toneGain_r0 = 0.33;
-// PL is 25% of tone
-static float plGain_r0 = 0.33 * 0.25;
-static float audioGain_r0 = 1.0;
-static float audioGain_t0 = 1.0;
-
-static float toneGain_r1 = 0.33;
-static float plGain_r1 = 0.33 * 0.25;
-static float audioGain_r1 = 1.0;
-static float audioGain_t1 = 1.0;
 
 static void process_in_frame();
 
@@ -311,8 +296,8 @@ static void process_in_frame() {
         float r0_sample = (float)(adc_data[j + 1] >> 8);     
 
         // Apply input soft gain immediately on receive
-        r0_sample *= audioGain_r0;
-        r1_sample *= audioGain_r1;
+        r0_sample *= config.rx0.gain;
+        r1_sample *= config.rx1.gain;
 
         // Hold history in circular buffer.
         in_history_r0[in_history_ptr] = r0_sample;
@@ -330,10 +315,10 @@ static void process_in_frame() {
         } 
         else {
             if (plSynth0.isActive()) {
-                r0_out += (MAX_DAC_VALUE * plGain_r0 * plSynth0.getSample());
+                r0_out += (MAX_DAC_VALUE * config.tx0.toneLevel * plSynth0.getSample());
             }
-            if (toneSynth0.isActive()) {
-                r0_out += (MAX_DAC_VALUE * toneGain_r0 * toneSynth0.getSample());
+            if (cwSynth0.isActive()) {
+                r0_out += (MAX_DAC_VALUE * config.txc0.idLevel * cwSynth0.getSample());
             } 
             if (audioSource0.getSource() == AudioSourceControl::Source::RADIO0) {
                 r0_out += (r0_sample * audioSource0.getFade());
@@ -348,10 +333,10 @@ static void process_in_frame() {
         } 
         else {
             if (plSynth1.isActive()) {
-                r1_out += (MAX_DAC_VALUE * plGain_r1 * plSynth1.getSample());
+                r1_out += (MAX_DAC_VALUE * config.tx1.toneLevel * plSynth1.getSample());
             }
-            if (toneSynth1.isActive()) {
-                r1_out += (MAX_DAC_VALUE * toneGain_r1 * toneSynth1.getSample());
+            if (cwSynth1.isActive()) {
+                r1_out += (MAX_DAC_VALUE * config.txc0.idLevel * cwSynth1.getSample());
             } 
             if (audioSource1.getSource() == AudioSourceControl::Source::RADIO0) {
                 r1_out += (r0_sample * audioSource1.getFade());
@@ -361,8 +346,8 @@ static void process_in_frame() {
         }
 
         // Apply soft gain just before transmitting
-        r0_out *= audioGain_t0;
-        r1_out *= audioGain_t1;
+        r0_out *= config.tx0.gain;
+        r1_out *= config.tx1.gain;
 
         // Convert to 32-bit padded with zeros on the right, per the PCM5100 datasheet.
         dac_buffer[j] = ((int32_t)r1_out) << 8;
@@ -1145,8 +1130,8 @@ int main(int argc, const char** argv) {
 
     StdRx rx1(clock, log, 1, R1_COS_PIN, R1_CTCSS_PIN, CourtesyToneGenerator::Type::FAST_DOWNCHIRP);
 
-    TxControl txCtl0(clock, log, tx0, toneSynth0, audioSource0);
-    TxControl txCtl1(clock, log, tx1, toneSynth1, audioSource1);
+    TxControl txCtl0(clock, log, tx0, cwSynth0, audioSource0);
+    TxControl txCtl1(clock, log, tx1, cwSynth1, audioSource1);
 
     txCtl0.setRx(0, &rx0);
     txCtl0.setRx(1, &rx1);
@@ -1192,9 +1177,12 @@ int main(int argc, const char** argv) {
             transferConfig(config, rx0, rx1, tx0, tx1, txCtl0, txCtl1);
             configChanged = false;
         }
-      
+
         int c = getchar_timeout_us(0);
         bool flash = flashTimer.poll();
+
+        //if (flash)
+        //    print("A\n");
 
         if (uiMode == UIMode::UIMODE_LOG) {
             if (c == 's') {

@@ -54,11 +54,11 @@ void Config::setFactoryDefaults(Config* cfg) {
     cfg->tx0.toneMode = 0;
     cfg->tx0.toneFreq = 0;
     cfg->tx0.toneLevel = dbToLinear(-16);
+    cfg->tx0.gain = 1.0;
     cfg->tx1.toneMode = 1;
     cfg->tx1.toneFreq = 88.5;
     cfg->tx1.toneLevel = dbToLinear(-16);
-
-    cfg->tx1 = cfg->tx0;
+    cfg->tx1.gain = 1.0;
 
     // Controller
     cfg->txc0.timeoutTime = 120 * 1000;
@@ -90,6 +90,7 @@ void Config::_showTx(const Config::TransmitConfig* cfg,
     printf("%s tonemode  : %d\n", pre, cfg->toneMode);
     printf("%s tonelevel  : %.1f\n", pre, linearToDb(cfg->toneLevel));
     printf("%s tonefreq  : %.1f\n", pre, cfg->toneFreq);
+    printf("%s gain  : %.1f\n", pre, linearToDb(cfg->gain));
 }
 
 void Config::_showTxc(const Config::ControlConfig* cfg,
