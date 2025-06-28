@@ -115,7 +115,7 @@ static volatile uint32_t dma_out_count = 0;
 #define DAC_BUFFER_ALIGN (DAC_BUFFER_SIZE * 4)
 // 4096-byte alignment is needed because we are using a DMA channel in ring mode
 // and all buffers must be aligned to a power of two boundary.
-// 256 samples * 2  words per sample * 4 bytes per word = 2048 bytes
+// 256 samples * 2 words per sample * 4 bytes per word = 2048 bytes
 static __attribute__((aligned(DAC_BUFFER_ALIGN))) uint32_t dac_buffer_ping[DAC_BUFFER_SIZE];
 static __attribute__((aligned(DAC_BUFFER_ALIGN))) uint32_t dac_buffer_pong[DAC_BUFFER_SIZE];
 
