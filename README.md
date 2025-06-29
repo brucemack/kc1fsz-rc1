@@ -106,13 +106,14 @@ More documentation:
 Credit/Thanks
 =============
 
-I've received help from a lot of smart people on this project.
+I've received help from a lot of smart people on this project who have been very generous with their time:
 
 * Dan Brown W1DAN, former president of the Wellesley Club.
 * Tom Kinahan N1CPE, trustee of the W1TKZ repeater system.
 * Leandra MacLennan AF1R
 * Steve Kondo K1STK
-* George Zafiropoulos KJ6VU
+* George Zafiropoulos KJ6VU. Among other things, George sells is own commercial repeater controllers.
+* Jim Aspinwall NO1PC.  Jim is very experienced with these things and has engineered/maintained several multi-site repeater systems. His [website is very interesting](https://www.no1pc.org/).
 
 Legal/License
 =============
@@ -272,7 +273,8 @@ Bring Up Test
 Work In Process
 ===============
 Firmware
-* Finish configuration/command interface
+* Address audio bandwidth issues (PL tone strip, audio BW limiting to prevent interference)
+* Implement emulation of the M7716 squelch chip.
 * Separate Morse ID from voice ID 
 * Implement polarity control PTT pins
 * DTMF decode and TX shutoff commands.
