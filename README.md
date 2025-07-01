@@ -152,6 +152,56 @@ From [Analog Devices application note AN-581](https://www.analog.com/en/resource
 
 A Zener should be chosen that has an operating voltage close to Vs/2. Resistor RZ needs to be selected to provide a high enough Zener current to operate the Zener at its stable rated voltage and to keep the Zener output noise low. It is also important to minimize power consumption (and heating) and to prolong the life of the Zener. As the op amp’s input current is essentially zero, it’s a good idea to choose a low power Zener. A 250 mW device is best but the more common 500 mW types are also acceptable. The ideal Zener current varies with each manufacturer but practical IZ levels between 5 mA (250 mW Zener) and 5 µA (500 mW Zener) are usually a good compromise for this application.
 
+Technical Notes on Decimation From 32K to 8K Audio
+--------------------------------------------------
+
+The PCM1804 ADC has a minimum sample rate of 32K.  In order to 
+reduce memory and CPU requirements we are going to down-sample
+the audio streams to 8K (decimation by 4). Therefore, most
+audio processing in the controller will run at 8K.
+
+Technical Notes on CTCSS Tone Elimination
+-----------------------------------------
+
+The received CTCSS/PL tone needs to be filtered out so that it 
+isn't repeated through the transmitter.  All of this is particularly
+important for cross-band repeaters where the *PL tone might 
+be different* on one side of the repeater than it is on the other.
+So "pass-through" CTCSS tone is not desired. If the CTCSS encoder 
+is enabled the appropriate tone will be synthesized and added
+back to the transmitted signal. 
+
+A [commercial HPF for CTCSS rejection](https://www.masterscommunications.com/products/filter/plf15.html) created by K3KKC and characterized in this
+[review](https://www.masterscommunications.com/products/filter/fl10-eval/fl10-evaluation.html) includes some specifications that can be 
+used to guide the design. This filter has a 350Hz 
+-3dB frequency and 30dB per octave of steepness.  So That's down 
+about -68dB at 50Hz.
+
+This is a software-defined controller, so 
+we are replicating this filter behavior using a digital FIR filter 
+that is synthesized using the "optimal" (Parks McClellan) algorithm. 
+I'm going to assume the transition band starts at 200 Hz (i.e. the 
+end of the stop band) and ends at 350 Hz (i.e. the start of the 
+pass band). 
+
+We can estimate the number of taps required to perform this
+filtering task 
+using the so-called "Harris Approximation" (see *Multirate Signal Processing for Communication Systems*, Fredric J. Harris, 2004, page 216, equation (8.16)).
+
+taps = (f<sub>s</sub> / Δf) * (dB<sub>att</sub> / 22)
+
+where dB<sub>att</sub> is the desired attenuation of the stopband
+and Δf is the desired width of the stop band. 
+
+Using a Δf of (375-200) = 175 Hz and a dB<sub>att</sub> of 
+-68dB, we end up with a requirement of about 141 taps. Unfortunately,
+it turns out that my [Parks McClellan implementation](https://github.com/brucemack/firpm-py) is limited to 127 taps, so we'll just assume
+that is close enough.  
+
+
+
+
+
 Relevant FCC Regulations
 ========================
 
