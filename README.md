@@ -202,7 +202,8 @@ and Δf is the desired width of the transition band.
 Using Δf of (375-200) = 175 Hz and dB<sub>att</sub> of 
 -68dB, we end up with a requirement of about 141 taps. Unfortunately,
 it turns out that my [Parks McClellan implementation](https://github.com/brucemack/firpm-py) is limited to 127 taps at the moment, so
-we'll just assume that is close enough.
+we'll just assume that is close enough. I'll fix that later
+if it seems like this matters.
 
 The group-delay of an FIR filter is approximately:
 
@@ -215,7 +216,8 @@ created by the PM algorithm created using Matplotlib:
 
 ![CTCSS Filter](docs/ctcss-filter-1.jpg)
 
-As a sanity check I ran a 200 Hz tone through that filter (amplitude 
+As a sanity check I ran a 200 Hz tone through the
+synthesized filter (amplitude 
 1.0) and plotted the output. The amplitude of the output is about 0.0025,
 or about -52dB, so things look pretty good on the low end of the
 transition band.
@@ -223,7 +225,7 @@ transition band.
 ![CTCSS Filter](docs/ctcss-filter-2.jpg)
 
 As another sanity check I ran a 350 Hz tone through the same
-filter and plotted tht output. The amplitude is about 0.9, or about 
+filter and plotted the output. The amplitude is about 0.9, or about 
 -0.9dB, so the high end of the transition is looking reasonable as
 well.
 
