@@ -89,8 +89,8 @@ be relevant in solar/battery installations.
 Hardware specs:
 
 * Microcontroller is the RP2350 running at 125 MHz.
-* Audio path is 24-bits at 32k samples/second. More than enough for 
-an analog FM repeater.
+* ADC/DACs run at 32k samples/second with 24-bits of
+resolution which is more than enough for an analog FM repeater.
 * Low-noise op amps are used for audio scaling (TLV9152).
 
 More documentation:
@@ -114,6 +114,11 @@ I've received help from a lot of smart people on this project who have been very
 * Steve Kondo K1STK
 * George Zafiropoulos KJ6VU. Among other things, George sells is own commercial repeater controllers.
 * Jim Aspinwall NO1PC.  Jim is very experienced with these things and has engineered/maintained several multi-site repeater systems. His [website is very interesting](https://www.no1pc.org/).
+
+Significant Update Log
+======================
+
+* 1-July-2025 - Technical notes on CTCSS elimination filter.
 
 Legal/License
 =============
@@ -195,12 +200,33 @@ and Δf is the desired width of the stop band.
 
 Using a Δf of (375-200) = 175 Hz and a dB<sub>att</sub> of 
 -68dB, we end up with a requirement of about 141 taps. Unfortunately,
-it turns out that my [Parks McClellan implementation](https://github.com/brucemack/firpm-py) is limited to 127 taps, so we'll just assume
-that is close enough.  
+it turns out that my [Parks McClellan implementation](https://github.com/brucemack/firpm-py) is limited to 127 taps at the moment, so
+we'll just assume that is close enough.
 
+The group-delay of an FIR filter is approximately:
 
+samples<sub>delay</sub> = (N - 1) / 2 
 
+So this filter introduces about 8ms of delay into the system.
 
+Here's a plot of the frequency response of the 127-tap filter
+created by the PM algorithm:
+
+![CTCSS Filter](docs/ctcss-filter-1.jpg)
+
+As a sanity check I ran a 200 Hz tone through that filter (amplitude 
+1.) and plotted the output. The amplitude of the output is around 0.0025,
+or about -52dB, so things look pretty good on the low end of the
+transition band.
+
+![CTCSS Filter](docs/ctcss-filter-2.jpg)
+
+As another sanity check I ran a 350 Hz tone through the same
+filter and plotted tht output. The amplitude is around 0.9, or about 
+-0.9dB, so the high end of the transition is looking reasonable as
+well.
+
+![CTCSS Filter](docs/ctcss-filter-3.jpg)
 
 Relevant FCC Regulations
 ========================
