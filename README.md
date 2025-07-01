@@ -168,11 +168,11 @@ audio processing in the controller will run at 8K.
 Technical Notes on CTCSS Tone Elimination
 -----------------------------------------
 
-The received CTCSS/PL tone needs to be filtered out so that it 
-isn't repeated through the transmitter.  All of this is particularly
+The received CTCSS/PL tone needs to be filtered away so that it 
+isn't repeated.  This is particularly
 important for cross-band repeaters where the *PL tone might 
-be different* on one side of the repeater than it is on the other.
-So "pass-through" CTCSS tone is not desired. If the CTCSS encoder 
+be different* on the two sides of the repeater.
+"Pass-through" CTCSS tone is not desired. If the CTCSS encoder 
 is enabled the appropriate tone will be synthesized and added
 back to the transmitted signal. 
 
@@ -215,7 +215,7 @@ created by the PM algorithm:
 ![CTCSS Filter](docs/ctcss-filter-1.jpg)
 
 As a sanity check I ran a 200 Hz tone through that filter (amplitude 
-1.) and plotted the output. The amplitude of the output is around 0.0025,
+1.0) and plotted the output. The amplitude of the output is around 0.0025,
 or about -52dB, so things look pretty good on the low end of the
 transition band.
 
