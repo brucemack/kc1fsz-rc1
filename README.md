@@ -176,14 +176,15 @@ be different* on the two sides of the repeater.
 is enabled the appropriate tone will be synthesized and added
 back to the transmitted signal on the way out.
 
-A [commercial HPF for CTCSS rejection](https://www.masterscommunications.com/products/filter/plf15.html) created by K3KKC and characterized in this
-[review](https://www.masterscommunications.com/products/filter/fl10-eval/fl10-evaluation.html) includes some specifications that can be 
+A [commercial high-pass filter for CTCSS rejection](https://www.masterscommunications.com/products/filter/plf15.html) created by K3KKC and characterized in this
+[review by WA1MIK](https://www.masterscommunications.com/products/filter/fl10-eval/fl10-evaluation.html) includes some specifications that can be 
 used to guide the design. This filter has a 350Hz 
 -3dB frequency and 30dB per octave of steepness.  That's down 
-about -68dB at 50Hz.
+about -68dB at 50Hz. There is a response curve provided
+in the WA1MIK article.
 
-This is a software-defined controller, so 
-we are replicating this filter behavior using a digital FIR filter 
+K3KKC's filter is analog, but this is a software-defined controller so 
+I am replicating this filter behavior using a digital FIR filter 
 that is synthesized using the "optimal" (Parks McClellan) algorithm. 
 I'm going to assume the transition band starts at 200 Hz (i.e. the 
 end of the stop band) and ends at 350 Hz (i.e. the start of the 
