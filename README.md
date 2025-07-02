@@ -234,6 +234,35 @@ well.
 The 127 tap filter should work fine for the purposes of CTCSS
 filtering.
 
+Technical Notes on Transmit Bandwidth Limit
+-------------------------------------------
+
+Technical Notes on Noise Squelch  
+--------------------------------
+
+Not all radios have access to a COS signal and some radios may 
+have inferior noise squelches. Jim NO1PC made me aware of an 
+interesting component used in the Motorola MICOR stations of 
+the 1970's to 
+address this technical challenge. The general goal of these 
+circuits is to identify the end of a transmission as 
+quickly as possible and mute the transmitter 
+before the "static crash" is broadcast. It turns out that 
+Motorola created a custom 
+IC called either the M7716 or the M6709, or sometimes 
+the SC7716 for this purpose.
+
+The Repeater Builder site [also has this article by WAØAUQ](https://www.repeater-builder.com/micor/micor-bi-level-squelch-circuit.html) that
+goes over the princples of this chip.
+
+The Repeater Builder site also [has a page by Robert W. Meister WA1MIK describing a reverse-engineering](https://www.repeater-builder.com/micor/m6709-info/m6709-info.html)
+of the chip which further quantifies the logic. From WA1MIK's
+analysis, a _"noise squelch systems must ignore signals in the voice frequency range of about 300 to 3400 Hz. The MICOR squelch is no exception. All of the high-pass filtering is designed to eliminate any voice energy and only look at the noise energy above about 5 kHz."_
+Conceptually, a "quieted" FM channel would contain most of its
+energy in the voice band, whereas noise is broadband. 
+
+
+
 Relevant FCC Regulations
 ========================
 
