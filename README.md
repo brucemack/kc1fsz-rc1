@@ -211,6 +211,12 @@ samples<sub>delay</sub> = (N - 1) / 2
 
 So this filter introduces about 8ms of delay into the system.
 
+For reasons that will be explained later in the noise squelch
+section, I created another stop band above 3kHz, so this filter
+is actually a band-pass filter from 350Hz to 3kHz. The important
+part here is the low-end of the audio range since that is 
+what is relevant to CTCSS tone elimination.
+
 Here's a plot of the frequency response of the 127-tap filter
 created by the PM algorithm created using Matplotlib:
 
@@ -231,7 +237,7 @@ well.
 
 ![CTCSS Filter](docs/ctcss-filter-3.jpg)
 
-The 127 tap filter should work fine for the purposes of CTCSS
+This 127 tap filter should work fine for the purposes of CTCSS
 filtering.
 
 Technical Notes on CTCSS Tone Detection
@@ -244,8 +250,8 @@ Technical Notes on Transmit Bandwidth Limit
 
 (To be written)
 
-Technical Notes on Noise Squelch  
---------------------------------
+Technical Notes on the Noise Squelch IC From Motorola
+-----------------------------------------------------
 
 Not all radios have access to a reliable COS signal and some 
 radios may have inferior noise squelches. There are a few 
@@ -274,7 +280,7 @@ it's behavior.
 
 Quoting from WA1MIK's analysis, a _"noise squelch systems must ignore signals in the voice frequency range of about 300 to 3400 Hz. All of the high-pass filtering is designed to eliminate any voice energy and only look at the noise energy above 
 about 5 kHz."_ Conceptually, a "quieted" FM channel would contain 
-most of its energy in the voice band, whereas noise is broadband. 
+most of its energy concentrated in the voice band, whereas noise is broadband. 
 
 And from W3KKC's article: _"If the received quality of the input 
 signal provides at least 20 dB quieting, (above 1 uV on properly 
@@ -283,7 +289,7 @@ shut-off, and no squelch tail. If the signal is below 20 dB
 quieting, (below 1 uV, or having some noise), there is a squelch 
 tail of 150 milliseconds, long enough so there is no audio 
 chopping under "flutter" conditions ..."_. The chart entitled "M6709 Squelch Tail Threshold" in the WA1MIK analysis article summarizes 
-this "bi-level" behavior on the squelch tail.
+this bi-level behavior on the squelch tail.
 
 There are a few things that I'm assuming from these articles, 
 although not explicitly stated:
@@ -299,14 +305,52 @@ the 10dB of quieting is the threshold for opening the squelch.
 * The articles use the term "hysteresis" when describing 
 the M7716's functionality. It's not explicitly stated where
 the hysteresis loop manifests itself. I am assuming that this
-is referring to the fact that the mute->unmute transition 
-is immediate but the unmute->mute 
+is referring to the fact that the mute to unmute transition 
+is immediate but the unmute to mute 
 transition is delayed by 150ms in the case that a <20dB quieted
 signal is lost.
 * For example, I am assuming that a transition from 9dB of 
 quieting to 21dB and back to 9dB
 would result in the squelch immediate opening and
 then immediately closing, without delay or asymmetry.
+* I am also assuming that if the signal goes above 10dB at any 
+time during
+the 150ms delay period that the delay counter is reset and
+will start to count down again once the signal dips below
+10dB of quieting again.
+
+Technical Notes on My Implementation of a Noise Detector
+--------------------------------------------------------
+
+Given the theory about the M7716 above, we need to have
+a measure of the noise energy present in an input signal.
+This is a place where having an overly-wide (32kHz) ADC 
+sampling rate is a good thing. 
+
+A high-pass filter is used to extract the energy above
+5kHz.  If the transition band of this filter starts 
+at 4kHz and ends at 6kHz and -30dB of attenuation is 
+sufficient, the Harris Approximation tells us that a 
+21-tap FIR should be sufficient.
+
+Technical Notes on My Implementation of Noise Squelch
+-----------------------------------------------------
+
+I am replicating the behavior of the M7716 in software.
+Here are some notes on the implementation.
+
+First, we need to measure the level of quieting of an incoming
+signal. We'll do this by computing the ratio of the energy 
+in the audio band to the energy in noise band. 
+
+20 * log(RMS<sub>audio_band</sub>/RMS<sub>noise_band</sub>)
+
+This calculation is done every 25ms using contemporaneous 
+blocks of 200 samples from the output of the CTCSS filter 
+and 200 samples from the output of the high-pass noise detector.
+
+When the S/N ration goes about 10dB a valid signal is detected.
+
 
 Relevant FCC Regulations
 ========================
