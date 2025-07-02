@@ -234,34 +234,79 @@ well.
 The 127 tap filter should work fine for the purposes of CTCSS
 filtering.
 
+Technical Notes on CTCSS Tone Detection
+---------------------------------------
+
+(To be written)
+
 Technical Notes on Transmit Bandwidth Limit
 -------------------------------------------
+
+(To be written)
 
 Technical Notes on Noise Squelch  
 --------------------------------
 
-Not all radios have access to a COS signal and some radios may 
-have inferior noise squelches. Jim NO1PC made me aware of an 
-interesting component used in the Motorola MICOR stations of 
-the 1970's to 
-address this technical challenge. The general goal of these 
-circuits is to identify the end of a transmission as 
-quickly as possible and mute the transmitter 
-before the "static crash" is broadcast. It turns out that 
-Motorola created a custom 
-IC called either the M7716 or the M6709, or sometimes 
-the SC7716 for this purpose.
+Not all radios have access to a reliable COS signal and some 
+radios may have inferior noise squelches. There are a few 
+ways to deal with this. Jim NO1PC made me aware of an 
+interesting component introduced in the Motorola MICOR stations of 
+the 1970's to address this challenge. 
 
-The Repeater Builder site [also has this article by WAØAUQ](https://www.repeater-builder.com/micor/micor-bi-level-squelch-circuit.html) that
-goes over the princples of this chip.
+The goal of these circuits is to identify the end of a 
+transmission as quickly as possible and squelch (mute) the 
+transmitter before the "static crash" is broadcast. If this
+detection can be made quickly enough we can avoid the need
+to create delayed versions of the receive audio stream.
 
-The Repeater Builder site also [has a page by Robert W. Meister WA1MIK describing a reverse-engineering](https://www.repeater-builder.com/micor/m6709-info/m6709-info.html)
-of the chip which further quantifies the logic. From WA1MIK's
-analysis, a _"noise squelch systems must ignore signals in the voice frequency range of about 300 to 3400 Hz. The MICOR squelch is no exception. All of the high-pass filtering is designed to eliminate any voice energy and only look at the noise energy above about 5 kHz."_
-Conceptually, a "quieted" FM channel would contain most of its
-energy in the voice band, whereas noise is broadband. 
+It turns out that Motorola created a custom IC to address
+this need.  The IC is called either the M7716 or the M6709, 
+or sometimes the SC7716. The IC implements something called
+"switched hysteresis squelch."
 
+The Repeater Builder site has a few different articles that 
+go into the details of this chip.
+* [This article by WAØAUQ](https://www.repeater-builder.com/micor/micor-bi-level-squelch-circuit.html) gives a good overview.
+* [This article by W3KKC](https://www.repeater-builder.com/micor/micor-bi-level-squelch-theory.html) also provides some theory.
+* [The most detailed article is by Robert W. Meister WA1MIK](https://www.repeater-builder.com/micor/m6709-info/m6709-info.html). Robert
+has done a reverse engineering of the chip in order to quantify 
+it's behavior.
 
+Quoting from WA1MIK's analysis, a _"noise squelch systems must ignore signals in the voice frequency range of about 300 to 3400 Hz ... All of the high-pass filtering is designed to eliminate any voice energy and only look at the noise energy above 
+about 5 kHz."_Conceptually, a "quieted" FM channel would contain 
+most of its energy in the voice band, whereas noise is broadband. 
+
+And from W3KKC's article: _"If the received quality of the input 
+signal provides at least 20 dB quieting, (above 1 uV on properly 
+working receiver), the IC's logic circuit gives immediate audio 
+shut-off, and no squelch tail. If the signal is below 20 dB 
+quieting, (below 1 uV, or having some noise), there is a squelch 
+tail of 150 milliseconds, long enough so there is no audio 
+chopping under "flutter" conditions ..."_. The chart entitled "M6709 Squelch Tail Threshold" in the WA1MIK analysis article summarizes 
+this "bi-level" behavior on the squelch tail.
+
+There are a few things that I'm assuming from these articles, 
+although not explicitly stated:
+
+* When the articles talk about "20dB of quieting," I'm pretty
+sure this is referring to a measurement of the ratio between 
+the voice-band energy (<4kHz) to the above-voice-band energy (>5kHz). Since there is always output coming from an FM discriminator, the 
+only way to determine
+if that discriminator output is a signal is to determine 
+when the noise part of the spectrum has quieted down sufficiently.
+* From the WA1MIK tail threshold chart, I am assuming that 
+the 10dB of quieting is the threshold for opening the squelch.
+* The articles use the term "hysteresis" when describing 
+the M7716's functionality. It's not explicitly stated where
+the hysteresis loop manifests itself. I am assuming that this
+is referring to the fact that the mute->unmute transition 
+is immediate but the unmute->mute 
+transition is delayed by 150ms in the case that a <20dB quieted
+signal is lost.
+* For example, I am assuming that a transition from 9dB of 
+quieting to 21dB and back to 9dB
+would result in the squelch immediate opening and
+then immediately closing, without delay or asymmetry.
 
 Relevant FCC Regulations
 ========================
