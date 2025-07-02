@@ -254,7 +254,7 @@ interesting component introduced in the Motorola MICOR stations of
 the 1970's to address this challenge. 
 
 The goal of these circuits is to identify the end of a 
-transmission as quickly as possible and squelch (mute) the 
+transmission as quickly as possible and to squelch (mute) the 
 transmitter before the "static crash" is broadcast. If this
 detection can be made quickly enough we can avoid the need
 to create delayed versions of the receive audio stream.
@@ -272,8 +272,8 @@ go into the details of this chip.
 has done a reverse engineering of the chip in order to quantify 
 it's behavior.
 
-Quoting from WA1MIK's analysis, a _"noise squelch systems must ignore signals in the voice frequency range of about 300 to 3400 Hz ... All of the high-pass filtering is designed to eliminate any voice energy and only look at the noise energy above 
-about 5 kHz."_Conceptually, a "quieted" FM channel would contain 
+Quoting from WA1MIK's analysis, a _"noise squelch systems must ignore signals in the voice frequency range of about 300 to 3400 Hz. All of the high-pass filtering is designed to eliminate any voice energy and only look at the noise energy above 
+about 5 kHz."_ Conceptually, a "quieted" FM channel would contain 
 most of its energy in the voice band, whereas noise is broadband. 
 
 And from W3KKC's article: _"If the received quality of the input 
