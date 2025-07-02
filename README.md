@@ -333,6 +333,11 @@ at 4kHz and ends at 6kHz and -30dB of attenuation is
 sufficient, the Harris Approximation tells us that a 
 21-tap FIR should be sufficient.
 
+This FIR filter is runs directly on the 32kHz sampled
+audio from the ADC. Every 25ms an RMS level is computed
+that is used for the noise squelch feature described
+below.
+
 Technical Notes on My Implementation of Noise Squelch
 -----------------------------------------------------
 
@@ -347,10 +352,11 @@ in the audio band to the energy in noise band.
 
 This calculation is done every 25ms using contemporaneous 
 blocks of 200 samples from the output of the CTCSS filter 
-and 200 samples from the output of the high-pass noise detector.
+and the RMS value from the high-pass noise detector. Remember
+that the CTCSS filter has a pass-band that goes from 350Hz to 3kHz, so 
+this filter gives good coverage of the audio band.
 
-When the S/N ration goes about 10dB a valid signal is detected.
-
+When the S/N ratio goes above 10dB a valid signal is detected.
 
 Relevant FCC Regulations
 ========================
