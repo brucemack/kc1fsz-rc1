@@ -194,7 +194,7 @@ Technical Notes on Decimation From 32k to 8k Audio
 The ADC runs at a sample rate of 32k.  In order to 
 reduce memory and CPU requirements the audio stream is down-sampled
 to 8k (decimation by 4). See flow diagram reference C and D. 
-Following the decimation, most
+Following the decimation,
 audio processing in the rest of the flow will run at 8k.
 
 This decimation happens in two ÷2 steps. Each decimation step
@@ -299,7 +299,7 @@ Technical Notes on CW Generator
 
 See flow diagram reference K.
 
-Envelope shaping is using to avoid high frequency glitches
+Envelope shaping is used to avoid high frequency glitches
 associated with on/off keying.
 
 Technical Notes on Voice Synthesis
@@ -310,7 +310,12 @@ See flow diagram reference K.
 To reduce storage, voice prompts are compressed using the 
 GSM 0610 full-rate CODEC. [I created a fixed-point implementation](https://github.com/brucemack/gsm-0610-codec) of 
 this CODEC as part of my [Echolink Implementation](https://github.com/brucemack/microlink). GSM 0610 runs at 8k so this 
-is a smooth integration.
+is a smooth integration. 
+
+One second of audio requires 8K of flash storage (640 byte
+frames transferred at 12.5 frames/second). About
+512K of flash has been allocated to voice storage, so 
+we've got room for about 60 seconds of recording.
 
 (More to be documented)
 
