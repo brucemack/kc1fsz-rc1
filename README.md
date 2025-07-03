@@ -155,8 +155,8 @@ From [Analog Devices application note AN-581](https://www.analog.com/en/resource
 
 A Zener should be chosen that has an operating voltage close to Vs/2. Resistor RZ needs to be selected to provide a high enough Zener current to operate the Zener at its stable rated voltage and to keep the Zener output noise low. It is also important to minimize power consumption (and heating) and to prolong the life of the Zener. As the op amp’s input current is essentially zero, it’s a good idea to choose a low power Zener. A 250 mW device is best but the more common 500 mW types are also acceptable. The ideal Zener current varies with each manufacturer but practical IZ levels between 5 mA (250 mW Zener) and 5 µA (500 mW Zener) are usually a good compromise for this application.
 
-Overview of Digital Signal Flow
--------------------------------
+Overview of Digital Audio Flow
+------------------------------
 
 This diagram shows the flow between one receiver and one
 transmitter. Keep in mind that multiple instances of 
@@ -312,14 +312,7 @@ GSM 0610 full-rate CODEC. [I created a fixed-point implementation](https://githu
 this CODEC as part of my [Echolink Implementation](https://github.com/brucemack/microlink). GSM 0610 runs at 8k so this 
 is a smooth integration.
 
-(More to follow on this)
-
-Technical Notes on Transmit Bandwidth Limit
--------------------------------------------
-
-See flow diagram reference M.
-
-(To be written)
+(More to be documented)
 
 Technical Notes on the Noise Squelch IC From Motorola
 -----------------------------------------------------
@@ -432,6 +425,16 @@ When the S/N ratio goes above 10dB a valid signal is detected.
 This threshold is configurable.
 
 See flow diagram reference E.
+
+Technical Notes on Transmit Bandwidth Limit
+-------------------------------------------
+
+See flow diagram reference M.
+
+It's important that transmit audio bandwidth be limited 
+to avoid interfering with adjacent channels.
+
+(More to be documented)
 
 Technical Notes on Audio Interpolation Up To 32k
 ------------------------------------------------
