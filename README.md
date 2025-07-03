@@ -129,15 +129,6 @@ The software for this project is published under the terms of [GNU GENERAL PUBLI
 Technical/Design Notes
 ======================
 
-Misc
-----
-
-Dan suggested that tones (ex: CWID) should be generated at a level of between
--14dB and -10dB of full DAC full scale.  A tone of -10dB down should scale 
-by 10<sup>(-10/20)</sup> = 0.32 linear scale. 
-
-The PL tone should be another -12dB down, or 0.32 * 0.25 = 0.08 linear scale.
-
 Typical Radio Audio Levels and Impedance 
 ----------------------------------------
 
@@ -292,6 +283,37 @@ See flow diagram reference G.
 
 (To be written)
 
+Technical Notes on CTCSS Tone Encoder
+-------------------------------------
+
+See flow diagram reference J.
+
+Dan suggested that tones (ex: CWID) should be generated at a level of between
+-14dB and -10dB of full DAC full scale.  A tone of -10dB down should scale 
+by 10<sup>(-10/20)</sup> = 0.32 linear scale. 
+
+The PL tone should be another -12dB down, or 0.32 * 0.25 = 0.08 linear scale.
+
+Technical Notes on CW Generator
+-------------------------------
+
+See flow diagram reference K.
+
+Envelope shaping is using to avoid high frequency glitches
+associated with on/off keying.
+
+Technical Notes on Voice Synthesis
+----------------------------------
+
+See flow diagram reference K.
+
+To reduce storage, voice prompts are compressed using the 
+GSM 0610 full-rate CODEC. [I created a fixed-point implementation](https://github.com/brucemack/gsm-0610-codec) of 
+this CODEC as part of my [Echolink Implementation](https://github.com/brucemack/microlink). GSM 0610 runs at 8k so this 
+is a smooth integration.
+
+(More to follow on this)
+
 Technical Notes on Transmit Bandwidth Limit
 -------------------------------------------
 
@@ -356,7 +378,7 @@ the M7716's functionality. It's not explicitly stated where
 the hysteresis loop manifests itself. I am assuming that this
 is referring to the fact that the mute to unmute transition 
 is immediate but the unmute to mute 
-transition is delayed by 150ms in the case that a <20dB quieted
+transition is delayed by 150ms (configurable) in the case that a <20dB quieted
 signal is lost.
 * For example, I am assuming that a transition from 9dB of 
 quieting to 21dB and back to 9dB
@@ -400,13 +422,14 @@ in the audio band to the energy in noise band.
 
 20 * log(RMS<sub>audio_band</sub>/RMS<sub>noise_band</sub>)
 
-This calculation is done every 25ms using contemporaneous 
-blocks of 200 samples from the output of the CTCSS filter 
+This calculation is done every 10ms using contemporaneous 
+blocks of samples from the output of the CTCSS filter 
 and the RMS value from the high-pass noise detector. Remember
 that the CTCSS filter has a pass-band that goes from 350Hz to 3kHz, so 
 this filter gives good coverage of the audio band.
 
 When the S/N ratio goes above 10dB a valid signal is detected.
+This threshold is configurable.
 
 See flow diagram reference E.
 
