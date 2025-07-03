@@ -25,7 +25,7 @@ will also enable direct integration of those modes at some point.
 
 Much of the hardware used in traditional analog repeater designs
 (analog cross-point switches, FPGAs, custom DTMF/CTCSS tone detection chips, 
-digital voice CODECs, voice delay modules, etc.) will not be necessary
+digital voice CODECs, voice delay modules, M7716 noise squelch ICs, etc.) will not be necessary
 if these functions can be performed in software.
 
 A [users guide is provided here](docs/users.md).
@@ -189,7 +189,7 @@ Technical Notes on Decimation From 32k to 8k Audio
 
 The ADC runs at a sample rate of 32k.  In order to 
 reduce memory and CPU requirements the audio stream is down-sampled
-to 8k (decimation by 4). See flow diagram reference B and C. 
+to 8k (decimation by 4). See flow diagram reference C and D. 
 Following the decimation, most
 audio processing in the rest of the flow will run at 8k.
 
