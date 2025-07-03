@@ -172,11 +172,11 @@ Technical Notes on Decimation From 32K to 8K Audio
 --------------------------------------------------
 
 The PCM1804 ADC has a minimum sample rate of 32K.  In order to 
-reduce memory and CPU requirements we are going to down-sample
-the audio streams to 8K (decimation by 4). Most
+reduce memory and CPU requirements the audio stream is down-sampled
+to 8K (decimation by 4). Most
 audio processing in the controller will run at 8K.
 
-Before the /4 decimation happens a LPF (Fc=4kHz) is used 
+Before the /4 decimation happens a low-pass filter (Fc=4kHz) is used 
 to band-limit the input audio.
 
 Technical Notes on CTCSS Tone Elimination
@@ -325,7 +325,7 @@ transition is delayed by 150ms in the case that a <20dB quieted
 signal is lost.
 * For example, I am assuming that a transition from 9dB of 
 quieting to 21dB and back to 9dB
-would result in the squelch immediate opening and
+would result in the squelch immediately opening and
 then immediately closing, without delay or asymmetry.
 * I am also assuming that if the signal goes above 10dB at any 
 time during
