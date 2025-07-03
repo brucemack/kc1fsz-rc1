@@ -53,6 +53,8 @@ and negative logic are supported.
 * An optically-isolated hardware PTT output for each radio.
 * Optional soft CTCSS (PL) tone encoding and decoding, with support 
 for independent tone frequencies for each transmitter/receiver.
+* Optional noise squelch using a bi-level system similar to 
+the Motorola M7716 IC.
 * CWID generation.
 * Configurable hang time.
 * Configurable courtesy tone generation.
@@ -112,8 +114,8 @@ I've received help from a lot of smart people on this project who have been very
 * Tom Kinahan N1CPE, trustee of the W1TKZ repeater system.
 * Leandra MacLennan AF1R
 * Steve Kondo K1STK
-* George Zafiropoulos KJ6VU. Among other things, George sells is own commercial repeater controllers.
-* Jim Aspinwall NO1PC.  Jim is very experienced with these things and has engineered/maintained several multi-site repeater systems. His [website is very interesting](https://www.no1pc.org/).
+* George Zafiropoulos KJ6VU. Among other things, George sells his own commercial repeater controllers.
+* Jim Aspinwall NO1PC.  Jim is very experienced with repeaters and has engineered/maintained several multi-site systems. His [website is very interesting](https://www.no1pc.org/).
 
 Significant Update Log
 ======================
