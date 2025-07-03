@@ -73,20 +73,14 @@ serial terminal provides a configuration shell and live display of the following
 
 Other things to know:
 
-* The audio input/output range is around 1.5Vpp into 600 ohms.
+* The audio input/output range is around 1.25Vpp into 600 ohms.
 * Hardware gain adjustments (pots) are used to calibrate dynamic range 
 during initial installation.
-* The audio path is about 10 kHz wide, which should be plenty for 
-an FM analog repeater system.
 * The controller runs on +12VDC power input.
 * A DB25 connection is used for radio interfaces.
 * Over-voltage protection is provided on the audio and logic inputs.
 * Over-voltage, reverse-polarity, and transient spike protection is provided
 on the power input.
-* During testing of the prototype board it was determined that the 
-controller consumes ~105mA when idling and ~135mA when repeating. These are
-fairly low current consumptions that indicate the the controller may 
-be relevant in solar/battery installations.
 
 Hardware specs:
 
@@ -94,6 +88,10 @@ Hardware specs:
 * ADC/DACs run at 32k samples/second with 24-bits of
 resolution which is more than enough for an analog FM repeater.
 * Low-noise op amps are used for audio scaling (TLV9152).
+* During testing of the prototype board it was determined that the 
+controller consumes ~105mA when idling and ~135mA when repeating. These are
+fairly low current consumptions that indicate the the controller may 
+be relevant in solar/battery installations.
 
 More documentation:
 
