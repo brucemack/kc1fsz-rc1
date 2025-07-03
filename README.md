@@ -220,7 +220,7 @@ I am replicating this filter behavior using a digital FIR filter
 that is synthesized using the "optimal" (Parks McClellan) algorithm. 
 I'm going to assume the transition band starts at 200 Hz (i.e. the 
 end of the stop band) and ends at 350 Hz (i.e. the start of the 
-pass band). 
+pass band). See flow diagram reference F.
 
 We can estimate the number of taps required to perform this
 filtering task 
@@ -244,7 +244,7 @@ samples<sub>delay</sub> = (N - 1) / 2
 So this filter introduces about 8ms of delay into the system.
 
 For reasons that will be explained later in the noise squelch
-section, I created another stop band above 3kHz, so this filter
+section, I added a stop band above 3kHz to this filter, so this 
 is actually a band-pass filter from 350Hz to 3kHz. The important
 part here is the low-end of the audio range since that is 
 what is relevant to CTCSS tone elimination.
@@ -272,13 +272,17 @@ well.
 This 127 tap filter should work fine for the purposes of CTCSS
 filtering.
 
-Technical Notes on CTCSS Tone Detection
----------------------------------------
+Technical Notes on CTCSS Tone Decoder
+-------------------------------------
+
+See flow diagram reference G.
 
 (To be written)
 
 Technical Notes on Transmit Bandwidth Limit
 -------------------------------------------
+
+See flow diagram reference M.
 
 (To be written)
 
@@ -360,13 +364,14 @@ This is a place where having an overly-wide (32kHz) ADC
 sampling rate is a good thing. 
 
 A high-pass filter is used to extract the energy above
-5kHz.  If the transition band of this filter starts 
+5kHz (see flow diagram reference B).  If the transition 
+band of this filter starts 
 at 4kHz and ends at 6kHz and -30dB of attenuation is 
 sufficient, the Harris Approximation tells us that a 
 21-tap FIR should be sufficient.
 
 This FIR filter is runs directly on the 32kHz sampled
-audio from the ADC. Every 25ms an RMS level is computed
+audio from the ADC. Every 10ms an RMS level is computed
 that is used for the noise squelch feature described
 below.
 
@@ -389,6 +394,34 @@ that the CTCSS filter has a pass-band that goes from 350Hz to 3kHz, so
 this filter gives good coverage of the audio band.
 
 When the S/N ratio goes above 10dB a valid signal is detected.
+
+See flow diagram reference E.
+
+Technical Notes on Audio Interpolation Up To 32k
+------------------------------------------------
+
+See flow diagram reference N. 8k audio needs to 
+be up-sampled to 32k before being passed to the DAC.
+
+(To be documented)
+
+Technical Notes on Digital to Analog Conversion
+-----------------------------------------------
+
+See flow diagram reference P.
+
+The TI PCM5100 is used for digital to analog conversion.
+This part has been chosen because it is easy to use,
+available, and easy to solder. The part supports a 
+wide range of conversion rates all the way down to 8k. However,
+the DAC is setup to convert at 32k since it is sharing 
+I2S clock lines with the ADC.
+
+Importantly, the DAC contains a low-pass reconstruction
+filter that runs at f<sub>s</sub> / 2.
+
+Testing has shown that DAC has sufficient low-end response
+to pass the frequencies needed to encode CTCSS/PL tones.
 
 Relevant FCC Regulations
 ========================
