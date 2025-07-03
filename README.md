@@ -129,20 +129,33 @@ The software for this project is published under the terms of [GNU GENERAL PUBLI
 Technical/Design Notes
 ======================
 
+Misc
+----
+
 Dan suggested that tones (ex: CWID) should be generated at a level of between
 -14dB and -10dB of full DAC full scale.  A tone of -10dB down should scale 
 by 10<sup>(-10/20)</sup> = 0.32 linear scale. 
 
 The PL tone should be another -12dB down, or 0.32 * 0.25 = 0.08 linear scale.
 
+Typical Radio Audio Levels and Impedance 
+----------------------------------------
+
+I got these comments from an experienced expert:
+
+> ... we usually run the internal audio at a nominal 1v p/p for full system deviation.  That seems to have worked fine.  At the edges you may need more of a voltage swing especially on the output depending on the transmitter you are driving but this covers 90%++ of the cases.
+
+> Discriminator / modulator audio inputs are never 600 Ohms.  The output impedance of the receiver is higher.  Often 5k to 10k Ohms, the modulator inputs are typically low impedance which is fine for an op amp output.  Both unbalanced.
+
 Op Amp Notes
 ------------
 
-* [TL072]() - Output to within +/- 1.5V (typ) of rail.
+* [TLV9152](https://www.ti.com/lit/ds/symlink/tlv9152.pdf?ts=1750522536760) - Suggested by Dan, output rail-to-rail, noise 10.5nV/RHz. This is the part that is in the current design.
+* [TL072]() - Output to within +/- 1.5V (typ) of rail. A good part,
+but very old. Used in initial prototypes.
 * [LMC660](https://www.ti.com/lit/ds/symlink/lmc662.pdf) - Used in SCOM-7K, output rail-to-rail, can drive +/- 18mA.  Characterized as 4.6 to 0.3 output swing with R<sub>L</sub> = 600 ohms. A quad device, not a good choice.
 * [TS952](https://www.st.com/content/ccc/resource/technical/document/datasheet/b8/ac/21/72/20/a7/4d/ea/CD00001338.pdf/files/CD00001338.pdf/jcr:content/translations/en.CD00001338.pdf) - Used in the SCOM 7330, output close to rail-to-rail with R<sub>L</sub> = 600 ohms.
 * [TLV2462](https://www.ti.com/lit/ds/symlink/tlv2462-q1.pdf?ts=1750512090542) - Output rail-to-rail, can drive +/- 80mA. Noise 11nV/RHz.
-* [TLV9152](https://www.ti.com/lit/ds/symlink/tlv9152.pdf?ts=1750522536760) - Suggested by Dan, output rail-to-rail, noise 10.5nV/RHz.
 
 Notes on Zener Biasing for Single Supply Op Amps
 ------------------------------------------------
