@@ -117,11 +117,6 @@ I've received help from a lot of smart people on this project who have been very
 * George Zafiropoulos KJ6VU. Among other things, George sells his own commercial repeater controllers.
 * Jim Aspinwall NO1PC.  Jim is very experienced with repeaters and has engineered/maintained several multi-site systems. His [website is very interesting](https://www.no1pc.org/).
 
-Significant Update Log
-======================
-
-* 1-July-2025 - Technical notes on CTCSS elimination filter.
-
 Legal/License
 =============
 
@@ -133,9 +128,6 @@ The software for this project is published under the terms of [GNU GENERAL PUBLI
 
 Technical/Design Notes
 ======================
-
-The ADC/DAC is 24-bit, so full scale runs from +/- 8,388,608. Audio sample rate
-is 16kHz.
 
 Dan suggested that tones (ex: CWID) should be generated at a level of between
 -14dB and -10dB of full DAC full scale.  A tone of -10dB down should scale 
@@ -170,16 +162,40 @@ any of the receivers.
 
 ![Flow Diagram](docs/flow.jpg)
 
-Technical Notes on Decimation From 32K to 8K Audio
+The letters in the diagram above will be referenced throughout.
+
+Technical notes on the ADC
+--------------------------
+
+The ADC is a TI PC1804 (Flow diagram ref A). This was selected 
+because of its simplicity,
+availability, and ease of soldering. This is a 24 bit converter
+so full scale runs from +/- 8,388,608. The digital interface 
+is I2S.
+
+The converter supports a range of conversion rates from 32k
+to 192k.  The lowest possible rate has been selected for this
+project.
+
+This converter IC has two built-in filters:
+* A low-pass
+anti-aliasing filter with a cutoff frequency of f<sub>s</sub>/2.
+* A high-pass filter just above 0Hz for DC removal. Testing
+has shown that this filter is sharp and doesn't attenuate
+the very low audio frequencies used for CTCSS/PL tones.
+
+Technical Notes on Decimation From 32k to 8k Audio
 --------------------------------------------------
 
-The PCM1804 ADC has a minimum sample rate of 32K.  In order to 
+The ADC runs at a sample rate of 32k.  In order to 
 reduce memory and CPU requirements the audio stream is down-sampled
-to 8K (decimation by 4). Most
-audio processing in the controller will run at 8K.
+to 8k (decimation by 4). See flow diagram reference B and C. 
+Following the decimation, most
+audio processing in the rest of the flow will run at 8k.
 
-Before the /4 decimation happens a low-pass filter (Fc=4kHz) is used 
-to band-limit the input audio.
+This decimation happens in two ÷2 steps. Each decimation step
+also includes a half-band LPF so the decimation has 
+the effect of band-limiting the audio to 4kHz.
 
 Technical Notes on CTCSS Tone Elimination
 -----------------------------------------
