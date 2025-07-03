@@ -112,7 +112,7 @@ I've received help from a lot of smart people on this project who have been very
 * Tom Kinahan N1CPE, trustee of the W1TKZ repeater system.
 * Leandra MacLennan AF1R
 * Steve Kondo K1STK
-* George Zafiropoulos KJ6VU. Among other things, George sells his own commercial repeater controllers.
+* George Zafiropoulos KJ6VU. Among other things, George [sells his own commercial repeater controllers](https://www.packtenna.com/repeaters.html#/). 
 * Jim Aspinwall NO1PC.  Jim is very experienced with repeaters and has engineered/maintained several multi-site systems. His [website is very interesting](https://www.no1pc.org/).
 
 Legal/License
@@ -146,8 +146,8 @@ but very old. Used in initial prototypes.
 * [TS952](https://www.st.com/content/ccc/resource/technical/document/datasheet/b8/ac/21/72/20/a7/4d/ea/CD00001338.pdf/files/CD00001338.pdf/jcr:content/translations/en.CD00001338.pdf) - Used in the SCOM 7330, output close to rail-to-rail with R<sub>L</sub> = 600 ohms.
 * [TLV2462](https://www.ti.com/lit/ds/symlink/tlv2462-q1.pdf?ts=1750512090542) - Output rail-to-rail, can drive +/- 80mA. Noise 11nV/RHz.
 
-Notes on Zener Biasing for Single Supply Op Amps
-------------------------------------------------
+Zener Biasing for Single Supply Op Amps
+---------------------------------------
 
 From [Analog Devices application note AN-581](https://www.analog.com/en/resources/app-notes/an-581.html):
 
@@ -166,8 +166,8 @@ any of the receivers.
 
 The letters in the diagram above will be referenced throughout.
 
-Technical notes on the ADC
---------------------------
+Analog to Digital Conversion
+----------------------------
 
 The ADC is a TI PC1804 (Flow diagram ref A). This was selected 
 because of its simplicity,
@@ -186,8 +186,8 @@ anti-aliasing filter with a cutoff frequency of f<sub>s</sub>/2.
 has shown that this filter is sharp and doesn't attenuate
 the very low audio frequencies used for CTCSS/PL tones.
 
-Technical Notes on Decimation From 32k to 8k Audio
---------------------------------------------------
+Decimation From 32k to 8k Audio
+-------------------------------
 
 The ADC runs at a sample rate of 32k.  In order to 
 reduce memory and CPU requirements the audio stream is down-sampled
@@ -199,8 +199,8 @@ This decimation happens in two ÷2 steps. Each decimation step
 also includes a half-band LPF so the decimation has 
 the effect of band-limiting the audio to 4kHz.
 
-Technical Notes on CTCSS Tone Elimination
------------------------------------------
+CTCSS Tone Elimination on Receive
+---------------------------------
 
 The received CTCSS/PL tone needs to be filtered away so that it 
 isn't repeated.  This is particularly
@@ -274,15 +274,15 @@ well.
 This 127 tap filter should work fine for the purposes of CTCSS
 filtering.
 
-Technical Notes on CTCSS Tone Decoder
--------------------------------------
+CTCSS Tone Decoder
+------------------
 
 See flow diagram reference G.
 
 (To be written)
 
-Technical Notes on CTCSS Tone Encoder
--------------------------------------
+CTCSS Tone Encoder
+------------------
 
 See flow diagram reference J.
 
@@ -292,16 +292,16 @@ by 10<sup>(-10/20)</sup> = 0.32 linear scale.
 
 The PL tone should be another -12dB down, or 0.32 * 0.25 = 0.08 linear scale.
 
-Technical Notes on CW Generator
--------------------------------
+CW Generator
+------------
 
 See flow diagram reference K.
 
 Envelope shaping is used to avoid high frequency glitches
 associated with on/off keying.
 
-Technical Notes on Voice Synthesis
-----------------------------------
+Voice Synthesis
+---------------
 
 See flow diagram reference K.
 
@@ -317,8 +317,8 @@ we've got room for about 60 seconds of recording.
 
 (More to be documented)
 
-Technical Notes on the Noise Squelch IC From Motorola
------------------------------------------------------
+Noise Squelch IC From Motorola
+------------------------------
 
 Not all radios have access to a reliable COS signal and some 
 radios may have inferior noise squelches. There are a few 
@@ -429,8 +429,25 @@ This threshold is configurable.
 
 See flow diagram reference E.
 
-Technical Notes on Transmit Bandwidth Limit
--------------------------------------------
+Technical Notes on De-emphasis and Pre-emphasis Filters
+-------------------------------------------------------
+
+Standard is 6dB per octave. Emphasize high frequency
+power on transmit to improve SNR. Undo this on receive. 
+
+(More work needed here)
+
+Differences in Radio Architecture
+---------------------------------
+
+Jim NO1PC shared this detail. I have not yet figured out 
+the practical implication of this in the filtering provided
+in the digital audio path:
+
+_"In some/many of those cases Rx audio is processed directly from the discriminator or quadrature detector so the RX audio interface stage needs to accommodate response tailoring, and the TX audio from controller directly interfaces to phase or FM modulators - each of which has to be treated differently."_
+
+Transmit Bandwidth Limit
+------------------------
 
 See flow diagram reference M.
 
@@ -439,16 +456,16 @@ to avoid interfering with adjacent channels.
 
 (More to be documented)
 
-Technical Notes on Audio Interpolation Up To 32k
-------------------------------------------------
+Audio Interpolation Up To 32k
+-----------------------------
 
 See flow diagram reference N. 8k audio needs to 
 be up-sampled to 32k before being passed to the DAC.
 
 (To be documented)
 
-Technical Notes on Digital to Analog Conversion
------------------------------------------------
+Digital to Analog Conversion
+----------------------------
 
 See flow diagram reference P.
 
