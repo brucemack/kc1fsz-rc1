@@ -157,13 +157,27 @@ From [Analog Devices application note AN-581](https://www.analog.com/en/resource
 
 A Zener should be chosen that has an operating voltage close to Vs/2. Resistor RZ needs to be selected to provide a high enough Zener current to operate the Zener at its stable rated voltage and to keep the Zener output noise low. It is also important to minimize power consumption (and heating) and to prolong the life of the Zener. As the op amp’s input current is essentially zero, it’s a good idea to choose a low power Zener. A 250 mW device is best but the more common 500 mW types are also acceptable. The ideal Zener current varies with each manufacturer but practical IZ levels between 5 mA (250 mW Zener) and 5 µA (500 mW Zener) are usually a good compromise for this application.
 
+Overview of Digital Signal Flow
+-------------------------------
+
+This diagram shows the flow between one receiver and one
+transmitter. Keep in mind that multiple instances of 
+this flow are running in parallel for each receiver/transmitter
+pair. Furthermore, transmit audio can select/mix from
+any of the receivers.
+
+![Flow Diagram](docs/flow.jpg)
+
 Technical Notes on Decimation From 32K to 8K Audio
 --------------------------------------------------
 
 The PCM1804 ADC has a minimum sample rate of 32K.  In order to 
 reduce memory and CPU requirements we are going to down-sample
-the audio streams to 8K (decimation by 4). Therefore, most
+the audio streams to 8K (decimation by 4). Most
 audio processing in the controller will run at 8K.
+
+Before the /4 decimation happens a LPF (Fc=4kHz) is used 
+to band-limit the input audio.
 
 Technical Notes on CTCSS Tone Elimination
 -----------------------------------------
