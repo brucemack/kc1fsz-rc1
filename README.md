@@ -23,7 +23,8 @@ provides a compact EchoLink implementation. Soon the SDRC and MicroLink
 systems will be integrated. Reverse-engineering of the D-Star/DMR protocols
 will also enable direct integration of those modes at some point. 
 
-Much of the hardware used in traditional analog repeater designs
+Much of the hardware used in traditional analog repeater controller 
+designs
 (analog cross-point switches, FPGAs, custom DTMF/CTCSS tone detection chips, 
 digital voice CODECs, voice delay modules, M7716 noise squelch ICs, etc.) will not be necessary
 if these functions can be performed in software.
@@ -39,9 +40,7 @@ Please reach out with any questions/suggestions.
 Capabilities
 ============
 
-The development is in process. The prototype is undergoing bench 
-testing at the moment. We plan to install it at our repeater site within the 
-next month.
+This repeater controller development is in process. The prototype is undergoing bench testing at the moment. We plan to install it at our W1TKZ repeater site within the next month.
 
 Key capabilities of the software so far:
 
@@ -55,7 +54,7 @@ and negative logic are supported.
 for independent tone frequencies for each transmitter/receiver.
 * Optional noise squelch using a bi-level system similar to 
 the Motorola M7716 IC.
-* CWID generation.
+* CW-ID generation.
 * Configurable hang time.
 * Configurable courtesy tone generation.
 * Timeout and lockout with configurable times.
@@ -73,7 +72,8 @@ serial terminal provides a configuration shell and live display of the following
 
 Other things to know:
 
-* The audio input/output range is around 1.25Vpp into 600 ohms.
+* The audio output range is around 1.25Vpp into 600 ohms.
+* The the receiver discriminator input is high impedance.
 * Hardware gain adjustments (pots) are used to calibrate dynamic range 
 during initial installation.
 * The controller runs on +12VDC power input.
@@ -199,7 +199,7 @@ This decimation happens in two ÷2 steps. Each decimation step
 also includes a half-band LPF so the decimation has 
 the effect of band-limiting the audio to 4kHz.
 
-CTCSS Tone Elimination on Receive
+Receiver CTCSS/PL Tone Filtering
 ---------------------------------
 
 The received CTCSS/PL tone needs to be filtered away so that it 
@@ -279,26 +279,44 @@ CTCSS Tone Decoder
 
 See flow diagram reference G.
 
-(To be written)
+This is a fairly straight-forward tone detection problem. The 
+digital [Goertzel algorithm](https://en.wikipedia.org/wiki/Goertzel_algorithm) is
+used to efficiently detect the configured tone in firmware.
+Configurable debounce times are used to prevent false triggers
+and false drops of the detector.
+
+The algorithm has been tested to ensure sharpness of the 
+detection filter. The filter was set to detect the PL 
+tone of 88.5 Hz (W1TZK UHF tone) and a range of tones (plus a 
+high level of additive white Gaussian noise) were played
+into the filter. The response is charted below. The two 
+CTCSS tones immediately adjacent to 88.5 Hz (85.4 Hz and 91.5 Hz) were 
+both about 
+-2.5dB down from the peak detection level. The detector
+quickly rolled down to below -10dB for tones further away from
+the 88.5 Hz target.
+
+![CTCSS Detection Filter](docs/ctcss-1.jpg)
 
 CTCSS Tone Encoder
 ------------------
 
 See flow diagram reference J.
 
-Dan suggested that tones (ex: CWID) should be generated at a level of between
--14dB and -10dB of full DAC full scale.  A tone of -10dB down should scale 
-by 10<sup>(-10/20)</sup> = 0.32 linear scale. 
+Dan suggested that the goal should be to create a PL tone modulated at about 10% total deviation.
 
-The PL tone should be another -12dB down, or 0.32 * 0.25 = 0.08 linear scale.
+If we assume that CW/courtesy tones are generated at a level of between
+-14dB and -10dB of full DAC full scale, the PL tone should be 
+another -12dB down, or 0.32 * 0.25 = 0.08 linear scale.
 
 CW Generator
 ------------
 
 See flow diagram reference K.
 
-Envelope shaping is used to avoid high frequency glitches
-associated with on/off keying.
+This component is used to general tones for CW-ID and the 
+courtesy tones. Envelope shaping is used to avoid high 
+frequency glitches associated with on/off keying.
 
 Voice Synthesis
 ---------------
