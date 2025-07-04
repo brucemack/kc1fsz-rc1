@@ -139,7 +139,7 @@ I got these comments from an experienced expert:
 Op Amp Notes
 ------------
 
-* [TLV9152](https://www.ti.com/lit/ds/symlink/tlv9152.pdf?ts=1750522536760) - Suggested by Dan, output rail-to-rail, noise 10.5nV/RHz. This is the part that is in the current design.
+* [TLV9152](https://www.ti.com/lit/ds/symlink/tlv9152.pdf?ts=1750522536760) - Suggested by Dan, output rail-to-rail. This is the part that is in the current design.
 * [TL072]() - Output to within +/- 1.5V (typ) of rail. A good part,
 but very old. Used in initial prototypes.
 * [LMC660](https://www.ti.com/lit/ds/symlink/lmc662.pdf) - Used in SCOM-7K, output rail-to-rail, can drive +/- 18mA.  Characterized as 4.6 to 0.3 output swing with R<sub>L</sub> = 600 ohms. A quad device, not a good choice.
