@@ -35,21 +35,21 @@ look a bit familiar to users of the SCOM-7000.
 
 | Pin | Function                | IO |
 |-----|-------------------------|----|
-| 1   | Radio 0 audio in        | I  |
+| 1   | Radio 0 audio in (10kΩ) | I  |
 | 2   | Radio 0 COS             | I  |
 | 3   | Radio 1 COS             | I  |
 | 4   | NC                      |    |
 | 5   | Radio 0 CTCSS           | I  |
 | 6   | Radio 1 CTCSS           | I  |
 | 7   | NC                      |    |
-| 8   | Radio 1 audio in        | I  |
+| 8   | Radio 1 audio in (10kΩ) | I  |
 | 9   | NC                      |    |
 | 10  | Radio 0 PTT             | O  |
 | 11  | Radio 1 PTT             | O  |
 | 12  | NC                      |    |
 | 13  | NC                      |    |
-| 14  | Radio 0 audio out       | O  |
-| 15  | Radio 1 audio out       | O  |
+| 14  | Radio 0 audio out (600Ω)| O  |
+| 15  | Radio 1 audio out (600Ω)| O  |
 | 16  | NC                      |    |
 | 17  | NC                      |    |
 | 18  | NC                      |    |

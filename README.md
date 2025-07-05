@@ -349,6 +349,7 @@ transmission as quickly as possible and to squelch (mute) the
 transmitter before the "static crash" is broadcast. If this
 detection can be made quickly enough we can avoid the need
 to create delayed versions of the receive audio stream.
+More on the topic of delay is provided in a later section.
 
 It turns out that Motorola created a custom IC to address
 this need.  The IC is called either the M7716 or the M6709, 
@@ -447,8 +448,52 @@ This threshold is configurable.
 
 See flow diagram reference E.
 
-Technical Notes on De-emphasis and Pre-emphasis Filters
--------------------------------------------------------
+Audio Delay
+-----------
+
+See flow diagram reference R.
+
+This seems to be a controversial topic. The 
+basic issue is that some of the logic control features
+that detect the end of a transmission (COS, CTCSS decode, etc)
+**may** have an inherent lag, leading to short burst of 
+tail noise between the time a repeater user un-keys and the
+time that the repeater transmitter is muted. Note that this lag
+isn't necessarily a software-induced problem; there are
+cases where the COS/CTCSS hardware outputs of receivers may 
+be lagged in their behavior. In theory a slight 
+delay in the receive audio path can allow
+the tail control logic to "get ahead" of the audio just
+enough to mute the (delayed) static crash before it reaches
+the transmitter.
+
+Some reviewers of my design
+have commented that any delay in the audio processing stream 
+is a huge problem, particularly in situations where repeater users
+are able to somehow hear themselves on the output side (ex: 
+cross-band repeater with a receiver in the vicinity?). However, 
+other reviewers have insisted that audio delay is the 
+most elegant way to create clean tails without any hint of static
+crash. So it seems like delay should be an option. 
+
+My implementation allocates 250ms of space, or 8000 bytes of 
+static memory for a digital delay line per receiver. This 
+delay is placed after the audio band-pass filter (reference F).
+The configurable transmit mixer (reference L) can select between
+the un-delayed audio from the audio band-pass filter or the 
+delayed audio from the delay line. The amount of delay that is
+introduced can also be configured on a per-receiver basis, so
+the 250ms is really a maximum delay.
+
+Importantly, all of the logic-oriented controls (soft COS, soft CTCSS 
+decode, soft noise squelch) process the **un-delayed audio**. This 
+is what allows the repeater logic to run ahead of the potential 
+static crashes. 
+
+Do what you think is right.
+
+De-emphasis and Pre-emphasis Filters
+------------------------------------
 
 Standard is 6dB per octave. Emphasize high frequency
 power on transmit to improve SNR. Undo this on receive. 
@@ -463,6 +508,9 @@ the practical implication of this in the filtering provided
 in the digital audio path:
 
 _"In some/many of those cases Rx audio is processed directly from the discriminator or quadrature detector so the RX audio interface stage needs to accommodate response tailoring, and the TX audio from controller directly interfaces to phase or FM modulators - each of which has to be treated differently."_
+
+The [Link Communications RLC Club Controller manual](http://s230753592.onlinehome.us/ftp/rlc-club/manuals/club_154.pdf) has some interesting
+description of audio interfacing around page 22. This is worth a study.
 
 Transmit Bandwidth Limit
 ------------------------
@@ -499,6 +547,38 @@ filter that runs at f<sub>s</sub> / 2.
 
 Testing has shown that DAC has sufficient low-end response
 to pass the frequencies needed to encode CTCSS/PL tones.
+
+Radio Connectors
+----------------
+
+I am currently using a DB25 female connector for the two-radio
+interface. The pins were chosen to match those of the 
+SCOM-7K for ease of integration with the W1TKZ site. 
+
+I've had a few people point out that it may be more convenient
+to use one connector (perhaps a DB9) per radio.  I notice
+that the Link Communications RLC Club controller does this.
+The Link Communications pins are as follows:
+
+* 1: Ground
+* 2: PL Input (from PL encoder)
+* 3: PTT Output (to the transmitter)
+* 4: Audio Output (to the transmitter) 600 ohm
+* 5: Audio Input (from the receiver) 10k ohm
+* 6: Ground
+* 7: COR (from the receiver)
+* 8: Ground
+* 9: Ground
+
+*NOTE: I am not using this connector the moment, this is
+just an illustration of a possible setup.*
+
+References
+==========
+
+[FM Noise Article](https://pa3fwm.nl/technotes/tn24-fm-noise.html)
+
+[Basic FM Capture Effect Article](https://www.cdt21.com/design_guide/fm-capture-effect/)
 
 Relevant FCC Regulations
 ========================
