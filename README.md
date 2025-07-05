@@ -414,13 +414,13 @@ This is a place where having an overly-wide (32kHz) ADC
 sampling rate is a good thing. 
 
 A high-pass filter is used to extract the energy above
-5kHz (see flow diagram reference B).  If the transition 
+5kHz (see flow diagram reference B). Assuming the transition 
 band of this filter starts 
 at 4kHz and ends at 6kHz and -30dB of attenuation is 
-sufficient, the Harris Approximation tells us that a 
-21-tap FIR should be sufficient.
+sufficient, the Harris Approximation tells us to use a 
+21-tap FIR filter.
 
-This FIR filter is runs directly on the 32kHz sampled
+This FIR filter runs directly on the 32kHz sampled
 audio from the ADC. Every 10ms an RMS level is computed
 that is used for the noise squelch feature described
 below.
