@@ -67,7 +67,7 @@ serial terminal provides a configuration shell and live display of the following
   - Push-to-talk (PTT) status
   - Receive/transmit audio level RMS and peak
 * (In development) Remote firmware update via LoRa connection.
-* (In development) <=1 second digital audio delay to avoid "static crashes."
+* (In development) <=250ms digital audio delay to avoid squelch tails.
 * Microcontroller uses a watchdog timer to limit the risk of lockup.
 
 Other things to know:
@@ -464,7 +464,7 @@ cases where the COS/CTCSS hardware outputs of receivers may
 be lagged in their behavior. In theory a slight 
 delay in the receive audio path can allow
 the tail control logic to "get ahead" of the audio just
-enough to mute the (delayed) static crash before it reaches
+enough to mute the (delayed) squelch tail before it reaches
 the transmitter.
 
 Some reviewers of my design
@@ -473,8 +473,8 @@ is a huge problem, particularly in situations where repeater users
 are able to somehow hear themselves on the output side (ex: 
 cross-band repeater with a receiver in the vicinity?). However, 
 other reviewers have insisted that audio delay is the 
-most elegant way to create clean tails without any hint of static
-crash. So it seems like delay should be an option. 
+most elegant way to create clean tails without any hint of 
+squelch tail. So it seems like delay should be an option. 
 
 My implementation allocates 250ms of space, or 8000 bytes of 
 static memory for a digital delay line per receiver. This 
@@ -488,7 +488,7 @@ the 250ms is really a maximum delay.
 Importantly, all of the logic-oriented controls (soft COS, soft CTCSS 
 decode, soft noise squelch) process the **un-delayed audio**. This 
 is what allows the repeater logic to run ahead of the potential 
-static crashes. 
+squelch tails. 
 
 Do what you think is right.
 
