@@ -41,9 +41,18 @@ public:
     static const unsigned FS = FS_ADC / 4;
     static const unsigned BLOCK_SIZE = BLOCK_SIZE_ADC / 4;
 
+    float getNoiseRms() const { return _noiseRms; }
+
 private:
 
     const unsigned _id;
+
+    static const unsigned FILTER_B_LEN = 41;
+    static const float FILTER_B[FILTER_B_LEN];
+    float _filtHistB[BLOCK_SIZE_ADC];
+    float _filtOutB[BLOCK_SIZE_ADC];
+
+    float _noiseRms;
 };
 
 }

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 
 // Radlib
 #include "util/dsp_util.h"
@@ -11,6 +12,10 @@ using namespace std;
 using namespace kc1fsz;
 using namespace radlib;
 
+static float db(float l) {
+    return 20.0 * log10(l);
+}
+
 int main(int argc, const char** argv) {
 
     AudioCore core0(0), core1(1);
@@ -19,11 +24,20 @@ int main(int argc, const char** argv) {
     unsigned test_blocks = test_in_len / AudioCore::BLOCK_SIZE_ADC;
 
     // Fill in the test audio
+    float ft = 3000;
     float test_in_0[test_in_len];
-    make_real_tone_f32(test_in_0, test_in_len, AudioCore::FS_ADC, 1000); 
+    make_real_tone_f32(test_in_0, test_in_len / 2, AudioCore::FS_ADC, 3000); 
+    make_real_tone_f32(test_in_0 + (test_in_len / 2), test_in_len / 2, AudioCore::FS_ADC, 8000); 
+
+    /*
+    ofstream os("out.txt");
+    for (unsigned i = 0; i < AudioCore::FS_ADC; i++)
+        os << test_in_0[i] << endl;
+    os.close();
+    */
 
     float test_in_1[test_in_len];
-    make_real_tone_f32(test_in_1, test_in_len, AudioCore::FS_ADC, 1000); 
+    make_real_tone_f32(test_in_1, test_in_len, AudioCore::FS_ADC, ft); 
 
     float* adc_in_0 = test_in_0;
     float* adc_in_1 = test_in_1;
@@ -47,6 +61,8 @@ int main(int argc, const char** argv) {
 
         adc_in_0 += AudioCore::BLOCK_SIZE_ADC;
         adc_in_1 += AudioCore::BLOCK_SIZE_ADC;
+
+        cout << block << " " << db(core0.getNoiseRms()) << endl;
     }
 
     return 0;
