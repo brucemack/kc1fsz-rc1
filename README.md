@@ -199,6 +199,15 @@ This decimation happens in two ÷2 steps. Each decimation step
 also includes a half-band LPF so the decimation has 
 the effect of band-limiting the audio to 4kHz.
 
+The design process for creating these half-band low-pass
+decimation filters is very standard. A [good short summary can be found in this article](https://www.dsprelated.com/showarticle/1113.php). The more detailed discussion can be found in section
+5.3 (first ed) of the Lyons book.
+
+The cut-off frequency of the first decimation is 8kHz and the 
+second is 4kHz.  However, the f<sub>s</sub> of the first 
+filter is twice of the second so the same filter coefficients
+can be used for both decimation steps.
+
 Receiver CTCSS/PL Tone Filtering
 ---------------------------------
 
