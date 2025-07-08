@@ -57,7 +57,7 @@ int main(int argc, const char** argv) {
     //generateWhiteNoise(test_in_len / 2, 1.0, test_in_0);
     //make_real_tone_f32(test_in_0, test_in_max, AudioCore::FS_ADC, ft); 
     //make_real_tone_f32(test_in_0 + (test_in_len / 2), test_in_len / 2, AudioCore::FS_ADC, ft); 
-    unsigned test_in_0_len = loadFromFile("./clip-1a.txt", test_in_0, test_in_max);
+    unsigned test_in_0_len = loadFromFile("./tests/clip-1.txt", test_in_0, test_in_max);
 
     /*
     ofstream os("out.txt");
@@ -81,6 +81,7 @@ int main(int argc, const char** argv) {
 
     ofstream os("tests/clip-1b.txt");
 
+    bool noiseSquelchEnabled = true;
     enum SquelchState { SQUELCHED, UNSQUELCHED, TAIL }
         squelchState = SquelchState::SQUELCHED;
     float lastSnr = 0;
@@ -151,7 +152,8 @@ int main(int argc, const char** argv) {
 
         // Write out block of audio
         for (unsigned i = 0; i < AudioCore::BLOCK_SIZE_ADC / 4; i++) {
-            if (squelchState != SquelchState::SQUELCHED) {
+            if (!noiseSquelchEnabled ||
+                squelchState != SquelchState::SQUELCHED) {
                 os << (int)(cross_out_0[i] * 32767.0) << endl;                
             } else {
                 os << 0 << endl;
