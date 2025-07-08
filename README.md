@@ -200,13 +200,15 @@ also includes a half-band LPF so the decimation has
 the effect of band-limiting the audio to 4kHz.
 
 The design process for creating these half-band low-pass
-decimation filters is very standard. A [good short summary can be found in this article](https://www.dsprelated.com/showarticle/1113.php). The more detailed discussion can be found in section
-5.3 (first ed) of the Lyons book.
+decimation filters is very standard. A detailed discussion 
+can be found in section 5.3 (first ed) of the Lyons DSP book.
 
 The cut-off frequency of the first decimation is 8kHz and the 
 second is 4kHz.  However, the f<sub>s</sub> of the first 
-filter is twice of the second so the same filter coefficients
-can be used for both decimation steps.
+filter is twice the second so the same filter coefficients
+can be used for both decimation steps. I am using a 21-tap 
+filter for this process because the transition doesn't need
+to be extremely sharp.
 
 Receiver CTCSS/PL Tone Filtering
 ---------------------------------
@@ -446,16 +448,36 @@ in the audio band to the energy in noise band.
 
 20 * log(RMS<sub>audio_band</sub>/RMS<sub>noise_band</sub>)
 
-This calculation is done every 10ms using contemporaneous 
-blocks of samples from the output of the CTCSS filter 
+This calculation is done every 8ms using contemporaneous 
+blocks of samples from the output of the band-pass filter 
 and the RMS value from the high-pass noise detector. Remember
 that the CTCSS filter has a pass-band that goes from 350Hz to 3kHz, so 
 this filter gives good coverage of the audio band.
 
 When the S/N ratio goes above 10dB a valid signal is detected.
-This threshold is configurable.
+This threshold is configurable. When the SNR goes below 10dB
+a timer is set which depends on how strong the signal was
+prior to threshold being crossed.
 
 See flow diagram reference E.
+
+Demonstration Files of My Noise Squelch Implementation
+------------------------------------------------------
+
+This is a work in process, but I've run a test audio clip
+through the implementation of the M7716 emulator to see how
+it works.  The clip is 7 seconds and consists of three parts:
+* 2 seconds of white noise
+* 3 second of voice audio
+* 2 seconds of white noise
+
+The input sound clip is here: [Sound 1a](docs/clip-1a.wav).
+
+This clip is passed through the controller firmware with the 
+noise squelch feature turned on and the threshold is set to 
+10dB.
+
+The resulting sound clip i here: [Sound 1b](docs/clip-1a.wav).
 
 Audio Delay
 -----------

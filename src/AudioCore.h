@@ -44,6 +44,10 @@ public:
     float getSignalRms() const { return _signalRms; }
     float getNoiseRms() const { return _noiseRms; }
 
+    float getSnr() const;
+    float getSnrAvg() const;
+    float getSnrMax() const;
+
 private:
 
     const unsigned _id;
@@ -64,6 +68,9 @@ private:
 
     float _noiseRms;
     float _signalRms;
+    const static unsigned SNR_HIST_SIZE = 8;
+    float _snrHist[SNR_HIST_SIZE];
+    unsigned _snrHistPtr = 0;
 };
 
 }

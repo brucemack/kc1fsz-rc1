@@ -53,11 +53,11 @@ int main(int argc, const char** argv) {
     }
  
     // Fill in the test audio
-    float ft = 7000;
+    float ft = 3000;
     //generateWhiteNoise(test_in_len / 2, 1.0, test_in_0);
-    make_real_tone_f32(test_in_0, test_in_max, AudioCore::FS_ADC, ft); 
+    //make_real_tone_f32(test_in_0, test_in_max, AudioCore::FS_ADC, ft); 
     //make_real_tone_f32(test_in_0 + (test_in_len / 2), test_in_len / 2, AudioCore::FS_ADC, ft); 
-    //unsigned test_in_0_len = loadFromFile("./clip-1.txt", test_in_0, test_in_max);
+    unsigned test_in_0_len = loadFromFile("./clip-1a.txt", test_in_0, test_in_max);
 
     /*
     ofstream os("out.txt");
@@ -79,6 +79,13 @@ int main(int argc, const char** argv) {
     float dac_out_0[AudioCore::BLOCK_SIZE_ADC];
     float dac_out_1[AudioCore::BLOCK_SIZE_ADC];
 
+    ofstream os("tests/clip-1b.txt");
+
+    enum SquelchState { SQUELCHED, UNSQUELCHED, TAIL }
+        squelchState = SquelchState::SQUELCHED;
+    float lastSnr = 0;
+    unsigned tailCount = 0;
+
     for (unsigned block = 0; block < test_blocks; block++) {
 
         // Cycle 0
@@ -94,8 +101,66 @@ int main(int argc, const char** argv) {
         
         float n_0 = db(core0.getNoiseRms());
         float s_0 = db(core0.getSignalRms());
-        cout << block << " " << s_0 << endl;
+        float snr = core0.getSnr();
+        //float snr = core0.getSnrMax();
+        //cout << block << " " << s_0 << " " << n_0 << endl;
+        //cout << block << " " << core0.getSnr() << " " << core0.getSnrAvg() << 
+        //" " << s_0 << " " << n_0 << endl;
+        //cout << n_0 << endl;
+        //os << s_0 << endl;
+        cout << block << " " << snr << endl;
+        //os << core0.getSnrMax() << endl;
+
+        // Calculate the noise squelch
+        if (squelchState == SquelchState::SQUELCHED) {
+            // Look for unsquelch
+            if (snr > 10) {
+                squelchState = SquelchState::UNSQUELCHED;
+            } 
+        }
+        else if (squelchState == SquelchState::TAIL) {
+            // Look for unsquelch
+            if (snr > 10) {
+                squelchState = SquelchState::UNSQUELCHED;
+            } 
+            else if (tailCount == 0) {
+                squelchState = SquelchState::SQUELCHED;
+            }
+            else {
+                tailCount--;
+            }
+        }
+        else if (squelchState == SquelchState::UNSQUELCHED) {
+            // If the SNR is good 
+            if (snr > 10) {
+            }
+            else {
+                squelchState = SquelchState::TAIL;
+                // If we dropping from a high number then 
+                // squelch immediately
+                if (lastSnr > 20) {
+                    tailCount = 18;
+                } 
+                else {
+                    tailCount = 4;
+                }
+            }
+        }
+
+        lastSnr = snr;
+
+        // Write out block of audio
+        for (unsigned i = 0; i < AudioCore::BLOCK_SIZE_ADC / 4; i++) {
+            if (squelchState != SquelchState::SQUELCHED) {
+                os << (int)(cross_out_0[i] * 32767.0) << endl;                
+            } else {
+                os << 0 << endl;
+            }
+        }
+
     }
+
+    os.close();
 
     return 0;
 }
