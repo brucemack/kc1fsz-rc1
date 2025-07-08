@@ -109,7 +109,8 @@ int main(int argc, const char** argv) {
         //" " << s_0 << " " << n_0 << endl;
         //cout << n_0 << endl;
         //os << s_0 << endl;
-        cout << block << " " << snr << endl;
+        if (snr <= 10)
+            cout << block << " " << s_0 << " " << n_0 << " " << snr << endl;
         //os << core0.getSnrMax() << endl;
 
         // Calculate the noise squelch

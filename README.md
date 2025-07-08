@@ -471,13 +471,24 @@ it works.  The clip is 7 seconds and consists of three parts:
 * 3 second of voice audio
 * 2 seconds of white noise
 
-The input sound clip is here: [Sound 1a](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/tests/clip-1a.wav).
+The original file was recorded at 32kHz to be consistent
+with the sampling rate of the ADC. Importantly, the 
+white noise is wide.
 
-This clip is passed through the controller firmware with the 
+The first sound clip is here: [Sound 1a](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/tests/clip-1a.wav). This
+is the audio sample played through the controller firmware 
+with the noise squelch feature disabled. 
+
+The second sound sound clip is here: [Sound 1b](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/tests/clip-1b.wav). This clip is passed through the controller firmware with the 
 noise squelch feature turned on and the threshold is set to 
-10dB.
+10dB. First 2 seconds is silence is heard (noise squelched effectively), then the 
+voice audio, then a quick tail (~24ms), and then silence.
 
-The resulting sound clip i here: [Sound 1b](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/tests/clip-1b.wav).
+More R&D is needed on the attack of the squelch. There is clearly a trade-off between how short the "tail" is and how many false-squelches happen 
+during the voice audio. In this demo there are about 
+3 false-squelches in places where the raw voice audio input has
+more energy above the 5kHz threshold being used by the 
+noise detector.  But this is a good start.
 
 Audio Delay
 -----------
