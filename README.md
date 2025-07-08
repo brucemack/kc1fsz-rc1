@@ -477,18 +477,21 @@ white noise is wide.
 
 The first sound clip is here: [Sound 1a](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/tests/clip-1a.wav). This
 is the audio sample played through the controller firmware 
-with the noise squelch feature disabled. 
+with the noise squelch feature disabled. As expected, you
+hear the noise.
 
-The second sound sound clip is here: [Sound 1b](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/tests/clip-1b.wav). This clip is passed through the controller firmware with the 
-noise squelch feature turned on and the threshold is set to 
-10dB. First 2 seconds is silence is heard (noise squelched effectively), then the 
-voice audio, then a quick tail (~24ms), and then silence.
+The second sound clip is here: [Sound 1b](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/tests/clip-1b.wav). This clip is passed through the controller firmware with the 
+noise squelch feature turned on with the SNR threshold set to 
+10dB. In the 2 seconds silence is heard (noise squelched effectively), then the 
+voice audio, then a quick tail (~24ms), and then silence
+as the squelch is closed again.
 
 More R&D is needed on the attack of the squelch. There is clearly a trade-off between how short the "tail" is and how many false-squelches happen 
 during the voice audio. In this demo there are about 
 3 false-squelches in places where the raw voice audio input has
-more energy above the 5kHz threshold being used by the 
-noise detector.  But this is a good start.
+most of its energy above the 5kHz threshold being used by the 
+noise detector.  But this is a good start and it shows the 
+potential of soft squelching.
 
 Audio Delay
 -----------
