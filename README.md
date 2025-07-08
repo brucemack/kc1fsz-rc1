@@ -471,13 +471,13 @@ it works.  The clip is 7 seconds and consists of three parts:
 * 3 second of voice audio
 * 2 seconds of white noise
 
-The input sound clip is here: [Sound 1a](docs/clip-1a.wav).
+The input sound clip is here: [Sound 1a](tests/clip-1a.wav).
 
 This clip is passed through the controller firmware with the 
 noise squelch feature turned on and the threshold is set to 
 10dB.
 
-The resulting sound clip i here: [Sound 1b](docs/clip-1a.wav).
+The resulting sound clip i here: [Sound 1b](tests/clip-1a.wav).
 
 Audio Delay
 -----------
