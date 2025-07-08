@@ -41,18 +41,29 @@ public:
     static const unsigned FS = FS_ADC / 4;
     static const unsigned BLOCK_SIZE = BLOCK_SIZE_ADC / 4;
 
+    float getSignalRms() const { return _signalRms; }
     float getNoiseRms() const { return _noiseRms; }
 
 private:
 
     const unsigned _id;
+    // These history buffers are used for FIR filter 
+    // evaluation at the various sample rates
+    float _hist32k[BLOCK_SIZE_ADC];
+    float _hist16k[BLOCK_SIZE_ADC / 2];
+    float _hist8k[BLOCK_SIZE_ADC / 4];
 
     static const unsigned FILTER_B_LEN = 41;
     static const float FILTER_B[FILTER_B_LEN];
-    float _filtHistB[BLOCK_SIZE_ADC];
     float _filtOutB[BLOCK_SIZE_ADC];
 
+    static const unsigned FILTER_C_LEN = 19;
+    static const float FILTER_C[FILTER_C_LEN];
+    float _filtOutC[BLOCK_SIZE_ADC / 2];
+    float _filtOutD[BLOCK_SIZE_ADC / 4];
+
     float _noiseRms;
+    float _signalRms;
 };
 
 }

@@ -53,11 +53,11 @@ int main(int argc, const char** argv) {
     }
  
     // Fill in the test audio
-    //float ft = 3000;
+    float ft = 7000;
     //generateWhiteNoise(test_in_len / 2, 1.0, test_in_0);
-    //make_real_tone_f32(test_in_0, test_in_len / 2, AudioCore::FS_ADC, 3000); 
+    make_real_tone_f32(test_in_0, test_in_max, AudioCore::FS_ADC, ft); 
     //make_real_tone_f32(test_in_0 + (test_in_len / 2), test_in_len / 2, AudioCore::FS_ADC, ft); 
-    unsigned test_in_0_len = loadFromFile("./clip-1.txt", test_in_0, test_in_max);
+    //unsigned test_in_0_len = loadFromFile("./clip-1.txt", test_in_0, test_in_max);
 
     /*
     ofstream os("out.txt");
@@ -66,7 +66,7 @@ int main(int argc, const char** argv) {
     os.close();
     */
 
-    float ft = 3000;
+    //float ft = 3000;
     make_real_tone_f32(test_in_1, test_in_max, AudioCore::FS_ADC, ft); 
 
     float* adc_in_0 = test_in_0;
@@ -91,8 +91,10 @@ int main(int argc, const char** argv) {
 
         adc_in_0 += AudioCore::BLOCK_SIZE_ADC;
         adc_in_1 += AudioCore::BLOCK_SIZE_ADC;
-
-        cout << block << " " << db(core0.getNoiseRms()) << endl;
+        
+        float n_0 = db(core0.getNoiseRms());
+        float s_0 = db(core0.getSignalRms());
+        cout << block << " " << s_0 << endl;
     }
 
     return 0;
