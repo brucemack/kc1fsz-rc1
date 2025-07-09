@@ -313,21 +313,22 @@ Demonstration Files of My CTCSS Detector Implementation
 -------------------------------------------------------
 
 I've created a demonstration of the CTCSS decoder in 
-action. I've made a 7 second sound clip that consists of 
+action. I've made a 7 second sample clip that consists of 
 three parts:
 * 2 seconds of white noise
 * 3 second of voice audio with a 134 Hz PL tone added (-20dB)
 * 2 seconds of white noise
 
 The first sound clip is here: [Sound 2](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-2.wav). This
-is the audio sample played through the controller firmware 
+is the sample played through the controller firmware 
 with the CTCSS decoder feature disabled. As expected, you
-hear the noise.
+hear the noise before and after the voice audio - the 
+CTCSS tone is ignored.
 
 The second sound clip is here: [Sound 2b-ctcss](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-2b-ctcss.wav). This
-is the audio sample played through the controller firmware 
+is the sample played through the controller firmware 
 with the CTCSS decoder enabled. Here the noise is blocked
-except for a short tail at the end. The decoder takes about
+except for a short tail at the end of the voice. The decoder takes about
 32ms (around 4 cycles of the PL tone) to determine that 
 the tone has stopped.
 
@@ -336,8 +337,8 @@ If you listen closely to this clip you can also here the
 HPF filter is not enabled in this test.
 
 The third sound clip is here: [Sound 2b](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-2b.wav). This
-is the audio sample played through the controller firmware 
-with the CTCSS decoder enabled and the CTCSS HPF filter enabled. Here the noise is blocked and the PL tone is filtered out.
+is the sample played through the controller firmware 
+with the CTCSS decoder enabled **and** the CTCSS HPF filter enabled. Here the noise is blocked and the PL tone is filtered out.
 This is close to what we would expect a "real" system to 
 sound like.
 
