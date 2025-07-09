@@ -48,6 +48,9 @@ public:
     float getSnrAvg() const;
     float getSnrMax() const;
 
+    void setCtcssFreq(float hz);
+    float getCtcssMag() const { return _ctcssMag; }
+
 private:
 
     const unsigned _id;
@@ -71,6 +74,14 @@ private:
     const static unsigned SNR_HIST_SIZE = 8;
     float _snrHist[SNR_HIST_SIZE];
     unsigned _snrHistPtr = 0;
+
+    // Used for CTCSS detection
+    float _ctcssFreq = 123;
+    float _gz1 = 0, _gz2 = 0;
+    float _gcw, _gsw, _gc;
+    float _ctcssMag = 0;
+    unsigned _ctcssBlock = 0;
+    unsigned _ctcssBlocks = 0;
 };
 
 }

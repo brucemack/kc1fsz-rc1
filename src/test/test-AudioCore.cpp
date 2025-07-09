@@ -42,6 +42,8 @@ unsigned loadFromFile(const char* fn, float* target,
 int main(int argc, const char** argv) {
 
     AudioCore core0(0), core1(1);
+    core0.setCtcssFreq(134);
+    core1.setCtcssFreq(88.5);
 
     const unsigned test_in_max = AudioCore::FS_ADC * 7;
     const unsigned test_blocks = test_in_max / AudioCore::BLOCK_SIZE_ADC;
@@ -53,20 +55,13 @@ int main(int argc, const char** argv) {
     }
  
     // Fill in the test audio
-    float ft = 3000;
+    float ft = 134;
     //generateWhiteNoise(test_in_len / 2, 1.0, test_in_0);
-    //make_real_tone_f32(test_in_0, test_in_max, AudioCore::FS_ADC, ft); 
+    //make_real_tone_f32(test_in_0, test_in_max, AudioCore::FS_ADC, ft, 1.0); 
     //make_real_tone_f32(test_in_0 + (test_in_len / 2), test_in_len / 2, AudioCore::FS_ADC, ft); 
-    unsigned test_in_0_len = loadFromFile("./tests/clip-1.txt", test_in_0, test_in_max);
+    unsigned test_in_0_len = loadFromFile("./tests/clip-2.txt", test_in_0, test_in_max);
 
-    /*
-    ofstream os("out.txt");
-    for (unsigned i = 0; i < AudioCore::FS_ADC; i++)
-        os << test_in_0[i] << endl;
-    os.close();
-    */
-
-    //float ft = 3000;
+    ft = 88.5;
     make_real_tone_f32(test_in_1, test_in_max, AudioCore::FS_ADC, ft); 
 
     float* adc_in_0 = test_in_0;
@@ -79,11 +74,11 @@ int main(int argc, const char** argv) {
     float dac_out_0[AudioCore::BLOCK_SIZE_ADC];
     float dac_out_1[AudioCore::BLOCK_SIZE_ADC];
 
-    ofstream os("tests/clip-1b.txt");
+    ofstream os("tests/clip-2b.txt");
 
     bool noiseSquelchEnabled = true;
-    enum SquelchState { SQUELCHED, UNSQUELCHED, TAIL }
-        squelchState = SquelchState::SQUELCHED;
+    enum SquelchState { OPEN, CLOSED, TAIL }
+        squelchState = SquelchState::CLOSED;
     float lastSnr = 0;
     unsigned tailCount = 0;
 
@@ -109,58 +104,66 @@ int main(int argc, const char** argv) {
         //" " << s_0 << " " << n_0 << endl;
         //cout << n_0 << endl;
         //os << s_0 << endl;
-        if (snr <= 10)
-            cout << block << " " << s_0 << " " << n_0 << " " << snr << endl;
+        //if (snr <= 10)
+        //    cout << block << " " << s_0 << " " << n_0 << " " << snr << endl;
         //os << core0.getSnrMax() << endl;
 
+        double plDb = db(core0.getCtcssMag());
+  
+        cout << block << " " << snr << " " << plDb << endl;
+
+        //bool threshold = snr > 10;
         // Calculate the noise squelch
-        if (squelchState == SquelchState::SQUELCHED) {
+        bool threshold = (plDb > -22);
+        if (squelchState == SquelchState::CLOSED) {
             // Look for unsquelch
-            if (snr > 10) {
-                squelchState = SquelchState::UNSQUELCHED;
+            if (threshold) {
+                squelchState = SquelchState::OPEN;
             } 
         }
         else if (squelchState == SquelchState::TAIL) {
-            // Look for unsquelch
-            if (snr > 10) {
-                squelchState = SquelchState::UNSQUELCHED;
-            } 
-            else if (tailCount == 0) {
-                squelchState = SquelchState::SQUELCHED;
+            // In this case the tail is interrupted 
+            // and we go back into normal unsquelched mode.
+            if (threshold) {
+                squelchState = SquelchState::OPEN;
             }
+            // Here the tail has ended 
+            else if (tailCount == 0) {
+                squelchState = SquelchState::CLOSED;
+            }
+            // Count down waiting for the tail to end
             else {
                 tailCount--;
             }
         }
-        else if (squelchState == SquelchState::UNSQUELCHED) {
-            // If the SNR is good 
-            if (snr > 10) {
+        else if (squelchState == SquelchState::OPEN) {
+            if (threshold) {
             }
+            // Here is where we start the tail
             else {
                 squelchState = SquelchState::TAIL;
                 // If we dropping from a high number then 
                 // squelch immediately
-                if (lastSnr > 20) {
-                    tailCount = 18;
-                } 
-                else {
-                    tailCount = 4;
-                }
+                //if (lastSnr > 20) {
+                //    tailCount = 18;
+                //} 
+                //else {
+                    tailCount = 0;
+                //}
             }
         }
-
         lastSnr = snr;
 
         // Write out block of audio
         for (unsigned i = 0; i < AudioCore::BLOCK_SIZE_ADC / 4; i++) {
             if (!noiseSquelchEnabled ||
-                squelchState != SquelchState::SQUELCHED) {
-                os << (int)(cross_out_0[i] * 32767.0) << endl;                
+                squelchState != SquelchState::CLOSED) {
+                os << (int)(cross_out_0[i] * 32767.0) << endl; 
+                //os <<                cross_out_0[i] << endl;
             } else {
                 os << 0 << endl;
             }
         }
-
     }
 
     os.close();

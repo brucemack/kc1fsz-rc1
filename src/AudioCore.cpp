@@ -147,18 +147,38 @@ void AudioCore::cycle0(const float* adc_in, float* cross_out) {
     }
     
     // Work on the 8kHz samples
+    float ctcssTotal = 0;
+    
     for (unsigned i = 0; i < BLOCK_SIZE_ADC / 4; i++) {
         
+        float s = _filtOutD[i];
+
         // Build the history that the FIR filters will use
-        _hist8k[i] = _filtOutD[i];
+        _hist8k[i] = s;
 
         // BPF
         // TODO: TEMP
-        cross_out[i] = _hist8k[i];
+        cross_out[i] = s;
 
         // CTCSS decode
+        float z0 = s + _gc * _gz1 - _gz2;
+        _gz2 = _gz1;
+        _gz1 = z0;
 
         // DTMF decode        
+    }
+
+    // Look to see if we can update the CTCSS estimation
+    if (++_ctcssBlock == _ctcssBlocks) {
+        float gi = _gcw * _gz1 - _gz2;
+        float gq = _gsw * _gz1;
+        _ctcssMag = sqrt(gi * gi + gq * gq);
+        // Scale down by half of the sample count
+        _ctcssMag /= (float)(_ctcssBlocks * BLOCK_SIZE / 2.0);
+        // Reset for the next block
+        _gz1 = 0;
+        _gz2 = 0;
+        _ctcssBlock = 0;
     }
 
     // Compute noise RMS
@@ -220,6 +240,18 @@ void AudioCore::cycle1(const float** cross_in, float* dac_out) {
     // LPF 2.3kHz [M]
 
     // Interpolation *4 [N]
+}
+
+void AudioCore::setCtcssFreq(float hz) {
+    _ctcssFreq = hz;
+    _ctcssBlocks = 4;
+    _ctcssBlock = 0;
+    float gw =  2.0 * 3.1415926 * hz / (float)FS;
+    _gcw = cos(gw);
+    _gsw = sin(gw);
+    _gc = 2.0 * _gcw;
+    _gz1 = 0;
+    _gz2 = 0;
 }
 
 }

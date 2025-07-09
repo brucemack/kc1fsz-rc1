@@ -25,12 +25,12 @@ def filt1(signal0, ft1):
     g_mag = math.sqrt(g_i * g_i + g_q * g_q)
     return g_mag
 
-
 # Simulate a signal being filtered
 samples = 1000
 t = np.linspace(0, samples, samples, endpoint=False)
-ft0 = 88.5
-a0 = 1
+
+ft0 = 134
+a0 = 7
 omega0 = 2.0 * pi * ft0 / fs
 signal0 = a0 * np.sin(omega0 * t)
 
@@ -40,15 +40,18 @@ mean1 = 0  # Center of the distribution
 stddev1 = 0.5 * 0.707 # Standard deviation (spread of the noise)#
 # Generate Gaussian white noise
 signal1 = np.random.normal(loc=mean1, scale=stddev1, size=len(t))
-signal2 = signal0 + signal1
+#signal2 = signal0 + signal1
+signal2 = signal0
 
 # Try a range of frequencies to see which match the best.
 result = []
 f0 = np.linspace(50, 200, 300, endpoint=False)
 for f in f0:
+    # Here the DFT bucket gets divided by samples/2
     re = filt1(signal2, f) / (samples / 2)
-    print(f, 20 * math.log10(re))
-    result.append(20 * math.log10(re))
+    #print(f, 20 * math.log10(re))
+    #result.append(20 * math.log10(re))
+    result.append(re)
 
 fig, ax = plt.subplots()
 ax.plot(f0, result)
