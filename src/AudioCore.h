@@ -60,14 +60,20 @@ private:
     float _hist16k[BLOCK_SIZE_ADC / 2];
     float _hist8k[BLOCK_SIZE_ADC / 4];
 
+    // Noise HPF
     static const unsigned FILTER_B_LEN = 41;
     static const float FILTER_B[FILTER_B_LEN];
     float _filtOutB[BLOCK_SIZE_ADC];
 
+    // Decimation LPF
     static const unsigned FILTER_C_LEN = 19;
     static const float FILTER_C[FILTER_C_LEN];
     float _filtOutC[BLOCK_SIZE_ADC / 2];
     float _filtOutD[BLOCK_SIZE_ADC / 4];
+
+    // Band pass filter (CTCSS removal)
+    static const unsigned FILTER_F_LEN = 127;
+    static const float FILTER_F[FILTER_F_LEN];
 
     float _noiseRms;
     float _signalRms;

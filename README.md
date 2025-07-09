@@ -309,6 +309,38 @@ the 88.5 Hz target.
 
 ![CTCSS Detection Filter](docs/ctcss-1.jpg)
 
+Demonstration Files of My CTCSS Detector Implementation
+-------------------------------------------------------
+
+I've created a demonstration of the CTCSS decoder in 
+action. I've made a 7 second sound clip that consists of 
+three parts:
+* 2 seconds of white noise
+* 3 second of voice audio with a 134 Hz PL tone added (-20dB)
+* 2 seconds of white noise
+
+The first sound clip is here: [Sound 2](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-2.wav). This
+is the audio sample played through the controller firmware 
+with the CTCSS decoder feature disabled. As expected, you
+hear the noise.
+
+The second sound clip is here: [Sound 2b-ctcss](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-2b-ctcss.wav). This
+is the audio sample played through the controller firmware 
+with the CTCSS decoder enabled. Here the noise is blocked
+except for a short tail at the end. The decoder takes about
+32ms (around 4 cycles of the PL tone) to determine that 
+the tone has stopped.
+
+If you listen closely to this clip you can also here the 
+134 Hz tone under the voice audio. This is because the CTCSS
+HPF filter is not enabled in this test.
+
+The third sound clip is here: [Sound 2b](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-2b.wav). This
+is the audio sample played through the controller firmware 
+with the CTCSS decoder enabled and the CTCSS HPF filter enabled. Here the noise is blocked and the PL tone is filtered out.
+This is close to what we would expect a "real" system to 
+sound like.
+
 CTCSS Tone Encoder
 ------------------
 
@@ -475,12 +507,12 @@ The original file was recorded at 32kHz to be consistent
 with the sampling rate of the ADC. Importantly, the 
 white noise is wide.
 
-The first sound clip is here: [Sound 1a](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/tests/clip-1a.wav). This
+The first sound clip is here: [Sound 1a](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-1a.wav). This
 is the audio sample played through the controller firmware 
 with the noise squelch feature disabled. As expected, you
 hear the noise.
 
-The second sound clip is here: [Sound 1b](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/tests/clip-1b.wav). This clip is passed through the controller firmware with the 
+The second sound clip is here: [Sound 1b](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-1b.wav). This clip is passed through the controller firmware with the 
 noise squelch feature turned on with the SNR threshold set to 
 10dB. In the 2 seconds silence is heard (noise squelched effectively), then the 
 voice audio, then a quick tail (~24ms), and then silence
