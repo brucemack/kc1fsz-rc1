@@ -332,13 +332,13 @@ except for a short tail at the end of the voice. The decoder takes about
 32ms (around 4 cycles of the PL tone) to determine that 
 the tone has stopped.
 
-If you listen closely to this clip you can also here the 
+If you listen closely to this clip you can also hear the 
 134 Hz tone under the voice audio. This is because the CTCSS
 HPF filter is not enabled in this test.
 
 The third sound clip is here: [Sound 2b](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-2b.wav). This
 is the sample played through the controller firmware 
-with the CTCSS decoder enabled **and** the CTCSS HPF filter enabled. Here the noise is blocked and the PL tone is filtered out.
+with the CTCSS decoder enabled **and** the CTCSS HPF filter (flow diagram reference F) enabled. Here the noise is blocked and the PL tone is filtered out.
 This is close to what we would expect a "real" system to 
 sound like.
 
