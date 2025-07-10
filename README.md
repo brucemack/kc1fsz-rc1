@@ -323,21 +323,17 @@ low-pass filtered to 2.3kHz.
 The first clip is here: [Sound 2](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-2.wav). This
 is the raw sample.  As expected, you
 hear the noise before and after the voice audio - the 
-CTCSS tone is ignored.
-
-If you listen closely to this clip you can also hear the 
-123 Hz tone under the voice audio. 
+CTCSS tone is ignored. If you listen closely to this clip 
+you can also hear the 123 Hz tone under the voice audio. 
 
 The second sound clip is here: [Sound 2b](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-2b.wav). This
 is the sample played through the controller firmware 
 with the CTCSS decoder enabled and the CTCSS high-pass filter enabled. Here the noise is blocked
 except for a short tail at the end of the voice. The decoder takes about
 32ms (around 4 cycles of the PL tone) to determine that 
-the tone has stopped.
-
-Here the noise is blocked and the PL tone is filtered out.
-This is close to what we would expect a "real" system to 
-sound like.
+the tone has stopped. The noise is blocked and the PL 
+tone is filtered out. This is close to what we would expect 
+a "real" system to sound like.
 
 CTCSS Tone Encoder
 ------------------
