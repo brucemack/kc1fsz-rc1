@@ -316,7 +316,8 @@ analysis method is:
 BW<sub>bin</sub> = f<sub>s</sub> / samples
 
 The current implementation is using 512 samples (8x 8ms blocks),
-which implies that the "attack" time of the CTCSS decoder
+which implies a resolution bandwidth of about 15Hz. This also 
+implies that the "attack" time of the CTCSS decoder
 is about 64ms.
 
 Demonstration Files of My CTCSS Detector Implementation
