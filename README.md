@@ -611,7 +611,9 @@ to avoid interfering with adjacent channels.
 At the moment there is no separate filter for limiting
 transmit bandwidth. Instead, the interpolation filter 
 (flow reference N, next section) is designed to have a 
-sharp cut-off at 2.3kHz.
+sharp cut-off at 2.3kHz. 
+
+This cut-off frequency will be adjustable.
 
 Audio Interpolation Up To 32k
 -----------------------------
@@ -624,9 +626,11 @@ moment. There are two steps:
 
 * Pad the 8K audio to 32K audio by inserting zeros between the 
 samples.
-* Apply a sharp low-pass filter with a cut-off at 2.3kHz. 127 taps are used for this application.
+* Apply a sharp low-pass filter with a cut-off at 2.3kHz. 127 taps are used for this application. This cut-off frequency will be 
+adjustable.
 
-The resulting spectrum of an audio test is shown below:
+The resulting spectrum of an audio test is taken from 
+the Audacity "Frequency Analysis" screen:
 
 ![Output Spectrum](docs/output-1.jpg)
 
