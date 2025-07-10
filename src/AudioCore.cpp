@@ -155,28 +155,31 @@ void AudioCore::cycle0(const float* adc_in, float* cross_out) {
     // Work on the 8kHz samples
     float ctcssTotal = 0;
     
-    for (unsigned i = 0; i < BLOCK_SIZE_ADC / 4; i++) {
+    for (unsigned i = 0; i < BLOCK_SIZE; i++) {
         
         float s = _filtOutD[i];
 
         // Build the history that the FIR filters will use
-        _hist8k[i] = s;
+        _hist8k[_hist8KPtr] = s;
 
         // BPF
         {
             // Iterate backwards through history and forward
             // through the filter coefficients
-            unsigned k = i;
+            unsigned k = _hist8KPtr;
             float a = 0;
             for (unsigned j = 0; j < FILTER_F_LEN; j++) {
                 a += (_hist8k[k] * FILTER_F[j]);
                 // Move backwards with wrap
                 if (k == 0)
-                    k = BLOCK_SIZE_ADC / 4 - 1;
+                    k = HIST_8K_LEN - 1;
                 else 
                     k = k - 1;
             }
             cross_out[i] = a;
+
+            if (++_hist8KPtr == HIST_8K_LEN)
+                _hist8KPtr = 0;
         }
 
         // CTCSS decode

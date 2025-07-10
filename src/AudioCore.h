@@ -58,7 +58,10 @@ private:
     // evaluation at the various sample rates
     float _hist32k[BLOCK_SIZE_ADC];
     float _hist16k[BLOCK_SIZE_ADC / 2];
-    float _hist8k[BLOCK_SIZE_ADC / 4];
+
+    static const unsigned HIST_8K_LEN = 127;
+    unsigned _hist8KPtr = 0;
+    float _hist8k[HIST_8K_LEN];
 
     // Noise HPF
     static const unsigned FILTER_B_LEN = 41;

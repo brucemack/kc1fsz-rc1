@@ -42,7 +42,7 @@ unsigned loadFromFile(const char* fn, float* target,
 int main(int argc, const char** argv) {
 
     AudioCore core0(0), core1(1);
-    core0.setCtcssFreq(134);
+    core0.setCtcssFreq(123);
     core1.setCtcssFreq(88.5);
 
     const unsigned test_in_max = AudioCore::FS_ADC * 7;
@@ -55,9 +55,9 @@ int main(int argc, const char** argv) {
     }
  
     // Fill in the test audio
-    float ft = 134;
+    float ft = 123;
     //generateWhiteNoise(test_in_len / 2, 1.0, test_in_0);
-    //make_real_tone_f32(test_in_0, test_in_max, AudioCore::FS_ADC, ft, 1.0); 
+    //make_real_tone_f32(test_in_0, test_in_max, AudioCore::FS_ADC, ft, 0.98); 
     //make_real_tone_f32(test_in_0 + (test_in_len / 2), test_in_len / 2, AudioCore::FS_ADC, ft); 
     unsigned test_in_0_len = loadFromFile("./tests/clip-2.txt", test_in_0, test_in_max);
 
@@ -110,11 +110,22 @@ int main(int argc, const char** argv) {
 
         double plDb = db(core0.getCtcssMag());
   
-        cout << block << " " << snr << " " << plDb << endl;
+        // Calculate the noise squelch with hysteresis
+        bool threshold;
+        //if (squelchState == SquelchState::CLOSED)
+        //    threshold = (plDb > -24);
+        //else 
+        //    threshold = (plDb > -30);
+        threshold = snr > 10 && plDb > -25;
 
-        //bool threshold = snr > 10;
-        // Calculate the noise squelch
-        bool threshold = (plDb > -22);
+        char state;
+        if (squelchState == SquelchState::CLOSED)
+            state = 'C';
+        else
+            state = 'O';
+
+        cout << block << " " << snr << " " << state << " " << plDb << endl;
+
         if (squelchState == SquelchState::CLOSED) {
             // Look for unsquelch
             if (threshold) {
@@ -148,14 +159,14 @@ int main(int argc, const char** argv) {
                 //    tailCount = 18;
                 //} 
                 //else {
-                    tailCount = 0;
+                    tailCount = 4;
                 //}
             }
         }
         lastSnr = snr;
 
         // Write out block of audio
-        for (unsigned i = 0; i < AudioCore::BLOCK_SIZE_ADC / 4; i++) {
+        for (unsigned i = 0; i < AudioCore::BLOCK_SIZE; i++) {
             if (!noiseSquelchEnabled ||
                 squelchState != SquelchState::CLOSED) {
                 os << (int)(cross_out_0[i] * 32767.0) << endl; 

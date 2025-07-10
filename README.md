@@ -312,33 +312,30 @@ the 88.5 Hz target.
 Demonstration Files of My CTCSS Detector Implementation
 -------------------------------------------------------
 
-I've created a demonstration of the CTCSS decoder in 
+I've created a demonstration of the soft CTCSS decoder in 
 action. I've made a 7 second sample clip that consists of 
 three parts:
 * 2 seconds of white noise
-* 3 second of voice audio with a 134 Hz PL tone added (-20dB)
+* 3 second of voice audio with a 123 Hz PL tone added (-20dB),
+low-pass filtered to 2.3kHz.
 * 2 seconds of white noise
 
-The first sound clip is here: [Sound 2](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-2.wav). This
-is the sample played through the controller firmware 
-with the CTCSS decoder feature disabled. As expected, you
+The first clip is here: [Sound 2](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-2.wav). This
+is the raw sample.  As expected, you
 hear the noise before and after the voice audio - the 
 CTCSS tone is ignored.
 
-The second sound clip is here: [Sound 2b-ctcss](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-2b-ctcss.wav). This
+If you listen closely to this clip you can also hear the 
+123 Hz tone under the voice audio. 
+
+The second sound clip is here: [Sound 2b](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-2b.wav). This
 is the sample played through the controller firmware 
-with the CTCSS decoder enabled. Here the noise is blocked
+with the CTCSS decoder enabled and the CTCSS high-pass filter enabled. Here the noise is blocked
 except for a short tail at the end of the voice. The decoder takes about
 32ms (around 4 cycles of the PL tone) to determine that 
 the tone has stopped.
 
-If you listen closely to this clip you can also hear the 
-134 Hz tone under the voice audio. This is because the CTCSS
-HPF filter is not enabled in this test.
-
-The third sound clip is here: [Sound 2b](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-2b.wav). This
-is the sample played through the controller firmware 
-with the CTCSS decoder enabled **and** the CTCSS HPF filter (flow diagram reference F) enabled. Here the noise is blocked and the PL tone is filtered out.
+Here the noise is blocked and the PL tone is filtered out.
 This is close to what we would expect a "real" system to 
 sound like.
 
