@@ -266,7 +266,7 @@ void AudioCore::cycle1(const float** cross_in, float* dac_out) {
 
 void AudioCore::setCtcssFreq(float hz) {
     _ctcssFreq = hz;
-    _ctcssBlocks = 4;
+    _ctcssBlocks = 8;
     _ctcssBlock = 0;
     float gw =  2.0 * 3.1415926 * hz / (float)FS;
     _gcw = cos(gw);

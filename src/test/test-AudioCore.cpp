@@ -59,7 +59,7 @@ int main(int argc, const char** argv) {
     //generateWhiteNoise(test_in_len / 2, 1.0, test_in_0);
     //make_real_tone_f32(test_in_0, test_in_max, AudioCore::FS_ADC, ft, 0.98); 
     //make_real_tone_f32(test_in_0 + (test_in_len / 2), test_in_len / 2, AudioCore::FS_ADC, ft); 
-    unsigned test_in_0_len = loadFromFile("./tests/clip-2.txt", test_in_0, test_in_max);
+    unsigned test_in_0_len = loadFromFile("./tests/clip-3.txt", test_in_0, test_in_max);
 
     ft = 88.5;
     make_real_tone_f32(test_in_1, test_in_max, AudioCore::FS_ADC, ft); 
@@ -74,7 +74,7 @@ int main(int argc, const char** argv) {
     float dac_out_0[AudioCore::BLOCK_SIZE_ADC];
     float dac_out_1[AudioCore::BLOCK_SIZE_ADC];
 
-    ofstream os("tests/clip-2b.txt");
+    ofstream os("tests/clip-3b.txt");
 
     bool noiseSquelchEnabled = true;
     enum SquelchState { OPEN, CLOSED, TAIL }
@@ -116,7 +116,7 @@ int main(int argc, const char** argv) {
         //    threshold = (plDb > -24);
         //else 
         //    threshold = (plDb > -30);
-        threshold = snr > 10 && plDb > -25;
+        threshold = snr > 10 && plDb > -28;
 
         char state;
         if (squelchState == SquelchState::CLOSED)
@@ -159,7 +159,7 @@ int main(int argc, const char** argv) {
                 //    tailCount = 18;
                 //} 
                 //else {
-                    tailCount = 4;
+                    tailCount = 8;
                 //}
             }
         }

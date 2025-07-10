@@ -256,12 +256,6 @@ samples<sub>delay</sub> = (N - 1) / 2
 
 So this filter introduces about 8ms of delay into the system.
 
-For reasons that will be explained later in the noise squelch
-section, I added a stop band above 3kHz to this filter, so this 
-is actually a band-pass filter from 350Hz to 3kHz. The important
-part here is the low-end of the audio range since that is 
-what is relevant to CTCSS tone elimination.
-
 Here's a plot of the frequency response of the 127-tap filter
 created by the PM algorithm created using Matplotlib:
 
@@ -334,6 +328,11 @@ except for a short tail at the end of the voice. The decoder takes about
 the tone has stopped. The noise is blocked and the PL 
 tone is filtered out. This is close to what we would expect 
 a "real" system to sound like.
+
+This test has been repeated with the PL tone down another 
+-6dB for a total of -26dB relative to full-scale (0.05 
+amplitude in linear units).  The original clip is here: [Sound 3](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-3.wav) and the clip played through the controller firmware 
+with CTCSS decoder and CTCSS HPF enabled is here: [Sound 3b](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-3b.wav).
 
 CTCSS Tone Encoder
 ------------------
@@ -475,9 +474,9 @@ in the audio band to the energy in noise band.
 20 * log(RMS<sub>audio_band</sub>/RMS<sub>noise_band</sub>)
 
 This calculation is done every 8ms using contemporaneous 
-blocks of samples from the output of the band-pass filter 
+blocks of samples from the output of the decimation low-pass filter 
 and the RMS value from the high-pass noise detector. Remember
-that the CTCSS filter has a pass-band that goes from 350Hz to 3kHz, so 
+that the second decimation filter (flow diagram reference D) has a pass-band that goes up to 4kHz, so 
 this filter gives good coverage of the audio band.
 
 When the S/N ratio goes above 10dB a valid signal is detected.
