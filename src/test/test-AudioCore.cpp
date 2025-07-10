@@ -98,6 +98,7 @@ int main(int argc, const char** argv) {
         float n_0 = db(core0.getNoiseRms());
         float s_0 = db(core0.getSignalRms());
         float snr = core0.getSnr();
+
         //float snr = core0.getSnrMax();
         //cout << block << " " << s_0 << " " << n_0 << endl;
         //cout << block << " " << core0.getSnr() << " " << core0.getSnrAvg() << 
@@ -165,12 +166,24 @@ int main(int argc, const char** argv) {
         }
         lastSnr = snr;
 
-        // Write out block of audio
+        /*
+        // Write out a block of audio at 8K
         for (unsigned i = 0; i < AudioCore::BLOCK_SIZE; i++) {
             if (!noiseSquelchEnabled ||
                 squelchState != SquelchState::CLOSED) {
                 os << (int)(cross_out_0[i] * 32767.0) << endl; 
                 //os <<                cross_out_0[i] << endl;
+            } else {
+                os << 0 << endl;
+            }
+        }
+        */
+        // Write out a block of audio at 32K
+        for (unsigned i = 0; i < AudioCore::BLOCK_SIZE_ADC; i++) {
+            if (!noiseSquelchEnabled ||
+                squelchState != SquelchState::CLOSED) {
+                os << (int)(dac_out_0[i] * 32767.0) << endl; 
+                //os <<                dac_out_0[i] << endl;
             } else {
                 os << 0 << endl;
             }

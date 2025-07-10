@@ -608,7 +608,10 @@ See flow diagram reference M.
 It's important that transmit audio bandwidth be limited 
 to avoid interfering with adjacent channels.
 
-(More to be documented)
+At the moment there is no separate filter for limiting
+transmit bandwidth. Instead, the interpolation filter 
+(flow reference N, next section) is designed to have a 
+sharp cut-off at 2.3kHz.
 
 Audio Interpolation Up To 32k
 -----------------------------
@@ -616,7 +619,24 @@ Audio Interpolation Up To 32k
 See flow diagram reference N. 8k audio needs to 
 be up-sampled to 32k before being passed to the DAC.
 
-(To be documented)
+This is accomplished using a simplistic method at the 
+moment. There are two steps:
+
+* Pad the 8K audio to 32K audio by inserting zeros between the 
+samples.
+* Apply a sharp low-pass filter with a cut-off at 2.3kHz. 127 taps are used for this application.
+
+The resulting spectrum of an audio test is shown below:
+
+![Output Spectrum](docs/output-1.jpg)
+
+This still needs work. There is some slight high-frequency
+noise in the output spectrum that may be aliasing from a
+previous step in the flow. I'll keep working on this.
+
+Here's what the sample clip sounds like: [Sound 3c](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-3c.wav). This
+clip is taken directly from the output of the controller firmware
+at 32k.
 
 Digital to Analog Conversion
 ----------------------------

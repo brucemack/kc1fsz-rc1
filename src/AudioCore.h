@@ -45,8 +45,6 @@ public:
     float getNoiseRms() const { return _noiseRms; }
 
     float getSnr() const;
-    float getSnrAvg() const;
-    float getSnrMax() const;
 
     void setCtcssFreq(float hz);
     float getCtcssMag() const { return _ctcssMag; }
@@ -78,11 +76,19 @@ private:
     static const unsigned FILTER_F_LEN = 127;
     static const float FILTER_F[FILTER_F_LEN];
 
+    // Low-pass filter for interpolation 8K->32K
+    static const unsigned FILTER_N_LEN = 127;
+    static const float FILTER_N[FILTER_N_LEN];
+
+    static const unsigned HISTB_32K_LEN = FILTER_N_LEN;
+    unsigned _histB32kPtr = 0;
+    float _histB32k[HISTB_32K_LEN];
+
     float _noiseRms;
     float _signalRms;
-    const static unsigned SNR_HIST_SIZE = 8;
-    float _snrHist[SNR_HIST_SIZE];
-    unsigned _snrHistPtr = 0;
+    //const static unsigned SNR_HIST_SIZE = 8;
+    //float _snrHist[SNR_HIST_SIZE];
+    //unsigned _snrHistPtr = 0;
 
     // Used for CTCSS detection
     float _ctcssFreq = 123;
