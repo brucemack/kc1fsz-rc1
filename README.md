@@ -303,6 +303,22 @@ the 88.5 Hz target.
 
 ![CTCSS Detection Filter](docs/ctcss-1.jpg)
 
+One challenge creating a narrow tone detector using the 
+Goertzel algorithm is making sure that we are using 
+enough samples to provide sufficient frequency resolution.
+On the other hand, we want to make sure to provide some 
+tolerance for transmitters that are off a bit in their 
+PL tone synthesis.
+
+The width of a frequency bucket using any DFT-based 
+analysis method is:
+
+BW<sub>bin</sub> = f<sub>s</sub> / samples
+
+The current implementation is using 512 samples (8x 8ms blocks),
+which implies that the "attack" time of the CTCSS decoder
+is about 64ms.
+
 Demonstration Files of My CTCSS Detector Implementation
 -------------------------------------------------------
 
