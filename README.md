@@ -346,7 +346,7 @@ the tone has stopped. The noise is blocked and the PL
 tone is filtered out. This is close to what we would expect 
 a "real" system to sound like.
 
-This test has been repeated with the PL tone under the 
+This test was repeated with the PL tone under the 
 voice section of the clip down another 
 -6dB for a total of -26dB relative to full-scale (0.05 
 amplitude in linear units).  The original clip is here: [Sound 3](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-3.wav) and the clip played through the controller firmware 
