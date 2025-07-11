@@ -43,6 +43,9 @@ int main(int argc, const char** argv) {
 
     AudioCore core0(0), core1(1);
     core0.setCtcssDecodeFreq(123);
+    core0.setCtcssEncodeFreq(123);
+    core0.setCtcssEncodeLevel(-20);
+    core0.setCtcssEncodeEnabled(true);
     core1.setCtcssDecodeFreq(88.5);
 
     const unsigned test_in_max = AudioCore::FS_ADC * 7;

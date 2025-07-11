@@ -19,6 +19,7 @@
  */
 #include "AudioCore.h"
 
+#include <iostream>
 #include <cstring>
 #include <fstream>
 #include <cmath>
@@ -28,6 +29,8 @@ using namespace std;
 static float db(float l) {
     return 20.0 * log10(l);
 }
+
+static float PI = 3.14159265;
 
 namespace kc1fsz {
 
@@ -228,19 +231,32 @@ float AudioCore::getSnr() const {
 
 void AudioCore::cycle1(const float** cross_in, float* dac_out) {
 
-    // CTCSS encoder
+    float mix[BLOCK_SIZE];
+
+    // CTCSS encoder [see flow diagram reference J] 
+    // Notice that all of the calculations needed to 
+    // generate the CTCSS tone are performed regardless 
+    // of whether the encoding is enabled.  This is to 
+    // maintain a consistent CPU cost.
+    float level = _ctcssEncodeEnabled ? _ctcssEncodeLevel : 0;
+    for (unsigned i = 0; i < BLOCK_SIZE; 
+        i++, _ctcssEncodePhi += _ctcssEncodeOmega)
+        mix[i] = level * cos(_ctcssEncodePhi);
+
+    // We do this to avoid phi growing very large and 
+    // creating overflow/precision problems.
+    _ctcssEncodePhi = fmod(_ctcssEncodePhi, 2.0 * PI);
 
     // Other tones/voice
 
-    // Transmit Mix [L]
-    float mix[BLOCK_SIZE];
-    for (unsigned i = 0; i < BLOCK_SIZE; i++) {
-        mix[i] = cross_in[0][i];
-    }
+    // Transmit Mix [float diagram reference L]
+    //for (unsigned i = 0; i < BLOCK_SIZE; i++)
+    //    mix[i] += cross_in[0][i];
     
-    // LPF 2.3kHz [M]
+    // LPF 2.3kHz [float diagram reference M]
+    // (Not used at this time)
 
-    // Interpolation x4 [N]   
+    // Interpolation x4 [flow diagram reference N]   
     for (unsigned i = 0; i < BLOCK_SIZE_ADC; i++) {
         
         // Pad the 8K samples with zeros
@@ -271,12 +287,30 @@ void AudioCore::setCtcssDecodeFreq(float hz) {
     _ctcssDecodeFreq = hz;
     _ctcssBlocks = 8;
     _ctcssBlock = 0;
-    float gw =  2.0 * 3.1415926 * hz / (float)FS;
+    float gw =  2.0 * PI * hz / (float)FS;
     _gcw = cos(gw);
     _gsw = sin(gw);
     _gc = 2.0 * _gcw;
     _gz1 = 0;
     _gz2 = 0;
+}
+
+void AudioCore::setCtcssEncodeEnabled(bool b) {
+    _ctcssEncodeEnabled = b;
+}
+
+void AudioCore::setCtcssEncodeFreq(float hz) {
+    _ctcssEncodeFreq = hz;
+    // Convert frequency to radians/sample.  The CTCSS
+    // generation happens at the FS (8k) rate.
+    _ctcssEncodeOmega = 2.0 * PI * hz / (float)FS;
+    _ctcssEncodePhi = 0;
+}
+
+void AudioCore::setCtcssEncodeLevel(float db) {
+    // Convert DB to linear level
+    _ctcssEncodeLevel = powf(10.0, (db / 20.0));
+    cout << "CTCSS Level " << _ctcssEncodeLevel << endl;
 }
 
 }

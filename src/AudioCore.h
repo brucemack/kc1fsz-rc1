@@ -49,6 +49,10 @@ public:
     void setCtcssDecodeFreq(float hz);
     float getCtcssDecodeMag() const { return _ctcssMag; }
 
+    void setCtcssEncodeEnabled(bool b);
+    void setCtcssEncodeFreq(float hz);
+    void setCtcssEncodeLevel(float db);
+
 private:
 
     const unsigned _id;
@@ -87,7 +91,14 @@ private:
     float _noiseRms;
     float _signalRms;
 
-    // Used for CTCSS detection
+    // Used for CTCSS encoding
+    bool _ctcssEncodeEnabled = false;
+    float _ctcssEncodeFreq = 123;
+    float _ctcssEncodeOmega = 0;
+    float _ctcssEncodePhi = 0;
+    float _ctcssEncodeLevel = 0;
+
+    // Used for CTCSS decoding
     float _ctcssDecodeFreq = 123;
     float _gz1 = 0, _gz2 = 0;
     float _gcw, _gsw, _gc;
