@@ -292,14 +292,9 @@ and false drops of the detector.
 
 The algorithm has been tested to ensure sharpness of the 
 detection filter. The filter was set to detect the PL 
-tone of 88.5 Hz (W1TZK UHF tone) and a range of tones (plus a 
+tone of 123 Hz (W1TZK VHF tone) and a range of tones (plus a 
 high level of additive white Gaussian noise) were played
-into the filter. The response is charted below. The two 
-CTCSS tones immediately adjacent to 88.5 Hz (85.4 Hz and 91.5 Hz) were 
-both about 
--2.5dB down from the peak detection level. The detector
-quickly rolled down to below -10dB for tones further away from
-the 88.5 Hz target.
+into the filter. The response is charted below. 
 
 ![CTCSS Detection Filter](docs/ctcss-1.jpg)
 
