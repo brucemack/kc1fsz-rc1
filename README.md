@@ -651,6 +651,10 @@ Here's what the sample clip sounds like: [Sound 3c](https://github.com/brucemack
 clip is taken directly from the output of the controller firmware
 at 32k.
 
+This interpolation/up-sampling filter is an example of 
+something that can be implemented using a polyphase filter.
+More to follow on this topic.
+
 Digital to Analog Conversion
 ----------------------------
 
