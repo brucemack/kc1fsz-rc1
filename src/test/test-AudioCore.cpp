@@ -49,7 +49,7 @@ int main(int argc, const char** argv) {
     core1.setCtcssDecodeFreq(88.5);
 
     ofstream os("tests/clip-3b.txt");
-    float ft = 2300;
+    float ft = 1500;
     bool noiseSquelchEnabled = false;
     enum SquelchState { OPEN, CLOSED, TAIL }
         squelchState = SquelchState::OPEN;

@@ -380,7 +380,7 @@ CW Generator
 
 See flow diagram reference K.
 
-This component is used to general tones for CW-ID and the 
+This component is used to generate tones for CW-ID and the 
 courtesy tones. Envelope shaping is used to avoid high 
 frequency glitches associated with on/off keying.
 
