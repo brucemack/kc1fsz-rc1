@@ -355,15 +355,15 @@ with CTCSS decoder and CTCSS HPF enabled is here: [Sound 3b](https://github.com/
 CTCSS Tone Encoder
 ------------------
 
-See flow diagram reference J.
+See flow diagram reference J. The digital CTCSS generator runs in 
+the 8kHz part of the audio flow. Each radio has its
+own encoder frequency to support multi-tone systems.
 
-Dan suggested that the goal should be to create a PL tone modulated at about 10% total deviation.
-
-If we assume that CW/courtesy tones are generated at a level of between
+Dan suggested that the goal should be to create a PL tone modulated at about 10% total deviation. If we assume that CW/courtesy tones are generated at a level of between
 -14dB and -10dB of full DAC full scale, the PL tone should be 
 another -12dB down, or 0.32 * 0.25 = 0.08 linear scale.
 
-Here's a clip with the CTCSS encoding enabled (123 Hz) and 
+Here's a clip with the CTCSS encoder enabled (123 Hz) and 
 set to a high 
 level (-20dB) so it can be heard: [Sound 3d](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-3d.wav).
 
