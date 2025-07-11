@@ -166,6 +166,14 @@ any of the receivers.
 
 The letters in the diagram above will be referenced throughout.
 
+Generation of I2S Clock/State Machines
+--------------------------------------
+
+The PICO PIO (programmable IO) feature has been leveraged
+to generate the I2S clock lines and internal state machines.
+To save GPIO pins, the same I2S clocks (SCLK, BCLK, LRCLK) are 
+shared by the ADC **and** DAC chips.  
+
 Analog to Digital Conversion
 ----------------------------
 
@@ -179,7 +187,7 @@ The converter supports a range of conversion rates from 32k
 to 192k.  The lowest possible rate has been selected for this
 project.
 
-This converter IC has two built-in filters:
+This converter IC has two important filters built-in:
 * A low-pass
 anti-aliasing filter with a cutoff frequency of f<sub>s</sub>/2.
 * A high-pass filter just above 0Hz for DC removal. Testing
@@ -658,9 +666,13 @@ See flow diagram reference P.
 The TI PCM5100 is used for digital to analog conversion.
 This part has been chosen because it is easy to use,
 available, and easy to solder. The part supports a 
-wide range of conversion rates all the way down to 8k. However,
-the DAC is setup to convert at 32k since it is sharing 
-I2S clock lines with the ADC.
+wide range of conversion rates all the way down to 8k. 
+
+Running the DAC at 8K would be convenient because it 
+would avoid the need to up-sample the 8K digital audio. However,
+I've setup the the DAC to convert at 32k so that I can share
+the I2S clock lines with the ADC - specifically SCLK, BCLK, 
+and LRCLK. 
 
 Importantly, the DAC contains a low-pass reconstruction
 filter that runs at f<sub>s</sub> / 2.
