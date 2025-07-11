@@ -60,6 +60,7 @@ the Motorola M7716 IC.
 * Timeout and lockout with configurable times.
 * Optional digital voice ID and other prompts.
 * Soft RX/TX gain control adjustable remotely.
+* <=250ms digital audio delay to avoid squelch tails.
 * "Soft console" via USB-connected computer computer with
 serial terminal provides a configuration shell and live display of the following:
   - Carrier detect (COS) status
@@ -67,7 +68,6 @@ serial terminal provides a configuration shell and live display of the following
   - Push-to-talk (PTT) status
   - Receive/transmit audio level RMS and peak
 * (In development) Remote firmware update via LoRa connection.
-* (In development) <=250ms digital audio delay to avoid squelch tails.
 * Microcontroller uses a watchdog timer to limit the risk of lockup.
 
 Other things to know:
@@ -591,6 +591,32 @@ is what allows the repeater logic to run ahead of the potential
 squelch tails. 
 
 Do what you think is right.
+
+Demonstration of My Implementation of Audio Delay
+-------------------------------------------------
+
+The delay feature has been implemented for evaluation.  I've
+used my standard audio clip to demonstrate the capability.
+The setting of the delay depends on a bit on the attack/debounce
+configuration of other features in the system, particularly
+CTCSS decoding. The test setup I'm using works well with 
+a 100ms delay.
+
+The first sound clip is here: [Sound 3](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-3.wav). This
+is the audio sample played through the controller firmware 
+with the CTCSS decoding disabled, noise squelch disabled,
+and delay disabled.  As expected, you hear noise before
+and after the voice clip.
+
+The sound clip with audio delay enabled 
+is here: [Sound 4b](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-4b.wav). This
+is the audio sample played through the controller firmware 
+with the CTCSS decoding enabled and a 100ms delay enabled. Here
+the squelch tail that would normally be heard while the CTCSS decoder makes its decision is not audible. Very cool!  
+
+Compare that to the clip with the CTCSS encoder enabled 
+and no audio delay added: [Sound 3d](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-3d.wav). A short squelch tail is heard. While the CTCSS decoder recognizes the loss
+of PL tone.
 
 De-emphasis and Pre-emphasis Filters
 ------------------------------------

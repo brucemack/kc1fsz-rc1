@@ -180,17 +180,35 @@ void AudioCore::cycle0(const float* adc_in, float* cross_out) {
                 a += (_hist8k[k] * FILTER_F[j]);
                 k = decAndWrap(k, HIST_8K_LEN);
             }
-            cross_out[i] = a;
+
+            // Put the final filtered sample into the 
+            // delay area.
+            _delayArea[_delayAreaWritePtr] = a;
+            _delayAreaWritePtr = incAndWrap(_delayAreaWritePtr,
+                _delayAreaLen);
 
             _hist8KPtr = incAndWrap(_hist8KPtr, HIST_8K_LEN);
         }
+
+        // Move a sample from the delay area into the 
+        // output
+        if (_delayCountdown) {
+            cross_out[i] = 0;
+            _delayCountdown--;
+        }
+        else { 
+            cross_out[i] = _delayArea[_delayAreaReadPtr];
+        }
+
+        _delayAreaReadPtr = incAndWrap(_delayAreaReadPtr,
+            _delayAreaLen);
 
         // CTCSS decode
         float z0 = s + _gc * _gz1 - _gz2;
         _gz2 = _gz1;
         _gz1 = z0;
 
-        // DTMF decode        
+        // DTMF decode   
     }
 
     // Look to see if we can update the CTCSS estimation
@@ -312,6 +330,19 @@ void AudioCore::setCtcssEncodeLevel(float db) {
     // Convert DB to linear level
     _ctcssEncodeLevel = powf(10.0, (db / 20.0));
     cout << "CTCSS Level " << _ctcssEncodeLevel << endl;
+}
+
+void AudioCore::setDelayMs(unsigned ms) {
+    _delaySamples = FS * ms / 1000;
+    // Cap out delay length
+    if (_delaySamples > _delayAreaLen) 
+        _delaySamples = _delayAreaLen;
+    if (_delayAreaReadPtr >= _delaySamples)
+        _delayAreaReadPtr -= _delaySamples;
+    else {
+        unsigned extra = _delaySamples - _delayAreaReadPtr;
+        _delayAreaReadPtr = _delayAreaLen - 1 - extra;
+    }
 }
 
 }

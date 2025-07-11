@@ -53,6 +53,9 @@ public:
     void setCtcssEncodeFreq(float hz);
     void setCtcssEncodeLevel(float db);
 
+    void setDelayMs(unsigned ms);
+    void resetDelay() { _delayCountdown = _delaySamples; }
+
 private:
 
     const unsigned _id;
@@ -105,6 +108,14 @@ private:
     float _ctcssMag = 0;
     unsigned _ctcssBlock = 0;
     unsigned _ctcssBlocks = 0;
+
+    // Audio delay (250ms)
+    static const unsigned _delayAreaLen = 2000;
+    unsigned _delayAreaReadPtr = 0;
+    unsigned _delayAreaWritePtr = 0;
+    float _delayArea[_delayAreaLen];
+    unsigned _delaySamples = 0;
+    unsigned _delayCountdown = 0;
 };
 
 }

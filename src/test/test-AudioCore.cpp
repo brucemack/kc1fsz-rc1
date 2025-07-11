@@ -45,14 +45,15 @@ int main(int argc, const char** argv) {
     core0.setCtcssDecodeFreq(123);
     core0.setCtcssEncodeFreq(123);
     core0.setCtcssEncodeLevel(-20);
-    //core0.setCtcssEncodeEnabled(true);
+    core0.setCtcssEncodeEnabled(true);
+    core0.setDelayMs(100);
     core1.setCtcssDecodeFreq(88.5);
 
     ofstream os("tests/clip-3b.txt");
     float ft = 1500;
-    bool noiseSquelchEnabled = false;
+    bool noiseSquelchEnabled = true;
     enum SquelchState { OPEN, CLOSED, TAIL }
-        squelchState = SquelchState::OPEN;
+        squelchState = SquelchState::CLOSED;
     float lastSnr = 0;
     unsigned tailCount = 0;
 
@@ -70,9 +71,9 @@ int main(int argc, const char** argv) {
 
         // Fill in the test audio
         //generateWhiteNoise(test_in_len / 2, 1.0, test_in_0);
-        make_real_tone_f32(test_in_0, test_in_max, AudioCore::FS_ADC, ft, 0.98); 
+        //make_real_tone_f32(test_in_0, test_in_max, AudioCore::FS_ADC, ft, 0.98); 
         //make_real_tone_f32(test_in_0 + (test_in_len / 2), test_in_len / 2, AudioCore::FS_ADC, ft); 
-        //unsigned test_in_0_len = loadFromFile("./tests/clip-3.txt", test_in_0, test_in_max);
+        unsigned test_in_0_len = loadFromFile("./tests/clip-3.txt", test_in_0, test_in_max);
 
         //ft = 88.5;
         //make_real_tone_f32(test_in_1, test_in_max, AudioCore::FS_ADC, ft); 
@@ -99,6 +100,17 @@ int main(int argc, const char** argv) {
 
             adc_in_0 += AudioCore::BLOCK_SIZE_ADC;
             adc_in_1 += AudioCore::BLOCK_SIZE_ADC;
+
+            // Write out a block of audio at 32K
+            for (unsigned i = 0; i < AudioCore::BLOCK_SIZE_ADC; i++) {
+                if (!noiseSquelchEnabled ||
+                    squelchState != SquelchState::CLOSED) {
+                    os << (int)(dac_out_0[i] * 32767.0) << endl; 
+                    //os <<                dac_out_0[i] << endl;
+                } else {
+                    os << 0 << endl;
+                }
+            }
             
             float n_0 = db(core0.getNoiseRms());
             float s_0 = db(core0.getSignalRms());
@@ -121,6 +133,10 @@ int main(int argc, const char** argv) {
                 // Look for unsquelch
                 if (threshold) {
                     squelchState = SquelchState::OPEN;
+                    // On the unsquelch we need to arm 
+                    // the delay counter to avoid revealing 
+                    // any historical noise
+                    core0.resetDelay();
                 } 
             }
             else if (squelchState == SquelchState::TAIL) {
@@ -155,17 +171,6 @@ int main(int argc, const char** argv) {
                 }
             }
             lastSnr = snr;
-
-            // Write out a block of audio at 32K
-            for (unsigned i = 0; i < AudioCore::BLOCK_SIZE_ADC; i++) {
-                if (!noiseSquelchEnabled ||
-                    squelchState != SquelchState::CLOSED) {
-                    os << (int)(dac_out_0[i] * 32767.0) << endl; 
-                    //os <<                dac_out_0[i] << endl;
-                } else {
-                    os << 0 << endl;
-                }
-            }
         }
     }
 
