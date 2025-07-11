@@ -600,7 +600,9 @@ used my standard audio clip to demonstrate the capability.
 The setting of the delay depends on a bit on the attack/debounce
 configuration of other features in the system, particularly
 CTCSS decoding. The test setup I'm using works well with 
-a 100ms delay.
+a ~100ms delay. More delay would be needed if the CTCSS
+decoder was configured to be slower/less sensitive. A maximum
+delay of 250ms is available.
 
 The first sound clip is here: [Sound 3](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-3.wav). This
 is the audio sample played through the controller firmware 
@@ -615,7 +617,7 @@ with the CTCSS decoding enabled and a 100ms delay enabled. Here
 the squelch tail that would normally be heard while the CTCSS decoder makes its decision is not audible. Very cool!  
 
 Compare that to the clip with the CTCSS encoder enabled 
-and no audio delay added: [Sound 3d](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-3d.wav). A short squelch tail is heard. While the CTCSS decoder recognizes the loss
+and no audio delay added: [Sound 3d](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-3d.wav). A short squelch tail is heard while the CTCSS decoder recognizes the loss
 of PL tone.
 
 De-emphasis and Pre-emphasis Filters
