@@ -250,8 +250,8 @@ void AudioCore::cycle1(const float** cross_in, float* dac_out) {
     // Other tones/voice
 
     // Transmit Mix [float diagram reference L]
-    //for (unsigned i = 0; i < BLOCK_SIZE; i++)
-    //    mix[i] += cross_in[0][i];
+    for (unsigned i = 0; i < BLOCK_SIZE; i++)
+        mix[i] += cross_in[0][i];
     
     // LPF 2.3kHz [float diagram reference M]
     // (Not used at this time)
@@ -266,7 +266,7 @@ void AudioCore::cycle1(const float** cross_in, float* dac_out) {
         else 
             s = 0;
         
-        // Apply the filter
+        // Apply the LPF filter
         {
             _histB32k[_histB32kPtr] = s;
             unsigned k = _histB32kPtr;
@@ -278,6 +278,7 @@ void AudioCore::cycle1(const float** cross_in, float* dac_out) {
                     a += (_histB32k[k] * FILTER_N[j]);
                 k = decAndWrap(k, HISTB_32K_LEN);
             }
+            // Keep in mind the gain of the filter
             dac_out[i] = a * 4.0;
         }
     }

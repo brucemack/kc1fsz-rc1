@@ -363,6 +363,15 @@ If we assume that CW/courtesy tones are generated at a level of between
 -14dB and -10dB of full DAC full scale, the PL tone should be 
 another -12dB down, or 0.32 * 0.25 = 0.08 linear scale.
 
+Here's a clip with the CTCSS encoding enabled (123 Hz) and 
+set to a high 
+level (-20dB) so it can be heard: [Sound 3d](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-3d.wav).
+
+Here's a view of the spectrum with the CTCSS encoder enabled
+at 123 Hz under an audio clip:
+
+![Output Spectrum with CTCSS](docs/output-2.jpg)
+
 CW Generator
 ------------
 
