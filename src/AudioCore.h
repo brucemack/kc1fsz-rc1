@@ -46,8 +46,8 @@ public:
 
     float getSnr() const;
 
-    void setCtcssFreq(float hz);
-    float getCtcssMag() const { return _ctcssMag; }
+    void setCtcssDecodeFreq(float hz);
+    float getCtcssDecodeMag() const { return _ctcssMag; }
 
 private:
 
@@ -67,7 +67,7 @@ private:
     float _filtOutB[BLOCK_SIZE_ADC];
 
     // Decimation LPF
-    static const unsigned FILTER_C_LEN = 19;
+    static const unsigned FILTER_C_LEN = 41;
     static const float FILTER_C[FILTER_C_LEN];
     float _filtOutC[BLOCK_SIZE_ADC / 2];
     float _filtOutD[BLOCK_SIZE_ADC / 4];
@@ -86,12 +86,9 @@ private:
 
     float _noiseRms;
     float _signalRms;
-    //const static unsigned SNR_HIST_SIZE = 8;
-    //float _snrHist[SNR_HIST_SIZE];
-    //unsigned _snrHistPtr = 0;
 
     // Used for CTCSS detection
-    float _ctcssFreq = 123;
+    float _ctcssDecodeFreq = 123;
     float _gz1 = 0, _gz2 = 0;
     float _gcw, _gsw, _gc;
     float _ctcssMag = 0;

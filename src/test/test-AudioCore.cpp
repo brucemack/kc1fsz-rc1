@@ -42,8 +42,8 @@ unsigned loadFromFile(const char* fn, float* target,
 int main(int argc, const char** argv) {
 
     AudioCore core0(0), core1(1);
-    core0.setCtcssFreq(123);
-    core1.setCtcssFreq(88.5);
+    core0.setCtcssDecodeFreq(123);
+    core1.setCtcssDecodeFreq(88.5);
 
     const unsigned test_in_max = AudioCore::FS_ADC * 7;
     const unsigned test_blocks = test_in_max / AudioCore::BLOCK_SIZE_ADC;
@@ -109,7 +109,7 @@ int main(int argc, const char** argv) {
         //    cout << block << " " << s_0 << " " << n_0 << " " << snr << endl;
         //os << core0.getSnrMax() << endl;
 
-        double plDb = db(core0.getCtcssMag());
+        double plDb = db(core0.getCtcssDecodeMag());
   
         // Calculate the noise squelch with hysteresis
         bool threshold;

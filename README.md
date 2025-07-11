@@ -206,7 +206,7 @@ can be found in section 5.3 (first ed) of the Lyons DSP book.
 The cut-off frequency of the first decimation is 8kHz and the 
 second is 4kHz.  However, the f<sub>s</sub> of the first 
 filter is twice the second so the same filter coefficients
-can be used for both decimation steps. I am using a 21-tap 
+can be used for both decimation steps. I am using a 41-tap 
 filter for this process because the transition doesn't need
 to be extremely sharp.
 
@@ -610,8 +610,8 @@ to avoid interfering with adjacent channels.
 
 At the moment there is no separate filter for limiting
 transmit bandwidth. Instead, the interpolation filter 
-(flow reference N, next section) is designed to have a 
-sharp cut-off at 2.3kHz. 
+(flow reference N, next section) is a digital filter 
+that is designed to have a sharp cut-off at 2.3kHz. 
 
 This cut-off frequency will be adjustable.
 
@@ -626,10 +626,10 @@ moment. There are two steps:
 
 * Pad the 8K audio to 32K audio by inserting zeros between the 
 samples.
-* Apply a sharp low-pass filter with a cut-off at 2.3kHz. 127 taps are used for this application. This cut-off frequency will be 
+* Apply a sharp digital low-pass filter with a cut-off at 2.3kHz. 127 taps are used for this application. This cut-off frequency will be 
 adjustable.
 
-The resulting spectrum of an audio test is taken from 
+The resulting spectrum of an audio test clip is taken from 
 the Audacity "Frequency Analysis" screen:
 
 ![Output Spectrum](docs/output-1.jpg)
