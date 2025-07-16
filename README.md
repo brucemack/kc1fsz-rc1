@@ -686,6 +686,24 @@ This interpolation/up-sampling filter is an example of
 something that can be implemented using a polyphase filter.
 More to follow on this topic.
 
+Characterizing the Audio Passband
+---------------------------------
+
+Here's the result of a firmware test to make sure the audio pass band looks
+right after all of the various filter, decimations, interpolations, etc. A -3dB signal was injected into 
+the audio flow swept from 50Hz to 
+3500Hz. The output level (i.e. the audio being passed to the transmitter) was 
+measured at each frequency. The output plot looks like this:
+
+![Output Spectrum](docs/spectrum-1.jpg)
+
+NOTES:
+* As expected, the frequencies below 350Hz are attenuated. The -3dB point
+is around 325Hz.  
+* The pass band response is reasonably flat.
+* The roll-off on the high end starts at 2,050Hz with the -3dB point seen 
+at around 2,225Hz. -20dB is seen at 2,500Hz.
+
 Digital to Analog Conversion
 ----------------------------
 
@@ -861,7 +879,6 @@ Bring Up Test
 Work In Process
 ===============
 Firmware
-* Address audio bandwidth issues (PL tone strip, audio BW limiting to prevent interference)
 * Implement emulation of the M7716 squelch chip.
 * Separate Morse ID from voice ID 
 * Implement polarity control PTT pins
