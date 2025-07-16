@@ -690,13 +690,20 @@ Characterizing the Audio Passband
 ---------------------------------
 
 Here's the result of a firmware test to make sure the audio pass band looks
-right after all of the various filter, decimations, interpolations, etc. A -3dB signal was injected into 
-the audio flow swept from 50Hz to 
+right after all of the various filter, decimations, interpolations, etc. 
+
+A -3dB signal was injected into the audio flow swept from 50Hz to 
 3500Hz. The output level (i.e. the audio being passed to the transmitter) was 
-measured at each frequency. This is an important test because it validates
+measured at each frequency. This is a digital-only test to validate the firmware:
+the input signal was sythesized and the output level is computed digitally.
+
+This is an important test because it validates
 that audio can be passed through the digital flow without distortion.
 
-The output plot looks like this:
+It's also important to see that received frequencies below 350 Hz (i.e. PL tones) 
+and above 2,500 Hz are not passed to the transmitter.
+
+Here's the output plot:
 
 ![Output Spectrum](docs/spectrum-1.jpg)
 
@@ -704,8 +711,23 @@ NOTES:
 * As expected, the frequencies below 350Hz are attenuated. The -3dB point
 is around 325Hz.  
 * The pass band response is reasonably flat.
-* The roll-off on the high end starts at 2,050Hz with the -3dB point seen 
-at around 2,225Hz. -20dB is seen at 2,500Hz.
+* The roll-off on the high end starts at 2,050 Hz with the -3dB point seen 
+at around 2,225Hz. -20dB is seen at 2,500 Hz.
+
+A version of this test that uses analog inputs and outputs will be included
+shortly, but I don't expect the result to be much different.
+
+A Handy Analog Loopback Self-Test
+---------------------------------
+
+A loopback connector was created that bridges the audio output pin
+to the audio input pin on the same radio. This allows the firmware
+to generate a signal (as if transmitting) and measure the resulting input
+signal (as if receiving). A diagnostic mode generates an audio frequency
+sweep and measures the receive level at each point along the way. An
+example of the curve is shown here:
+
+(To follow shortly)
 
 Digital to Analog Conversion
 ----------------------------
