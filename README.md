@@ -693,7 +693,10 @@ Here's the result of a firmware test to make sure the audio pass band looks
 right after all of the various filter, decimations, interpolations, etc. A -3dB signal was injected into 
 the audio flow swept from 50Hz to 
 3500Hz. The output level (i.e. the audio being passed to the transmitter) was 
-measured at each frequency. The output plot looks like this:
+measured at each frequency. This is an important test because it validates
+that audio can be passed through the digital flow without distortion.
+
+The output plot looks like this:
 
 ![Output Spectrum](docs/spectrum-1.jpg)
 
