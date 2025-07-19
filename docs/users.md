@@ -192,6 +192,11 @@ second receiver is ignored.
 * 2 - Cross-radio repeat, mixed. When both receivers are active at the same time,
 the audio from both receivers is mixed and transmitted through both transmitters. (Default)
 
+#### set idrequiredint (second)
+
+Sets the number of seconds between mandatory ID transmission.  Default is 
+600 seconds (10 minutes).
+
 #### set cosmode (radio) (mode)
 Controls the carrier detect (COS) mode used by the radio.
 

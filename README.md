@@ -689,19 +689,22 @@ More to follow on this topic.
 Characterizing the Audio Passband
 ---------------------------------
 
-Here's the result of a firmware test to make sure the audio pass band looks
-right after all of the various filter, decimations, interpolations, etc. 
+Here's the result of some testing to make sure the audio pass band looks
+right after all of the various conversions, filters, decimations, interpolations, etc. 
 
 A -3dB signal was injected into the audio flow swept from 50Hz to 
 3500Hz. The output level (i.e. the audio being passed to the transmitter) was 
-measured at each frequency. This is a digital-only test to validate the firmware:
-the input signal was sythesized and the output level is computed digitally.
+measured at each frequency and plotted in blue. This is a **digital-only** test 
+to validate the firmware - the input signal was sythesized and the output level is measured digitally by 
+aggregating the RMS value of the outputs.
 
 This is an important test because it validates
 that audio can be passed through the digital flow without distortion.
 
 It's also important to see that received frequencies below 350 Hz (i.e. PL tones) 
-and above 2,500 Hz are not passed to the transmitter.
+and above 2,500 Hz are not passed to the transmitter. (NOTE: It seems like different
+people have different views of where the cut-offs should be exactly. This is one 
+of the great things about DSP/SDR - we can make all of this configurable.)
 
 Here's the output plot:
 
@@ -714,8 +717,14 @@ is around 325Hz.
 * The roll-off on the high end starts at 2,050 Hz with the -3dB point seen 
 at around 2,225Hz. -20dB is seen at 2,500 Hz.
 
-A version of this test that uses analog inputs and outputs will be included
-shortly, but I don't expect the result to be much different.
+A second test was run on the complete hardware/firmware combination by using a 
+signal generator to inject input tones of various frequencies into the 
+audio input port. The audio output port was connected to an osciloscope 
+(along with a 600 ohm termination) and the output magnitude was measured,
+and plotted in red.
+
+As you can see from the chart above, the results of the digital-only (blue) 
+and full end-to-end (red) tests track very closely.
 
 A Handy Analog Loopback Self-Test
 ---------------------------------
@@ -775,6 +784,29 @@ The Link Communications pins are as follows:
 
 *NOTE: I am not using this connector the moment, this is
 just an illustration of a possible setup.*
+
+Notes on dB, Vrms, dBv, and dBu
+-------------------------------
+
+This topic is confusing, but Dan W1DAN helped straighten me out.
+
+> "Audio levels are a hornet's nest. If a 1v p-p sine wave is making all 
+> 1's at the ADC, this would be "0dBFS" or 0dB reference to full scale."
+
+I've followed this convention. Furthermore, I'm assuming what Dan is 
+referencing here is the dBv standard, which takes as a reference level
+a 1Vpp sine signal. All of the dB levels in the SDRC project now follow
+this convention.
+
+Importantly, many of the DSP calculations result in a Vrms value.  For 
+instance, the code that computes the input and/or output levels for the 
+purposes of checking thresholds or displaying a level on the status console.
+In all cases, the Vrms voltage is converted to a Vpp voltage by dividing by
+0.707 **prior** to the dB calculation. 
+
+There is a difference standard called dBu that uses 0.775 Vrms as the standard.
+It seems like a real "VU meter" would favor this standard. I've not implemented
+this yet.
 
 References
 ==========
