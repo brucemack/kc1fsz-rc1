@@ -811,6 +811,8 @@ this yet.
 References
 ==========
 
+[ARM CMSIS-DSP Documentation](https://arm-software.github.io/CMSIS-DSP/latest/)
+
 [FM Noise Article](https://pa3fwm.nl/technotes/tn24-fm-noise.html)
 
 [Basic FM Capture Effect Article](https://www.cdt21.com/design_guide/fm-capture-effect/)

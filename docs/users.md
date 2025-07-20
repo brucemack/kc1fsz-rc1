@@ -161,8 +161,20 @@ Restores the configuration to the factory defaults.
 #### show
 Displays the current configuration settings of the controller.
 
-#### set testmode (0 | 1)
-Turns on or off a test tone that can be used for adjusting transmit audio levels.
+#### test (radio)
+Initiates the transmission of a continuous test tone.
+
+#### set call (callsign)
+Sets the station callsign. Limit 16 characters, slashes are allowed.
+
+#### set pass (password)
+Sets the station password. Limit 16 characters. Used for secure access.
+You should use numbers if DTMF access is being used.
+
+#### set idrequiredint (second)
+
+Sets the number of seconds between mandatory ID transmission.  Default is 
+600 seconds (10 minutes).
 
 #### set testtonelevel (level_db)
 Sets the level of the test tone.
@@ -173,29 +185,6 @@ Sets the level of the test tone.
 Sets the frequency of the test tone.
 
 (freq_hz) The test tone frequency in Hertz.  Default is 1000.
-
-#### set call (callsign)
-Sets the station callsign. Limit 16 characters, slashes are allowed.
-
-#### set pass (password)
-Sets the station password. Limit 16 characters. Used for secure access.
-You should use numbers if DTMF access is being used.
-
-#### set repeatmode (mode)
-
-(mode) is one of the following:
-
-* 0 - Two radios operate independently.
-* 1 - Cross-radio repeat, exclusive. When both receivers are active at the same time,
-the first to become active is repeated through both transmitters and the 
-second receiver is ignored.
-* 2 - Cross-radio repeat, mixed. When both receivers are active at the same time,
-the audio from both receivers is mixed and transmitted through both transmitters. (Default)
-
-#### set idrequiredint (second)
-
-Sets the number of seconds between mandatory ID transmission.  Default is 
-600 seconds (10 minutes).
 
 #### set cosmode (radio) (mode)
 Controls the carrier detect (COS) mode used by the radio.
@@ -276,9 +265,26 @@ Used to make fine adjustments to the receive audio level.
 
 (adj_db) The receive audio is amplified/attenuated by this value. Default is 0dB.
 
-#### set txtonemode (radio) (mode)
+#### set delaytime (radio) (ms)
+Sets the audio delay for the designated receiver, up to a maxium of 250ms. This
+feature is useful for hiding the squelch tail of a receiver.
 
-Controls the CTCSS encoding function.
+(radio) is either 0 or 1.
+
+(ms) The delay in milliseconds.  Default is 0.
+
+#### set txenable (radio) (bool)
+Enabled/disables a transmitter.
+
+(radio) is either 0 or 1.
+
+(mode) is one of the following:
+
+* 0 - Transmitter is disabled
+* 1 - Transmitter is enabled
+
+#### set txtonemode (radio) (mode)
+Controls the CTCSS encoding function on transmit
 
 (radio) is either 0 or 1.
 
@@ -343,6 +349,16 @@ Controls the audio level of the courtesy tone.
 (radio) is either 0 or 1.
 
 (level_db) is the audio level in dB relative to full scale.
+
+#### set idmode (radio) (mode)
+Controls the ID mode
+
+(radio) is either 0 or 1.
+
+(mode) one of the following:
+
+* 0 - No ID
+* 1 - CW ID (call sign)
 
 #### set idlevel (radio) (level_db)
 Controls the audio level of the CW ID.
