@@ -61,6 +61,8 @@ the Motorola M7716 IC.
 * Optional digital voice ID and other prompts.
 * Soft RX/TX gain control adjustable remotely.
 * <=250ms digital audio delay to avoid squelch tails.
+* Optional AGC control with configurable level target, gain limits, 
+and attack/decay parameters.
 * "Soft console" via USB-connected computer computer with
 serial terminal provides a configuration shell and live display of the following:
   - Carrier detect (COS) status
@@ -850,6 +852,50 @@ an integrator that uses asymmetrical coefficents:
 A general discussion of [Leaky Integration](https://en.wikipedia.org/wiki/Leaky_integrator) is 
 relevant here.
 
+Automatic Gain Control (AGC)
+----------------------------
+
+This was an ideal from Dan (W1DAN). The concept here is to adjust the soft
+gain on the receiver to maintain a constant signal level on the receiver
+input. Obviously, this is easier said than done.  A few notes from Dan:
+* Audio levels for different stations on a repeater can vary widely.
+* The ability to adjust up or down by +/-10dB would be reasonable.
+* Attack/decay behavior is very important.
+* A limiter is needed to avoid accidentally clipping, particularly when 
+the AGC is adding gain and a quick transition happens.
+* Ideally there would be a "hold" to avoid having the gain lowered 
+between words.
+
+My implementation is simple at the moment:
+* The target audio RMS level is configurable. Default is -10dBFS.
+* The RMS value used in the AGC process is averaged over 64ms.
+* The AGC gain attacks/decays exponentially, with 99% of the transition 
+completed in about 150ms.
+* The AGC gain is hard-limited to a range of -10dB to +10dB.
+
+Demonstration of my AGC Implementation
+--------------------------------------
+
+Two tests were run.  The first with tones (unrealistic, but a good
+sanity check) and the second with voice audio.
+
+For the first test a tone was generated with its amplitude modulated in three
+steps: started at -10dBFS, then lowered by -16dB and then raised by +6dB. Here's
+what the original clip sounds like with AGC disabled: [Sound 5a](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-5a.wav). You can hear the amplitude changes 
+clearly.
+
+Then the AGC was turned on and the test was repeated.  Here's
+the sample clip played through the controller with AGC enabled: [Sound 5b](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-5b.wav). You can hear the places where the gains
+are adjusted, but the amplitude of the tone is generally steady.
+
+The second test involves aan audio recording.  In this test the audio is attenuated
+by -10dB in the middle of the clip. Here's the original clip with no AGC: [Sound 6a](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-6a.wav). You can hear the amplitude change just before the speaker says "Wellesley, Massachusetts."
+
+Then the AGC was turned on and the test was repeated.  Here's
+the sample clip played through the controller with AGC enabled: [Sound 6b](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-6b.wav). The voice level
+still changes noticably, but the discontinuity is greatly reduced as the AGC attacks
+and the level is brought up.
+
 References
 ==========
 
@@ -860,7 +906,7 @@ References
 * VU
   - [Paper on ANSI Standard](https://www.aes.org/aeshc/pdf/mcknight_qa-on-the-svi-6.pdf)
 * [New England Band Plan](https://www.nesmc.org/docs/nesmc_bandplans_2023.pdf)
-
+* [AGC Article](https://wirelesspi.com/how-automatic-gain-control-agc-works/)
 
 Relevant FCC Regulations
 ========================
