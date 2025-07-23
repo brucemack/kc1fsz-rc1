@@ -906,6 +906,11 @@ audio levels coming into the repeater. A current area of research is to consider
 the AGC much more "flexible" at the start of a transmission, or after an 
 extended period of silence.
 
+Research and Development on Digital Noise Reduction Filters
+-----------------------------------------------------------
+
+(To follow)
+
 References
 ==========
 
