@@ -788,10 +788,14 @@ just an illustration of a possible setup.*
 Notes on dB, Vrms, dBv, and dBu
 -------------------------------
 
-This topic is confusing, but Dan W1DAN helped straighten me out.
+This topic is confusing, but Dan W1DAN helped straighten me out:
 
 > "Audio levels are a hornet's nest. If a 1v p-p sine wave is making all 
 > 1's at the ADC, this would be "0dBFS" or 0dB reference to full scale."
+
+Remember that a "1Vpp sine wave that is making all 1s" is a 0.5Vp signal
+that is maxing out the ADC range at the peak in the positive direction and 
+a -0.5Vp signal that is maxing out the range in the negative direction.
 
 I've followed this convention. Furthermore, I'm assuming what Dan is 
 referencing here is the dBv standard, which takes as a reference level
@@ -804,18 +808,59 @@ purposes of checking thresholds or displaying a level on the status console.
 In all cases, the Vrms voltage is converted to a Vpp voltage by dividing by
 0.707 **prior** to the dB calculation. 
 
-There is a difference standard called dBu that uses 0.775 Vrms as the standard.
-It seems like a real "VU meter" would favor this standard. I've not implemented
-this yet.
+There is a different standard called dBu that uses 0.775 Vrms as the standard.
+
+And yet another different standard used in VU meters uses 1.228 Vrms as the 
+reference standard. However,
+the VU meter standard is calibrated such that +0VU is the same as -18dBv (dBFS on a 1V 
+range). This calibration can be acheived by scaling the input voltage by 
+around 27.57, converting to Vrms, and then peforming the dB calculation relative
+to the 1.228 Vrms reference. The theory here is that if you adjust the gains to
+get 0VU you'll have 18dB of headroom in the system.
+
+VU Meter
+--------
+
+The key parts of the standard are:
+* The 0VU reference is a 1.228 Vrms signal. 
+* The meter is calibrated so that 0VU is the same as a -18dBFS signal. 
+* There is inertia in the meter. When a 0VU signal of 1kHz is applied 
+to the meter it will take 300ms to for the meter to reach 99% of the 
+target 0VU indication. Likewise on the way down.
+* Audio levels are set to indicate around 0VU. This leaves ~10dB for peaks and ~8dB for 
+unusual situations.
+
+Metering - Peak Hold/Decay
+--------------------------
+
+The goal of the peak/hold meter is to have a very fast reaction
+(attack) time when a new peak is made and a relatively slow
+reaction time (decay) while settling back. This is achieved using 
+an integrator that uses asymmetrical coefficents:
+
+    const float attackCycles = 4;
+    const float decayCycles = 32;
+    float avgPeak;
+
+    if (input > avgPeak)
+        avgPeak += (1.0 / attackCycles) * (input - avgPeak);
+    else
+        avgPeak += (1.0 / decayCycles) * (input - avgPeak);
+
+A general discussion of [Leaky Integration](https://en.wikipedia.org/wiki/Leaky_integrator) is 
+relevant here.
 
 References
 ==========
 
-[ARM CMSIS-DSP Documentation](https://arm-software.github.io/CMSIS-DSP/latest/)
+* [ARM CMSIS-DSP Documentation](https://arm-software.github.io/CMSIS-DSP/latest/)
+* [FM Noise Article](https://pa3fwm.nl/technotes/tn24-fm-noise.html)
+* [Basic FM Capture Effect Article](https://www.cdt21.com/design_guide/fm-capture-effect/)
+* [Pad Calculator](https://chemandy.com/calculators/matching-pi-attenuator-calculator.htm)
+* VU
+  - [Paper on ANSI Standard](https://www.aes.org/aeshc/pdf/mcknight_qa-on-the-svi-6.pdf)
+* [New England Band Plan](https://www.nesmc.org/docs/nesmc_bandplans_2023.pdf)
 
-[FM Noise Article](https://pa3fwm.nl/technotes/tn24-fm-noise.html)
-
-[Basic FM Capture Effect Article](https://www.cdt21.com/design_guide/fm-capture-effect/)
 
 Relevant FCC Regulations
 ========================
