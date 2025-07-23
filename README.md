@@ -26,7 +26,7 @@ will also enable direct integration of those modes at some point.
 Much of the hardware used in traditional analog repeater controller 
 designs
 (analog cross-point switches, FPGAs, custom DTMF/CTCSS tone detection chips, 
-digital voice CODECs, voice delay modules, M7716 noise squelch ICs, etc.) will not be necessary
+digital voice CODECs, voice delay modules, M7716 noise squelch ICs, AGC circuits, etc.) will not be necessary
 if these functions can be performed in software.
 
 A [users guide is provided here](docs/users.md).
@@ -1038,16 +1038,14 @@ Bring Up Test
 
 Work In Process
 ===============
+
 Firmware
-* Implement emulation of the M7716 squelch chip.
+* Fully implement emulation of the M7716 squelch chip.
 * Separate Morse ID from voice ID 
-* Implement polarity control PTT pins
 * DTMF decode and TX shutoff commands.
 * Improve layout of live status page
 * Come up with a way to load voice prompts
 * Load rest of voice prompts
-* AGC experimentation
-* Implement blended audio mode
 
 Hardware
 * Enclosure
@@ -1055,5 +1053,5 @@ Hardware
 * Overvoltage protection testing
 * Send board revision to fab
 * Live test at NWH
-* Self-test feature
+* Self-test featurew with a loopback connector
 

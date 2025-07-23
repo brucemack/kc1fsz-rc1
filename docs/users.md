@@ -366,3 +366,18 @@ Controls the audio level of the CW ID.
 (radio) is either 0 or 1.
 
 (level) is the audio level in dB relative to full scale.
+
+#### set agcmode (radio) (mode)
+
+(radio) is either 0 or 1.
+
+(mode) One of the following:
+
+* 0 - No AGC (default)
+* 1 - Stanard AGC
+
+#### set agclevel (radio) (level_dbfs)
+
+(radio) is either 0 or 1.
+
+(level_dbfs) is the target audio level in dB relative to full scale.
