@@ -855,8 +855,8 @@ relevant here.
 Automatic Gain Control (AGC)
 ----------------------------
 
-This was an ideal from Dan (W1DAN). The concept here is to adjust the soft
-gain on the receiver to maintain a constant signal level on the receiver
+This was an idea from Dan Brown (W1DAN). The concept here is to adjust the soft
+gain to maintain a constant signal level on the receiver
 input. Obviously, this is easier said than done.  A few notes from Dan:
 * Audio levels for different stations on a repeater can vary widely.
 * The ability to adjust up or down by +/-10dB would be reasonable.
@@ -879,22 +879,29 @@ Demonstration of my AGC Implementation
 Two tests were run.  The first with tones (unrealistic, but a good
 sanity check) and the second with voice audio.
 
-For the first test a tone was generated with its amplitude modulated in three
-steps: started at -10dBFS, then lowered by -16dB and then raised by +6dB. Here's
+For the first test a tone was generated with amplitude modulation in three
+steps: start at -10dBFS, then lower by -16dB and then raise by +6dB. Here's
 what the original clip sounds like with AGC disabled: [Sound 5a](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-5a.wav). You can hear the amplitude changes 
 clearly.
 
 Then the AGC was turned on and the test was repeated.  Here's
-the sample clip played through the controller with AGC enabled: [Sound 5b](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-5b.wav). You can hear the places where the gains
-are adjusted, but the amplitude of the tone is generally steady.
+the sample clip played through the controller with AGC enabled: [Sound 5b](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-5b.wav). You can hear the places where the gain is adjusted, but the amplitude of the tone is generally steady
+throughout the test.
 
-The second test involves aan audio recording.  In this test the audio is attenuated
+The second test involves an audio recording.  In this test the audio is 
+abruptly attenuated
 by -10dB in the middle of the clip. Here's the original clip with no AGC: [Sound 6a](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-6a.wav). You can hear the amplitude change just before the speaker says "Wellesley, Massachusetts."
 
 Then the AGC was turned on and the test was repeated.  Here's
 the sample clip played through the controller with AGC enabled: [Sound 6b](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-6b.wav). The voice level
 still changes noticably, but the discontinuity is greatly reduced as the AGC attacks
 and the level is brought up.
+
+The real intent of the AGC isn't to "fix" audio in the middle of a transmission 
+like this, but rather to equalize different stations that may have very different
+audio levels coming into the repeater. A current area of research is to consider making 
+the AGC much more "flexible" at the start of a transmission, or after an 
+extended period of silence.
 
 References
 ==========
