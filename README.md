@@ -911,6 +911,30 @@ Research and Development on Digital Noise Reduction Filters
 
 (To follow)
 
+Notes on Processing Speed/CPU Limits
+------------------------------------
+
+As with any SDR project, it's important to make sure that the capacity of 
+the RP2350 microcontroller is not being exceeded by the processing requirements.
+Some important data points:
+
+* The RP2350 is currently being clocked at 129.6 MHz.
+* The audio CODECs run at 32k samples/second.
+* The DMA works on blocks of 256 samples. So one 256 block is received from a receiver 
+every 8ms. Importantly: one 256 block must also be produced for each transmitter every 8ms. No exceptions.
+* This implies that all audio processing needs to happen inside of the 8ms window.
+* Current measurements for the SDRC board with two receiver ports and two 
+transmitter ports
+shows that **each digital audio cycle requires 4.7mS to complete** - comfortably inside
+of the 8ms limit. An additional 2m is required to handle the work of the GSM CODEC
+for digital audio inputs/outputs from/to other boards and for decompressing any 
+voice messages stored in the controller.  The processing requirements for the console and other 
+non-real-time functions happen in time left over. So things are in good shape
+from a CPU perspective. 
+* Much of the audio core is implemented using floating-point math. If time 
+ever became an issue we could switch some of the functions to fixed-point to 
+gain further efficiency.  The GSM CODEC is already fixed-point.
+
 References
 ==========
 
