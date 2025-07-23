@@ -897,6 +897,8 @@ the sample clip played through the controller with AGC enabled: [Sound 6b](https
 still changes noticably, but the discontinuity is greatly reduced as the AGC attacks
 and the level is brought up.
 
+(AGC gain chart to follow)
+
 The real intent of the AGC isn't to "fix" audio in the middle of a transmission 
 like this, but rather to equalize different stations that may have very different
 audio levels coming into the repeater. A current area of research is to consider making 
