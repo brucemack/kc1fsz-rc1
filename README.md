@@ -894,8 +894,9 @@ by -10dB in the middle of the clip. Here's the original clip with no AGC: [Sound
 
 Then the AGC was turned on and the test was repeated.  Here's
 the sample clip played through the controller with AGC enabled: [Sound 6b](https://github.com/brucemack/kc1fsz-rc1/raw/refs/heads/main/docs/clip-6b.wav). The voice level
-still changes noticably, but the discontinuity is greatly reduced as the AGC attacks
-and the level is brought up.
+still changes noticably, but the discontinuity is reduced as the AGC attacks
+and the level is brought up. I think the attack/delay may be too fast here, but 
+it's a good starting point to prove the concept.
 
 (AGC gain chart to follow)
 
