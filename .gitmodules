@@ -1,9 +1,0 @@
-[submodule "kc1fsz-tools-cpp"]
-	path = kc1fsz-tools-cpp
-	url = https://github.com/brucemack/kc1fsz-tools-cpp.git
-[submodule "gsm-0610-codec"]
-	path = gsm-0610-codec
-	url = https://github.com/brucemack/gsm-0610-codec.git
-[submodule "radlib"]
-	path = radlib
-	url = https://github.com/brucemack/radlib.git
