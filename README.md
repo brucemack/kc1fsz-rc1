@@ -116,6 +116,7 @@ I've received help from a lot of smart people on this project who have been very
 * Steve Kondo K1STK
 * George Zafiropoulos KJ6VU. Among other things, George [sells his own commercial repeater controllers](https://www.packtenna.com/repeaters.html#/). 
 * Jim Aspinwall NO1PC.  Jim is very experienced with repeaters and has engineered/maintained several multi-site systems. His [website is very interesting](https://www.no1pc.org/).
+* Jeff Otterson (N1KDO), of [NHRC Repeater Controller](https://www.nhrc.net/). 
 
 Legal/License
 =============
@@ -998,6 +999,9 @@ References
 * [AGC Article](https://wirelesspi.com/how-automatic-gain-control-agc-works/)
 * [Good Reference Design for DTMF Decoder](https://www.silabs.com/documents/public/application-notes/an218.pdf)
 * [DTMF App Note](https://www.ti.com/lit/an/spra096a/spra096a.pdf?ts=1709132288428&ref_url=https%253A%252F%252Fwww.google.com%252F)
+* [Jeff's NHRC Documentation](https://github.com/nhrc-net/NHRC_Repeater_Controllers)
+* [Optimod 8100A Manual](https://www.worldradiohistory.com/Archive-Catalogs/Orban/Optimod-8100A-Manual-1986.pdf)
+* [Audio Processing](https://www.repeater-builder.com/tech-info/audio-processing.html)
 
 Relevant FCC Regulations
 ========================
@@ -1045,6 +1049,52 @@ Serial Console
 Connect serial-USB module to GPIO0/GPIO1 pins and use this command:
 
         minicom -b 115200 -o -D /dev/ttyUSB0
+
+Radio Interfaces
+================
+
+ICOM IC-2000H VHF Mobile
+------------------------
+
+This radio was used extensively for bring-up testing of the controller.  
+
+The microphone RJ45 jack provides all connectivity.  From left to right:
+* Pin 3 (Green/White) - Rig AF Output, prior to Af amplifier.  Volume control 
+doesn't affect this.
+* Pin 4 (Blue) - Rig PTT input.  Pulled to ground to key.
+* Pin 5 (Blue/white) - Microphone GND
+* Pin 6 (Green) - Rig microphone input.  
+* Pin 7 (Brown/white) - GND
+
+As you can see, there is no COS output from the IC-2000H. However, the PL tone
+is passed through the AF output so the controller's CTCSS decoder can be used.
+
+The rig's AF output is compatible with the line-level input of the controller so a direct
+connection is made.
+
+The controller's audio output is connected to the rig's microphone input via a -10dB resitive 
+pad in 
+the PI configuration: left leg is 600 ohms, right leg is 2.2k ohms, and the "top" 
+is 39k. This reduces the line level to something reasonable for microphone input and provides 
+a good 600 ohm match for the controller output and a ~1k ohm match for 
+the rig's mic input.
+
+Baofeng BF-F8HP HT
+------------------
+
+This radio was used for some simplistic cross-band VHF/UHF repeater testing. 
+
+Connectors:
+* 3.5mm Jack
+  - Tip - NC
+  - Ring - Rig mic in
+  - Sleeve - PTT when pulled to ground
+* 2.5mm Jack
+  - Tip - Rig speaker+ out
+  - Ring - Rig ground
+  - Sleeve - Rig ground
+
+Carrier detect has been discussed at length in other venues. The method of detecting the receive carrier depends on the radio you are using. Unless you are willing to crack it open, there is no explicit carrier detect "signal" on the Baofeng HT. My integration with this rig just listens for noise on the audio output line and triggers accordingly. That seems to work reasonably. 
 
 Wiring Notes (Revision B)
 =========================
