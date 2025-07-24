@@ -994,6 +994,23 @@ Connect serial-USB module to GPIO0/GPIO1 pins and use this command:
 
         minicom -b 115200 -o -D /dev/ttyUSB0
 
+Radio Interfaces
+================
+
+ICOM IC-2000H VHF Mobile
+------------------------
+
+The microphone RJ45 jack provides all connectivity.  From left to right:
+* Pin 3 (Green/White) - Rig AF Output, prior to Af amplifier.  Volume control 
+doesn't affect this.
+* Pin 4 (Blue) - Rig PTT input.  Pulled to ground to key.
+* Pin 5 (Blue/white) - Microphone GND
+* Pin 6 (Green) - Rig microphone input.  
+* Pin 7 (Brown/white) - GND
+
+Driven by controller audio output 
+through a 100K/10K divider.
+
 Wiring Notes (Revision B)
 =========================
 
