@@ -116,6 +116,7 @@ I've received help from a lot of smart people on this project who have been very
 * Steve Kondo K1STK
 * George Zafiropoulos KJ6VU. Among other things, George [sells his own commercial repeater controllers](https://www.packtenna.com/repeaters.html#/). 
 * Jim Aspinwall NO1PC.  Jim is very experienced with repeaters and has engineered/maintained several multi-site systems. His [website is very interesting](https://www.no1pc.org/).
+* Jeff Otterson (N1KDO), of [NHRC Repeater Controller](https://www.nhrc.net/). 
 
 Legal/License
 =============
@@ -946,6 +947,8 @@ References
   - [Paper on ANSI Standard](https://www.aes.org/aeshc/pdf/mcknight_qa-on-the-svi-6.pdf)
 * [New England Band Plan](https://www.nesmc.org/docs/nesmc_bandplans_2023.pdf)
 * [AGC Article](https://wirelesspi.com/how-automatic-gain-control-agc-works/)
+* [Jeff's NHRC Documentation](https://github.com/nhrc-net/NHRC_Repeater_Controllers)
+* [Optimod 8100A Manual](https://www.worldradiohistory.com/Archive-Catalogs/Orban/Optimod-8100A-Manual-1986.pdf)
 
 Relevant FCC Regulations
 ========================
