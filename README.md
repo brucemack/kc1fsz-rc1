@@ -946,6 +946,8 @@ References
   - [Paper on ANSI Standard](https://www.aes.org/aeshc/pdf/mcknight_qa-on-the-svi-6.pdf)
 * [New England Band Plan](https://www.nesmc.org/docs/nesmc_bandplans_2023.pdf)
 * [AGC Article](https://wirelesspi.com/how-automatic-gain-control-agc-works/)
+* [Audio Processing](https://www.repeater-builder.com/tech-info/audio-processing.html)
+
 
 Relevant FCC Regulations
 ========================
