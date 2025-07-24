@@ -935,6 +935,56 @@ from a CPU perspective.
 ever became an issue we could switch some of the functions to fixed-point to 
 gain further efficiency.  The GSM CODEC is already fixed-point.
 
+DTMF Decode 
+-----------
+
+The rules for DTMF are standardize by the International Telecommunications Union (ITU), among other places. The relevant ITU standards documents are located here:
+
+* [ITU Q.23](https://www.itu.int/rec/dologin_pub.asp?id=T-REC-Q.23-198811-I!!PDF-E&lang=e&type=items)
+* [ITU Q.24](https://www.itu.int/rec/dologin_pub.asp?lang=e&id=T-REC-Q.24-198811-I!!PDF-E&type=items)
+
+Good application notes:
+* [From TI](https://www.ti.com/lit/an/spra096a/spra096a.pdf?ts=1709132288428&ref_url=https%253A%252F%252Fwww.google.com%252F)
+* [Good Reference Design from Silicon Labs](https://www.silabs.com/documents/public/application-notes/an218.pdf)
+
+The most important details from the standards document:
+
+* There are a total of 16 possible symbols. Each symbol is made up of two tones: one from the "low group" and one from the "high group."
+* The "low group" frequencies are: 697, 770, 852, 941 Hz. These are on the rows of the keypad.
+* The "high group" frequencies are: 1209, 1336, 1477, 1633 Hz. These are on the columns of the keypad.
+* Even though the phone/radio keypad only has 3 columns, there is a an "extra" column in the spec for A/B/C/D.
+* Transmission must be within 1.8% of frequency standard to be recognized. This means that the received frequency can be +/- 1.8% from expectation, or 3.6% wide.
+* If we apply the 3.6% rule to the highest frequency, we get a resolution bandwidth of 58.788 Hz (1633 * 0.036).
+* Distortion products (e.g. harmonics) must be -20dB below the fundamental.
+* There are rules around the relative powers of the two tones that make up the symbol. In the US, the high group frequency power level may be up to 4 dB more or 8 dB less than the low group frequency power level for the symbol to be considered valid. In the TELCO lingo, this difference is known as "twist" and it is expressed in dB. Positive twist means that the higher frequency is louder.
+* Timing requirements are as follows.
+  - A symbol must be transmitted for at least 40ms. Symbols shorter than 23ms must be rejected.
+  - The gap between symbols must be at least 40ms.
+
+Implementation Notes
+
+* 23ms is 184 samples (2.87 64-sample blocks) at a sampling rate of 8 kHz. We'll round up 
+to 24ms at 192 samples (3 64-sample blocks).
+* 40ms is 320 samples (5 64-sample blocks) at a sampling rate of 8 kHz.  
+* Following the normal DFT math, a block of 136 samples is required to achieve 58.788 Hz resolution at a sampling rate of 8 kHz. We'll round this up to 192 (3x 8ms blocks) and get a bit more resolution.
+* Since we need 192 samples to perform detection, we'll use a sliding window of the 
+last 3 64-sample blocks each cycle.
+* Noise/silence periods are important to de-bounce and separate the symbols, so we'll need the decoder
+to be able to identify those things as well.
+
+General Algorithm Notes
+
+* The +4dB level is equivalent to x ~1.58 linear. Testing a/b > ~1.58 is the same as * testing 4a/b > ~6.
+* The +8dB level is equivalent to x2.5 linear. Testing a/b > ~2.5 is the same as testing 4a/b > ~10.
+* The +20dB level is equivalent to x10 linear.
+
+Comparing the ratio of two RMS powers to a dB value can be reformulated to avoid 
+the log10() and sqrt() calls.
+
+        log10(sqrt(A) / sqrt(B)) < log10(C)
+        sqrt(A) / sqrt(B) < C
+        A / B < C * C
+
 References
 ==========
 
@@ -946,6 +996,8 @@ References
   - [Paper on ANSI Standard](https://www.aes.org/aeshc/pdf/mcknight_qa-on-the-svi-6.pdf)
 * [New England Band Plan](https://www.nesmc.org/docs/nesmc_bandplans_2023.pdf)
 * [AGC Article](https://wirelesspi.com/how-automatic-gain-control-agc-works/)
+* [Good Reference Design for DTMF Decoder](https://www.silabs.com/documents/public/application-notes/an218.pdf)
+* [DTMF App Note](https://www.ti.com/lit/an/spra096a/spra096a.pdf?ts=1709132288428&ref_url=https%253A%252F%252Fwww.google.com%252F)
 
 Relevant FCC Regulations
 ========================
