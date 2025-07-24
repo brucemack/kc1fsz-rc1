@@ -1008,8 +1008,18 @@ doesn't affect this.
 * Pin 6 (Green) - Rig microphone input.  
 * Pin 7 (Brown/white) - GND
 
-Driven by controller audio output 
-through a 100K/10K divider.
+As you can see, there is no COS output from the IC-2000H. However, the PL tone
+is passed through the AF output so the controller's CTCSS decoder can be used.
+
+The rig's AF output is compatible with the line-level input of the controller so a direct
+connection is made.
+
+The controller's audio output is connected to the rig's microphone input via a -10dB resitive 
+pad in 
+the PI configuration: left leg is 600 ohms, right leg is 2.2k ohms, and the "top" 
+is 39k. This reduces the line level to something reasonable for microphone input and provides 
+a good 600 ohm match for the controller output and a ~1k ohm match for 
+the rig's mic input.
 
 Wiring Notes (Revision B)
 =========================
