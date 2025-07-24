@@ -949,6 +949,7 @@ References
 * [AGC Article](https://wirelesspi.com/how-automatic-gain-control-agc-works/)
 * [Jeff's NHRC Documentation](https://github.com/nhrc-net/NHRC_Repeater_Controllers)
 * [Optimod 8100A Manual](https://www.worldradiohistory.com/Archive-Catalogs/Orban/Optimod-8100A-Manual-1986.pdf)
+* [Audio Processing](https://www.repeater-builder.com/tech-info/audio-processing.html)
 
 Relevant FCC Regulations
 ========================
