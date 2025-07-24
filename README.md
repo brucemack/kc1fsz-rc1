@@ -1000,6 +1000,8 @@ Radio Interfaces
 ICOM IC-2000H VHF Mobile
 ------------------------
 
+This radio was used extensively for bring-up testing of the controller.  
+
 The microphone RJ45 jack provides all connectivity.  From left to right:
 * Pin 3 (Green/White) - Rig AF Output, prior to Af amplifier.  Volume control 
 doesn't affect this.
@@ -1020,6 +1022,23 @@ the PI configuration: left leg is 600 ohms, right leg is 2.2k ohms, and the "top
 is 39k. This reduces the line level to something reasonable for microphone input and provides 
 a good 600 ohm match for the controller output and a ~1k ohm match for 
 the rig's mic input.
+
+Baofeng BF-F8HP HT
+------------------
+
+This radio was used for some simplistic cross-band VHF/UHF repeater testing. 
+
+Connectors:
+* 3.5mm Jack
+  - Tip - NC
+  - Ring - Rig mic in
+  - Sleeve - PTT when pulled to ground
+* 2.5mm Jack
+  - Tip - Rig speaker+ out
+  - Ring - Rig ground
+  - Sleeve - Rig ground
+
+Carrier detect has been discussed at length in other venues. The method of detecting the receive carrier depends on the radio you are using. Unless you are willing to crack it open, there is no explicit carrier detect "signal" on the Baofeng HT. My integration with this rig just listens for noise on the audio output line and triggers accordingly. That seems to work reasonably. 
 
 Wiring Notes (Revision B)
 =========================
