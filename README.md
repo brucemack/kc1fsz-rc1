@@ -939,20 +939,21 @@ gain further efficiency.  The GSM CODEC is already fixed-point.
 DTMF Decoding
 -------------
 
-The rules for DTMF are standardize by the International Telecommunications Union (ITU), the Eurpean Telecommunications
-Standards Institute, and others. Some relevant standards documents are located here:
+The rules for DTMF are standardized by the International Telecommunications Union 
+(ITU), the Eurpean Telecommunications Standards Institute (ETSI), and others. Some 
+relevant standards documents are located here:
 
 * [ETSI ES 201 235-3](https://www.etsi.org/deliver/etsi_es/201200_201299/20123503/01.01.01_50/es_20123503v010101m.pdf)
 * [ITU Q.23](https://www.itu.int/rec/dologin_pub.asp?id=T-REC-Q.23-198811-I!!PDF-E&lang=e&type=items)
 * [ITU Q.24](https://www.itu.int/rec/dologin_pub.asp?lang=e&id=T-REC-Q.24-198811-I!!PDF-E&type=items)
 
-All of these standards are slightly different, but you 
-can get the basic idea.
+All of these standards are slightly different, but you get the basic idea from 
+the documents.
 
-Good application notes:
+There are some good application notes around:
 * [From TI](https://www.ti.com/lit/an/spra096a/spra096a.pdf?ts=1709132288428&ref_url=https%253A%252F%252Fwww.google.com%252F)
-* [Good Reference Design from Silicon Labs](https://www.silabs.com/documents/public/application-notes/an218.pdf)
-* [A good application note from ATT](http://www.bitsavers.org/components/att/dsp/AP88-08_-_DTMF_Receiver_Using_the_WE_DSP32_DSP_-_1988.pdf)
+* [Reference Design from Silicon Labs](https://www.silabs.com/documents/public/application-notes/an218.pdf)
+* [An application note from AT+T](http://www.bitsavers.org/components/att/dsp/AP88-08_-_DTMF_Receiver_Using_the_WE_DSP32_DSP_-_1988.pdf)
 
 The most important details from the standards document:
 
@@ -961,37 +962,34 @@ The most important details from the standards document:
 * The "high group" frequencies are: 1209, 1336, 1477, 1633 Hz. These are on the columns of the keypad.
 * Even though the phone/radio keypad only has 3 columns, there is a an "extra" column in the spec for A/B/C/D.
 * Transmission must be within 1.8% of frequency standard to be recognized. This means that the received frequency can be +/- 1.8% from expectation, or 3.6% wide.
-* If we apply the 3.6% rule to the highest frequency, we get a resolution bandwidth of 58.788 Hz (1633 * 0.036).
+* If we apply the 3.6% rule to the highest frequency, we get a resolution bandwidth requirement of 58.788 Hz (1633 * 0.036).
 * Distortion products (e.g. harmonics) must be -20dB below the fundamental.
 * There are rules around the relative powers of the two tones that make up the symbol. In the US, the high group frequency power level may be up to 4 dB more or 8 dB less than the low group frequency power level for the symbol to be considered valid. In the TELCO lingo, this difference is known as "twist" and it is expressed in dB. Positive twist means that the higher frequency is louder.
-* The selected tones must "stand out" relative to the others 
-in the band. I think this is done to avoid speech-induced
-false-positives.  A voice sample would be generating energy
-across the entire band, whereas a DTMF tone should only
-be generating energy at one specific frequency in each band.
+* The selected tones must "stand out" relative to the others in the band. I think this 
+is done to avoid speech-induced false-positives.  A voice sample would contain 
+energy across the entire band, whereas a DTMF tone should only contain
+energy at one specific frequency in each band.
 * Timing requirements vary, but generally:
-  - A symbol must be transmitted for at least 40ms. Symbols shorter than 23ms must be rejected.
   - The gap between symbols must be at least 40ms.
-  - Once a symbol is detected, short "glitches" of below 20ms 
-    should be ignored.
+  - A symbol must be transmitted for at least 40ms. Symbols shorter than 23ms must be rejected.
+  - Once a symbol is detected, short "glitches" of below 20ms should be ignored.
 
 Implementation Notes
 
 * 23ms is 184 samples (2.87x 64-sample blocks) at a sampling rate of 8 kHz. We'll round up
 to 24ms at 192 samples (3x 64-sample blocks).
 * 40ms is 320 samples (5x 64-sample blocks) at a sampling rate of 8 kHz.  
-* Following the normal DFT math, a block of 136 samples is required to achieve 58.788 Hz resolution at a sampling rate of 8 kHz. We'll round this up to 192 (3x 8ms blocks) and get a bit more resolution.
-* There is always a trade-off between sample count and frequency
+* Following the normal DFT math, a block of 136 samples is required to achieve 58.788 Hz resolution at a sampling rate of 8 kHz. 
+* With the DFT (and Goertzel) there is always a trade-off between sample count and frequency
 resolution. In our case, this implies a trade-off between 
 detection speed and compliance with the frequency deviation standards. 
 By relaxing the deviation standards a bit (say to around 10%) we 
 can gain speed. For example, the AT&T application note cited above chose
 a processing block of 102 samples, leading to a resolution of 
 8,000 / 102 = ~80hz. This produces an deviation band of ~11% 
-centered around the low tone of 697 Hz. The distance to the next tone (770 Hz) is 73 Hz, so I guess the +/ 40Hz deviation around 697 Hz
-would be workable.   
+centered around the low tone of 697 Hz. The distance to the next tone (770 Hz) is 73 Hz, so I guess the +/- 40Hz deviation around 697 Hz would be workable.   
 * Since we need 136 samples to perform detection, we'll use a sliding window of the 
-last few sample blocks each cycle.
+last few sample blocks on each 8ms cycle.
 * Noise/silence periods are important to de-bounce and separate the symbols, so we'll need the decoder
 to be able to identify those things as well.
 
@@ -1001,12 +999,27 @@ General Algorithm Notes
 * The +8dB level is equivalent to x2.5 linear. Testing a/b > ~2.5 is the same as testing 4a/b > ~10.
 * The +20dB level is equivalent to x10 linear.
 
-Comparing the ratio of two RMS powers to a dB value can be reformulated to avoid 
-the log10() and sqrt() calls.
+DFT analysis generally returns RMS voltages for each frequency bucket. The "R" in RMS
+means square root. If we skip the square root step and deal with the square of
+the RMS voltage (i.e. just MS) we take advantage of the fact that the **power** 
+dissipated in a resistive load is linearly proportional to the square of the RMS voltage. So
+MS is proportional to power.
 
-        log10(sqrt(A) / sqrt(B)) < log10(C)
-        sqrt(A) / sqrt(B) < C
-        A / B < C * C
+Several places in the DTMF decode algoritm require us to compare two RMS voltages.
+
+Comparing the ratio of two RMS voltages to some dB value can be reformulated to avoid 
+the log10() and sqrt() calls. Assume A and B are "MS" powers that come out of a 
+DTF/Goertzel calculation that has skipped the final sqrt() operation. And assume
+C is the linear ratio that we are trying to compare to.  For example, if the goal
+was to compare the ratio of two signals against a -6dB threshold, C would be 0.5.
+
+    20 * log10(sqrt(A) / sqrt(B)) < 20 * log10(C)
+    log10(sqrt(A) / sqrt(B)) < log10(C)
+    sqrt(A) / sqrt(B) < C
+    (A / B) < (C * C)
+
+So this threshold calculation only requires a division of the two DFT outputs
+since (C * C) is known in advance.
 
 References
 ==========
