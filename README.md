@@ -63,14 +63,15 @@ the Motorola M7716 IC.
 * <=250ms digital audio delay to avoid squelch tails.
 * Optional AGC control with configurable level target, gain limits, 
 and attack/decay parameters.
+* Soft DTMF decoding, with password-protected remote commands.
 * "Soft console" via USB-connected computer computer with
 serial terminal provides a configuration shell and live display of the following:
   - Carrier detect (COS) status
   - PL tone detect (CTCSS) status
   - Push-to-talk (PTT) status
   - Receive/transmit audio level RMS and peak
-* (In development) Remote firmware update via LoRa connection.
 * Microcontroller uses a watchdog timer to limit the risk of lockup.
+* (In development) Remote firmware update via LoRa connection.
 
 Other things to know:
 
@@ -926,7 +927,7 @@ every 8ms. Importantly: one 256 block must also be produced for each transmitter
 * This implies that all audio processing needs to happen inside of the 8ms window.
 * Current measurements for the SDRC board with two receiver ports and two 
 transmitter ports
-shows that **each digital audio cycle requires 4.7mS to complete** - comfortably inside
+shows that **each digital audio cycle requires 5.4mS to complete** - comfortably inside
 of the 8ms limit. An additional 2m is required to handle the work of the GSM CODEC
 for digital audio inputs/outputs from/to other boards and for decompressing any 
 voice messages stored in the controller.  The processing requirements for the console and other 
@@ -938,6 +939,10 @@ gain further efficiency.  The GSM CODEC is already fixed-point.
 
 DTMF Decoding
 -------------
+
+The controller supports standard-compliant DTMF decoding. This has been tested
+over the air using an HT with a keypad. Testing has also been done using 
+generated test data that exhibits various DTMF pathologies.
 
 The rules for DTMF are standardized by the International Telecommunications Union 
 (ITU), the Eurpean Telecommunications Standards Institute (ETSI), and others. Some 
@@ -1018,6 +1023,11 @@ was to compare the ratio of two signals against a -6dB threshold, C would be 0.5
 
 So this threshold calculation only requires a division of the two DFT outputs
 since (C * C) is known in advance.
+
+Notes on a Larger Number of Ports
+---------------------------------
+
+(Docs to follow, Ethernet backplane for controllers)
 
 References
 ==========
@@ -1206,7 +1216,7 @@ Work In Process
 Firmware
 * Fully implement emulation of the M7716 squelch chip.
 * Separate Morse ID from voice ID 
-* DTMF decode and TX shutoff commands.
+* TX shutoff commands.
 * Improve layout of live status page
 * Come up with a way to load voice prompts
 * Load rest of voice prompts

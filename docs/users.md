@@ -273,6 +273,13 @@ feature is useful for hiding the squelch tail of a receiver.
 
 (ms) The delay in milliseconds.  Default is 0.
 
+#### set dtmflevel (radio) (dbfs)
+Sets the threshold level used to detect a valid DTMF symbol.
+
+(radio) is either 0 or 1.
+
+(dbfs) The level relative to full-scale.  Default is -50dBFS.
+
 #### set txenable (radio) (bool)
 Enabled/disables a transmitter.
 
