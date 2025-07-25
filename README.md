@@ -936,17 +936,23 @@ from a CPU perspective.
 ever became an issue we could switch some of the functions to fixed-point to 
 gain further efficiency.  The GSM CODEC is already fixed-point.
 
-DTMF Decode 
------------
+DTMF Decoding
+-------------
 
-The rules for DTMF are standardize by the International Telecommunications Union (ITU), among other places. The relevant ITU standards documents are located here:
+The rules for DTMF are standardize by the International Telecommunications Union (ITU), the Eurpean Telecommunications
+Standards Institute, and others. Some relevant standards documents are located here:
 
+* [ETSI ES 201 235-3](https://www.etsi.org/deliver/etsi_es/201200_201299/20123503/01.01.01_50/es_20123503v010101m.pdf)
 * [ITU Q.23](https://www.itu.int/rec/dologin_pub.asp?id=T-REC-Q.23-198811-I!!PDF-E&lang=e&type=items)
 * [ITU Q.24](https://www.itu.int/rec/dologin_pub.asp?lang=e&id=T-REC-Q.24-198811-I!!PDF-E&type=items)
+
+All of these standards are slightly different, but you 
+can get the basic idea.
 
 Good application notes:
 * [From TI](https://www.ti.com/lit/an/spra096a/spra096a.pdf?ts=1709132288428&ref_url=https%253A%252F%252Fwww.google.com%252F)
 * [Good Reference Design from Silicon Labs](https://www.silabs.com/documents/public/application-notes/an218.pdf)
+* [A good application note from ATT](http://www.bitsavers.org/components/att/dsp/AP88-08_-_DTMF_Receiver_Using_the_WE_DSP32_DSP_-_1988.pdf)
 
 The most important details from the standards document:
 
@@ -958,18 +964,34 @@ The most important details from the standards document:
 * If we apply the 3.6% rule to the highest frequency, we get a resolution bandwidth of 58.788 Hz (1633 * 0.036).
 * Distortion products (e.g. harmonics) must be -20dB below the fundamental.
 * There are rules around the relative powers of the two tones that make up the symbol. In the US, the high group frequency power level may be up to 4 dB more or 8 dB less than the low group frequency power level for the symbol to be considered valid. In the TELCO lingo, this difference is known as "twist" and it is expressed in dB. Positive twist means that the higher frequency is louder.
-* Timing requirements are as follows.
+* The selected tones must "stand out" relative to the others 
+in the band. I think this is done to avoid speech-induced
+false-positives.  A voice sample would be generating energy
+across the entire band, whereas a DTMF tone should only
+be generating energy at one specific frequency in each band.
+* Timing requirements vary, but generally:
   - A symbol must be transmitted for at least 40ms. Symbols shorter than 23ms must be rejected.
   - The gap between symbols must be at least 40ms.
+  - Once a symbol is detected, short "glitches" of below 20ms 
+    should be ignored.
 
 Implementation Notes
 
-* 23ms is 184 samples (2.87 64-sample blocks) at a sampling rate of 8 kHz. We'll round up 
-to 24ms at 192 samples (3 64-sample blocks).
-* 40ms is 320 samples (5 64-sample blocks) at a sampling rate of 8 kHz.  
+* 23ms is 184 samples (2.87x 64-sample blocks) at a sampling rate of 8 kHz. We'll round up
+to 24ms at 192 samples (3x 64-sample blocks).
+* 40ms is 320 samples (5x 64-sample blocks) at a sampling rate of 8 kHz.  
 * Following the normal DFT math, a block of 136 samples is required to achieve 58.788 Hz resolution at a sampling rate of 8 kHz. We'll round this up to 192 (3x 8ms blocks) and get a bit more resolution.
-* Since we need 192 samples to perform detection, we'll use a sliding window of the 
-last 3 64-sample blocks each cycle.
+* There is always a trade-off between sample count and frequency
+resolution. In our case, this implies a trade-off between 
+detection speed and compliance with the frequency deviation standards. 
+By relaxing the deviation standards a bit (say to around 10%) we 
+can gain speed. For example, the AT&T application note cited above chose
+a processing block of 102 samples, leading to a resolution of 
+8,000 / 102 = ~80hz. This produces an deviation band of ~11% 
+centered around the low tone of 697 Hz. The distance to the next tone (770 Hz) is 73 Hz, so I guess the +/ 40Hz deviation around 697 Hz
+would be workable.   
+* Since we need 136 samples to perform detection, we'll use a sliding window of the 
+last few sample blocks each cycle.
 * Noise/silence periods are important to de-bounce and separate the symbols, so we'll need the decoder
 to be able to identify those things as well.
 
