@@ -948,9 +948,7 @@ relevant standards documents are located here:
 * [ITU Q.24](https://www.itu.int/rec/dologin_pub.asp?lang=e&id=T-REC-Q.24-198811-I!!PDF-E&type=items)
 
 All of these standards are slightly different, but you get the basic idea from 
-the documents.
-
-There are some good application notes around:
+the documents. There are also some good application notes around:
 * [From TI](https://www.ti.com/lit/an/spra096a/spra096a.pdf?ts=1709132288428&ref_url=https%253A%252F%252Fwww.google.com%252F)
 * [Reference Design from Silicon Labs](https://www.silabs.com/documents/public/application-notes/an218.pdf)
 * [An application note from AT+T](http://www.bitsavers.org/components/att/dsp/AP88-08_-_DTMF_Receiver_Using_the_WE_DSP32_DSP_-_1988.pdf)
@@ -967,7 +965,7 @@ The most important details from the standards document:
 * There are rules around the relative powers of the two tones that make up the symbol. In the US, the high group frequency power level may be up to 4 dB more or 8 dB less than the low group frequency power level for the symbol to be considered valid. In the TELCO lingo, this difference is known as "twist" and it is expressed in dB. Positive twist means that the higher frequency is louder.
 * The selected tones must "stand out" relative to the others in the band. I think this 
 is done to avoid speech-induced false-positives.  A voice sample would contain 
-energy across the entire band, whereas a DTMF tone should only contain
+energy across an entire band, whereas a DTMF tone should only contain
 energy at one specific frequency in each band.
 * Timing requirements vary, but generally:
   - The gap between symbols must be at least 40ms.
